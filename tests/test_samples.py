@@ -327,3 +327,21 @@ def test_generate_rejects_unknown_backends():
     engine = VLNInferenceEngine(_bundle(), backend="vllm_server")
     with pytest.raises(ValueError, match="backend"):
         engine.generate({"video_segments": [], "conversations": []})
+
+
+def test_continuous_sample_matches_fm_only_training_prompt():
+    from lightnav.inference.samples import build_continuous_traj_sample
+    from lightnav.prompts import CONTINUOUS_TRAJ_PROMPT_TEMPLATE
+
+    bundle = _bundle(slowfast_tiers=validate_slowfast_tiers(DEFAULT_SLOWFAST_TIERS_SPAN),
+                     action_method="rvq")
+    sample = build_continuous_traj_sample(torch.zeros(8, 3, 4, 4), "walk to door", None, bundle)
+    expected = CONTINUOUS_TRAJ_PROMPT_TEMPLATE.format(
+        task="walk to door", videos=build_video_block(len(sample["video_segments"]))
+    )
+    assert sample["conversations"] == [
+        {"from": "human", "value": expected}, {"from": "gpt", "value": ""}
+    ]
+    assert "trajectory tokens" not in expected
+    assert sample["slowfast_abs_frame_indices"] is True
+    assert max(f for segment in sample["video_segments"] for f in segment["frame_indices"]) == 7

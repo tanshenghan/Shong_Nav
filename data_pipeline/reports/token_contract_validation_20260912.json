@@ -1,0 +1,164 @@
+{
+  "status": "passed_read_only_audit",
+  "model_path": "/mnt/cfs/Models/Light",
+  "episode_path": "/mnt/cfs/data/beta_nav/r2r_2864_opos_endpoint_20260912/episodes/2864",
+  "hashes": {
+    "tokenizer_json": "5ef513b0453e878d3ef6c1c3a51a11403a404358b763f4d83e23b2c3815f2ab6",
+    "rvq_manifest": "00d77ae028edf59e0ce68b49122dd0a60da527f48508f5ee335a580993a12864",
+    "samples_jsonl": "144a15800a21b52475124ce0f2a2897f29c5397a1ec66f64af8f7420c71e9c56",
+    "targets_npz": "37822d3b091f7e269aaab2c51d98eb11419d79ead616966dc2aae372fe4e5a29",
+    "collector": "8c5b5ab502394b4030772dd972bfb623327f2aeb2249d0952b670fac6b55b65c",
+    "pointing": "6e66d27a70550767b15f44c479aace7a0499116b7491c57a2b0a853c93ed2197",
+    "rvq_decoder": "84c83780ba893d468e7529f5de44223f5f2aa44c099eb46fac3edb1786c14f0d"
+  },
+  "vocabulary": {
+    "families": {
+      "rvq": {
+        "expected_count": 768,
+        "checked_count": 768,
+        "single_token_roundtrip": true,
+        "tokenizer_id_min": 151675,
+        "tokenizer_id_max": 152442
+      },
+      "apos": {
+        "expected_count": 1300,
+        "checked_count": 1300,
+        "single_token_roundtrip": true,
+        "tokenizer_id_min": 152443,
+        "tokenizer_id_max": 153742
+      },
+      "opos": {
+        "expected_count": 1297,
+        "checked_count": 1297,
+        "single_token_roundtrip": true,
+        "tokenizer_id_min": 153743,
+        "tokenizer_id_max": 155039
+      }
+    },
+    "total_checked": 3365,
+    "all_ids_distinct": true,
+    "all_ids_in_model_vocab": true,
+    "model_vocab_size": 156048,
+    "selected_tokenizer_ids": {
+      "<act_l0_6>": 151681,
+      "<act_l1_122>": 152053,
+      "<act_l2_174>": 152361,
+      "<apos_0>": 152443,
+      "<opos_0>": 153743,
+      "<apos_938>": 153381,
+      "<opos_747>": 154490,
+      "<apos_1297>": 153740,
+      "<apos_1298>": 153741,
+      "<apos_1299>": 153742
+    },
+    "absent_sentinel_literals": {
+      "<apos_-1>": null,
+      "<opos_-1>": null
+    }
+  },
+  "episode_validation": {
+    "frames": 52,
+    "emitted_tokens_checked": 219,
+    "rvq_supervised_rows": 43,
+    "rvq_masked_frames": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "apos_states": {
+      "point": 38,
+      "unknown": 14
+    },
+    "opos_states": {
+      "not_visible": 16,
+      "point": 36
+    }
+  },
+  "terminal_frame": {
+    "frame_index": 51,
+    "rvq_codes": [
+      6,
+      122,
+      174
+    ],
+    "rvq_tokens": "<act_l0_6><act_l1_122><act_l2_174>",
+    "rvq_tokenizer_ids": [
+      151681,
+      152053,
+      152361
+    ],
+    "rvq_loss_valid": true,
+    "explicit_stop": true,
+    "stop_loss_valid": true,
+    "decoder_is_stop": true,
+    "decoder_stop_rule": "level-0 code == stop.l0 (6); collector exports full reserved tuple [6,122,174]",
+    "reconstruction_max_abs": 8.277469532913528e-06,
+    "fm_valid_steps": 0,
+    "apos": {
+      "state": "unknown",
+      "pixel": null,
+      "world_point": null,
+      "token_id": -1,
+      "loss_valid": false,
+      "reason": "no_visible_ground_point",
+      "target_frame_id": 51,
+      "target_world_point": [
+        -2.0651228427886963,
+        -0.2089579850435257,
+        -5.280107021331787
+      ],
+      "pixel_rc": null,
+      "grid": null
+    },
+    "apos_tokens": null,
+    "opos": {
+      "state": "not_visible",
+      "pixel": null,
+      "world_point": null,
+      "token_id": 0,
+      "loss_valid": true,
+      "reason": "stop_location_outside_view",
+      "target_frame_id": 51,
+      "target_world_point": [
+        -2.0651228427886963,
+        -0.2089579850435257,
+        -5.280107021331787
+      ],
+      "pixel_rc": null,
+      "grid": null
+    },
+    "opos_tokens": "<opos_0>"
+  },
+  "semantics": {
+    "opos_not_visible": {
+      "channel_token_id": 0,
+      "literal": "<opos_0>",
+      "loss_valid": true
+    },
+    "opos_unknown": {
+      "channel_token_id": -1,
+      "literal": null,
+      "loss_valid": false
+    },
+    "apos_no_visible_candidate": {
+      "channel_token_id": -1,
+      "literal": null,
+      "loss_valid": false
+    },
+    "apos_zero": "<apos_0> exists in model vocabulary (no-label); current collector does not emit it for missing apos.",
+    "negative_ids": "Storage sentinels only; not tokenizer IDs or token strings.",
+    "training_adapter_status": "Prompt/target serialization and token-level loss masking are not implemented in the data pipeline. If a fixed-position placeholder <apos_0> is later used for masked apos, exclude that position from loss; that is not current emitted data.",
+    "unused_apos_directives": [
+      1297,
+      1298,
+      1299
+    ]
+  },
+  "scope": "Tokenizer/schema and actual labels checked on CPU; no model forward pass, no training run, no data or vocabulary changes."
+}

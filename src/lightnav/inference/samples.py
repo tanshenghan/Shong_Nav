@@ -12,6 +12,7 @@ from typing import TYPE_CHECKING
 import torch
 
 from lightnav.prompts import (
+    CONTINUOUS_TRAJ_PROMPT_TEMPLATE,
     TRACKING_PROMPT_TEMPLATE,
     TRACKING_PROMPT_TEMPLATE_POOLED,
     UNIFIED_TRAJ_PROMPT_TEMPLATE,
@@ -148,6 +149,32 @@ def build_vln_traj_sample(
         VLN_TRAJ_PROMPT_TEMPLATE,
         VLN_TRAJ_PROMPT_TEMPLATE_POOLED,
     )
+
+
+def build_continuous_traj_sample(
+    video_tensor: torch.Tensor,
+    instruction: str,
+    frame_ids: list[int] | None,
+    bundle: "ModelBundle",
+) -> dict:
+    """FM-only prompt and SlowFast inputs, matching the training loader exactly."""
+    if not getattr(bundle, "slowfast_tiers", None):
+        raise ValueError("FM-only evaluation requires the training SlowFast configuration")
+    total = int(video_tensor.shape[0])
+    segments = slowfast_video_segments(video_tensor, total - 1, total, bundle.slowfast_tiers)
+    text = CONTINUOUS_TRAJ_PROMPT_TEMPLATE.format(
+        task=instruction, videos=build_video_block(len(segments))
+    )
+    return {
+        "video_segments": segments,
+        "conversations": [
+            {"from": "human", "value": text},
+            {"from": "gpt", "value": ""},
+        ],
+        "video_fps": bundle.video_fps,
+        "slowfast_abs_frame_indices": True,
+        "_skip_normalize": True,
+    }
 
 
 def build_tracking_sample(

@@ -1,0 +1,27 @@
+{
+  "video": "/mnt/cfs/data/beta_nav/visual/episode_2864_gt10_topview_20260911.mp4",
+  "preview": "/mnt/cfs/data/beta_nav/visual/episode_2864_gt10_topview_20260911.png",
+  "episode_id": "2864",
+  "source_episode": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864",
+  "annotations": "/mnt/cfs/data/beta_nav/r2r_2864_gt_20260911_v2/episodes/2864",
+  "frames": 52,
+  "fps": 5.0,
+  "duration_seconds": 10.4,
+  "size": [
+    1220,
+    762
+  ],
+  "horizon": 10,
+  "top_view": "body XZ plane, forward up, fixed scale across the episode",
+  "code_sha256": "918ab470ce102d9e32303d2ab53e8a715a0c46575795f0d40aff6162d2b63a13",
+  "decoded_every_frame": true,
+  "instruction_matches_source": true,
+  "apos_point_frames": 38,
+  "opos_point_frames": 0,
+  "future_step_counts_checked": true,
+  "source_frames_unchanged": true,
+  "bytes": 3280308,
+  "pipeline_tests_passed": 44,
+  "cpu_tests_passed": 643,
+  "cpu_tests_skipped": 1
+}

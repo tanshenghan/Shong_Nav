@@ -1,0 +1,55 @@
+{
+  "dataset": "/mnt/cfs/data/beta_nav/lightnav_2864_closed_loop_20260912",
+  "episode_id": "2864",
+  "status": "passed",
+  "complete": true,
+  "steps": 61,
+  "frames": 62,
+  "video": {
+    "path": "/mnt/cfs/data/beta_nav/lightnav_2864_closed_loop_20260912/lightnav_navigation.mp4",
+    "frames": 62,
+    "duration_seconds": 12.4,
+    "size": [
+      1250,
+      812
+    ]
+  },
+  "termination_reason": "model_stop",
+  "goal_distance_m": 0.3438156247138977,
+  "success_3m": true,
+  "apos_states": {
+    "point": 60,
+    "stop": 1
+  },
+  "opos_states": {
+    "not_visible": 32,
+    "point": 29
+  },
+  "first_opos_point_frame": 31,
+  "first_raw_output": "<apos_1280><opos_0><act_l0_174><act_l1_194><act_l2_79><|im_end|>",
+  "last_raw_output": "<apos_1299><opos_1274><act_l0_6><act_l1_122><act_l2_174><|im_end|>",
+  "latency_ms": {
+    "mean": 101.34129345294882,
+    "median": 102.87324339151382,
+    "max": 128.99808026850224
+  },
+  "all_rvq_decodes_verified": true,
+  "maximum_rvq_decode_error": 0.0,
+  "maximum_executed_yaw_error_rad": 2.5438919234930476e-07,
+  "all_rgb_depth_poses_verified": true,
+  "all_video_frames_decoded": true,
+  "video_spotcheck_psnr_db": {
+    "48": 39.94,
+    "60": 40.48,
+    "61": 41.08
+  },
+  "source_start_pose_matches": true,
+  "final_stop_does_not_move": true,
+  "physical_dt_s": 0.1,
+  "video_playback_fps": 5,
+  "expert_actions_used": false,
+  "doubao_used": false,
+  "gt_labels_used_as_predictions": false,
+  "pipeline_tests_passed": 60,
+  "scope": "single training-split demonstration; native Habitat-Sim velocity rollout, not full benchmark metrics"
+}

@@ -1,0 +1,200 @@
+{
+  "episodes": 10819,
+  "frames": 631244,
+  "apos_visible_frames": 487797,
+  "opos_visible_frames": 159568,
+  "empty_depth_frames": [
+    {
+      "episode_index": 5589,
+      "source_episode_id": "2039",
+      "frame_index": 0,
+      "index": 325926
+    },
+    {
+      "episode_index": 5590,
+      "source_episode_id": "2040",
+      "frame_index": 0,
+      "index": 325965
+    },
+    {
+      "episode_index": 5591,
+      "source_episode_id": "2041",
+      "frame_index": 0,
+      "index": 326004
+    },
+    {
+      "episode_index": 5592,
+      "source_episode_id": "2234",
+      "frame_index": 0,
+      "index": 326043
+    },
+    {
+      "episode_index": 5593,
+      "source_episode_id": "2235",
+      "frame_index": 0,
+      "index": 326100
+    },
+    {
+      "episode_index": 5594,
+      "source_episode_id": "2236",
+      "frame_index": 0,
+      "index": 326157
+    },
+    {
+      "episode_index": 5637,
+      "source_episode_id": "6137",
+      "frame_index": 0,
+      "index": 328218
+    },
+    {
+      "episode_index": 5638,
+      "source_episode_id": "6138",
+      "frame_index": 0,
+      "index": 328286
+    },
+    {
+      "episode_index": 5639,
+      "source_episode_id": "6139",
+      "frame_index": 0,
+      "index": 328354
+    },
+    {
+      "episode_index": 8036,
+      "source_episode_id": "10301",
+      "frame_index": 0,
+      "index": 470952
+    },
+    {
+      "episode_index": 8036,
+      "source_episode_id": "10301",
+      "frame_index": 1,
+      "index": 470953
+    },
+    {
+      "episode_index": 8037,
+      "source_episode_id": "10302",
+      "frame_index": 0,
+      "index": 471013
+    },
+    {
+      "episode_index": 8037,
+      "source_episode_id": "10302",
+      "frame_index": 1,
+      "index": 471014
+    },
+    {
+      "episode_index": 8038,
+      "source_episode_id": "10303",
+      "frame_index": 0,
+      "index": 471074
+    },
+    {
+      "episode_index": 8038,
+      "source_episode_id": "10303",
+      "frame_index": 1,
+      "index": 471075
+    }
+  ],
+  "black_rgb_frames": [
+    {
+      "episode_index": 5589,
+      "source_episode_id": "2039",
+      "frame_index": 0,
+      "index": 325926
+    },
+    {
+      "episode_index": 5590,
+      "source_episode_id": "2040",
+      "frame_index": 0,
+      "index": 325965
+    },
+    {
+      "episode_index": 5591,
+      "source_episode_id": "2041",
+      "frame_index": 0,
+      "index": 326004
+    },
+    {
+      "episode_index": 5592,
+      "source_episode_id": "2234",
+      "frame_index": 0,
+      "index": 326043
+    },
+    {
+      "episode_index": 5593,
+      "source_episode_id": "2235",
+      "frame_index": 0,
+      "index": 326100
+    },
+    {
+      "episode_index": 5594,
+      "source_episode_id": "2236",
+      "frame_index": 0,
+      "index": 326157
+    },
+    {
+      "episode_index": 5637,
+      "source_episode_id": "6137",
+      "frame_index": 0,
+      "index": 328218
+    },
+    {
+      "episode_index": 5638,
+      "source_episode_id": "6138",
+      "frame_index": 0,
+      "index": 328286
+    },
+    {
+      "episode_index": 5639,
+      "source_episode_id": "6139",
+      "frame_index": 0,
+      "index": 328354
+    },
+    {
+      "episode_index": 8036,
+      "source_episode_id": "10301",
+      "frame_index": 0,
+      "index": 470952
+    },
+    {
+      "episode_index": 8036,
+      "source_episode_id": "10301",
+      "frame_index": 1,
+      "index": 470953
+    },
+    {
+      "episode_index": 8037,
+      "source_episode_id": "10302",
+      "frame_index": 0,
+      "index": 471013
+    },
+    {
+      "episode_index": 8037,
+      "source_episode_id": "10302",
+      "frame_index": 1,
+      "index": 471014
+    },
+    {
+      "episode_index": 8038,
+      "source_episode_id": "10303",
+      "frame_index": 0,
+      "index": 471074
+    },
+    {
+      "episode_index": 8038,
+      "source_episode_id": "10303",
+      "frame_index": 1,
+      "index": 471075
+    }
+  ],
+  "scenes": 61,
+  "stop_codes": [
+    [
+      6,
+      122,
+      174
+    ]
+  ],
+  "method": "All source observation hashes and per-shard independent validation reports; empty depth means the complete saved depth_valid mask is false.",
+  "retained_original_observations": true
+}

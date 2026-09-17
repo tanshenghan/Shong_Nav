@@ -1,0 +1,307 @@
+{
+  "observed_at_utc": "2026-09-14T01:37:40.422797+00:00",
+  "launch": {
+    "status": "running",
+    "phase": "training",
+    "launcher_pid": 517187,
+    "supervisor_pid": 509383,
+    "max_steps": 29589,
+    "started_at_unix": 1789294711.762244,
+    "finished_at_unix": null,
+    "reason": null
+  },
+  "latest_metric": {
+    "step": 17940,
+    "time_unix": 1789349845.9692688,
+    "train_loss": 1.5168366768532597,
+    "train_ce": 0.05591548201423021,
+    "train_fm": 0.7304605974195147,
+    "lr_vlm": 4.210350509525844e-06,
+    "lr_fm": 4.2103505095258445e-05,
+    "grad_norm_vlm": 5.4619951248168945,
+    "grad_norm_fm": 27.772422790527344,
+    "ce_tokens": 318,
+    "fm_valid_steps": 1277,
+    "samples": 64,
+    "samples_seen": 1148112,
+    "epoch": 1,
+    "batch_offset": 5029,
+    "no_future_samples": 1,
+    "padding_fraction": 0.3161218869731801,
+    "update_seconds": 8.81916100345552,
+    "samples_per_second": 7.256926137863177,
+    "input_tokens_per_second": 5181.2184834925,
+    "data_wait_seconds_max": 0.0002879006788134575,
+    "update_seconds_by_rank": [
+      8.812323670834303,
+      8.812692819163203,
+      8.81343596149236,
+      8.813794642686844,
+      8.816743557341397,
+      8.8179728705436,
+      8.81916100345552,
+      8.810933765023947
+    ],
+    "data_wait_seconds_by_rank": [
+      0.00015881098806858063,
+      0.0001623537391424179,
+      0.0001552831381559372,
+      0.00024160929024219513,
+      0.00013350415974855423,
+      0.00028288736939430237,
+      0.0002879006788134575,
+      0.00023574382066726685
+    ],
+    "peak_memory_gib": 48.663057804107666,
+    "peak_reserved_memory_gib": 53.8984375
+  },
+  "last_metric_age_seconds": 14.453600406646729,
+  "last_1000_steps": {
+    "first_step": 16950,
+    "last_step": 17940,
+    "logged_points": 100,
+    "wall_seconds_per_step": 4.773503677050273,
+    "train_loss": {
+      "mean": 1.385850061057754,
+      "min": 1.1548977885605627,
+      "max": 1.7722269268101012
+    },
+    "train_ce": {
+      "mean": 0.09810914917306783,
+      "min": 0.02471045793221487,
+      "max": 0.20908782475475055
+    },
+    "train_fm": {
+      "mean": 0.643870455942343,
+      "min": 0.5088467331655533,
+      "max": 0.8365954026961938
+    },
+    "update_seconds": {
+      "mean": 4.717590194270015,
+      "min": 2.7642873264849186,
+      "max": 9.919247171841562
+    },
+    "padding_fraction": {
+      "mean": 0.32528916242414063,
+      "min": 0.2521249534681722,
+      "max": 0.3795597294359222
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.00019355356693267822,
+      "min": 0.0001137852668762207,
+      "max": 0.0008721817284822464
+    }
+  },
+  "previous_1000_steps": {
+    "first_step": 15950,
+    "last_step": 16940,
+    "logged_points": 100,
+    "wall_seconds_per_step": 3.3518254956813776,
+    "train_loss": {
+      "mean": 1.4267669605757751,
+      "min": 1.1005758121759528,
+      "max": 1.9589109187899136
+    },
+    "train_ce": {
+      "mean": 0.12111711875911958,
+      "min": 0.04443031851436474,
+      "max": 0.2226064124906605
+    },
+    "train_fm": {
+      "mean": 0.6528249209083278,
+      "min": 0.5095767249602254,
+      "max": 0.9078532935196761
+    },
+    "update_seconds": {
+      "mean": 3.3073756064474584,
+      "min": 2.858367260545492,
+      "max": 4.007329190149903
+    },
+    "padding_fraction": {
+      "mean": 0.3290265889387793,
+      "min": 0.25406530506049174,
+      "max": 0.40690978886756235
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.0001804219838231802,
+      "min": 0.0001150062307715416,
+      "max": 0.0003722291439771652
+    }
+  },
+  "last_30_minutes": {
+    "first_step": 17720,
+    "last_step": 17940,
+    "logged_points": 23,
+    "wall_seconds_per_step": 8.073463127829811,
+    "train_loss": {
+      "mean": 1.42778888581724,
+      "min": 1.2299811767955355,
+      "max": 1.7722269268101012
+    },
+    "train_ce": {
+      "mean": 0.09592755123313074,
+      "min": 0.05110992864057377,
+      "max": 0.20908782475475055
+    },
+    "train_fm": {
+      "mean": 0.6659306672920546,
+      "min": 0.5612631488806036,
+      "max": 0.8365954026961938
+    },
+    "update_seconds": {
+      "mean": 8.113221313156512,
+      "min": 6.544183379039168,
+      "max": 9.919247171841562
+    },
+    "padding_fraction": {
+      "mean": 0.32709932034471817,
+      "min": 0.2521249534681722,
+      "max": 0.364387731876636
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.00022340322966160983,
+      "min": 0.00014286208897829056,
+      "max": 0.0005421563982963562
+    }
+  },
+  "first_500_steps": {
+    "first_step": 3060,
+    "last_step": 3550,
+    "logged_points": 50,
+    "wall_seconds_per_step": 3.2604395491736278,
+    "train_loss": {
+      "mean": 2.0076927107154328,
+      "min": 1.5388652163512693,
+      "max": 2.479465707068565
+    },
+    "train_ce": {
+      "mean": 0.8513390384181982,
+      "min": 0.6086659745989319,
+      "max": 1.0642254514667198
+    },
+    "train_fm": {
+      "mean": 0.5781768361486173,
+      "min": 0.41898554715488856,
+      "max": 0.7454726430824248
+    },
+    "update_seconds": {
+      "mean": 3.2172365824133156,
+      "min": 2.726715926080942,
+      "max": 3.68152532633394
+    },
+    "padding_fraction": {
+      "mean": 0.3313932860404925,
+      "min": 0.268390555280119,
+      "max": 0.4019717054695332
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.00016692673787474632,
+      "min": 0.00010259449481964111,
+      "max": 0.0016346080228686333
+    }
+  },
+  "recent_checkpoint_events": [
+    {
+      "event": "full_checkpoint_queued",
+      "step": 15000,
+      "permanent_model": true,
+      "snapshot_seconds": 6.253523990511894
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00015000",
+      "step": 15000,
+      "pruned": [
+        "step-00012000"
+      ],
+      "permanent_model": true,
+      "write_seconds": 54.44032800849527
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 16000,
+      "permanent_model": false,
+      "snapshot_seconds": 6.58946627099067
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00016000",
+      "step": 16000,
+      "pruned": [
+        "step-00013000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 52.65762593317777
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 17000,
+      "permanent_model": false,
+      "snapshot_seconds": 6.403018363751471
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00017000",
+      "step": 17000,
+      "pruned": [
+        "step-00014000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 50.70115658547729
+    }
+  ],
+  "errors": [],
+  "latest.json": {
+    "checkpoint": "step-00017000",
+    "step": 17000
+  },
+  "latest_model.json": {
+    "checkpoint": "step-00015000",
+    "step": 15000,
+    "format": "betanav_model_v1"
+  },
+  "rolling_checkpoints": [
+    "step-00015000",
+    "step-00016000",
+    "step-00017000"
+  ],
+  "permanent_models": [
+    "step-00003000",
+    "step-00006000",
+    "step-00009000",
+    "step-00012000",
+    "step-00015000"
+  ],
+  "remaining_hours": 26.124381104469297,
+  "progress_pct": 60.63063976477745,
+  "resource_contention_observation": {
+    "other_job_owner": "lijiaqi",
+    "other_job_entrypoint": "/mnt/pfs/lijiaqi/X-NavDP/baselines/x-navdp/train.py",
+    "shares_gpus": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "sample_other_parent_pids": [
+      1648132,
+      1648133
+    ],
+    "sample_other_worker_pids": [
+      1649468,
+      1649494,
+      1649530
+    ],
+    "conclusion": "Concurrent GPU training is a likely contributor; causal share of slowdown is not measured."
+  },
+  "fm_trend_observation": {
+    "steps_10010_11000_mean_fm": 0.4697,
+    "last_1000_mean_fm": 0.643870455942343,
+    "conclusion": "FM rose after roughly step 12000; CE continues declining. Total loss alone obscures the FM regression."
+  },
+  "remaining_hours_if_previous_speed_returns": 10.845948666442323
+}

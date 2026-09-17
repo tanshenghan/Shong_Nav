@@ -30,10 +30,61 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--server", default=_DEFAULTS.server, help="Habitat env server address.")
     p.add_argument("--backend", choices=["hf", "vllm_local"], default=_DEFAULTS.backend)
     p.add_argument(
+        "--action_output",
+        choices=["token", "fm"],
+        default=_DEFAULTS.action_output,
+        help="Use token/RVQ (base model or --beta_checkpoint) or the BetaNav FM trajectory. FM still "
+        "uses the trained token branch for STOP and requires --backend hf.",
+    )
+    p.add_argument(
+        "--beta_checkpoint",
+        default=_DEFAULTS.beta_checkpoint,
+        help="For token or fm output: model.pt, committed checkpoint directory, or BetaNav "
+        "run directory whose latest committed pointer should be resolved.",
+    )
+    p.add_argument(
+        "--fm_only_stop_mode",
+        choices=["max_steps", "rvq"],
+        default=_DEFAULTS.fm_only_stop_mode,
+        help="FM-only checkpoints: fixed budget, or frozen LightNav RVQ baseline STOP.",
+    )
+    p.add_argument(
+        "--fm_seed",
+        type=int,
+        default=_DEFAULTS.fm_seed,
+        help="Deterministic per-episode/per-step FM noise seed.",
+    )
+    p.add_argument(
+        "--fm_steps",
+        type=int,
+        default=_DEFAULTS.fm_steps,
+        help="Override the FM Euler integration steps (default: checkpoint beta_config).",
+    )
+    p.add_argument(
+        "--fm_stop_mode",
+        choices=["baseline", "decode_continue", "explicit_gate"],
+        default=_DEFAULTS.fm_stop_mode,
+        help="Beta FM stopping ablation: reproduce the baseline, continue FM after malformed "
+        "RVQ tokens, or allow only the canonical explicit STOP tuple to terminate.",
+    )
+    p.add_argument(
         "--episodes",
         type=int,
         default=_DEFAULTS.episodes,
         help="Number of episodes to run; <= 0 runs the full split (until the env wraps).",
+    )
+    p.add_argument(
+        "--episode_manifest",
+        default=_DEFAULTS.episode_manifest,
+        help="Optional JSON list (or object with episodes) selecting exact scene_id + "
+        "habitat_episode_id pairs.",
+    )
+    p.add_argument(
+        "--oracle_stop_distance",
+        type=float,
+        default=_DEFAULTS.oracle_stop_distance,
+        help="Diagnostic only: issue STOP when the privileged goal distance is below this "
+        "radius. Never use this as a deployable metric.",
     )
     p.add_argument(
         "--max_steps", type=int, default=_DEFAULTS.max_steps, help="Per-episode step cap."
@@ -146,7 +197,15 @@ def config_from_args(args: argparse.Namespace) -> HabitatEvalConfig:
         model_path=args.model_path,
         server=args.server,
         backend=args.backend,
+        action_output=args.action_output,
+        beta_checkpoint=args.beta_checkpoint,
+        fm_seed=args.fm_seed,
+        fm_only_stop_mode=args.fm_only_stop_mode,
+        fm_steps=args.fm_steps,
+        fm_stop_mode=args.fm_stop_mode,
         episodes=args.episodes,
+        episode_manifest=args.episode_manifest,
+        oracle_stop_distance=args.oracle_stop_distance,
         max_steps=args.max_steps,
         force_stop_at_max_steps=not args.no_force_stop,
         output_dir=args.output_dir,

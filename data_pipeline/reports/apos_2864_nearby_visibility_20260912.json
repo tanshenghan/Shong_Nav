@@ -1,0 +1,906 @@
+{
+  "episode_id": "2864",
+  "source_episode": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864",
+  "image_size_wh": [
+    470,
+    280
+  ],
+  "path_spacing_m": 0.02,
+  "selection": "nearest visible point to t+10 along the future GT route",
+  "frames_checked": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "all_candidate_and_segment_intersections_empty": true,
+  "frames": [
+    {
+      "frame_id": 2,
+      "candidate_count": 69,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 3,
+          "pixel_projection": [
+            235.0,
+            703.5480803385556
+          ],
+          "camera_z_m": 0.25,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 4,
+          "pixel_projection": [
+            235.0,
+            445.6174136851608
+          ],
+          "camera_z_m": 0.5,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 5,
+          "pixel_projection": [
+            235.0,
+            445.6174136851608
+          ],
+          "camera_z_m": 0.5,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 6,
+          "pixel_projection": [
+            246.83977274631124,
+            356.7229432963112
+          ],
+          "camera_z_m": 0.7414813041687012,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 7,
+          "pixel_projection": [
+            252.86226670787565,
+            312.5060971020637
+          ],
+          "camera_z_m": 0.9829626083374023,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 8,
+          "pixel_projection": [
+            256.5092828197277,
+            280.44198030088705
+          ],
+          "camera_z_m": 1.2244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 9,
+          "pixel_projection": [
+            256.5092828197277,
+            280.44198030088705
+          ],
+          "camera_z_m": 1.2244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            256.5092828197277,
+            280.44198030088705
+          ],
+          "camera_z_m": 1.2244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            256.5092828197277,
+            280.44198030088705
+          ],
+          "camera_z_m": 1.2244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            256.5092828197277,
+            280.44198030088705
+          ],
+          "camera_z_m": 1.2244439125061035,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 3,
+      "candidate_count": 54,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 4,
+          "pixel_projection": [
+            235.0,
+            665.2708790305871
+          ],
+          "camera_z_m": 0.25,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 5,
+          "pixel_projection": [
+            235.0,
+            665.2708790305871
+          ],
+          "camera_z_m": 0.25,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 6,
+          "pixel_projection": [
+            252.86226670787565,
+            423.23564370194737
+          ],
+          "camera_z_m": 0.49148130416870117,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 7,
+          "pixel_projection": [
+            258.9547557737207,
+            342.02402468046864
+          ],
+          "camera_z_m": 0.7329626083374023,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 8,
+          "pixel_projection": [
+            262.02763091130987,
+            294.4186780004613
+          ],
+          "camera_z_m": 0.9744439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 9,
+          "pixel_projection": [
+            262.02763091130987,
+            294.4186780004613
+          ],
+          "camera_z_m": 0.9744439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            262.02763091130987,
+            294.4186780004613
+          ],
+          "camera_z_m": 0.9744439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            262.02763091130987,
+            294.4186780004613
+          ],
+          "camera_z_m": 0.9744439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            262.02763091130987,
+            294.4186780004613
+          ],
+          "camera_z_m": 0.9744439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            262.02763091130987,
+            294.4186780004613
+          ],
+          "camera_z_m": 0.9744439125061035,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 4,
+      "candidate_count": 40,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 5,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": 0.0,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 6,
+          "pixel_projection": [
+            271.35465762957296,
+            667.0939763946728
+          ],
+          "camera_z_m": 0.24148130416870117,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 7,
+          "pixel_projection": [
+            271.35465762957296,
+            421.9149371229476
+          ],
+          "camera_z_m": 0.48296260833740234,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 8,
+          "pixel_projection": [
+            271.35465762957296,
+            331.251048767947
+          ],
+          "camera_z_m": 0.7244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 9,
+          "pixel_projection": [
+            271.35465762957296,
+            331.251048767947
+          ],
+          "camera_z_m": 0.7244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            271.35465762957296,
+            331.251048767947
+          ],
+          "camera_z_m": 0.7244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            271.35465762957296,
+            331.251048767947
+          ],
+          "camera_z_m": 0.7244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            271.35465762957296,
+            331.251048767947
+          ],
+          "camera_z_m": 0.7244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            271.35465762957296,
+            331.251048767947
+          ],
+          "camera_z_m": 0.7244439125061035,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 14,
+          "pixel_projection": [
+            271.35465762957296,
+            331.251048767947
+          ],
+          "camera_z_m": 0.7244439125061035,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 5,
+      "candidate_count": 53,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 6,
+          "pixel_projection": [
+            235.00003268325895,
+            649.1336554952674
+          ],
+          "camera_z_m": 0.24999985655129286,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 7,
+          "pixel_projection": [
+            235.00003268325895,
+            412.3089029737874
+          ],
+          "camera_z_m": 0.49999971310258573,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 8,
+          "pixel_projection": [
+            235.00003268325904,
+            324.7343167200589
+          ],
+          "camera_z_m": 0.7499995696538768,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 9,
+          "pixel_projection": [
+            235.00003268325904,
+            324.7343167200589
+          ],
+          "camera_z_m": 0.7499995696538768,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            235.00003268325904,
+            324.7343167200589
+          ],
+          "camera_z_m": 0.7499995696538768,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            235.00003268325904,
+            324.7343167200589
+          ],
+          "camera_z_m": 0.7499995696538768,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            235.00003268325904,
+            324.7343167200589
+          ],
+          "camera_z_m": 0.7499995696538768,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            235.00003268325904,
+            324.7343167200589
+          ],
+          "camera_z_m": 0.7499995696538768,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 14,
+          "pixel_projection": [
+            235.00003268325904,
+            324.7343167200589
+          ],
+          "camera_z_m": 0.7499995696538768,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 15,
+          "pixel_projection": [
+            280.22583889630556,
+            324.373405055078
+          ],
+          "camera_z_m": 0.7499994251378013,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 6,
+      "candidate_count": 53,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 7,
+          "pixel_projection": [
+            235.00003268325895,
+            653.0685645735928
+          ],
+          "camera_z_m": 0.2499998565512933,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 8,
+          "pixel_projection": [
+            235.00003268325906,
+            401.3268543930978
+          ],
+          "camera_z_m": 0.4999997131025844,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 9,
+          "pixel_projection": [
+            235.00003268325906,
+            401.3268543930978
+          ],
+          "camera_z_m": 0.4999997131025844,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            235.00003268325906,
+            401.3268543930978
+          ],
+          "camera_z_m": 0.4999997131025844,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            235.00003268325906,
+            401.3268543930978
+          ],
+          "camera_z_m": 0.4999997131025844,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            235.00003268325906,
+            401.3268543930978
+          ],
+          "camera_z_m": 0.4999997131025844,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            235.00003268325906,
+            401.3268543930978
+          ],
+          "camera_z_m": 0.4999997131025844,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 14,
+          "pixel_projection": [
+            235.00003268325906,
+            401.3268543930978
+          ],
+          "camera_z_m": 0.4999997131025844,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 15,
+          "pixel_projection": [
+            302.83874853869054,
+            400.78550898119397
+          ],
+          "camera_z_m": 0.49999956858650885,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 16,
+          "pixel_projection": [
+            370.67750360930734,
+            387.29465265085014
+          ],
+          "camera_z_m": 0.4999994240704324,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 7,
+      "candidate_count": 53,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 8,
+          "pixel_projection": [
+            235.00003268325918,
+            627.1695583338884
+          ],
+          "camera_z_m": 0.24999985655129198,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 9,
+          "pixel_projection": [
+            235.00003268325918,
+            627.1695583338884
+          ],
+          "camera_z_m": 0.24999985655129198,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            235.00003268325918,
+            627.1695583338884
+          ],
+          "camera_z_m": 0.24999985655129198,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            235.00003268325918,
+            627.1695583338884
+          ],
+          "camera_z_m": 0.24999985655129198,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            235.00003268325918,
+            627.1695583338884
+          ],
+          "camera_z_m": 0.24999985655129198,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            235.00003268325918,
+            627.1695583338884
+          ],
+          "camera_z_m": 0.24999985655129198,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 14,
+          "pixel_projection": [
+            235.00003268325918,
+            627.1695583338884
+          ],
+          "camera_z_m": 0.24999985655129198,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 15,
+          "pixel_projection": [
+            370.6775036093074,
+            626.0869977489034
+          ],
+          "camera_z_m": 0.24999971203521643,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 16,
+          "pixel_projection": [
+            506.3551313962329,
+            599.1053997299979
+          ],
+          "camera_z_m": 0.24999956751914,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 17,
+          "pixel_projection": [
+            642.0329160443067,
+            623.7507272892237
+          ],
+          "camera_z_m": 0.24999942300306444,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 8,
+      "candidate_count": 53,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 9,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -8.881784197001252e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -8.881784197001252e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -8.881784197001252e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -8.881784197001252e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -8.881784197001252e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 14,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -8.881784197001252e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 15,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -1.4451607643906073e-07,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 16,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -2.8903215287812145e-07,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 17,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -4.3354822842900376e-07,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 18,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -5.780643048680645e-07,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 9,
+      "candidate_count": 66,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 10,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -4.440892098500626e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -4.440892098500626e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -4.440892098500626e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -4.440892098500626e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 14,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": -4.440892098500626e-16,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 15,
+          "pixel_projection": [
+            741.3557742363212,
+            1981.0635502779407
+          ],
+          "camera_z_m": 0.06470462509937835,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 16,
+          "pixel_projection": [
+            741.3557742363225,
+            1008.4067680569665
+          ],
+          "camera_z_m": 0.12940925019875626,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 17,
+          "pixel_projection": [
+            741.3557742363208,
+            750.678241630744
+          ],
+          "camera_z_m": 0.19411387529813506,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 18,
+          "pixel_projection": [
+            741.3557742363212,
+            601.3118338133736
+          ],
+          "camera_z_m": 0.2588185003975134,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 19,
+          "pixel_projection": [
+            741.355774236321,
+            509.0494670506989
+          ],
+          "camera_z_m": 0.3235231254968918,
+          "inside_image": false
+        }
+      ]
+    },
+    {
+      "frame_id": 10,
+      "candidate_count": 79,
+      "candidate_inside_image": 0,
+      "polyline_segments_intersecting_frustum": 0,
+      "future_points": [
+        {
+          "future_frame_id": 11,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": 0.0,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 12,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": 0.0,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 13,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": 0.0,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 14,
+          "pixel_projection": [
+            null,
+            null
+          ],
+          "camera_z_m": 0.0,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 15,
+          "pixel_projection": [
+            470.0003097388267,
+            1093.0035467796097
+          ],
+          "camera_z_m": 0.12499987771022791,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 16,
+          "pixel_projection": [
+            470.00030973882764,
+            589.5199146606132
+          ],
+          "camera_z_m": 0.24999975542045538,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 17,
+          "pixel_projection": [
+            470.00030973882735,
+            456.10996270464136
+          ],
+          "camera_z_m": 0.37499963313068374,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 18,
+          "pixel_projection": [
+            470.00030973882747,
+            378.7923077012639
+          ],
+          "camera_z_m": 0.4999995108409112,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 19,
+          "pixel_projection": [
+            470.0003097388277,
+            331.03384616101124
+          ],
+          "camera_z_m": 0.6249993885511387,
+          "inside_image": false
+        },
+        {
+          "future_frame_id": 20,
+          "pixel_projection": [
+            470.00030694805764,
+            299.19486732779706
+          ],
+          "camera_z_m": 0.7499992873347905,
+          "inside_image": false
+        }
+      ]
+    }
+  ]
+}

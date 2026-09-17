@@ -1,0 +1,930 @@
+{
+  "status": "logical_record_example_not_exported_lerobot_dataset",
+  "description": "One real frame with full numeric GT. Human-readable nesting groups future action.* columns; scalar features are shown as scalars and declared as shape [1]. Image/depth contents are referenced, not embedded. This file is not a dataset backup.",
+  "source": {
+    "episode_directory": "/mnt/cfs/data/beta_nav/r2r_2864_opos_endpoint_20260912/episodes/2864",
+    "raw_episode_directory": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864",
+    "episode_id": "2864",
+    "scene_id": "mp3d/29hnd4uzFmX/29hnd4uzFmX.glb",
+    "episode_frames": 52,
+    "frame_index": 20,
+    "targets_sha256": "37822d3b091f7e269aaab2c51d98eb11419d79ead616966dc2aae372fe4e5a29",
+    "samples_sha256": "144a15800a21b52475124ce0f2a2897f29c5397a1ec66f64af8f7420c71e9c56",
+    "episode_sha256": "7300d38e947f3bbdf74689e821fda5fbb4dada2ecf8b5e5df795d36561ebcb1b"
+  },
+  "time_axis": {
+    "time_basis": "frame_index",
+    "fps": 1,
+    "timestamp_kind": "synthetic",
+    "physical_dt_s": null
+  },
+  "example_index_mapping": {
+    "episode_index": 0,
+    "source_episode_id": "2864",
+    "meaning": "0 is the illustrative local index if this is the first exported episode; no export has been written."
+  },
+  "camera": {
+    "width": 470,
+    "height": 280,
+    "hfov_deg": 120.0,
+    "position_body_native": [
+      0,
+      0.88,
+      0
+    ],
+    "orientation_euler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "K": [
+      [
+        135.67731325956208,
+        0.0,
+        235.0
+      ],
+      [
+        0.0,
+        135.67731325956208,
+        140.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "min_depth_m": 0.0,
+    "max_depth_m": 10.0,
+    "depth_unit": "metre",
+    "depth_type": "camera_z",
+    "depth_normalized": false,
+    "depth_clipped_to_range": true,
+    "invalid_depth": "use each depth NPZ valid mask"
+  },
+  "record": {
+    "episode_index": 0,
+    "frame_index": 20,
+    "timestamp": 20.0,
+    "task": "Walk down the steps and turn right. Walk forward past the guitar. Walk into the second door to the left. Stop just inside the door. ",
+    "observation": {
+      "world_from_body": [
+        [
+          0.9659258239744086,
+          -0.0,
+          -0.2588190537409479,
+          -4.526874542236328
+        ],
+        [
+          0.0,
+          1.0,
+          -0.0,
+          -0.2089579850435257
+        ],
+        [
+          0.2588190537409479,
+          0.0,
+          0.9659258239744086,
+          0.4072771966457367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "world_from_camera_cv": [
+        [
+          0.9659258239744086,
+          0.0,
+          0.2588190537409479,
+          -4.526874542236328
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.6710420250892639
+        ],
+        [
+          0.2588190537409479,
+          0.0,
+          -0.9659258239744086,
+          0.4072771966457367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "world_from_depth_camera_cv": [
+        [
+          0.9659258239744086,
+          0.0,
+          0.2588190537409479,
+          -4.526874542236328
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.6710420250892639
+        ],
+        [
+          0.2588190537409479,
+          0.0,
+          -0.9659258239744086,
+          0.4072771966457367
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "rgb_reference": {
+        "path": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/rgb/000020.png",
+        "shape_hwc": [
+          280,
+          470,
+          3
+        ],
+        "dtype": "uint8",
+        "sha256": "6cf116384cd02ee3f357c4874b9d529e4f52b6e929b0f76216d1df480535a6ac"
+      },
+      "depth_reference": {
+        "path": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/depth/000020.npz",
+        "array_key": "depth_m",
+        "validity_key": "valid",
+        "shape_hw": [
+          280,
+          470
+        ],
+        "dtype": "float32",
+        "unit": "m",
+        "meaning": "camera_Z",
+        "sha256": "73d33ccc361c970ec363f96934719f63b2083402467b2d7ea302495ad5f47051"
+      }
+    },
+    "action": {
+      "opos": {
+        "pixel": [
+          255.0474090576172,
+          159.4749755859375
+        ],
+        "pixel_rc": [
+          159,
+          255
+        ],
+        "grid_rc": [
+          15,
+          26
+        ],
+        "grid_id": 747,
+        "token_id": 747,
+        "world": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "target_world": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "target_frame_id": 51,
+        "valid_mask": true,
+        "token": "<opos_747>",
+        "state": "point",
+        "reason": "visible_terminal_ground_location"
+      },
+      "apos": {
+        "pixel": [
+          252.8622589111328,
+          200.73272705078125
+        ],
+        "pixel_rc": [
+          200,
+          252
+        ],
+        "grid_rc": [
+          19,
+          25
+        ],
+        "grid_id": 938,
+        "token_id": 938,
+        "world": [
+          -3.7680554389953613,
+          -0.2089579850435257,
+          -1.4246740341186523
+        ],
+        "target_world": [
+          -3.7680554389953613,
+          -0.2089579850435257,
+          -1.4246740341186523
+        ],
+        "target_frame_id": 30,
+        "valid_mask": true,
+        "token": "<apos_938>",
+        "state": "point",
+        "reason": "t_plus_10"
+      },
+      "rvq": {
+        "codes": [
+          32,
+          150,
+          207
+        ],
+        "reconstruction": [
+          [
+            0.25418001413345337,
+            -5.2574392611859366e-05,
+            -0.027904696762561798
+          ],
+          [
+            0.49383965134620667,
+            -0.008992718532681465,
+            -0.1101875901222229
+          ],
+          [
+            0.7130720615386963,
+            -0.03906187042593956,
+            -0.2311415672302246
+          ],
+          [
+            0.9154163599014282,
+            -0.09325747936964035,
+            -0.33363211154937744
+          ],
+          [
+            1.0828737020492554,
+            -0.15304984152317047,
+            -0.35788601636886597
+          ],
+          [
+            1.2235007286071777,
+            -0.2046615034341812,
+            -0.33386683464050293
+          ],
+          [
+            1.3641353845596313,
+            -0.25311020016670227,
+            -0.2643999755382538
+          ],
+          [
+            1.4738407135009766,
+            -0.28223884105682373,
+            -0.18923558294773102
+          ],
+          [
+            1.553175926208496,
+            -0.29724594950675964,
+            -0.028795823454856873
+          ],
+          [
+            1.614427089691162,
+            -0.2989809513092041,
+            0.00853148102760315
+          ]
+        ],
+        "valid_mask": true,
+        "ade_m": 0.11689068377017975,
+        "tokens": "<act_l0_32><act_l1_150><act_l2_207>"
+      },
+      "fm": {
+        "waypoints_ego": [
+          [
+            0.2500000298023224,
+            -1.2782879821315873e-07,
+            0.0
+          ],
+          [
+            0.5000000596046448,
+            -2.5565759642631747e-07,
+            0.0
+          ],
+          [
+            0.5000000596046448,
+            -2.5565759642631747e-07,
+            -0.2617993950843811
+          ],
+          [
+            0.7414814829826355,
+            -0.0647050216794014,
+            -0.2617993950843811
+          ],
+          [
+            0.982962965965271,
+            -0.1294097751379013,
+            -0.2617993950843811
+          ],
+          [
+            1.2244443893432617,
+            -0.1941145360469818,
+            -0.2617993950843811
+          ],
+          [
+            1.465925931930542,
+            -0.2588192820549011,
+            -0.2617993950843811
+          ],
+          [
+            1.465925931930542,
+            -0.2588192820549011,
+            -1.5559935562237115e-08
+          ],
+          [
+            1.715925931930542,
+            -0.25881919264793396,
+            -1.5559935562237115e-08
+          ],
+          [
+            1.9659258127212524,
+            -0.2588190734386444,
+            -1.5559935562237115e-08
+          ],
+          [
+            1.9659258127212524,
+            -0.2588190734386444,
+            -0.2617993950843811
+          ],
+          [
+            2.207407236099243,
+            -0.3235238492488861,
+            -0.2617993950843811
+          ],
+          [
+            2.4488887786865234,
+            -0.3882285952568054,
+            -0.2617993950843811
+          ],
+          [
+            2.6903700828552246,
+            -0.4529333710670471,
+            -0.2617993950843811
+          ],
+          [
+            2.931851387023926,
+            -0.5176381468772888,
+            -0.2617993950843811
+          ],
+          [
+            3.173332929611206,
+            -0.5823429822921753,
+            -0.2617993950843811
+          ],
+          [
+            3.4148142337799072,
+            -0.647047758102417,
+            -0.2617993950843811
+          ],
+          [
+            3.6562955379486084,
+            -0.7117525339126587,
+            -0.2617993950843811
+          ],
+          [
+            3.8977768421173096,
+            -0.7764573097229004,
+            -0.2617993950843811
+          ],
+          [
+            3.8977768421173096,
+            -0.7764573097229004,
+            -1.5559935562237115e-08
+          ],
+          [
+            4.147777080535889,
+            -0.7764571905136108,
+            -1.5559935562237115e-08
+          ],
+          [
+            4.397777080535889,
+            -0.7764570713043213,
+            -1.5559935562237115e-08
+          ],
+          [
+            4.647777080535889,
+            -0.7764569520950317,
+            -1.5559935562237115e-08
+          ],
+          [
+            4.897777080535889,
+            -0.776456892490387,
+            -1.5559935562237115e-08
+          ],
+          [
+            4.897777080535889,
+            -0.776456892490387,
+            -0.2617993950843811
+          ],
+          [
+            5.13925838470459,
+            -0.8411616086959839,
+            -0.2617993950843811
+          ],
+          [
+            5.380740165710449,
+            -0.9058663249015808,
+            -0.2617993950843811
+          ],
+          [
+            5.380740165710449,
+            -0.9058663249015808,
+            -1.5559935562237115e-08
+          ],
+          [
+            5.630739688873291,
+            -0.905866265296936,
+            -1.5559935562237115e-08
+          ],
+          [
+            5.880739688873291,
+            -0.9058662056922913,
+            -1.5559935562237115e-08
+          ]
+        ],
+        "clean_se2_diff": [
+          [
+            0.2500000298023224,
+            -1.2782879821315873e-07,
+            0.0
+          ],
+          [
+            0.2500000298023224,
+            -1.2782879821315873e-07,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.26179933547973633
+          ],
+          [
+            0.2499999701976776,
+            -1.4901161193847656e-08,
+            0.0
+          ],
+          [
+            0.2500000298023224,
+            1.4901161193847656e-08,
+            0.0
+          ],
+          [
+            0.24999995529651642,
+            -7.450580596923828e-09,
+            0.0
+          ],
+          [
+            0.25000008940696716,
+            3.725290298461914e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.26179933547973633
+          ],
+          [
+            0.25,
+            9.329695416226969e-08,
+            0.0
+          ],
+          [
+            0.24999988079071045,
+            1.2309926944453764e-07,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.26179933547973633
+          ],
+          [
+            0.2499999701976776,
+            -2.2351741790771484e-08,
+            0.0
+          ],
+          [
+            0.25000008940696716,
+            3.725290298461914e-08,
+            0.0
+          ],
+          [
+            0.24999986588954926,
+            -5.587935447692871e-08,
+            0.0
+          ],
+          [
+            0.24999986588954926,
+            -5.587935447692871e-08,
+            0.0
+          ],
+          [
+            0.25000008940696716,
+            -4.470348358154297e-08,
+            0.0
+          ],
+          [
+            0.24999986588954926,
+            -5.587935447692871e-08,
+            0.0
+          ],
+          [
+            0.24999986588954926,
+            -5.587935447692871e-08,
+            0.0
+          ],
+          [
+            0.24999986588954926,
+            -5.587935447692871e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.26179933547973633
+          ],
+          [
+            0.2500002384185791,
+            1.2309928365539236e-07,
+            0.0
+          ],
+          [
+            0.25,
+            1.2309926944453764e-07,
+            0.0
+          ],
+          [
+            0.25,
+            1.2309926944453764e-07,
+            0.0
+          ],
+          [
+            0.25,
+            6.349463177457437e-08,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            -0.26179933547973633
+          ],
+          [
+            0.24999985098838806,
+            3.725290298461914e-09,
+            0.0
+          ],
+          [
+            0.2500002980232239,
+            1.2665987014770508e-07,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.26179933547973633
+          ],
+          [
+            0.2499995231628418,
+            6.349462466914702e-08,
+            0.0
+          ],
+          [
+            0.25,
+            6.349463177457437e-08,
+            0.0
+          ]
+        ],
+        "valid_mask": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "future_frame_ids": [
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50
+        ],
+        "vertical_offset_m": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "explicit_stop": false,
+      "stop_loss_valid": false
+    }
+  },
+  "numeric_feature_schema": {
+    "observation.world_from_body": {
+      "source_array": "world_from_body",
+      "source_dtype": "float64",
+      "shape": [
+        4,
+        4
+      ]
+    },
+    "observation.world_from_camera_cv": {
+      "source_array": "world_from_camera_cv",
+      "source_dtype": "float64",
+      "shape": [
+        4,
+        4
+      ]
+    },
+    "observation.world_from_depth_camera_cv": {
+      "source_array": "world_from_depth_camera_cv",
+      "source_dtype": "float64",
+      "shape": [
+        4,
+        4
+      ]
+    },
+    "action.opos.pixel": {
+      "source_array": "opos_pixel",
+      "source_dtype": "float32",
+      "shape": [
+        2
+      ]
+    },
+    "action.opos.pixel_rc": {
+      "source_array": "opos_pixel_rc",
+      "source_dtype": "int32",
+      "shape": [
+        2
+      ]
+    },
+    "action.opos.grid_rc": {
+      "source_array": "opos_grid_rc",
+      "source_dtype": "int32",
+      "shape": [
+        2
+      ]
+    },
+    "action.opos.grid_id": {
+      "source_array": "opos_grid_id",
+      "source_dtype": "int32",
+      "shape": [
+        1
+      ]
+    },
+    "action.opos.token_id": {
+      "source_array": "opos_token_id",
+      "source_dtype": "int32",
+      "shape": [
+        1
+      ]
+    },
+    "action.opos.world": {
+      "source_array": "opos_world",
+      "source_dtype": "float32",
+      "shape": [
+        3
+      ]
+    },
+    "action.opos.target_world": {
+      "source_array": "opos_target_world",
+      "source_dtype": "float64",
+      "shape": [
+        3
+      ]
+    },
+    "action.opos.target_frame_id": {
+      "source_array": "opos_target_frame_id",
+      "source_dtype": "int32",
+      "shape": [
+        1
+      ]
+    },
+    "action.opos.valid_mask": {
+      "source_array": "opos_valid_mask",
+      "source_dtype": "bool",
+      "shape": [
+        1
+      ]
+    },
+    "action.apos.pixel": {
+      "source_array": "apos_pixel",
+      "source_dtype": "float32",
+      "shape": [
+        2
+      ]
+    },
+    "action.apos.pixel_rc": {
+      "source_array": "apos_pixel_rc",
+      "source_dtype": "int32",
+      "shape": [
+        2
+      ]
+    },
+    "action.apos.grid_rc": {
+      "source_array": "apos_grid_rc",
+      "source_dtype": "int32",
+      "shape": [
+        2
+      ]
+    },
+    "action.apos.grid_id": {
+      "source_array": "apos_grid_id",
+      "source_dtype": "int32",
+      "shape": [
+        1
+      ]
+    },
+    "action.apos.token_id": {
+      "source_array": "apos_token_id",
+      "source_dtype": "int32",
+      "shape": [
+        1
+      ]
+    },
+    "action.apos.world": {
+      "source_array": "apos_world",
+      "source_dtype": "float32",
+      "shape": [
+        3
+      ]
+    },
+    "action.apos.target_world": {
+      "source_array": "apos_target_world",
+      "source_dtype": "float64",
+      "shape": [
+        3
+      ]
+    },
+    "action.apos.target_frame_id": {
+      "source_array": "apos_target_frame_id",
+      "source_dtype": "int32",
+      "shape": [
+        1
+      ]
+    },
+    "action.apos.valid_mask": {
+      "source_array": "apos_valid_mask",
+      "source_dtype": "bool",
+      "shape": [
+        1
+      ]
+    },
+    "action.rvq.codes": {
+      "source_array": "rvq_codes",
+      "source_dtype": "int32",
+      "shape": [
+        3
+      ]
+    },
+    "action.rvq.reconstruction": {
+      "source_array": "rvq_reconstruction",
+      "source_dtype": "float32",
+      "shape": [
+        10,
+        3
+      ]
+    },
+    "action.rvq.valid_mask": {
+      "source_array": "rvq_valid_mask",
+      "source_dtype": "bool",
+      "shape": [
+        1
+      ]
+    },
+    "action.rvq.ade_m": {
+      "source_array": "rvq_ade_m",
+      "source_dtype": "float32",
+      "shape": [
+        1
+      ]
+    },
+    "action.fm.waypoints_ego": {
+      "source_array": "fm_waypoints_ego",
+      "source_dtype": "float32",
+      "shape": [
+        30,
+        3
+      ]
+    },
+    "action.fm.clean_se2_diff": {
+      "source_array": "fm_clean_se2_diff",
+      "source_dtype": "float32",
+      "shape": [
+        30,
+        3
+      ]
+    },
+    "action.fm.valid_mask": {
+      "source_array": "fm_valid_mask",
+      "source_dtype": "bool",
+      "shape": [
+        30
+      ]
+    },
+    "action.fm.future_frame_ids": {
+      "source_array": "future_frame_ids",
+      "source_dtype": "int64",
+      "shape": [
+        30
+      ]
+    },
+    "action.fm.vertical_offset_m": {
+      "source_array": "future_vertical_offset_m",
+      "source_dtype": "float32",
+      "shape": [
+        30
+      ]
+    }
+  },
+  "validation": {
+    "source_arrays_checked": 30,
+    "all_source_numeric_arrays_represented": true,
+    "full_fm_horizon": 30,
+    "full_rvq_horizon": 10,
+    "apos_and_opos_visible": true,
+    "image_and_depth_references_exist": true
+  }
+}

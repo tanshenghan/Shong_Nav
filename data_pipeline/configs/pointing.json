@@ -1,0 +1,10 @@
+{
+  "horizon": 10,
+  "tail_policy": "terminal",
+  "opos_mode": "terminal_ground",
+  "opos_visibility_window": "last_half",
+  "unknown_token_id": 0,
+  "path_spacing_m": 0.02,
+  "depth_tolerance_m": 0.05,
+  "depth_relative_tolerance": 0.01
+}

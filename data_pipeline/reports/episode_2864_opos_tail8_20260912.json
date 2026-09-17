@@ -1,0 +1,112 @@
+{
+  "status": "complete_no_reliable_opos",
+  "dataset": "/mnt/cfs/data/beta_nav/r2r_2864_opos_tail8_20260912_v2",
+  "episode_id": "2864",
+  "dataset_regenerated": true,
+  "dataset_complete": true,
+  "candidate_frame_ids": [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "validated_candidate_responses": 8,
+  "selected_frame_id": null,
+  "frames": 52,
+  "apos_valid": 38,
+  "opos_visible": 0,
+  "opos_not_visible": 0,
+  "opos_unknown": 52,
+  "opos_loss_valid": 0,
+  "search_attempts": [
+    {
+      "frame_id": 44,
+      "detection_file": "detections/000044.json",
+      "found": true,
+      "target_type": "stop_location",
+      "confidence": 0.85,
+      "bound": false,
+      "reason": "terminal_ground_outside_detected_stop_region"
+    },
+    {
+      "frame_id": 45,
+      "detection_file": "detections/000045.json",
+      "found": false,
+      "target_type": null,
+      "confidence": 0.0,
+      "bound": false,
+      "reason": "no_confident_destination"
+    },
+    {
+      "frame_id": 46,
+      "detection_file": "detections/000046.json",
+      "found": false,
+      "target_type": null,
+      "confidence": 0.0,
+      "bound": false,
+      "reason": "no_confident_destination"
+    },
+    {
+      "frame_id": 47,
+      "detection_file": "detections/000047.json",
+      "found": true,
+      "target_type": "stop_location",
+      "confidence": 0.65,
+      "bound": false,
+      "reason": "anchor_stop_location_outside_view"
+    },
+    {
+      "frame_id": 48,
+      "detection_file": "detections/000048.json",
+      "found": false,
+      "target_type": null,
+      "confidence": 0.0,
+      "bound": false,
+      "reason": "no_confident_destination"
+    },
+    {
+      "frame_id": 49,
+      "detection_file": "detections/000049.json",
+      "found": true,
+      "target_type": "stop_location",
+      "confidence": 0.72,
+      "bound": false,
+      "reason": "anchor_stop_location_outside_view"
+    },
+    {
+      "frame_id": 50,
+      "detection_file": "detections/000050.json",
+      "found": true,
+      "target_type": "stop_location",
+      "confidence": 0.75,
+      "bound": false,
+      "reason": "anchor_stop_location_outside_view"
+    },
+    {
+      "frame_id": 51,
+      "detection_file": "detections/000051.json",
+      "found": false,
+      "target_type": null,
+      "confidence": 0.0,
+      "bound": false,
+      "reason": "no_confident_destination"
+    }
+  ],
+  "non_opos_arrays_exactly_preserved": 21,
+  "apos_json_exactly_preserved": true,
+  "pipeline_tests_passed": 68,
+  "validation": "source hashes, frame alignment, masks, projections and token/grid consistency passed",
+  "api_destination": "https://ark.cn-beijing.volces.com/api/v3",
+  "model": "doubao-seed-2-1-pro-260628",
+  "explicit_user_approval_received": true,
+  "failed_first_run": "/mnt/cfs/data/beta_nav/r2r_2864_opos_tail8_20260912",
+  "failed_first_run_reason": "response coordinates outside normalized [0,1]; no labels emitted",
+  "format_fix": "explicit decimal examples; recorded invalid-format retries within total 3 requests per candidate; no inferred rescaling",
+  "failed_format_responses_in_completed_run": 0,
+  "preview": "/mnt/cfs/data/beta_nav/r2r_2864_opos_tail8_20260912_v2/episodes/2864/opos_frame44_review.png",
+  "pixel_csv": "/mnt/cfs/data/beta_nav/r2r_2864_opos_tail8_20260912_v2/episodes/2864/pointing_pixels.csv"
+}

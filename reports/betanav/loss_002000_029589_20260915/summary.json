@@ -1,0 +1,47 @@
+{
+  "source": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/metrics.jsonl",
+  "source_sha256": "4ef74df5305797274aa66bbd71f5d55f5902dbfc5f4668e18ad5b8338ab4ed61",
+  "created_at_utc": "2026-09-15T05:43:48.039336+00:00",
+  "display_range": [
+    2000,
+    29589
+  ],
+  "actual_logged_range": [
+    2000,
+    29580
+  ],
+  "unique_training_points": 2759,
+  "raw_records_in_range": 2868,
+  "superseded_duplicates_removed": 109,
+  "missing_expected_points": [],
+  "selected_timestamps_strictly_increase": true,
+  "deduplication": "Last recorded value per global step; monotonic timestamps verified. Retains the final resumed branch at 18,000 and 26,000.",
+  "smoothing": {
+    "loss": "Trailing 50 points; reset at full-data switch 3047.",
+    "time": "Trailing 10 points; reset at 3047, 18000, 26000.",
+    "left_edge": "Retained history before 2000 supplies the full moving-average window."
+  },
+  "data_switch": 3047,
+  "full_data_epoch_boundaries": [
+    12911,
+    22775
+  ],
+  "final_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00029589",
+  "final_state": {
+    "run_id": "3eac56d9f142440784fad82c43a01c0b",
+    "step": 29589,
+    "epoch": 2,
+    "batch_offset": 6814,
+    "samples_seen": 1893600,
+    "vlm_updates": 29589,
+    "fm_updates": 29589,
+    "best_validation": null
+  },
+  "no_final_loss_extrapolation": true,
+  "last_100_logged_points_mean": {
+    "train_loss": 1.254420736783488,
+    "train_ce": 0.006639590721995271,
+    "train_fm": 0.6238905730307464,
+    "update_seconds": 3.116621955242008
+  }
+}

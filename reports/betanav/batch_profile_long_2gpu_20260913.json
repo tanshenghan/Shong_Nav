@@ -1,0 +1,318 @@
+{
+  "status": "complete",
+  "config": {
+    "dataset_root": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+    "model_path": "/mnt/cfs/Models/Light",
+    "data_manifest": "configs/betanav/data/r2r_train_20260913.json",
+    "output_dir": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start",
+    "seed": 42,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "max_steps": 30000,
+    "warmup_steps": 1000,
+    "min_lr_ratio": 0.1,
+    "lr_vlm": 1e-05,
+    "lr_fm": 0.0001,
+    "weight_decay": 0.01,
+    "adam_betas": [
+      0.9,
+      0.95
+    ],
+    "adam_eps": 1e-08,
+    "clip_vlm": 1.0,
+    "clip_fm": 1.0,
+    "lambda_fm": 2.0,
+    "freeze_vision": true,
+    "gradient_checkpointing": true,
+    "mixed_precision": "bf16",
+    "optimizer": "zero1",
+    "attention": "sdpa",
+    "expert_hidden_size": 512,
+    "expert_num_layers": 6,
+    "expert_num_heads": 8,
+    "expert_intermediate_size": 2048,
+    "expert_dropout": 0.0,
+    "num_flow_steps": 10,
+    "num_workers": 2,
+    "prefetch_factor": 1,
+    "cache_row_groups": 4,
+    "cache_frames": 64,
+    "cpu_threads": 4,
+    "log_every": 10,
+    "eval_every": 500,
+    "eval_max_batches": 64,
+    "eval_sample_batches": 4,
+    "save_every": 1000,
+    "keep_last": 3,
+    "save_best": true,
+    "tracker": "none",
+    "project_name": "betanav",
+    "wandb_mode": "offline",
+    "cpu": false,
+    "tiny_model": false
+  },
+  "world_size": 2,
+  "torch_version": "2.10.0+cu128",
+  "gpu": "NVIDIA RPBZZZ6",
+  "device_total_gib": 94.97064208984375,
+  "cuda_visible_devices": "1,2",
+  "sample": {
+    "dataset_index": 219816,
+    "global_frame_index": 237859,
+    "episode_index": 4112,
+    "source_episode_id": "6965",
+    "source_scene_id": "mp3d/PuKPg4mmafe/PuKPg4mmafe.glb",
+    "frame_index": 152,
+    "instruction": "Cross the table and continue down the hallway. Turn left passed the piano. Go to the couches and go straight until you reach the second to last couch. ",
+    "target_text": "<apos_1088><opos_751><act_l0_56><act_l1_172><act_l2_103>",
+    "token_valid": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "explicit_stop": false,
+    "fm_valid_steps": 30,
+    "history": [
+      {
+        "frame_ids": [
+          0,
+          1
+        ],
+        "pool_spatial": 4,
+        "pool_mode": "avg",
+        "tier": 4
+      },
+      {
+        "frame_ids": [
+          5,
+          6,
+          9,
+          10,
+          14,
+          15,
+          19,
+          20,
+          23,
+          24,
+          28,
+          29,
+          33,
+          34,
+          38,
+          39,
+          42,
+          43,
+          47,
+          48,
+          52,
+          53,
+          56,
+          57,
+          61,
+          62
+        ],
+        "pool_spatial": 4,
+        "pool_mode": "avg",
+        "tier": 3
+      },
+      {
+        "frame_ids": [
+          63,
+          64,
+          69,
+          70,
+          75,
+          76,
+          81,
+          82,
+          87,
+          88,
+          93,
+          94,
+          99,
+          100,
+          105,
+          106,
+          111,
+          112,
+          117,
+          118
+        ],
+        "pool_spatial": 2,
+        "pool_mode": "avg",
+        "tier": 2
+      },
+      {
+        "frame_ids": [
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150
+        ],
+        "pool_spatial": 2,
+        "pool_mode": "avg",
+        "tier": 1
+      },
+      {
+        "frame_ids": [
+          151,
+          152
+        ],
+        "pool_spatial": 1,
+        "pool_mode": "avg",
+        "tier": 0
+      }
+    ]
+  },
+  "sequence_length": 1411,
+  "history_frames": 82,
+  "effective_batch_size": 16,
+  "warmup_updates": 1,
+  "measured_updates": 2,
+  "results": [
+    {
+      "batch_size": 1,
+      "accumulation": 8,
+      "update_seconds": [
+        4.734564781188965,
+        4.790528297424316
+      ],
+      "mean_update_seconds": 4.762546539306641,
+      "samples_per_second": 3.359547222887479,
+      "peak_allocated_gib_by_rank": [
+        70.88397216796875,
+        70.88746643066406
+      ],
+      "peak_reserved_gib_by_rank": [
+        74.212890625,
+        74.236328125
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.33689880371094,
+        47.325286865234375
+      ],
+      "cpu_collation_seconds": 0.04925493989139795,
+      "last_losses_rank0": [
+        34.55685043334961,
+        18.31830406188965
+      ]
+    },
+    {
+      "batch_size": 2,
+      "accumulation": 4,
+      "update_seconds": [
+        3.9165563583374023,
+        3.9441769123077393
+      ],
+      "mean_update_seconds": 3.930366635322571,
+      "samples_per_second": 4.070867042327937,
+      "peak_allocated_gib_by_rank": [
+        71.572021484375,
+        71.55152130126953
+      ],
+      "peak_reserved_gib_by_rank": [
+        75.927734375,
+        75.892578125
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.33689880371094,
+        47.325286865234375
+      ],
+      "cpu_collation_seconds": 0.10335797257721424,
+      "last_losses_rank0": [
+        3.8902013301849365,
+        5.798232555389404
+      ]
+    },
+    {
+      "batch_size": 4,
+      "accumulation": 2,
+      "update_seconds": [
+        3.615818738937378,
+        3.6281936168670654
+      ],
+      "mean_update_seconds": 3.6220061779022217,
+      "samples_per_second": 4.417441388591671,
+      "peak_allocated_gib_by_rank": [
+        72.86074829101562,
+        72.84925842285156
+      ],
+      "peak_reserved_gib_by_rank": [
+        77.4296875,
+        77.396484375
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.33689880371094,
+        47.325286865234375
+      ],
+      "cpu_collation_seconds": 0.1995849935337901,
+      "last_losses_rank0": [
+        4.452203750610352,
+        3.356581449508667
+      ]
+    },
+    {
+      "batch_size": 8,
+      "accumulation": 1,
+      "update_seconds": [
+        3.5734779834747314,
+        3.574615478515625
+      ],
+      "mean_update_seconds": 3.5740467309951782,
+      "samples_per_second": 4.4767181864868535,
+      "peak_allocated_gib_by_rank": [
+        60.403831481933594,
+        60.39579391479492
+      ],
+      "peak_reserved_gib_by_rank": [
+        66.318359375,
+        66.51171875
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.33689880371094,
+        47.325286865234375
+      ],
+      "cpu_collation_seconds": 0.3921371353790164,
+      "last_losses_rank0": [
+        4.072474956512451,
+        4.448352336883545
+      ]
+    }
+  ],
+  "limitations": "Repeated real frame, cached CPU input; excludes data-loading time. Optimizer states/gradients included. Tested world size only; no training checkpoint saved.",
+  "parameters": {
+    "total": 4484860419,
+    "vlm": 4032994816,
+    "fm": 36517891
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "frames": 978,
+  "episodes": 27,
+  "tasks": 27,
+  "files": 8,
+  "all_parquet_columns_readback_exact": true,
+  "file_sha256": {
+    "data/chunk-000/file-000.parquet": "6c59d53ca4debd64fa569b58e1185831f35f68d3dc4ff2089a1ca9e17a48edeb",
+    "data/chunk-000/file-001.parquet": "2231499ce655f69fa104725592adf2f5e0f42b3fdec2e25fcd58b630e442374f",
+    "data/chunk-000/file-002.parquet": "5343836b341c3093a2de9621b4dceab066d472ab04f60b53421831ce737080eb",
+    "data/chunk-000/file-003.parquet": "23491137137c5b4f95bd0232ea6c4f5b7aff91900a6be92406a75ebf98952f32",
+    "data/chunk-000/file-004.parquet": "e25c5b0f4b1d9033740477696e01f8457a4fdcfcde0ea7d69793201902dbed22",
+    "data/chunk-000/file-005.parquet": "b0a376270915b05fbece6a524db428b86ad8a44edc2373743da5703452bfb306",
+    "data/chunk-000/file-006.parquet": "6435a1cf398b394fc564424b73924e9bbf6f6d40ce896335fcc139ab50d059c0",
+    "data/chunk-000/file-007.parquet": "753058fd89925b7a1828b7e3c0e358c26d90c2e14070d2463eae27d7445a128c"
+  },
+  "official_merged_loader_episode_indices": [
+    0,
+    13,
+    26
+  ],
+  "merged_dataloader_batch": true,
+  "elapsed_seconds": 8.562692596577108
+}

@@ -136,6 +136,49 @@ bigger KV cache.
 
 ---
 
+## Habitat BetaNav FM evaluation
+
+`lightnav-eval-habitat` normally executes the trajectory decoded from the token/RVQ
+branch. To evaluate a trained BetaNav continuous expert instead, select it explicitly:
+
+```bash
+lightnav-eval-habitat \
+  --model_path /path/to/base-lightnav-checkpoint \
+  --backend hf --action_output fm \
+  --beta_checkpoint /path/to/betanav-run
+```
+
+`--beta_checkpoint` accepts a `model.pt`, a committed `step-*` directory, or a training
+run directory. For a run directory, the newest committed `latest_model.json` /
+`latest.json` pointer is resolved and recorded in `summary.json`. `--fm_seed` defaults
+to 42 and deterministically keys FM noise by scene, episode and policy step;
+`--fm_steps` optionally overrides the integration-step count stored in `beta_config`.
+With `--action_output fm`, the executed motion is the FM trajectory. The token branch remains active only
+for its trained STOP decision and RVQ diagnostics. BetaNav inference is HF eager only;
+`--backend vllm_local --action_output fm` is rejected instead of falling back.
+
+To compare the same trained BetaNav token branch against FM, use
+`--backend hf --action_output token --beta_checkpoint /path/to/step-00029589`
+with the same base `--model_path`. This loads the complete BetaNav checkpoint and
+executes its decoded RVQ trajectory, skipping FM context projection and sampling.
+It preserves baseline RVQ STOP/decode-failure semantics and requires
+`--fm_stop_mode baseline`; FM seeds and integration steps do not affect this path.
+Without `--beta_checkpoint`, token output still uses the base LightNav weights.
+
+Diagnostic subset/STOP analysis is available through `--episode_manifest FILE`, whose
+entries contain exact `scene_id` + `habitat_episode_id` pairs. `--fm_stop_mode baseline`
+reproduces the released evaluator; `decode_continue` keeps executing FM after malformed
+RVQ text; `explicit_gate` additionally permits only the canonical RVQ STOP tuple to end
+an episode and suppresses accidental zero-speed FM commands. `--oracle_stop_distance 3`
+uses privileged goal distance and is an analysis upper bound, never a deployable result.
+Every output episode records `stop_source` and per-policy-event counts.
+
+The official R2R `test` split has no public goals/GT and therefore cannot produce local
+SR/SPL/NDTW/NE. Use `val_unseen` for quantitative local evaluation; `test` is only for
+generating trajectories for the external benchmark server.
+
+---
+
 ## Input aspect ratio (`--aspect_mode`)
 
 The checkpoints are trained on frames resized to a fixed `common.video_size` (256×448 for
@@ -160,4 +203,125 @@ Frames within one session must share one size (the first frame decides; `reset` 
 over). `keep` avoids geometric distortion but changes the token grid the model sees, which
 the released checkpoint was not trained on — validate on your robot before relying on it.
 Full native resolution (feeding the camera's own pixel count) is not supported.
+## R2R collection script
 
+For one actual closed-loop LightNav navigation with fresh Habitat observations,
+raw pointing/RVQ predictions, continuous control and a prediction video, see
+[data_pipeline/docs/LIGHTNAV_ROLLOUT.md](../data_pipeline/docs/LIGHTNAV_ROLLOUT.md#运行).
+This is a model rollout, separate from the expert-GT collection below.
+
+`data_pipeline/collect_r2r.py` runs in a separate Habitat-Sim Python 3.9 environment.
+It renders expert RGB/depth/poses and exports RVQ-10 / FM-30, apos-10 and final-destination opos labels
+without LightNav model inference. All collection and validation parameters are documented in
+[data_pipeline/docs/R2R_COLLECTION.md](../data_pipeline/docs/R2R_COLLECTION.md#collection-command-parameters).
+The former `scripts/collect_beta_nav.py` entry point forwards to the same collector.
+
+`data_pipeline/annotate_r2r.py` adds ten-step apos and fixed final-destination opos.
+The current default allows spatial opos only in the episode's final half; the
+camera projection and depth visibility checks still apply inside that window.
+It projects the recorded terminal ground point with saved camera poses and depth,
+using CPU only and no API or semantic assets. New generation supports only the
+final terminal-ground definition; the old API/semantic generator is archived.
+All remaining flags are documented in
+[data_pipeline/docs/POINTING.md](../data_pipeline/docs/POINTING.md#命令).
+
+`data_pipeline/run_lerobot.sh` collects and exports self-contained LeRobotDataset
+v3.0 data. `export_lerobot.py` accepts `dataset`, `--output-dir`, `--repo-id` and
+repeatable `--episode-id`; `validate_lerobot.py` accepts `dataset`, optional
+`--source` and `--report`. Setup, feature schema, loss masks, logical frame time
+and all command parameters are documented in
+[LEROBOT_FORMAT.md](../data_pipeline/docs/LEROBOT_FORMAT.md#运行与加载).
+
+`data_pipeline/run_r2r_train.sh` builds all local R2R train instructions with
+resumable shards and a standard LeRobot v3 merge. Workers, GPU allocation, shard
+size, retries, pilot limits, source paths and coverage checks are documented in
+[FULL_R2R_TRAIN.md](../data_pipeline/docs/FULL_R2R_TRAIN.md#参数).
+The collector's `--episode-ids-file` bypasses route sampling with an exact JSON ID list.
+
+`data_pipeline/run_rxr.sh` uses the same collector, GT definitions and LeRobot exporter for RxR.
+The shared builder and collector accept `--dataset r2r|rxr`, `--split`, `--role` and `--languages`;
+RxR defaults to the complete train guide source with all languages. Source splits and roles
+use separate output directories. Parameters and examples are documented in
+[RXR_LEROBOT.md](../data_pipeline/docs/RXR_LEROBOT.md#命令).
+
+`data_pipeline/export_pointing_grid.py` adds explicit original-image pixel indices
+and 48x27 grid cells to an existing pointing dataset without inference. Its dataset,
+output and episode-selection arguments are documented in
+[POINTING.md](../data_pipeline/docs/POINTING.md#二维像素与具体网格).
+
+`visual/render_episode_gt.py` renders a saved episode with its instruction, future
+ground-truth path and valid apos/opos, or a single-frame PNG with pixel/grid-cell
+annotations and a magnified detail. All inputs, playback and rendering flags are
+documented in [data_pipeline/docs/VISUALIZATION.md](../data_pipeline/docs/VISUALIZATION.md#运行).
+For image-backed BetaNav LeRobot v3, `--episode-id` selects the original source episode
+and `--scene` optionally disambiguates its Scan. `--hide-occluded`, `--number-steps`,
+and `--preview-frame` control ground overlays and the poster. `--rgb-only --scale 1`
+keeps the MP4 at the native 470×280 resolution without instruction or top-view panels. See the
+[direct Parquet workflow](../data_pipeline/docs/VISUALIZATION.md#直接读取-lerobot-parquet).
+
+`src/lightnav/dataloader/Train_Lerobot_DataLoader.py` provides the Beta training reader and
+a CPU inspection command. Its dataset, model path, batch/worker options, episode
+and sample indices, optional tiny-model check, and report arguments are documented
+in [TRAIN_LEROBOT_DATALOADER.md](TRAIN_LEROBOT_DATALOADER.md#检查命令)。
+
+`train_betanav.py` launches BetaNav training with Accelerate/DDP and optional
+ZeRO-1 optimizer state sharding. All CLI options (`--config`, `--output-dir`,
+`--data-manifest`, `--resume`, `--expand-training-data`, `--override-max-steps`,
+`--dry-run`, `--cpu`, `--tiny-model`, `--stop-after`),
+training YAML settings, launcher configuration, and the scene-split preparation
+command (`--output`, `--seed`, `--val-fraction`, `--scale-floor`, `--normalization-from`) are documented
+in [TRAIN_BETANAV.md](TRAIN_BETANAV.md).
+The R2R YAML uses all episodes, disables validation, and stops at global step `29589`.
+`checkpoint_mode: dual`, `save_every: 1000`, and `keep_last: 3` retain the newest three
+complete training states; `model_save_every: 3000` also retains model-only archives permanently.
+Immutable CPU model/Adam snapshots are written in background threads using per-rank optimizer shards.
+Complete states restore Adam/RNG and the data cursor; permanent model archives omit that training state.
+`--override-max-steps` explicitly permits a changed stopping limit on resume and adjusts the remaining
+cosine schedule without resetting the data cursor or relaxing other optimizer/batch constraints.
+
+`training_mode: fm_only` freezes the complete original VLM, removes token/RVQ supervision and
+trains only the context projection and action expert. `ce_fm` remains the default.
+`num_epochs: 3` derives the update limit from the actual distributed loader (including tail batches);
+omit it to use `max_steps`. It cannot be combined with `--override-max-steps`.
+See `configs/betanav/r2r_fm_only.yaml` for the separate three-epoch experiment.
+
+`python -m lightnav.training.profile_batch` measures complete training updates
+with real frames and full pretrained weights, without writing checkpoints.
+Its `--config`, `--report`, `--batches`, `--per-rank-batch`, `--warmup`, `--steps`
+and `--history-frame` options, plus measured batch recommendations, are documented
+in [TRAIN_BETANAV.md](TRAIN_BETANAV.md#batch-与显存实测2026-09-13).
+`--no-accumulation` tests each candidate as a complete batch with accumulation=1;
+the effective batch varies by candidate and `--per-rank-batch` is ignored.
+
+Performance measurement adds `--count-flops`, `--peak-bf16-tflops`, `--trace-dir`
+and `--telemetry` to the batch profiler. `python -m lightnav.training.performance`
+measures a dense BF16 GEMM baseline (`--report`, `--device`, `--sizes`, `--iterations`).
+All options, training performance log fields and GPU monitoring commands are in
+[TRAINING_PERFORMANCE.md](TRAINING_PERFORMANCE.md).
+
+
+### FM-only checkpoints
+
+With an `fm_only` checkpoint, `--backend hf --action_output fm --beta_checkpoint PATH`
+automatically uses the training continuous-trajectory prompt and
+`encode_context()` / `sample_actions()`. No RVQ decoder, LM generation or learned
+STOP is used. Use `--fm_stop_mode baseline` (default), `--max_steps 500` and keep
+forced STOP enabled; oracle STOP is rejected in this fixed-budget protocol.
+The 500th decision is forced STOP. If a predicted velocity would implicitly STOP
+Habitat, the policy tries later predicted waypoints, then a small deterministic
+turn; this is recorded as `fm_only_zero_command_suppressed`. Results record
+`training_mode=fm_only` and `stop_protocol=max_steps`. SR/SPL use the final position
+at the budget, while oracle success reflects whether the goal was ever reached.
+Comparisons with token-controlled STOP must state this protocol difference.
+
+
+For FM-only checkpoints, `--fm_only_stop_mode rvq` enables frozen LightNav RVQ
+STOP with the previous `--fm_stop_mode baseline` rules: canonical STOP, near-zero
+RVQ trajectories and malformed-token fallback stop the episode. A near-zero FM
+velocity also stops, and the maximum-step forced STOP remains enabled. RVQ controls
+only stopping; movement uses the trained FM-only expert. The frozen VLM uses its
+original RVQ prompt for STOP, then a separate continuous-trajectory prefill for FM,
+matching each branch's training prompt. Results record `stop_protocol=rvq`.
+`--fm_only_stop_mode max_steps` is the default and preserves the pure-FM fixed-budget
+protocol described above. The frozen STOP weights differ from step-29589's CE-trained
+STOP branch even though the decision rules are aligned.

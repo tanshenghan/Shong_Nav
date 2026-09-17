@@ -107,6 +107,10 @@ def build_video_block(num_segments: int) -> str:
 # flat wording.
 _RVQ_OUTPUT_SENTENCE = "Predict your future trajectory as a sequence of coarse-to-fine trajectory tokens. "
 _FLAT_OUTPUT_SENTENCE = "Predict your future trajectory as a trajectory id token. "
+CONTINUOUS_TRAJ_PROMPT_TEMPLATE = (
+    UNIFIED_TRAJ_PROMPT_TEMPLATE.removesuffix(_FLAT_OUTPUT_SENTENCE)
+    + "Predict your future trajectory. "
+)
 
 
 def to_rvq_prompt(template: str) -> str:

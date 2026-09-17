@@ -1,0 +1,50 @@
+{
+  "episode_id": "2864",
+  "annotations": "/mnt/cfs/data/beta_nav/r2r_2864_opos_endpoint_20260912/episodes/2864",
+  "frame_ids_zero_based": true,
+  "missing_apos_frames": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "coincident_apos_opos_frames": [
+    41,
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "early_missing_geometry_report": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/reports/apos_2864_nearby_visibility_20260912.json",
+  "cause_early": "future GT ground polyline is entirely outside current image; closer candidates cannot be projected inside either",
+  "cause_tail": "terminal target and remaining ground route are below the image or beneath the camera",
+  "cause_overlap": "old renderer drew equal-sized opos marker after apos at the same pixel",
+  "fix": "green outer apos ring, pink inner opos ring; labels on different sides; centers unchanged",
+  "both_colors_verified_at_frame44": true,
+  "annotation_samples_sha256_unchanged": "144a15800a21b52475124ce0f2a2897f29c5397a1ec66f64af8f7420c71e9c56",
+  "video": {
+    "video": "/mnt/cfs/data/beta_nav/visual/episode_2864_gt_opos_endpoint_rings_20260912.mp4",
+    "preview": "/mnt/cfs/data/beta_nav/visual/episode_2864_gt_opos_endpoint_rings_20260912.png",
+    "frames": 52,
+    "fps": 5,
+    "duration_seconds": 10.4,
+    "size": [
+      1220,
+      762
+    ]
+  },
+  "overlap_preview": "/mnt/cfs/data/beta_nav/visual/episode_2864_frame_000044_both_points_20260912.png",
+  "render_tests_passed": 9,
+  "ruff_passed": true
+}

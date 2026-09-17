@@ -1,0 +1,9 @@
+{
+  "episodes": 1,
+  "frames": 60,
+  "apos_valid": 53,
+  "opos_visible": 16,
+  "opos_not_visible": 44,
+  "opos_temporally_hidden": 40,
+  "checked": "source hashes, frame alignment, masks, temporal windows, projections and visible instance pixels"
+}

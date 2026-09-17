@@ -1,0 +1,283 @@
+{
+  "date": "2026-09-16",
+  "implementation": "RxR source identity, 30-degree to two 15-degree replay adaptation, RxR in-memory navigation mesh/no-sliding collisions, shared GT and 49-column LeRobot schema",
+  "source_scope": {
+    "dataset": "rxr",
+    "split": "train",
+    "role": "guide",
+    "languages": [
+      "all"
+    ],
+    "source_episode_count": 60300,
+    "selected_episode_count": 60300,
+    "language_counts": {
+      "en-IN": 13336,
+      "en-US": 6660,
+      "hi-IN": 20221,
+      "te-IN": 20083
+    },
+    "source_frames": 5686821,
+    "replay_frames": 7530004,
+    "episode_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide.json.gz",
+    "gt_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide_gt.json.gz",
+    "motion_conversion": {
+      "source_turn_angle_deg": 30,
+      "replay_turn_angle_deg": 15,
+      "turns_per_source_turn": 2,
+      "forward_step_m": 0.25
+    },
+    "navigation": {
+      "navmesh": "rxr_in_memory",
+      "agent_height_m": 0.88,
+      "agent_radius_m": 0.18,
+      "allow_sliding": false,
+      "other_navmesh_settings": "Habitat-Sim NavMeshSettings defaults"
+    }
+  },
+  "full_plan": {
+    "episodes": 60300,
+    "frames": 7530004,
+    "physical_routes": 8396,
+    "rendered_frames": 1050063,
+    "shards": 1078
+  },
+  "checks": {
+    "pipeline_cpu_tests": 108,
+    "ruff": "passed",
+    "shell_syntax": "passed"
+  },
+  "first_attempt": {
+    "output_work": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_20260916.work",
+    "status": "failed_not_published",
+    "reason": "RxR native 30-degree turn cannot be replayed as a single LightNav 15-degree turn"
+  },
+  "current_output": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_rxrnav_20260916",
+  "current_work": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_rxrnav_20260916.work",
+  "status": "corrected_sample_validated_full_train_running",
+  "complete": false,
+  "upstream_motion_config": "https://github.com/jacobkrantz/VLN-CE/blob/master/habitat_extensions/config/rxr_vlnce_english_task.yaml",
+  "r2r_regression": {
+    "episodes": 10819,
+    "physical_routes": 3603,
+    "frames": 631244
+  },
+  "launch": {
+    "pid": 138695,
+    "started_utc": "20260916T102851Z",
+    "command": [
+      "bash",
+      "data_pipeline/run_rxr.sh",
+      "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_rxrnav_20260916",
+      "--workers",
+      "32",
+      "--gpus",
+      "1",
+      "3"
+    ],
+    "log": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_rxrnav_20260916.work/logs/full-train-20260916T102851Z.log",
+    "output": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_rxrnav_20260916",
+    "work": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_rxrnav_20260916.work",
+    "navmesh": "rxr_in_memory",
+    "scope": "train guide all languages",
+    "plan_sha256": "032d485d0ebb8a0bc2328485df1065f74ab5bd13a026fe08b5d0553f92e7a678"
+  },
+  "previous_turn15_attempt": {
+    "current_output": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916",
+    "current_work": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916.work",
+    "first_shard": {
+      "complete": true,
+      "plan_sha256": "1edfbb7ff80a3efe9ee3b2c0be487ded97316deb21f84f2aa8ea47dd0f3fb0b2",
+      "shard_id": 0,
+      "episodes": 60,
+      "frames": 5784,
+      "physical_routes": 8,
+      "gpu_id": 0,
+      "capture_seconds": 102.57298003323376,
+      "export_seconds": 415.5364114474505,
+      "validation_seconds": 436.61598559934646,
+      "elapsed_seconds": 954.7253773622215,
+      "path": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916.work/shards/00000",
+      "features_identical_to_r2r": true,
+      "source_metadata_exact": true,
+      "validation": {
+        "complete": true,
+        "format": "LeRobotDataset v3.0",
+        "frames": 5784,
+        "official_loader_all_frames": true,
+        "dataloader_batch": true,
+        "rgb_depth_hashes_exact": true,
+        "all_30_source_arrays_exact": true,
+        "geometry_recomputed": true,
+        "finite_masked_stats": true,
+        "source_comparison": false,
+        "self_contained": true
+      }
+    },
+    "launch": {
+      "pid": 137162,
+      "started_utc": "20260916T101200Z",
+      "command": [
+        "bash",
+        "data_pipeline/run_rxr.sh",
+        "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916",
+        "--workers",
+        "32",
+        "--gpus",
+        "1",
+        "3"
+      ],
+      "log": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916.work/logs/full-train-20260916T101200Z.log",
+      "output": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916",
+      "work": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916.work",
+      "plan_sha256": "1edfbb7ff80a3efe9ee3b2c0be487ded97316deb21f84f2aa8ea47dd0f3fb0b2",
+      "pilot_validated": true
+    },
+    "status": "stopped_superseded_not_published",
+    "reason": "Episode 58477 failed on the existing mesh; RxR agent dimensions and no-sliding collision settings are required"
+  },
+  "navigation_probe": {
+    "dataset": "rxr",
+    "split": "train",
+    "role": "guide",
+    "results": [
+      {
+        "episode_id": "58477",
+        "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+        "turn_angle_deg": 15,
+        "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+        "allow_sliding": true,
+        "frames": 111,
+        "collisions": 1,
+        "max_route_deviation_m": 0.049775897681557005,
+        "goal_distance_m": 0.3922860026359558,
+        "source_gt_goal_distance_m": 0.43515026569366455,
+        "terminal_world": [
+          0.47214794158935547,
+          0.39466360211372375,
+          3.15122127532959
+        ],
+        "source_gt_terminal_world": [
+          0.4616125822067261,
+          0.42293184995651245,
+          3.1158859729766846
+        ],
+        "source_goal": [
+          0.40522798895835876,
+          0.1920035183429718,
+          3.480370044708252
+        ]
+      },
+      {
+        "episode_id": "58477",
+        "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+        "turn_angle_deg": 15,
+        "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+        "allow_sliding": false,
+        "frames": 111,
+        "collisions": 1,
+        "max_route_deviation_m": 4.704188990488502e-06,
+        "goal_distance_m": 0.4351481795310974,
+        "source_gt_goal_distance_m": 0.43515026569366455,
+        "terminal_world": [
+          0.4616128206253052,
+          0.422930508852005,
+          3.1158876419067383
+        ],
+        "source_gt_terminal_world": [
+          0.4616125822067261,
+          0.42293184995651245,
+          3.1158859729766846
+        ],
+        "source_goal": [
+          0.40522798895835876,
+          0.1920035183429718,
+          3.480370044708252
+        ]
+      },
+      {
+        "episode_id": "58477",
+        "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+        "turn_angle_deg": 30,
+        "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+        "allow_sliding": true,
+        "frames": 84,
+        "collisions": 1,
+        "max_route_deviation_m": 0.04977599930457596,
+        "goal_distance_m": 0.3922902047634125,
+        "source_gt_goal_distance_m": 0.43515026569366455,
+        "terminal_world": [
+          0.47214633226394653,
+          0.394666463136673,
+          3.1512176990509033
+        ],
+        "source_gt_terminal_world": [
+          0.4616125822067261,
+          0.42293184995651245,
+          3.1158859729766846
+        ],
+        "source_goal": [
+          0.40522798895835876,
+          0.1920035183429718,
+          3.480370044708252
+        ]
+      },
+      {
+        "episode_id": "58477",
+        "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+        "turn_angle_deg": 30,
+        "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+        "allow_sliding": false,
+        "frames": 84,
+        "collisions": 1,
+        "max_route_deviation_m": 0.0,
+        "goal_distance_m": 0.43515026569366455,
+        "source_gt_goal_distance_m": 0.43515026569366455,
+        "terminal_world": [
+          0.4616125822067261,
+          0.42293184995651245,
+          3.1158859729766846
+        ],
+        "source_gt_terminal_world": [
+          0.4616125822067261,
+          0.42293184995651245,
+          3.1158859729766846
+        ],
+        "source_goal": [
+          0.40522798895835876,
+          0.1920035183429718,
+          3.480370044708252
+        ]
+      }
+    ]
+  },
+  "validation_note": "Corrected 111-frame sample validated; full 60,300-episode build is still running. Previous 60-episode shard belongs to superseded navigation settings.",
+  "latest_status": {
+    "state": "generating",
+    "plan_sha256": "032d485d0ebb8a0bc2328485df1065f74ab5bd13a026fe08b5d0553f92e7a678",
+    "total_shards": 1078,
+    "completed_shards": 0,
+    "episodes": 0,
+    "frames": 0,
+    "expected_episodes": 60300,
+    "expected_frames": 7530004,
+    "errors": [],
+    "updated_unix": 1789554759.604485
+  },
+  "corrected_sample": {
+    "path": "/mnt/cfs/data/beta_nav/lerobot_rxr_58477_rxrnav_20260916",
+    "episode_id": "58477",
+    "frames": 111,
+    "complete": true,
+    "features_identical_to_r2r": true,
+    "official_loader_all_frames": true,
+    "source_comparison": true,
+    "independent_validation_after_capture_removed": true,
+    "report": "data_pipeline/reports/rxr_58477_rxrnav_validation_20260916.json"
+  },
+  "checked_unix": 1789554769.8542345,
+  "current_capture_progress": {
+    "physical_routes": 237,
+    "physical_frames": 26670,
+    "note": "In-progress captures; these are not yet fully validated exported shards."
+  }
+}

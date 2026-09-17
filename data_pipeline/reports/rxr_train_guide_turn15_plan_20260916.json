@@ -1,0 +1,62 @@
+{
+  "source_episodes": 60300,
+  "physical_routes": 8396,
+  "scenes": 59,
+  "frames": 7530004,
+  "rendered_frames": 1050063,
+  "routes_per_shard": 8,
+  "format": "beta_nav_full_train_plan_v1",
+  "split": "train",
+  "dataset": "rxr",
+  "source_selection": {
+    "dataset": "rxr",
+    "split": "train",
+    "role": "guide",
+    "languages": [
+      "all"
+    ],
+    "source_episode_count": 60300,
+    "selected_episode_count": 60300,
+    "language_counts": {
+      "en-IN": 13336,
+      "en-US": 6660,
+      "hi-IN": 20221,
+      "te-IN": 20083
+    },
+    "source_frames": 5686821,
+    "replay_frames": 7530004,
+    "episode_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide.json.gz",
+    "gt_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide_gt.json.gz",
+    "motion_conversion": {
+      "source_turn_angle_deg": 30,
+      "replay_turn_angle_deg": 15,
+      "turns_per_source_turn": 2,
+      "forward_step_m": 0.25
+    }
+  },
+  "role": "guide",
+  "languages": [
+    "all"
+  ],
+  "width": 470,
+  "height": 280,
+  "seed": 20260911,
+  "repo_id": "beta-nav/rxr-train-guide",
+  "data_root": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0",
+  "scenes_dir": "/mnt/cfs/data/habitat/scene_datasets",
+  "rvq_bundle": "/mnt/cfs/Models/Light/action_tokenizer",
+  "pointing_config": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/configs/pointing.json",
+  "output_dir": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916",
+  "source_sha256": {
+    "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide.json.gz": "fe127cfe9350123e7ff511c858f866b2d538564bac910da698bfff4ee46be07e",
+    "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide_gt.json.gz": "46373fec825aa09f6e26fb7ec7be372d105ed9b4d01e162bb23a18f928e8229c"
+  },
+  "plan_sha256": "1edfbb7ff80a3efe9ee3b2c0be487ded97316deb21f84f2aa8ea47dd0f3fb0b2",
+  "shards": 1078,
+  "first_shard": {
+    "id": 0,
+    "scene_id": "mp3d/17DRP5sb8fy/17DRP5sb8fy.glb",
+    "episodes": 60,
+    "frames": 5784
+  }
+}

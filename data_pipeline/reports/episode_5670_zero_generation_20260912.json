@@ -1,0 +1,337 @@
+{
+  "complete": true,
+  "dataset": "/mnt/cfs/data/beta_nav/r2r_one_episode_zero_20260912",
+  "episode": "/mnt/cfs/data/beta_nav/r2r_one_episode_zero_20260912/episodes/5670",
+  "episode_id": "5670",
+  "frames": 60,
+  "format": "beta_nav_v2 (JSON/NPZ/RGB/depth); LeRobot export not generated",
+  "instruction": "Exit the pantry and head right, past the stairs. Continue following the hall to the right, past the outside entry and table. Turn right, before the tree, and wait in the bathroom entry on the left. ",
+  "camera": {
+    "width": 470,
+    "height": 280,
+    "hfov_deg": 120.0,
+    "position_body_native": [
+      0,
+      0.88,
+      0
+    ],
+    "orientation_euler": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "K": [
+      [
+        135.67731325956208,
+        0.0,
+        235.0
+      ],
+      [
+        0.0,
+        135.67731325956208,
+        140.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "min_depth_m": 0.0,
+    "max_depth_m": 10.0,
+    "depth_unit": "metre",
+    "depth_type": "camera_z",
+    "depth_normalized": false,
+    "depth_clipped_to_range": true,
+    "invalid_depth": "use each depth NPZ valid mask"
+  },
+  "pointing_config": {
+    "horizon": 10,
+    "tail_policy": "terminal",
+    "path_spacing_m": 0.02,
+    "depth_tolerance_m": 0.05,
+    "depth_relative_tolerance": 0.01,
+    "opos_mode": "terminal_ground",
+    "unknown_token_id": 0
+  },
+  "pointing_states": {
+    "apos": {
+      "unknown": 7,
+      "point": 53
+    },
+    "opos": {
+      "not_visible": 17,
+      "point": 43
+    }
+  },
+  "fm_full_30_frames": 30,
+  "rvq_motion_full_10_frames": 50,
+  "rvq_stop_frames": 1,
+  "stop": {
+    "frame_index": 59,
+    "codes": [
+      6,
+      122,
+      174
+    ],
+    "tokens": "<act_l0_6><act_l1_122><act_l2_174>",
+    "recognized": true,
+    "apos_token": "<apos_0>",
+    "opos_token": "<opos_0>"
+  },
+  "all_pointing_tokens_nonnegative": true,
+  "all_output_tokens_verified_against_model_tokenizer": true,
+  "motion_arrays": {
+    "world_from_body": {
+      "shape": [
+        60,
+        4,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "world_from_camera_cv": {
+      "shape": [
+        60,
+        4,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "world_from_depth_camera_cv": {
+      "shape": [
+        60,
+        4,
+        4
+      ],
+      "dtype": "float64"
+    },
+    "fm_waypoints_ego": {
+      "shape": [
+        60,
+        30,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "fm_clean_se2_diff": {
+      "shape": [
+        60,
+        30,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "fm_valid_mask": {
+      "shape": [
+        60,
+        30
+      ],
+      "dtype": "bool"
+    },
+    "future_frame_ids": {
+      "shape": [
+        60,
+        30
+      ],
+      "dtype": "int64"
+    },
+    "future_vertical_offset_m": {
+      "shape": [
+        60,
+        30
+      ],
+      "dtype": "float32"
+    },
+    "rvq_codes": {
+      "shape": [
+        60,
+        3
+      ],
+      "dtype": "int32"
+    },
+    "rvq_valid_mask": {
+      "shape": [
+        60
+      ],
+      "dtype": "bool"
+    },
+    "rvq_reconstruction": {
+      "shape": [
+        60,
+        10,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "rvq_ade_m": {
+      "shape": [
+        60
+      ],
+      "dtype": "float32"
+    },
+    "apos_pixel": {
+      "shape": [
+        60,
+        2
+      ],
+      "dtype": "float64"
+    },
+    "apos_world": {
+      "shape": [
+        60,
+        3
+      ],
+      "dtype": "float64"
+    },
+    "apos_token_id": {
+      "shape": [
+        60
+      ],
+      "dtype": "int32"
+    },
+    "apos_valid_mask": {
+      "shape": [
+        60
+      ],
+      "dtype": "bool"
+    },
+    "apos_target_world": {
+      "shape": [
+        60,
+        3
+      ],
+      "dtype": "float64"
+    },
+    "apos_target_frame_id": {
+      "shape": [
+        60
+      ],
+      "dtype": "int32"
+    },
+    "apos_pixel_rc": {
+      "shape": [
+        60,
+        2
+      ],
+      "dtype": "int32"
+    },
+    "apos_grid_rc": {
+      "shape": [
+        60,
+        2
+      ],
+      "dtype": "int32"
+    },
+    "apos_grid_id": {
+      "shape": [
+        60
+      ],
+      "dtype": "int32"
+    },
+    "opos_pixel": {
+      "shape": [
+        60,
+        2
+      ],
+      "dtype": "float32"
+    },
+    "opos_world": {
+      "shape": [
+        60,
+        3
+      ],
+      "dtype": "float32"
+    },
+    "opos_token_id": {
+      "shape": [
+        60
+      ],
+      "dtype": "int32"
+    },
+    "opos_valid_mask": {
+      "shape": [
+        60
+      ],
+      "dtype": "bool"
+    },
+    "opos_target_world": {
+      "shape": [
+        60,
+        3
+      ],
+      "dtype": "float64"
+    },
+    "opos_target_frame_id": {
+      "shape": [
+        60
+      ],
+      "dtype": "int32"
+    },
+    "opos_pixel_rc": {
+      "shape": [
+        60,
+        2
+      ],
+      "dtype": "int32"
+    },
+    "opos_grid_rc": {
+      "shape": [
+        60,
+        2
+      ],
+      "dtype": "int32"
+    },
+    "opos_grid_id": {
+      "shape": [
+        60
+      ],
+      "dtype": "int32"
+    }
+  },
+  "readable_examples": [
+    "/mnt/cfs/data/beta_nav/r2r_one_episode_zero_20260912/review/frame_000020.json",
+    "/mnt/cfs/data/beta_nav/r2r_one_episode_zero_20260912/review/frame_000059.json"
+  ],
+  "video": "/mnt/cfs/data/beta_nav/visual/episode_5670_zero_gt_20260912.mp4",
+  "preview": "/mnt/cfs/data/beta_nav/visual/episode_5670_zero_gt_20260912.png",
+  "validation": {
+    "episodes": 1,
+    "frames": 60,
+    "full_rvq_10": 50,
+    "full_fm_30": 30,
+    "stop_samples": 1,
+    "depth_reprojection_turn_pairs": 14,
+    "median_pair_depth_reprojection_error_m": 0.0031438481190961265,
+    "max_pair_median_depth_reprojection_error_m": 0.005336094394511437,
+    "all_saved_images_depths_poses_masks_checked": true,
+    "all_recorded_turns_match_15_degree_sign": null
+  },
+  "reproduction_command": "bash data_pipeline/run.sh /mnt/cfs/data/beta_nav/NEW_RUN 1",
+  "provenance": {
+    "files": {
+      "collect_r2r.py": "558b328232c96827272463d58020602f4267c1fbac6c466d02d172588c2f3768",
+      "geometry.py": "7697d4e1fe3768b5607811fb21bbf0409c9d546ad3695bfe26ec151205c45e54",
+      "pointing.json": "6fb88760b44ee5bbda3b5f473bdb935a4fe83e42f766000ad79abf7d842a6a12",
+      "pointing.py": "14a9d35605611573a56942add7b71a8805cc15ef67a361423f7e96caa83326e5",
+      "run.sh": "568a76aa84b143bda4b1cb5c639fb54ecc305e0dae5db88bd0ba31c38501ee3d",
+      "traj_vocab.py": "84c83780ba893d468e7529f5de44223f5f2aa44c099eb46fac3edb1786c14f0d",
+      "validate_pointing.py": "f86f58ee4d9f0f6aa5d278b57cb18925bc2b95a533210348717409c3de518ce0",
+      "validate_r2r.py": "481c0fdd4d8ded33aed577d327daa6341df2f5456d7a596d5d575dac58342851",
+      "vln_utils.py": "3d2e35fbe793497f6043a45d53a9d0a7b9498e07b10d4458df4832a04b5b8bec",
+      "vlnce_r2r.yaml": "a8bada444748210675fd7295f893f57b58bd46c5832dfc6a4d5e76df0dbf6588"
+    },
+    "rvq_asset_hashes": {
+      "alpha_per_source.json": "1f2eb837d18b17073730e22cbaf6efd0b49d580c9d8ff8be41605e8fa58dfa54",
+      "codebook_l0.npy": "daaea83b3ae4637a042d1f61b34a687870d735ef709689e02c1e43d39aab6e16",
+      "codebook_l1.npy": "dfde603f96b333cda4c676613ac2f772cec3906a8dbbb7a7415bfeb4aa04e4bf",
+      "codebook_l2.npy": "2a7b186159bc9375997535008028930efe09c9b239a522639aff6febfac6c51c",
+      "distance_l0.npy": "c52ba050dee23d720a805630eb9ff2530437cf6f0acc9de2ffd5b5658f6fb232",
+      "distance_l1.npy": "4468921632e795389edf00bdb879bbf1670f4ed1e0a001649d7350a4e7669f5d",
+      "distance_l2.npy": "27c0ed18606d53cfb5c47f8f822345c2c509c30979ad106607bd610125d0b509",
+      "jacobian_weights.npy": "43872af8deba9986c40da98b8511f5b94b3353a053132b22f7a190b2d7cf9feb",
+      "manifest.json": "00d77ae028edf59e0ce68b49122dd0a60da527f48508f5ee335a580993a12864"
+    },
+    "local_api_config_included": false
+  }
+}

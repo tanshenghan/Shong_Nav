@@ -1,0 +1,27 @@
+{
+  "source_episodes": 10819,
+  "physical_routes": 3603,
+  "scenes": 61,
+  "frames": 631244,
+  "rendered_frames": 210194,
+  "plan_sha256": "b4c189cc1e8c8eb2f10ddaff187d129d2328c9d9b95147ec2080fc171d727680",
+  "source_selection": {
+    "dataset": "r2r",
+    "split": "train",
+    "role": null,
+    "languages": [
+      "all"
+    ],
+    "source_episode_count": 10819,
+    "selected_episode_count": 10819,
+    "language_counts": {
+      "unspecified": 10819
+    },
+    "source_frames": 631244,
+    "replay_frames": 631244,
+    "episode_file": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz",
+    "gt_file": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train_gt.json.gz"
+  },
+  "shards": 480,
+  "output": "/tmp/r2r_source_adapter_check_20260916"
+}

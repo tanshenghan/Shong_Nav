@@ -1,0 +1,166 @@
+{
+  "observed_utc": "2026-09-13T09:24:02.646384+00:00",
+  "checkpoint": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00003000",
+  "files": {
+    "COMPLETE": {
+      "bytes": 22,
+      "mtime_unix": 1789290911.6105719
+    },
+    "metadata.json": {
+      "bytes": 5563,
+      "mtime_unix": 1789290911.592239
+    },
+    "model.pt": {
+      "bytes": 17939743603,
+      "mtime_unix": 1789290801.6002889
+    },
+    "optimizer-fm.pt": {
+      "bytes": 292223686,
+      "mtime_unix": 1789290911.5022905
+    },
+    "optimizer-vlm.pt": {
+      "bytes": 32264301277,
+      "mtime_unix": 1789290908.3373039
+    },
+    "rng-00000.pt": {
+      "bytes": 14709,
+      "mtime_unix": 1789289524.9758108
+    },
+    "rng-00001.pt": {
+      "bytes": 14645,
+      "mtime_unix": 1789289524.9843612
+    },
+    "rng-00002.pt": {
+      "bytes": 14645,
+      "mtime_unix": 1789289524.9643676
+    },
+    "rng-00003.pt": {
+      "bytes": 14709,
+      "mtime_unix": 1789289524.9713004
+    },
+    "rng-00004.pt": {
+      "bytes": 14645,
+      "mtime_unix": 1789289524.9502196
+    },
+    "rng-00005.pt": {
+      "bytes": 14709,
+      "mtime_unix": 1789289524.991303
+    },
+    "rng-00006.pt": {
+      "bytes": 14709,
+      "mtime_unix": 1789289524.9589415
+    },
+    "rng-00007.pt": {
+      "bytes": 14645,
+      "mtime_unix": 1789289524.9546258
+    },
+    "trainer.json": {
+      "bytes": 217,
+      "mtime_unix": 1789290911.573293
+    }
+  },
+  "total_GiB": 47.028429605066776,
+  "checkpoint_seconds_after_first_rng": 1386.660352230072,
+  "before_model_file_finished_seconds": 1276.6500692367554,
+  "evidence": "Live nonblocking py-spy samples: rank 0 waited in _broadcast_object; rank 1 held the GIL at torch.ByteTensor(data) inside ZeroRedundancyOptimizer.consolidate_state_dict. Native code serially broadcasts each rank optimizer state as a pickled byte object.",
+  "cpu_conversion_benchmark": {
+    "torch_version": "2.10.0+cu128",
+    "device": "cpu",
+    "results": [
+      {
+        "bytes": 8388608,
+        "byte_tensor_seconds": 0.35829884372651577,
+        "frombuffer_seconds": 4.2323023080825806e-05,
+        "conversion_MiB_per_second": 22.32773044086707
+      },
+      {
+        "bytes": 33554432,
+        "byte_tensor_seconds": 1.4434270896017551,
+        "frombuffer_seconds": 4.497077316045761e-05,
+        "conversion_MiB_per_second": 22.16946060561249
+      }
+    ],
+    "note": "Small isolated byte-conversion probe, not an end-to-end checkpoint benchmark."
+  },
+  "followup_stack_rank1": [
+    {
+      "pid": 4141709,
+      "thread_id": 139971982608192,
+      "thread_name": "MainThread",
+      "os_thread_id": 4141709,
+      "active": true,
+      "owns_gil": false,
+      "frames": [
+        {
+          "name": "_broadcast_object",
+          "filename": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/.venv/lib/python3.11/site-packages/torch/distributed/optim/zero_redundancy_optimizer.py",
+          "module": null,
+          "short_filename": "torch/distributed/optim/zero_redundancy_optimizer.py",
+          "line": 113,
+          "locals": null,
+          "is_entry": false,
+          "is_shim_entry": false
+        },
+        {
+          "name": "consolidate_state_dict",
+          "filename": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/.venv/lib/python3.11/site-packages/torch/distributed/optim/zero_redundancy_optimizer.py",
+          "module": null,
+          "short_filename": "torch/distributed/optim/zero_redundancy_optimizer.py",
+          "line": 588,
+          "locals": null,
+          "is_entry": false,
+          "is_shim_entry": false
+        },
+        {
+          "name": "save_checkpoint",
+          "filename": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/training/checkpoint.py",
+          "module": null,
+          "short_filename": "lightnav/training/checkpoint.py",
+          "line": 129,
+          "locals": null,
+          "is_entry": false,
+          "is_shim_entry": false
+        },
+        {
+          "name": "train",
+          "filename": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/training/train_betanav.py",
+          "module": null,
+          "short_filename": "lightnav/training/train_betanav.py",
+          "line": 295,
+          "locals": null,
+          "is_entry": false,
+          "is_shim_entry": false
+        },
+        {
+          "name": "main",
+          "filename": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/training/train_betanav.py",
+          "module": null,
+          "short_filename": "lightnav/training/train_betanav.py",
+          "line": 324,
+          "locals": null,
+          "is_entry": false,
+          "is_shim_entry": false
+        },
+        {
+          "name": "<module>",
+          "filename": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/train_betanav.py",
+          "module": null,
+          "short_filename": "train_betanav.py",
+          "line": 6,
+          "locals": null,
+          "is_entry": true,
+          "is_shim_entry": true
+        }
+      ],
+      "process_info": null
+    }
+  ],
+  "caveat": "File modification times do not isolate model device-to-host copy from optimizer consolidation or model write; byte conversion probe is small and not a full checkpoint benchmark.",
+  "configuration_change": {
+    "eval_every": 0,
+    "save_best": false,
+    "save_every": 1000,
+    "lambda_fm": 2.0
+  },
+  "checkpoint_format_changed": false
+}

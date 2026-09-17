@@ -1,0 +1,128 @@
+{
+  "status": "read_only_inventory_no_deletion_performed",
+  "data_root": "/mnt/cfs/data/beta_nav",
+  "disk_bytes_sum": 348835840,
+  "entries": [
+    {
+      "path": "/mnt/cfs/data/beta_nav/DATA_COLLECTION.md",
+      "disk_bytes": 8192,
+      "role": "root_documentation_or_index"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/README.md",
+      "disk_bytes": 4096,
+      "role": "root_documentation_or_index"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/dataset_index.json",
+      "disk_bytes": 4096,
+      "role": "root_documentation_or_index"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/lightnav_2864_closed_loop_20260912",
+      "disk_bytes": 40296448,
+      "role": "retain_if_model_run_is_needed: recorded actual model predictions/observations"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_2864_gt_20260911",
+      "disk_bytes": 135168,
+      "role": "historical_failed_annotation",
+      "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_2864_gt_20260911_v2",
+      "disk_bytes": 839680,
+      "role": "historical_annotation",
+      "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_2864_gt_grid_20260912",
+      "disk_bytes": 991232,
+      "role": "historical_grid_annotation",
+      "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_2864_opos_endpoint_20260912",
+      "disk_bytes": 757760,
+      "role": "retain_for_current_data: final endpoint pointing labels for episode 2864; references raw dataset",
+      "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_2864_opos_tail8_20260912",
+      "disk_bytes": 163840,
+      "role": "historical_failed_tail8_annotation",
+      "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_2864_opos_tail8_20260912_v2",
+      "disk_bytes": 2379776,
+      "role": "historical_tail8_annotation_and_API_results",
+      "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911",
+      "disk_bytes": 280440832,
+      "role": "retain_for_current_data: raw RGB/depth/poses and FM/RVQ for 10 episodes, 506 frames"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_train_470x280_apos10_20260911",
+      "disk_bytes": 5009408,
+      "role": "historical_labels: 10-episode apos-only overlay",
+      "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/r2r_train_470x280_pilot",
+      "disk_bytes": 20480,
+      "role": "historical_failed_pilot"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/rerun_collection.sh",
+      "disk_bytes": 4096,
+      "role": "root_documentation_or_index"
+    },
+    {
+      "path": "/mnt/cfs/data/beta_nav/visual",
+      "disk_bytes": 17780736,
+      "role": "optional_rendered_media: can render GT again only while source datasets remain"
+    }
+  ],
+  "minimum_current_data_roots": [
+    "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911",
+    "/mnt/cfs/data/beta_nav/r2r_2864_opos_endpoint_20260912"
+  ],
+  "regeneration_dependencies": [
+    {
+      "path": "/mnt/pfs/tanshenghan/vln4project/LightNav-0",
+      "exists": true,
+      "resolved": "/mnt/pfs/tanshenghan/vln4project/LightNav-0"
+    },
+    {
+      "path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz",
+      "exists": true,
+      "resolved": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz"
+    },
+    {
+      "path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train_gt.json.gz",
+      "exists": true,
+      "resolved": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train_gt.json.gz"
+    },
+    {
+      "path": "/mnt/cfs/data/habitat/scene_datasets",
+      "exists": true,
+      "resolved": "/mnt/cfs/data/habitat/scene_datasets"
+    },
+    {
+      "path": "/mnt/cfs/Models/Light/action_tokenizer",
+      "exists": true,
+      "resolved": "/mnt/cfs/Models/Light/action_tokenizer"
+    },
+    {
+      "path": "/mnt/pfs/jiayilin/Image2Sim-Robot/envs/habitat-image2sim/bin/python",
+      "exists": true,
+      "resolved": "/mnt/pfs/jiayilin/Image2Sim-Robot/envs/habitat-image2sim/bin/python3.9"
+    }
+  ],
+  "regeneration_check_scope": "Input locations exist outside beta_nav; no GPU recollection or reproducibility check was run.",
+  "lerobot_export_exists": false,
+  "cleanup_conclusion": "Deleting all contents discards the current 10-episode raw dataset, all annotations, real model rollout and media. For future conversion retain raw plus current endpoint labels. A full reset is possible only if these outputs are intentionally abandoned and recollected. Code snapshots and the one-frame example do not back up RGB/depth datasets."
+}

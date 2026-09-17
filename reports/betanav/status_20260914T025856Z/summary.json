@@ -1,0 +1,263 @@
+{
+  "observed_at_utc": "2026-09-14T02:58:56.163978+00:00",
+  "launch": {
+    "status": "running",
+    "phase": "training",
+    "launcher_pid": 1907366,
+    "supervisor_pid": 1907364,
+    "max_steps": 29589,
+    "started_at_unix": 1789351074.992235,
+    "finished_at_unix": null,
+    "exit_code": null,
+    "reason": "User cancelled migration and explicitly requested resuming on GPUs 0-7 on this server."
+  },
+  "latest_metric": {
+    "step": 18380,
+    "time_unix": 1789354681.0125809,
+    "train_loss": 1.4639230447105518,
+    "train_ce": 0.08246743504668365,
+    "train_fm": 0.6907278048319341,
+    "lr_vlm": 4.003479776734344e-06,
+    "lr_fm": 4.0034797767343434e-05,
+    "grad_norm_vlm": 6.213377952575684,
+    "grad_norm_fm": 744.0643310546875,
+    "ce_tokens": 333,
+    "fm_valid_steps": 1382,
+    "samples": 64,
+    "samples_seen": 1176272,
+    "epoch": 1,
+    "batch_offset": 5469,
+    "no_future_samples": 0,
+    "padding_fraction": 0.2980059523809524,
+    "update_seconds": 9.968224327079952,
+    "samples_per_second": 6.420401257035904,
+    "input_tokens_per_second": 4732.437639053308,
+    "data_wait_seconds_max": 0.0003526676446199417,
+    "update_seconds_by_rank": [
+      9.96316469553858,
+      9.962505211122334,
+      9.962494006380439,
+      9.96306830458343,
+      9.966098066419363,
+      9.967034708708525,
+      9.968224327079952,
+      9.960527539253235
+    ],
+    "data_wait_seconds_by_rank": [
+      0.00013621803373098373,
+      0.00032730307430028915,
+      0.00025791116058826447,
+      0.00015744008123874664,
+      0.00014296267181634903,
+      0.00016054045408964157,
+      0.00014543253928422928,
+      0.0003526676446199417
+    ],
+    "peak_memory_gib": 48.5727481842041,
+    "peak_reserved_memory_gib": 53.48046875
+  },
+  "last_metric_age_seconds": 55.15143370628357,
+  "progress_pct": 62.11767886714657,
+  "last_1000_steps": {
+    "first_step": 17390,
+    "last_step": 18380,
+    "logged_points": 100,
+    "train_loss": {
+      "mean": 1.3728971550749132,
+      "min": 1.0405211395028777,
+      "max": 1.7722269268101012
+    },
+    "train_ce": {
+      "mean": 0.09322652622443721,
+      "min": 0.02467915124996284,
+      "max": 0.20908782475475055
+    },
+    "train_fm": {
+      "mean": 0.6398353144252379,
+      "min": 0.4878740992458952,
+      "max": 0.8365954026961938
+    },
+    "update_seconds": {
+      "mean": 7.233052954347804,
+      "min": 2.829377737827599,
+      "max": 10.60167973767966
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.0002487436402589083,
+      "min": 0.00012224912643432617,
+      "max": 0.0005421563982963562
+    },
+    "padding_fraction": {
+      "mean": 0.3272190407145471,
+      "min": 0.2521249534681722,
+      "max": 0.3969983808693486
+    },
+    "wall_seconds_per_step": 8.147661885348233
+  },
+  "previous_1000_steps": {
+    "first_step": 16390,
+    "last_step": 17380,
+    "logged_points": 100,
+    "train_loss": {
+      "mean": 1.3954729953204201,
+      "min": 1.1005758121759528,
+      "max": 1.9589109187899136
+    },
+    "train_ce": {
+      "mean": 0.11024213997739782,
+      "min": 0.042850222311213486,
+      "max": 0.2007984610348098
+    },
+    "train_fm": {
+      "mean": 0.6426154276715111,
+      "min": 0.5088467331655533,
+      "max": 0.9078532935196761
+    },
+    "update_seconds": {
+      "mean": 3.281787305455655,
+      "min": 2.7642873264849186,
+      "max": 4.007329190149903
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.00018266043625772,
+      "min": 0.0001137852668762207,
+      "max": 0.0008721817284822464
+    },
+    "padding_fraction": {
+      "mean": 0.331460317977375,
+      "min": 0.2581742551270476,
+      "max": 0.3999092612106311
+    },
+    "wall_seconds_per_step": 3.3475556243549693
+  },
+  "last_30_minutes": {
+    "first_step": 18190,
+    "last_step": 18380,
+    "logged_points": 20,
+    "train_loss": {
+      "mean": 1.3183718575927468,
+      "min": 1.0405211395028777,
+      "max": 1.5171690877141566
+    },
+    "train_ce": {
+      "mean": 0.07787382874135618,
+      "min": 0.04286265423687803,
+      "max": 0.11941930646202431
+    },
+    "train_fm": {
+      "mean": 0.6202490144256954,
+      "min": 0.4878740992458952,
+      "max": 0.7092580921669174
+    },
+    "update_seconds": {
+      "mean": 9.21560400063172,
+      "min": 7.904900647699833,
+      "max": 10.60167973767966
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.0003424865659326315,
+      "min": 0.00024452991783618927,
+      "max": 0.0004751207306981087
+    },
+    "padding_fraction": {
+      "mean": 0.33030025307332705,
+      "min": 0.2809951308581863,
+      "max": 0.3690512507626602
+    },
+    "wall_seconds_per_step": 9.436398715721934
+  },
+  "recent_checkpoint_events": [],
+  "errors": [],
+  "latest.json": {
+    "checkpoint": "step-00018000",
+    "step": 18000
+  },
+  "latest_model.json": {
+    "checkpoint": "step-00018000",
+    "step": 18000,
+    "format": "betanav_model_v1"
+  },
+  "rolling_checkpoints": [
+    "step-00016000",
+    "step-00017000",
+    "step-00018000"
+  ],
+  "permanent_models": [
+    "step-00003000",
+    "step-00006000",
+    "step-00009000",
+    "step-00012000",
+    "step-00015000",
+    "step-00018000"
+  ],
+  "remaining_hours_at_recent_speed": 29.381275890146433,
+  "latest_metric_after_recheck": {
+    "step": 18390,
+    "time_unix": 1789354771.4926465,
+    "train_loss": 1.1943419282722954,
+    "train_ce": 0.09018080750034309,
+    "train_fm": 0.5520805603859761,
+    "lr_vlm": 3.998817008129795e-06,
+    "lr_fm": 3.998817008129795e-05,
+    "grad_norm_vlm": 6.468903541564941,
+    "grad_norm_fm": 60.8569450378418,
+    "ce_tokens": 355,
+    "fm_valid_steps": 1455,
+    "samples": 64,
+    "samples_seen": 1176912,
+    "epoch": 1,
+    "batch_offset": 5479,
+    "no_future_samples": 0,
+    "padding_fraction": 0.2853244837758112,
+    "update_seconds": 9.484351236373186,
+    "samples_per_second": 6.747957599308984,
+    "input_tokens_per_second": 5108.941960539325,
+    "data_wait_seconds_max": 0.00033829547464847565,
+    "update_seconds_by_rank": [
+      9.479954104870558,
+      9.478711929172277,
+      9.481353538110852,
+      9.48180869128555,
+      9.48276344500482,
+      9.484046154655516,
+      9.484351236373186,
+      9.471996212378144
+    ],
+    "data_wait_seconds_by_rank": [
+      0.00022879242897033691,
+      0.0001402832567691803,
+      0.00033829547464847565,
+      0.00025654397904872894,
+      0.00032073259353637695,
+      0.0002019135281443596,
+      0.0002571903169155121,
+      0.00021908432245254517
+    ],
+    "peak_memory_gib": 48.5727481842041,
+    "peak_reserved_memory_gib": 53.48046875
+  },
+  "fm_gradient_observation": {
+    "scope": "current resumed phase, every-10-step logged updates",
+    "median_before_clip": 82.43305206298828,
+    "max_before_clip": 744.0643310546875,
+    "logged_points": 39,
+    "above100": 16,
+    "configured_clip_norm": 1.0,
+    "norm_logged_before_clipping": true
+  },
+  "gpu_process_observation": {
+    "training_worker_pids": [
+      1907781,
+      1907782,
+      1907783,
+      1907784,
+      1907785,
+      1907786,
+      1907787,
+      1907788
+    ],
+    "training_gpu_records": 8,
+    "other_unique_gpu_processes": 17,
+    "all_gpus_in_use": true
+  }
+}

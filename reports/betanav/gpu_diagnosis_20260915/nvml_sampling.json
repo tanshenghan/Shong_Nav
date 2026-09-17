@@ -1,0 +1,314 @@
+[
+  {
+    "utc_unix": 1789435359.784782,
+    "utilization": [
+      {
+        "gpu": 0,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 1,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 2,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 3,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 4,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 5,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 6,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 7,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      }
+    ],
+    "sampling_code": 0,
+    "sample_count": 71,
+    "value_type": 1,
+    "last_samples": [
+      {
+        "unix_us": 1789435358826345,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435359026300,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435359226330,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435359426312,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435359626311,
+        "value": 100
+      }
+    ]
+  },
+  {
+    "utc_unix": 1789435361.7860954,
+    "utilization": [
+      {
+        "gpu": 0,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 1,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 2,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 3,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 4,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 5,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 6,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 7,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      }
+    ],
+    "sampling_code": 0,
+    "sample_count": 71,
+    "value_type": 1,
+    "last_samples": [
+      {
+        "unix_us": 1789435360826292,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435361026269,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435361226286,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435361426283,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435361626278,
+        "value": 100
+      }
+    ]
+  },
+  {
+    "utc_unix": 1789435363.7873719,
+    "utilization": [
+      {
+        "gpu": 0,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 1,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 2,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 3,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 4,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 5,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 6,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 7,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      }
+    ],
+    "sampling_code": 0,
+    "sample_count": 71,
+    "value_type": 1,
+    "last_samples": [
+      {
+        "unix_us": 1789435362826265,
+        "value": 99
+      },
+      {
+        "unix_us": 1789435363026243,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435363226266,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435363426224,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435363626221,
+        "value": 100
+      }
+    ]
+  },
+  {
+    "utc_unix": 1789435365.7886553,
+    "utilization": [
+      {
+        "gpu": 0,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 1,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 2,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 3,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 4,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 5,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 6,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      },
+      {
+        "gpu": 7,
+        "code": 0,
+        "util_gpu": 100,
+        "util_memory": 0
+      }
+    ],
+    "sampling_code": 0,
+    "sample_count": 71,
+    "value_type": 1,
+    "last_samples": [
+      {
+        "unix_us": 1789435364826291,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435365026328,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435365226301,
+        "value": 100
+      },
+      {
+        "unix_us": 1789435365426326,
+        "value": 99
+      },
+      {
+        "unix_us": 1789435365626324,
+        "value": 100
+      }
+    ]
+  }
+]

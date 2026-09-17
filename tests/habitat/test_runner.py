@@ -216,6 +216,9 @@ def test_episode_result_record_fields(tmp_path):
         "instruction",
         "termination_reason",
         "forced_stop",
+        "oracle_stop",
+        "stop_source",
+        "policy_event_counts",
         "termination_details",
     }
     assert r["rollout_idx"] == 0
@@ -229,6 +232,8 @@ def test_episode_result_record_fields(tmp_path):
     assert r["min_distance"] == pytest.approx(2.0)  # min over steps; reset-time 5.0 excluded
     assert r["instruction"] == "go to the sofa"
     assert r["termination_reason"] == "agent_stop"
+    assert r["stop_source"] == "environment_stop"
+    assert r["oracle_stop"] is False and r["policy_event_counts"] == {}
     assert r["termination_details"] == {"stop_step": 3}
     assert results[2]["success"] == 0.0  # sceneB fails
 
@@ -289,6 +294,30 @@ def test_no_language_filter_is_applied_when_languages_is_unset(tmp_path):
     assert len(results) == 3
 
 
+def test_episode_manifest_runs_only_exact_scene_episode_pairs(tmp_path):
+    manifest = tmp_path / "episodes.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "episodes": [
+                    {"scene_id": "sceneA", "habitat_episode_id": "2"},
+                    {"scene_id": "sceneB", "habitat_episode_id": "1"},
+                ]
+            }
+        )
+    )
+    h = Harness(FakeEnv())
+
+    results = h.run(_cfg(tmp_path, episode_manifest=str(manifest)))
+
+    assert [(r["scene_id"], r["habitat_episode_id"]) for r in results] == [
+        ("sceneA", "2"),
+        ("sceneB", "1"),
+    ]
+    assert h.policy.resets == ["turn around twice", "leave the room"]
+    assert h.env.reset_calls == 4
+
+
 def test_max_steps_truncation_leaves_success_false_and_reason_unknown(tmp_path):
     h = Harness(FakeEnv(steps_to_terminate=100))
     results = h.run(_cfg(tmp_path, episodes=1, max_steps=4))
@@ -347,6 +376,9 @@ def test_vlnce_summary_json_schema(tmp_path):
         "final_distance",
         "min_distance",
         "instruction",
+        "stop_source",
+        "oracle_stop",
+        "policy_event_counts",
     }
     assert ep["success"] == 1.0 and ep["oracle_success"] == 1.0
     assert ep["instruction"] == "go to the sofa"
@@ -797,6 +829,28 @@ class StoppablePolicy(FakePolicy):
 
     def stop_action(self) -> dict:
         return dict(self.STOP)
+
+
+def test_oracle_stop_uses_privileged_distance_and_records_its_source(tmp_path):
+    env = FakeEnv(steps_to_terminate=4)
+    policy = StoppablePolicy()
+    cfg = _cfg(tmp_path, episodes=1, max_steps=10, oracle_stop_distance=2.5)
+
+    (result,) = run_habitat_eval(
+        cfg,
+        env_factory=lambda c: env,
+        policy_factory=lambda c, e, b, i: policy,
+        engine_factory=lambda c: (
+            object(),
+            SimpleNamespace(action_method="flat", num_history_frames=4),
+        ),
+    )
+
+    assert policy.acts == 3
+    assert env.actions[-1] == StoppablePolicy.STOP
+    assert result["oracle_stop"] is True
+    assert result["stop_source"] == "oracle_stop"
+    assert result["policy_event_counts"] == {"oracle_stop": 1}
 
 
 def _run_budget(tmp_path, policy, **cfg_overrides):

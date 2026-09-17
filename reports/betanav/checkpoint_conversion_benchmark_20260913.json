@@ -1,0 +1,19 @@
+{
+  "torch_version": "2.10.0+cu128",
+  "device": "cpu",
+  "results": [
+    {
+      "bytes": 8388608,
+      "byte_tensor_seconds": 0.35829884372651577,
+      "frombuffer_seconds": 4.2323023080825806e-05,
+      "conversion_MiB_per_second": 22.32773044086707
+    },
+    {
+      "bytes": 33554432,
+      "byte_tensor_seconds": 1.4434270896017551,
+      "frombuffer_seconds": 4.497077316045761e-05,
+      "conversion_MiB_per_second": 22.16946060561249
+    }
+  ],
+  "note": "Small isolated byte-conversion probe, not an end-to-end checkpoint benchmark."
+}

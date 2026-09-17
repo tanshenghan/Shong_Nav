@@ -1,0 +1,41 @@
+# First full text-backbone + new FM expert experiment, eight GPUs.
+dataset_root: /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912
+model_path: /mnt/cfs/Models/Light
+data_manifest: configs/betanav/data/r2r_all_train_20260913.json
+output_dir: /mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start
+seed: 42
+batch_size: 8  # full-model long/short-history probes on 2 x 96 GB GPUs; see reports/betanav/
+gradient_accumulation_steps: 1  # effective batch = 8 * 1 accumulation * 8 GPUs = 64
+max_steps: 29589  # user-confirmed global stopping step: 9863 * 3
+warmup_steps: 1000
+lr_vlm: 1.0e-5
+lr_fm: 1.0e-4
+min_lr_ratio: 0.1
+weight_decay: 0.01
+adam_betas: [0.9, 0.95]
+adam_eps: 1.0e-8
+clip_vlm: 1.0
+clip_fm: 1.0
+lambda_fm: 2.0
+freeze_vision: true
+gradient_checkpointing: true
+mixed_precision: bf16
+optimizer: zero1
+expert_hidden_size: 512
+expert_num_layers: 6
+expert_num_heads: 8
+expert_intermediate_size: 2048
+expert_dropout: 0.0
+num_flow_steps: 10
+num_workers: 2
+prefetch_factor: 1
+log_every: 10
+eval_every: 0  # training only; do not build or run the validation loader
+eval_max_batches: 64
+eval_sample_batches: 4
+save_every: 1000  # rolling full model + per-rank Adam/RNG state
+model_save_every: 3000  # permanent model-only archive from the same snapshot
+checkpoint_mode: dual  # both writes run in the background; no ZeRO state consolidation
+keep_last: 3
+save_best: false
+tracker: none  # JSONL always enabled; tensorboard / wandb optional

@@ -1,0 +1,74 @@
+{
+  "dataset": "/mnt/cfs/data/beta_nav/r2r_2864_gt_20260911_v2",
+  "episode_id": "2864",
+  "frames": 52,
+  "complete": true,
+  "terminal_ground_world_m": [
+    -2.0651228427886963,
+    -0.2089579850435257,
+    -5.280107021331787
+  ],
+  "last_ten_target_frame_ids": [
+    51,
+    51,
+    51,
+    51,
+    51,
+    51,
+    51,
+    51,
+    51,
+    51
+  ],
+  "apos_reasons": {
+    "t_plus_10": 33,
+    "no_visible_ground_point": 14,
+    "terminal_ground_point": 5
+  },
+  "tail_apos_reasons": {
+    "terminal_ground_point": 5,
+    "no_visible_ground_point": 5
+  },
+  "opos_states": {
+    "unknown": 52
+  },
+  "doubao_detection": {
+    "found": false,
+    "label": null,
+    "bbox_xyxy": null,
+    "point_xy": null,
+    "confidence": 0.0,
+    "reason": "The destination is the second door to the left after passing the guitar; the current image shows no doors to the left at all, only a single door at the far end of the hallway, and the second left door is not visible from this position."
+  },
+  "object_bound": false,
+  "motion_arrays_exactly_preserved": [
+    "world_from_body",
+    "world_from_camera_cv",
+    "world_from_depth_camera_cv",
+    "fm_waypoints_ego",
+    "fm_clean_se2_diff",
+    "fm_valid_mask",
+    "future_frame_ids",
+    "future_vertical_offset_m",
+    "rvq_codes",
+    "rvq_valid_mask",
+    "rvq_reconstruction",
+    "rvq_ade_m"
+  ],
+  "source_images_size": [
+    470,
+    280
+  ],
+  "credentials_absent_from_output": true,
+  "config_py_absent_from_output": true,
+  "no_discrete_action_class_in_samples": true,
+  "full_rvq_10": 42,
+  "rvq_supervised_samples": 43,
+  "full_fm_30": 22,
+  "tests": {
+    "pipeline_passed": 37,
+    "full_cpu_passed": 636,
+    "full_cpu_skipped": 1,
+    "python39_socket_timeout_probe_passed": true
+  }
+}

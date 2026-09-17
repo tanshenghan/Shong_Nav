@@ -1,0 +1,112 @@
+{
+  "utc": "2026-09-14 09:50:25",
+  "last": {
+    "step": 22170,
+    "time_unix": 1789379409.4798486,
+    "train_loss": 1.4917742860417225,
+    "train_ce": 0.061965209885134494,
+    "train_fm": 0.714904538078294,
+    "samples_seen": 1418832,
+    "epoch": 1,
+    "batch_offset": 9259
+  },
+  "metric_age_s": 15.951046228408813,
+  "progress_pct": 74.92649295346243,
+  "remaining_steps": 7419,
+  "previous_1000": {
+    "steps": [
+      20180,
+      21170
+    ],
+    "logged_batches": 100,
+    "train_loss": 1.3046782226198421,
+    "train_ce": 0.053241871789345946,
+    "train_fm": 0.6257181754152481,
+    "update_seconds": 8.184251086367293,
+    "data_wait_seconds_max": 0.0002927026804536581,
+    "grad_norm_fm_median": 65.08419799804688,
+    "grad_norm_fm_max": 13974.2998046875
+  },
+  "latest_1000": {
+    "steps": [
+      21180,
+      22170
+    ],
+    "logged_batches": 100,
+    "train_loss": 1.2642725261029806,
+    "train_ce": 0.04076621109446056,
+    "train_fm": 0.61175315750426,
+    "update_seconds": 9.536410998627543,
+    "data_wait_seconds_max": 0.0002925448026508093,
+    "grad_norm_fm_median": 76.5296859741211,
+    "grad_norm_fm_max": 2217.028076171875
+  },
+  "last_30min": {
+    "steps": [
+      22000,
+      22170
+    ],
+    "logged_batches": 18,
+    "train_loss": 1.2219277177234826,
+    "train_ce": 0.033275301082630195,
+    "train_fm": 0.5943262083204263,
+    "update_seconds": 9.517894310980207,
+    "data_wait_seconds_max": 0.000256136991083622,
+    "grad_norm_fm_median": 188.51973724365234,
+    "grad_norm_fm_max": 1099.187744140625
+  },
+  "wall_seconds_per_step_30min": 10.165243353563197,
+  "eta_hours": 20.948872344468153,
+  "nonfinite_metrics": 0,
+  "error_lines": [],
+  "checkpoint_events": [
+    {
+      "event": "full_checkpoint_queued",
+      "step": 20000,
+      "permanent_model": false,
+      "snapshot_seconds": 8.913650500588119
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00020000",
+      "step": 20000,
+      "pruned": [
+        "step-00017000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 162.93891250900924
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 21000,
+      "permanent_model": true,
+      "snapshot_seconds": 7.327180709689856
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00021000",
+      "step": 21000,
+      "pruned": [
+        "step-00018000"
+      ],
+      "permanent_model": true,
+      "write_seconds": 123.29946240223944
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 22000,
+      "permanent_model": false,
+      "snapshot_seconds": 5.958064938895404
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00022000",
+      "step": 22000,
+      "pruned": [
+        "step-00019000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 101.07995496038347
+    }
+  ]
+}

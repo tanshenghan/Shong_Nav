@@ -1,0 +1,245 @@
+{
+  "checked_at_utc": "2026-09-14T06:17:40.068075+00:00",
+  "launch": {
+    "status": "running",
+    "phase": "training",
+    "launcher_pid": 1907366,
+    "supervisor_pid": 1907364,
+    "max_steps": 29589,
+    "started_at_unix": 1789351074.992235,
+    "finished_at_unix": null,
+    "exit_code": null,
+    "reason": "User cancelled migration and explicitly requested resuming on GPUs 0-7 on this server."
+  },
+  "latest_metric": {
+    "step": 20850,
+    "time_unix": 1789366651.656447,
+    "train_loss": 1.155715057133571,
+    "train_ce": 0.08189807857568811,
+    "train_fm": 0.5369084892789414,
+    "lr_vlm": 2.920436569235323e-06,
+    "lr_fm": 2.920436569235323e-05,
+    "grad_norm_vlm": 6.227514266967773,
+    "grad_norm_fm": 87.043212890625,
+    "ce_tokens": 353,
+    "fm_valid_steps": 1468,
+    "samples": 64,
+    "samples_seen": 1334352,
+    "epoch": 1,
+    "batch_offset": 7939,
+    "no_future_samples": 0,
+    "padding_fraction": 0.2926670477642277,
+    "update_seconds": 8.52629722841084,
+    "samples_per_second": 7.506189179840325,
+    "input_tokens_per_second": 5224.424953374802,
+    "data_wait_seconds_max": 0.00027358904480934143,
+    "update_seconds_by_rank": [
+      8.525030883029103,
+      8.525243176147342,
+      8.52517534699291,
+      8.525115070864558,
+      8.525211861357093,
+      8.526272736489773,
+      8.52629722841084,
+      8.52055739890784
+    ],
+    "data_wait_seconds_by_rank": [
+      0.00022163428366184235,
+      0.00013020075857639313,
+      0.00019858218729496002,
+      0.00016112439334392548,
+      0.00014183484017848969,
+      0.00027358904480934143,
+      0.00012859422713518143,
+      0.00018848944455385208
+    ],
+    "peak_memory_gib": 48.62122392654419,
+    "peak_reserved_memory_gib": 53.501953125
+  },
+  "metric_age_seconds": 8.411660432815552,
+  "progress_pct": 70.46537564635507,
+  "last_1000": {
+    "first_step": 19860,
+    "last_step": 20850,
+    "points": 100,
+    "train_loss": {
+      "mean": 1.324008736817906,
+      "median": 1.3231390080097996,
+      "min": 0.9198261104290599,
+      "max": 1.6695936644529732
+    },
+    "train_ce": {
+      "mean": 0.059533510432958237,
+      "median": 0.055167110114981904,
+      "min": 0.014960890899279287,
+      "max": 0.1291831791659311
+    },
+    "train_fm": {
+      "mean": 0.6322376131924738,
+      "median": 0.6281611496330308,
+      "min": 0.43645744618003585,
+      "max": 0.803044238778261
+    },
+    "update_seconds": {
+      "mean": 6.536351751694456,
+      "median": 7.228900990914553,
+      "min": 2.76204991992563,
+      "max": 9.985409243032336
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.00026942248456180096,
+      "median": 0.00024984823539853096,
+      "min": 0.0001233452931046486,
+      "max": 0.0004918472841382027
+    },
+    "grad_norm_fm": {
+      "mean": 276.9763243818283,
+      "median": 67.71486282348633,
+      "min": 7.969137668609619,
+      "max": 13974.2998046875
+    },
+    "wall_seconds_per_step": 6.772849320883703
+  },
+  "previous_1000": {
+    "first_step": 18860,
+    "last_step": 19850,
+    "points": 100,
+    "train_loss": {
+      "mean": 1.2883349561528532,
+      "median": 1.2831695932786644,
+      "min": 0.9777674115833147,
+      "max": 1.6129011147709926
+    },
+    "train_ce": {
+      "mean": 0.06731272339326383,
+      "median": 0.06403439425401702,
+      "min": 0.013802324284915813,
+      "max": 0.14079604891292558
+    },
+    "train_fm": {
+      "mean": 0.6105111163797947,
+      "median": 0.6036264453467506,
+      "min": 0.44902807302000464,
+      "max": 0.7657268521614867
+    },
+    "update_seconds": {
+      "mean": 3.3140005079749972,
+      "median": 3.2370117199607193,
+      "min": 2.9260430466383696,
+      "max": 4.024331227876246
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.00020745722576975822,
+      "median": 0.00020947912707924843,
+      "min": 0.00012576673179864883,
+      "max": 0.0004579974338412285
+    },
+    "grad_norm_fm": {
+      "mean": 99.23909143447877,
+      "median": 50.55743598937988,
+      "min": 9.154977798461914,
+      "max": 1338.37451171875
+    },
+    "wall_seconds_per_step": 3.4093741966016364
+  },
+  "last_30_minutes": {
+    "first_step": 20640,
+    "last_step": 20850,
+    "points": 22,
+    "train_loss": {
+      "mean": 1.3056737648827164,
+      "median": 1.3139863053487868,
+      "min": 0.9198261104290599,
+      "max": 1.570267676116143
+    },
+    "train_ce": {
+      "mean": 0.0553167950463855,
+      "median": 0.05087638482549982,
+      "min": 0.01881783617902878,
+      "max": 0.09138735376056668
+    },
+    "train_fm": {
+      "mean": 0.6251784849181654,
+      "median": 0.6252564352808794,
+      "min": 0.43645744618003585,
+      "max": 0.7623517938175631
+    },
+    "update_seconds": {
+      "mean": 7.981315212789923,
+      "median": 8.042817041743547,
+      "min": 6.692820828408003,
+      "max": 9.284790057688951
+    },
+    "data_wait_seconds_max": {
+      "mean": 0.00029026848179372877,
+      "median": 0.0002674022689461708,
+      "min": 0.00018168333917856216,
+      "max": 0.00044490303844213486
+    },
+    "grad_norm_fm": {
+      "mean": 99.05664279244162,
+      "median": 55.25051498413086,
+      "min": 11.019952774047852,
+      "max": 584.8336181640625
+    },
+    "wall_seconds_per_step": 8.24941076891763
+  },
+  "checkpoint_events": [
+    {
+      "event": "full_checkpoint_queued",
+      "step": 19000,
+      "permanent_model": false,
+      "snapshot_seconds": 8.74262273684144
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00019000",
+      "step": 19000,
+      "pruned": [
+        "step-00016000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 93.6244381731376
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 20000,
+      "permanent_model": false,
+      "snapshot_seconds": 8.913650500588119
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00020000",
+      "step": 20000,
+      "pruned": [
+        "step-00017000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 162.93891250900924
+    }
+  ],
+  "errors": [],
+  "latest.json": {
+    "checkpoint": "step-00020000",
+    "step": 20000
+  },
+  "latest_model.json": {
+    "checkpoint": "step-00018000",
+    "step": 18000,
+    "format": "betanav_model_v1"
+  },
+  "rolling_checkpoints": [
+    "step-00018000",
+    "step-00019000",
+    "step-00020000"
+  ],
+  "permanent_models": [
+    "step-00003000",
+    "step-00006000",
+    "step-00009000",
+    "step-00012000",
+    "step-00015000",
+    "step-00018000"
+  ],
+  "remaining_hours": 20.025444641547548
+}

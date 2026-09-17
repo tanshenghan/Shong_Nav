@@ -1,0 +1,19 @@
+{
+  "pid": 137162,
+  "started_utc": "20260916T101200Z",
+  "command": [
+    "bash",
+    "data_pipeline/run_rxr.sh",
+    "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916",
+    "--workers",
+    "32",
+    "--gpus",
+    "1",
+    "3"
+  ],
+  "log": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916.work/logs/full-train-20260916T101200Z.log",
+  "output": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916",
+  "work": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_turn15_20260916.work",
+  "plan_sha256": "1edfbb7ff80a3efe9ee3b2c0be487ded97316deb21f84f2aa8ea47dd0f3fb0b2",
+  "pilot_validated": true
+}

@@ -1,0 +1,181 @@
+{
+  "status": "physical_replay_and_first_shard_validation_passed",
+  "plan_sha256": "1edfbb7ff80a3efe9ee3b2c0be487ded97316deb21f84f2aa8ea47dd0f3fb0b2",
+  "source_split": "train",
+  "role": "guide",
+  "languages": [
+    "all"
+  ],
+  "physical_routes": 8,
+  "rendered_frames": 716,
+  "records": [
+    {
+      "episode_id": "40216",
+      "frames": 140,
+      "goal_distance_m": 0.4576283097267151,
+      "max_gt_route_deviation_m": 0.04508043852933382,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "hi-IN",
+        "source_action_count": 103,
+        "replay_frame_count": 140,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "31991",
+        "annotator_id": "64",
+        "edit_distance": 0.32608695652173914
+      }
+    },
+    {
+      "episode_id": "41007",
+      "frames": 46,
+      "goal_distance_m": 0.48938611149787903,
+      "max_gt_route_deviation_m": 4.5491270787935696e-07,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "en-IN",
+        "source_action_count": 34,
+        "replay_frame_count": 46,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "33072",
+        "annotator_id": "173",
+        "edit_distance": 0.35294117647058826
+      }
+    },
+    {
+      "episode_id": "42097",
+      "frames": 96,
+      "goal_distance_m": 0.4391424059867859,
+      "max_gt_route_deviation_m": 4.5491270787935696e-07,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "en-US",
+        "source_action_count": 69,
+        "replay_frame_count": 96,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "34684",
+        "annotator_id": "91",
+        "edit_distance": 0.11597374179431072
+      }
+    },
+    {
+      "episode_id": "43264",
+      "frames": 64,
+      "goal_distance_m": 0.3892037868499756,
+      "max_gt_route_deviation_m": 2.8679993627689076e-06,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "en-US",
+        "source_action_count": 46,
+        "replay_frame_count": 64,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "36569",
+        "annotator_id": "89",
+        "edit_distance": 0.18085106382978725
+      }
+    },
+    {
+      "episode_id": "43624",
+      "frames": 91,
+      "goal_distance_m": 0.37886843085289,
+      "max_gt_route_deviation_m": 5.714650390937746e-07,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "te-IN",
+        "source_action_count": 61,
+        "replay_frame_count": 91,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "37142",
+        "annotator_id": "96",
+        "edit_distance": 0.1012396694214876
+      }
+    },
+    {
+      "episode_id": "43942",
+      "frames": 129,
+      "goal_distance_m": 0.4439299404621124,
+      "max_gt_route_deviation_m": 0.05505715319711085,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "te-IN",
+        "source_action_count": 98,
+        "replay_frame_count": 129,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "37597",
+        "annotator_id": "116",
+        "edit_distance": 0.354014598540146
+      }
+    },
+    {
+      "episode_id": "44545",
+      "frames": 32,
+      "goal_distance_m": 0.2736903131008148,
+      "max_gt_route_deviation_m": 6.86100985599836e-07,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "te-IN",
+        "source_action_count": 23,
+        "replay_frame_count": 32,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "38572",
+        "annotator_id": "98",
+        "edit_distance": 0.1864406779661017
+      }
+    },
+    {
+      "episode_id": "463",
+      "frames": 118,
+      "goal_distance_m": 0.28325363993644714,
+      "max_gt_route_deviation_m": 2.0038599340932657e-06,
+      "source_metadata": {
+        "dataset": "rxr",
+        "split": "train",
+        "role": "guide",
+        "language": "en-US",
+        "source_action_count": 86,
+        "replay_frame_count": 118,
+        "source_turn_angle_deg": 30,
+        "replay_turn_angle_deg": 15,
+        "forward_step_m": 0.25,
+        "action_conversion": "each source 30-degree turn becomes two rendered 15-degree turns",
+        "instruction_id": "253",
+        "annotator_id": "145",
+        "edit_distance": 0.050393700787401574
+      }
+    }
+  ]
+}

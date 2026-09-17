@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "regenerated_episode": "/tmp/lightnav_final_pipeline_2864_20260912/episodes/2864",
+  "baseline_episode": "/mnt/cfs/data/beta_nav/r2r_2864_opos_endpoint_20260912/episodes/2864",
+  "all_target_arrays_exactly_equal": [
+    "apos_grid_id",
+    "apos_grid_rc",
+    "apos_pixel",
+    "apos_pixel_rc",
+    "apos_target_frame_id",
+    "apos_target_world",
+    "apos_token_id",
+    "apos_valid_mask",
+    "apos_world",
+    "fm_clean_se2_diff",
+    "fm_valid_mask",
+    "fm_waypoints_ego",
+    "future_frame_ids",
+    "future_vertical_offset_m",
+    "opos_grid_id",
+    "opos_grid_rc",
+    "opos_pixel",
+    "opos_pixel_rc",
+    "opos_target_frame_id",
+    "opos_target_world",
+    "opos_token_id",
+    "opos_valid_mask",
+    "opos_world",
+    "rvq_ade_m",
+    "rvq_codes",
+    "rvq_reconstruction",
+    "rvq_valid_mask",
+    "world_from_body",
+    "world_from_camera_cv",
+    "world_from_depth_camera_cv"
+  ],
+  "samples_jsonl_byte_identical": true,
+  "datasets_validated": {
+    "/tmp/lightnav_final_pipeline_2864_20260912": {
+      "episodes": 1,
+      "frames": 52,
+      "apos_valid": 38,
+      "opos_visible": 36,
+      "opos_not_visible": 16,
+      "checked": "source hashes, frame alignment, masks, projections and visible instance pixels"
+    },
+    "/mnt/cfs/data/beta_nav/r2r_2864_opos_endpoint_20260912": {
+      "episodes": 1,
+      "frames": 52,
+      "apos_valid": 38,
+      "opos_visible": 36,
+      "opos_not_visible": 16,
+      "checked": "source hashes, frame alignment, masks, projections and visible instance pixels"
+    },
+    "/mnt/cfs/data/beta_nav/r2r_2864_opos_tail8_20260912_v2": {
+      "episodes": 1,
+      "frames": 52,
+      "apos_valid": 38,
+      "opos_visible": 0,
+      "opos_not_visible": 0,
+      "checked": "source hashes, frame alignment, masks, projections and visible instance pixels"
+    },
+    "/mnt/cfs/data/beta_nav/r2r_train_470x280_apos10_20260911": {
+      "episodes": 10,
+      "frames": 506,
+      "apos_valid": 364,
+      "opos_visible": 0,
+      "opos_not_visible": 0,
+      "checked": "source hashes, frame alignment, masks, projections and visible instance pixels"
+    },
+    "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911": {
+      "episodes": 10,
+      "frames": 506,
+      "full_rvq_10": 406,
+      "full_fm_30": 206,
+      "stop_samples": 10,
+      "depth_reprojection_turn_pairs": 50,
+      "median_pair_depth_reprojection_error_m": 0.0029462551125073455,
+      "max_pair_median_depth_reprojection_error_m": 0.006376097855191554,
+      "all_saved_images_depths_poses_masks_checked": true,
+      "all_recorded_turns_match_15_degree_sign": true
+    }
+  },
+  "pipeline_tests_passed": 49,
+  "ruff": "passed",
+  "collector_dry_run": {
+    "passed": true,
+    "rendered": false,
+    "episode_ids": [
+      "5670"
+    ],
+    "pointing_config": {
+      "horizon": 10,
+      "tail_policy": "terminal",
+      "path_spacing_m": 0.02,
+      "depth_tolerance_m": 0.05,
+      "depth_relative_tolerance": 0.01,
+      "opos_mode": "terminal_ground"
+    },
+    "pointing_labels": {
+      "apos": "t+10 ground point; nearest visible point backwards along path",
+      "opos": "fixed recorded terminal ground position; per-frame projection and depth visibility"
+    }
+  },
+  "removed_active_files": [
+    "data_pipeline/doubao.py",
+    "data_pipeline/destination.py",
+    "data_pipeline/semantic_scene.py",
+    "data_pipeline/annotate.sh"
+  ],
+  "retired_test_file": "data_pipeline/tests/test_destination.py; current tests moved to test_annotation.py",
+  "preserved_local_config": true,
+  "before_cleanup_archive": "data_pipeline/archive/before_final_cleanup_20260912.tar.gz",
+  "removed_generated_cache_directories": [
+    "data_pipeline/__pycache__",
+    "data_pipeline/tests/__pycache__",
+    "visual/__pycache__"
+  ]
+}

@@ -92,6 +92,17 @@ def test_merge_is_the_summary_of_the_concatenated_episodes(two_shards):
     assert [r["shard"] for r in merged_lines] == ["shard_0", "shard_1", "shard_1"]
 
 
+def test_merge_prefixes_relative_video_path_with_shard(tmp_path):
+    record = _vlnce_record(0, 1.0, 0.8, 0.9, 1.0)
+    record["video"] = "videos/episode_000.mp4"
+    shard = _write_shard(tmp_path, "shard_2", [record], 3.0)
+
+    merge_results([shard], tmp_path / "merged")
+
+    merged = json.loads((tmp_path / "merged/results.jsonl").read_text().strip())
+    assert merged["video"] == "shard_2/videos/episode_000.mp4"
+
+
 def test_merge_dispatches_objectnav_summary(tmp_path):
     rec = _vlnce_record(0, 1.0, 0.5, 0.0, 0.05)
     rec["object_category"] = "chair"

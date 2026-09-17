@@ -1,0 +1,83 @@
+{
+  "source_episodes": 60300,
+  "physical_routes": 8396,
+  "scenes": 59,
+  "frames": 7530004,
+  "rendered_frames": 1050063,
+  "routes_per_shard": 8,
+  "format": "beta_nav_full_train_plan_v1",
+  "split": "train",
+  "dataset": "rxr",
+  "source_selection": {
+    "dataset": "rxr",
+    "split": "train",
+    "role": "guide",
+    "languages": [
+      "all"
+    ],
+    "source_episode_count": 60300,
+    "selected_episode_count": 60300,
+    "language_counts": {
+      "en-IN": 13336,
+      "en-US": 6660,
+      "hi-IN": 20221,
+      "te-IN": 20083
+    },
+    "source_frames": 5686821,
+    "replay_frames": 7530004,
+    "episode_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide.json.gz",
+    "gt_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide_gt.json.gz",
+    "motion_conversion": {
+      "source_turn_angle_deg": 30,
+      "replay_turn_angle_deg": 15,
+      "turns_per_source_turn": 2,
+      "forward_step_m": 0.25
+    },
+    "navigation": {
+      "navmesh": "rxr_in_memory",
+      "agent_height_m": 0.88,
+      "agent_radius_m": 0.18,
+      "allow_sliding": false,
+      "other_navmesh_settings": "Habitat-Sim NavMeshSettings defaults"
+    }
+  },
+  "role": "guide",
+  "languages": [
+    "all"
+  ],
+  "width": 470,
+  "height": 280,
+  "seed": 20260911,
+  "repo_id": "beta-nav/rxr-train-guide",
+  "data_root": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0",
+  "scenes_dir": "/mnt/cfs/data/habitat/scene_datasets",
+  "rvq_bundle": "/mnt/cfs/Models/Light/action_tokenizer",
+  "pointing_config": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/configs/pointing.json",
+  "output_dir": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_rxrnav_20260916",
+  "source_sha256": {
+    "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide.json.gz": "fe127cfe9350123e7ff511c858f866b2d538564bac910da698bfff4ee46be07e",
+    "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide_gt.json.gz": "46373fec825aa09f6e26fb7ec7be372d105ed9b4d01e162bb23a18f928e8229c"
+  },
+  "definition_sha256": {
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/configs/pointing.json": "db935337de948bb5808f0510d13b85397947df04004152d15ff66c47982bcd8b",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/habitat_server/configs/vlnce_r2r.yaml": "a8bada444748210675fd7295f893f57b58bd46c5832dfc6a4d5e76df0dbf6588",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/collect_r2r.py": "9c3aff9e2dd9ce42790f8866f6f63cb6b06ec990b49356e491e1c8c964bd1846",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/geometry.py": "aa09057e2ba3c63d74b8f36e9abb95e71442aea5e4cf45a9a1f3d842df1ad7b2",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/pointing.py": "01ec123f7d3ece2b6edecf3024a5a4bc61717d1d49fc45588d1185c42cbaa4cd",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/data_pipeline/vlnce_source.py": "992d2998222cdc9791af89ae19d2e81433f7c17e9fc0068f0825e1cdcf8e8350",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/traj_vocab.py": "84c83780ba893d468e7529f5de44223f5f2aa44c099eb46fac3edb1786c14f0d"
+  },
+  "rvq_sha256": {
+    "alpha_per_source.json": "1f2eb837d18b17073730e22cbaf6efd0b49d580c9d8ff8be41605e8fa58dfa54",
+    "codebook_l0.npy": "daaea83b3ae4637a042d1f61b34a687870d735ef709689e02c1e43d39aab6e16",
+    "codebook_l1.npy": "dfde603f96b333cda4c676613ac2f772cec3906a8dbbb7a7415bfeb4aa04e4bf",
+    "codebook_l2.npy": "2a7b186159bc9375997535008028930efe09c9b239a522639aff6febfac6c51c",
+    "distance_l0.npy": "c52ba050dee23d720a805630eb9ff2530437cf6f0acc9de2ffd5b5658f6fb232",
+    "distance_l1.npy": "4468921632e795389edf00bdb879bbf1670f4ed1e0a001649d7350a4e7669f5d",
+    "distance_l2.npy": "27c0ed18606d53cfb5c47f8f822345c2c509c30979ad106607bd610125d0b509",
+    "jacobian_weights.npy": "43872af8deba9986c40da98b8511f5b94b3353a053132b22f7a190b2d7cf9feb",
+    "manifest.json": "00d77ae028edf59e0ce68b49122dd0a60da527f48508f5ee335a580993a12864"
+  },
+  "plan_sha256": "032d485d0ebb8a0bc2328485df1065f74ab5bd13a026fe08b5d0553f92e7a678",
+  "shards": 1078
+}

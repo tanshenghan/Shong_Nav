@@ -1,0 +1,20 @@
+[
+  {
+    "utc_unix": 1789435454.234295,
+    "stdout": "index, utilization.gpu [%], utilization.memory [%], memory.used [MiB], pstate, power.draw [W], temperature.gpu\n0, 0 %, 0 %, 0 MiB, P8, 34.39 W, 30\n1, 0 %, 0 %, 0 MiB, P8, 33.73 W, 30\n2, 0 %, 0 %, 0 MiB, P8, 35.26 W, 32\n3, 0 %, 0 %, 0 MiB, P8, 36.86 W, 31\n4, 0 %, 0 %, 0 MiB, P8, 35.30 W, 32\n5, 0 %, 0 %, 0 MiB, P8, 34.20 W, 31\n6, 0 %, 0 %, 0 MiB, P8, 35.30 W, 31\n7, 0 %, 0 %, 0 MiB, P8, 33.98 W, 31\n",
+    "stderr": ""
+  },
+  {
+    "utc_unix": 1789435456.339892,
+    "stdout": "index, utilization.gpu [%], utilization.memory [%], memory.used [MiB], pstate, power.draw [W], temperature.gpu\n0, 0 %, 0 %, 0 MiB, P8, 34.39 W, 30\n1, 0 %, 0 %, 0 MiB, P8, 34.22 W, 30\n2, 0 %, 0 %, 0 MiB, P8, 35.31 W, 31\n3, 0 %, 0 %, 0 MiB, P8, 36.86 W, 30\n4, 0 %, 0 %, 0 MiB, P8, 35.30 W, 32\n5, 0 %, 0 %, 0 MiB, P8, 34.20 W, 31\n6, 0 %, 0 %, 0 MiB, P8, 35.55 W, 30\n7, 0 %, 0 %, 0 MiB, P8, 33.48 W, 31\n",
+    "stderr": ""
+  },
+  {
+    "utc_unix": 1789435458.4467752,
+    "stdout": "index, utilization.gpu [%], utilization.memory [%], memory.used [MiB], pstate, power.draw [W], temperature.gpu\n0, 0 %, 0 %, 0 MiB, P8, 33.90 W, 29\n1, 0 %, 0 %, 0 MiB, P8, 33.73 W, 30\n2, 0 %, 0 %, 0 MiB, P8, 34.72 W, 31\n3, 0 %, 0 %, 0 MiB, P8, 36.86 W, 30\n4, 0 %, 0 %, 0 MiB, P8, 35.80 W, 31\n5, 0 %, 0 %, 0 MiB, P8, 34.22 W, 31\n6, 0 %, 0 %, 0 MiB, P8, 34.81 W, 30\n7, 0 %, 0 %, 0 MiB, P8, 33.75 W, 30\n",
+    "stderr": ""
+  },
+  {
+    "processes": "pid, gpu_uuid, used_gpu_memory [MiB]\n"
+  }
+]

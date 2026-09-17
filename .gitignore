@@ -21,6 +21,7 @@ logs/
 /output/
 /data/
 /checkpoints/
+/runs/
 
 # editor / OS
 .DS_Store
@@ -29,3 +30,28 @@ logs/
 
 # local Claude Code config; never track
 .claude/
+
+# Local datasets and generated evaluation artifacts
+/outputs/
+/datasets/
+/dataset/
+*.parquet
+*.arrow
+*.hdf5
+*.h5
+
+# Model weights and training checkpoint state
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Local credentials and agent state
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+/.agents/
+/.codex/

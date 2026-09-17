@@ -1,0 +1,287 @@
+{
+  "status": "complete",
+  "config": {
+    "dataset_root": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+    "model_path": "/mnt/cfs/Models/Light",
+    "data_manifest": "configs/betanav/data/r2r_train_20260913.json",
+    "output_dir": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start",
+    "seed": 42,
+    "batch_size": 8,
+    "gradient_accumulation_steps": 1,
+    "max_steps": 30000,
+    "warmup_steps": 1000,
+    "min_lr_ratio": 0.1,
+    "lr_vlm": 1e-05,
+    "lr_fm": 0.0001,
+    "weight_decay": 0.01,
+    "adam_betas": [
+      0.9,
+      0.95
+    ],
+    "adam_eps": 1e-08,
+    "clip_vlm": 1.0,
+    "clip_fm": 1.0,
+    "lambda_fm": 2.0,
+    "freeze_vision": true,
+    "gradient_checkpointing": true,
+    "mixed_precision": "bf16",
+    "optimizer": "zero1",
+    "attention": "sdpa",
+    "expert_hidden_size": 512,
+    "expert_num_layers": 6,
+    "expert_num_heads": 8,
+    "expert_intermediate_size": 2048,
+    "expert_dropout": 0.0,
+    "num_flow_steps": 10,
+    "num_workers": 2,
+    "prefetch_factor": 1,
+    "cache_row_groups": 4,
+    "cache_frames": 64,
+    "cpu_threads": 4,
+    "log_every": 10,
+    "eval_every": 500,
+    "eval_max_batches": 64,
+    "eval_sample_batches": 4,
+    "save_every": 1000,
+    "keep_last": 3,
+    "save_best": true,
+    "tracker": "none",
+    "project_name": "betanav",
+    "wandb_mode": "offline",
+    "cpu": false,
+    "tiny_model": false
+  },
+  "world_size": 2,
+  "torch_version": "2.10.0+cu128",
+  "gpu": "NVIDIA RPBZZZ6",
+  "device_total_gib": 94.97064208984375,
+  "cuda_visible_devices": "1,2",
+  "sample": {
+    "dataset_index": 219816,
+    "global_frame_index": 237859,
+    "episode_index": 4112,
+    "source_episode_id": "6965",
+    "source_scene_id": "mp3d/PuKPg4mmafe/PuKPg4mmafe.glb",
+    "frame_index": 152,
+    "instruction": "Cross the table and continue down the hallway. Turn left passed the piano. Go to the couches and go straight until you reach the second to last couch. ",
+    "target_text": "<apos_1088><opos_751><act_l0_56><act_l1_172><act_l2_103>",
+    "token_valid": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "explicit_stop": false,
+    "fm_valid_steps": 30,
+    "history": [
+      {
+        "frame_ids": [
+          0,
+          1
+        ],
+        "pool_spatial": 4,
+        "pool_mode": "avg",
+        "tier": 4
+      },
+      {
+        "frame_ids": [
+          5,
+          6,
+          9,
+          10,
+          14,
+          15,
+          19,
+          20,
+          23,
+          24,
+          28,
+          29,
+          33,
+          34,
+          38,
+          39,
+          42,
+          43,
+          47,
+          48,
+          52,
+          53,
+          56,
+          57,
+          61,
+          62
+        ],
+        "pool_spatial": 4,
+        "pool_mode": "avg",
+        "tier": 3
+      },
+      {
+        "frame_ids": [
+          63,
+          64,
+          69,
+          70,
+          75,
+          76,
+          81,
+          82,
+          87,
+          88,
+          93,
+          94,
+          99,
+          100,
+          105,
+          106,
+          111,
+          112,
+          117,
+          118
+        ],
+        "pool_spatial": 2,
+        "pool_mode": "avg",
+        "tier": 2
+      },
+      {
+        "frame_ids": [
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150
+        ],
+        "pool_spatial": 2,
+        "pool_mode": "avg",
+        "tier": 1
+      },
+      {
+        "frame_ids": [
+          151,
+          152
+        ],
+        "pool_spatial": 1,
+        "pool_mode": "avg",
+        "tier": 0
+      }
+    ]
+  },
+  "sequence_length": 1411,
+  "history_frames": 82,
+  "effective_batch_size": 16,
+  "hardware": {
+    "cuda_name": "NVIDIA RPBZZZ6",
+    "compute_capability": [
+      12,
+      0
+    ],
+    "multiprocessors": 188,
+    "total_gib": 94.97064208984375,
+    "pci_bus_id": "00000000:62:00.0",
+    "torch_version": "2.10.0+cu128",
+    "nvidia_smi": {
+      "name": "NVIDIA RPBZZZ6",
+      "pci.device_id": "0x2BB910DE",
+      "pci.sub_device_id": "0x209110DE",
+      "driver_version": "580.126.20",
+      "power.limit": "600.00",
+      "clocks.max.sm": "2430",
+      "clocks.max.memory": "12481"
+    }
+  },
+  "warmup_updates": 2,
+  "measured_updates": 5,
+  "results": [
+    {
+      "batch_size": 8,
+      "accumulation": 1,
+      "update_seconds": [
+        3.5612850189208984,
+        3.561918258666992,
+        3.569544792175293,
+        3.622199773788452,
+        3.5933187007904053
+      ],
+      "mean_update_seconds": 3.5816533088684084,
+      "samples_per_second": 4.4672107041692035,
+      "peak_allocated_gib_by_rank": [
+        60.30942153930664,
+        60.30139923095703
+      ],
+      "peak_reserved_gib_by_rank": [
+        64.392578125,
+        64.10546875
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.2409553527832,
+        47.234222412109375
+      ],
+      "cpu_collation_seconds": 0.398067363537848,
+      "last_losses_rank0": [
+        19.52526092529297,
+        8.321758270263672,
+        4.098825931549072,
+        4.870067596435547,
+        4.7677083015441895
+      ],
+      "flops": {
+        "per_update_by_rank": [
+          454267465982976,
+          454267465982976
+        ],
+        "rank0_by_operator": {
+          "aten.convolution": 462245855232,
+          "aten.addmm": 96800620314624,
+          "aten._scaled_dot_product_flash_attention": 25260218253312,
+          "aten.bmm": 4334592,
+          "aten.mm": 308243804307456,
+          "aten._scaled_dot_product_efficient_attention": 4140564480,
+          "aten._scaled_dot_product_efficient_attention_backward": 10351411200,
+          "aten._scaled_dot_product_flash_attention_backward": 23486080942080
+        },
+        "includes": "registered matmul/conv/attention forward, backward and checkpoint recomputation",
+        "excludes": "unsupported/elementwise ops, optimizer arithmetic, transfers and NCCL; masked attention uses dense formula; not hardware counters or strict MFU",
+        "estimated_cluster_tflops": 253.66356082437122,
+        "estimated_per_gpu_tflops": 126.83178041218561,
+        "estimated_hfu": null,
+        "peak_dense_bf16_tflops_per_gpu": null
+      },
+      "rank0_trace": "runs/betanav_profile/performance_native_20260913/batch-8-rank-0.json"
+    }
+  ],
+  "limitations": "Repeated real frame, cached CPU input; excludes data-loading time. Optimizer states/gradients included. Tested world size only; no training checkpoint saved.",
+  "parameters": {
+    "total": 4484860419,
+    "vlm": 4032994816,
+    "fm": 36517891
+  },
+  "telemetry_csv": "reports/betanav/training_performance_native_2gpu_20260913.gpu.csv"
+}

@@ -1,0 +1,13 @@
+{
+  "episodes": 10819,
+  "frames": 631244,
+  "validation_episodes": 0,
+  "world_size": 8,
+  "per_rank_batch": 8,
+  "gradient_accumulation_steps": 1,
+  "global_batch": 64,
+  "per_rank_samples": 78906,
+  "steps_per_epoch": 9864,
+  "sampler_padding": 4,
+  "last_step_samples": 16
+}

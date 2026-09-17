@@ -1,0 +1,140 @@
+{
+  "utc": "2026-09-15 01:12:23",
+  "last": {
+    "step": 26890,
+    "time_unix": 1789425182.7039285,
+    "train_loss": 1.4339719298952707,
+    "train_ce": 0.004854899222762989,
+    "train_fm": 0.7145585153362538,
+    "samples_seen": 1720864,
+    "epoch": 2,
+    "batch_offset": 4115
+  },
+  "metric_age_s": 9560.882500171661,
+  "progress_pct": 90.87836696069485,
+  "remaining_steps": 2699,
+  "previous_1000": {
+    "steps": [
+      24900,
+      25890
+    ],
+    "logged_batches": 100,
+    "train_loss": 1.2774049314387315,
+    "train_ce": 0.01313952295117627,
+    "train_fm": 0.6321327042437775,
+    "update_seconds": 9.626706713568419,
+    "data_wait_seconds_max": 0.00027460188604891303,
+    "grad_norm_fm_median": 188.50492095947266,
+    "grad_norm_fm_max": 37584.21484375
+  },
+  "latest_1000": {
+    "steps": [
+      25900,
+      26890
+    ],
+    "logged_batches": 100,
+    "train_loss": 1.208067064807313,
+    "train_ce": 0.013936841756401253,
+    "train_fm": 0.5970651115254558,
+    "update_seconds": 9.783245806396007,
+    "data_wait_seconds_max": 0.00036232435144484043,
+    "grad_norm_fm_median": 262.5339660644531,
+    "grad_norm_fm_max": 463059.8125
+  },
+  "last_30min": {
+    "steps": [
+      26710,
+      26890
+    ],
+    "logged_batches": 19,
+    "train_loss": 1.276702726105042,
+    "train_ce": 0.01267985660159672,
+    "train_fm": 0.6320114347517227,
+    "update_seconds": 9.89217031952974,
+    "data_wait_seconds_max": 0.000590007556112189,
+    "grad_norm_fm_median": 134.5546112060547,
+    "grad_norm_fm_max": 1869.439208984375
+  },
+  "wall_seconds_per_step_30min": 9.86131079726749,
+  "nonfinite_metrics": 0,
+  "error_lines": [],
+  "checkpoint_events": [
+    {
+      "event": "full_checkpoint_queued",
+      "step": 23000,
+      "permanent_model": false,
+      "snapshot_seconds": 5.286849366500974
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00023000",
+      "step": 23000,
+      "pruned": [
+        "step-00020000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 53.090437716804445
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 24000,
+      "permanent_model": true,
+      "snapshot_seconds": 5.092190316878259
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00024000",
+      "step": 24000,
+      "pruned": [
+        "step-00021000"
+      ],
+      "permanent_model": true,
+      "write_seconds": 45.88659281656146
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 25000,
+      "permanent_model": false,
+      "snapshot_seconds": 7.001204440370202
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00025000",
+      "step": 25000,
+      "pruned": [
+        "step-00022000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 51.297142499126494
+    },
+    {
+      "event": "full_checkpoint_queued",
+      "step": 26000,
+      "permanent_model": false,
+      "snapshot_seconds": 6.473463732749224
+    },
+    {
+      "event": "full_checkpoint_committed",
+      "path": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00026000",
+      "step": 26000,
+      "pruned": [
+        "step-00023000"
+      ],
+      "permanent_model": false,
+      "write_seconds": 46.89465767983347
+    }
+  ],
+  "status": "interrupted_no_live_trainer",
+  "last_metric_utc": "2026-09-14T22:33:02.703928+00:00",
+  "process_check_utc": "2026-09-15T01:13:32+00:00",
+  "known_processes_present": false,
+  "all_betanav_trainer_processes": [],
+  "gpu_compute_processes": [],
+  "container_pid1_start_utc": "2026-09-14T23:40:13.911110+00:00",
+  "interruption_cause": "Unconfirmed; current container PID 1 started after training and GPU logs stopped; no training traceback or exit record.",
+  "latest_complete_resume_step": 26000,
+  "latest_permanent_model_step": 24000,
+  "steps_remaining_from_checkpoint": 3589,
+  "eta_hours_at_last_logged_speed_if_uninterrupted": 7.393243844951376,
+  "eta_hours": null
+}

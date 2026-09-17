@@ -1,0 +1,1 @@
+/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260916T015445Z_fm_only_original_8gpu

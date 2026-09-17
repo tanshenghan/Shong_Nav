@@ -1,0 +1,28 @@
+{
+  "source_episodes": 60300,
+  "physical_routes": 8396,
+  "scenes": 59,
+  "frames": 5686821,
+  "rendered_frames": 793366,
+  "plan_sha256": "4d73287dc27c7850a2f55e774aef22e087b49ee270047a0236480c5a44b080bf",
+  "source_selection": {
+    "dataset": "rxr",
+    "split": "train",
+    "role": "guide",
+    "languages": [
+      "all"
+    ],
+    "source_episode_count": 60300,
+    "selected_episode_count": 60300,
+    "language_counts": {
+      "en-IN": 13336,
+      "en-US": 6660,
+      "hi-IN": 20221,
+      "te-IN": 20083
+    },
+    "episode_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide.json.gz",
+    "gt_file": "/mnt/cfs/data/habitat/datasets/RxR_VLNCE_v0/train/train_guide_gt.json.gz"
+  },
+  "shards": 1078,
+  "output": "/mnt/cfs/data/beta_nav/lerobot_rxr_train_guide_470x280_20260916"
+}

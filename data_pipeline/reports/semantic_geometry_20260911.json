@@ -1,0 +1,22 @@
+{
+  "scope": "Real Habitat geometry check with an explicitly selected MP3D instance; not Doubao recognition or production opos labels",
+  "real_doubao_request": false,
+  "source_dataset": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911",
+  "episode_id": "10032",
+  "selected_semantic_id": 2119,
+  "frames": 44,
+  "opos_visible": 25,
+  "opos_not_visible": 6,
+  "opos_unknown": 13,
+  "min_semantic_depth_agreement": 0.9999845155695948,
+  "validation": {
+    "episodes": 1,
+    "frames": 44,
+    "apos_valid": 34,
+    "opos_visible": 25,
+    "opos_not_visible": 6,
+    "checked": "source hashes, frame alignment, masks, projections and visible instance pixels"
+  },
+  "probe_artifacts": "/tmp/beta_semantic_pipeline_probe_v2",
+  "apos_data": "/mnt/cfs/data/beta_nav/r2r_train_470x280_apos10_20260911"
+}

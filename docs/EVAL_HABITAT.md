@@ -86,7 +86,9 @@ the client stops when the server's episode iterator cycles back to an already se
 | `--server ADDR` | `tcp://localhost:5555` | env server ZMQ address |
 | `--backend {hf,vllm_local}` | `vllm_local` | in-process vLLM (recommended) or plain transformers |
 | `--episodes N` | `-1` | `<= 0` = full split (stop at the first repeated episode key), else stop after N admitted episodes |
+| `--episode_manifest FILE` | off | run only exact `scene_id` + `habitat_episode_id` pairs from a JSON list/object; other episodes are reset and skipped without inference |
 | `--max_steps N` | `500` | client-side per-episode step cap (the server truncates at its own `--max-steps`) |
+| `--oracle_stop_distance F` | off | privileged diagnostic STOP radius; use 3.0 only for an R2R oracle-stop upper bound, never deployment |
 | `--no_force_stop` | off | by default the LAST action of the budget is an explicit STOP (zero velocity), so an episode that runs out of steps ends by `agent_stop` and Success / SPL are measured at the final pose; pass this to let the env truncate instead (`success=0` for every timed-out episode). Recorded per episode as `forced_stop` |
 | `--output_dir DIR` | `output/habitat_eval` | where `results.jsonl` and `summary.json` go |
 | `--languages L [L ...]` | none | RxR only: keep episodes whose `info["language"]` is listed; skipped episodes are not counted |
@@ -103,6 +105,13 @@ the client stops when the server's episode iterator cycles back to an already se
 | `--cam_height F` | `0.88` | agent camera height in metres for the trajectory overlay (the shipped yamls) |
 | `--waypoint_dt_s F` | `0.1` | seconds per waypoint row assumed by the HUD velocity readout |
 | `--record_dir DIR` | off | also record the raw episodes (JPEG frames + per-step records) for `lightnav-render` |
+
+Beta FM diagnostics also accept `--fm_stop_mode baseline` (original behavior),
+`decode_continue` (malformed RVQ output continues through FM), and `explicit_gate`
+(only the canonical RVQ STOP tuple may terminate; stop-like FM commands are replaced by
+a non-terminating candidate/recovery turn). Outputs tag `stop_source`,
+`policy_event_counts`, and `oracle_stop`. Diagnostic videos additionally show current and
+minimum goal distance, STOP source, explicit-token status, decode failure and stop mode.
 
 Decoding is greedy (temperature 0); the client never touches the sampling knobs. The
 visualisation flags are described in [VISUALIZATION.md](VISUALIZATION.md); none of them
@@ -202,7 +211,8 @@ covers the current run):
  "rollout_idx": 0, "success": 1.0, "oracle_success": true, "spl": 0.81, "ndtw": 0.77,
  "soft_spl": 0.0, "object_category": "", "steps": 42, "final_distance": 1.9,
  "min_distance": 1.9, "instruction": "Walk past the ...",
- "termination_reason": "agent_stop", "termination_details": {...}}
+ "termination_reason": "agent_stop", "stop_source": "explicit_token_stop",
+ "policy_event_counts": {}, "termination_details": {...}}
 ```
 
 `min_distance` is the minimum `distance_to_goal` over the executed steps. `oracle_success`

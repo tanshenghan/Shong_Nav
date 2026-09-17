@@ -1,0 +1,79 @@
+{
+  "dataset": "/mnt/cfs/data/beta_nav/lerobot_r2r_5670_opos_last_half_20260912",
+  "format": "LeRobotDataset v3.0",
+  "complete": true,
+  "repo_id": "beta-nav/r2r_5670_opos_last_half",
+  "observations_self_contained": true,
+  "temporary_capture_removed": true,
+  "validation": {
+    "complete": true,
+    "format": "LeRobotDataset v3.0",
+    "frames": 60,
+    "episodes": [
+      {
+        "episode_id": "5670",
+        "frames": 60,
+        "opos_visibility_start_frame": 30,
+        "opos_visible_frame_ids": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55
+        ],
+        "apos_visible": 53,
+        "stop_rvq_codes": [
+          6,
+          122,
+          174
+        ]
+      }
+    ],
+    "official_loader_all_frames": true,
+    "dataloader_batch": true,
+    "rgb_depth_hashes_exact": true,
+    "all_30_source_arrays_exact": true,
+    "geometry_recomputed": true,
+    "finite_masked_stats": true,
+    "source_comparison": false,
+    "self_contained": true
+  },
+  "fps": 1,
+  "timestamp": "frame_index",
+  "physical_dt_s": null,
+  "rgb_storage": "lossless PNG bytes embedded in Parquet",
+  "depth_storage": "float32 camera-Z metres in Parquet",
+  "custom_features": 44,
+  "total_features": 49,
+  "total_bytes": 43027541,
+  "review_frames": [
+    20,
+    30,
+    59
+  ],
+  "video": "/mnt/cfs/data/beta_nav/lerobot_r2r_5670_opos_last_half_20260912/review/episode_5670_gt.mp4",
+  "test_result": "79 passed; includes real official writer/loader and multi-episode source-removal test",
+  "lint": "ruff and shell syntax passed",
+  "generate_command": "bash data_pipeline/run_lerobot.sh /mnt/cfs/data/beta_nav/NEW_LEROBOT_RUN 1"
+}

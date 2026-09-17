@@ -34,7 +34,7 @@ def test_every_console_script_target_resolves_to_a_callable(target):
 def test_pytest_config_selects_the_cpu_suite():
     data = tomllib.loads((ROOT / "pyproject.toml").read_text())
     ini = data["tool"]["pytest"]["ini_options"]
-    assert ini["testpaths"] == ["tests"]
+    assert ini["testpaths"] == ["tests", "data_pipeline/tests"]
     assert ini["asyncio_mode"] == "auto"
     assert any(m.startswith("gpu") for m in ini["markers"])
     assert any(m.startswith("video") for m in ini["markers"])

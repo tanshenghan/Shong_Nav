@@ -115,6 +115,9 @@ def print_vlnce_summary(
                 "final_distance": round(r.get("final_distance", 0.0), 3),
                 "min_distance": round(r.get("min_distance", 0.0), 3),
                 "instruction": r.get("instruction", ""),
+                "stop_source": r.get("stop_source", "unknown"),
+                "oracle_stop": bool(r.get("oracle_stop", False)),
+                "policy_event_counts": r.get("policy_event_counts", {}),
             }
             for i, r in enumerate(results)
         ],

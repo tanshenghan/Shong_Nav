@@ -1,0 +1,65 @@
+{
+  "dataset_directory": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911",
+  "summary": {
+    "complete": true,
+    "episodes": 10,
+    "frames": 506,
+    "full_rvq_10_chunks": 406,
+    "full_fm_30_chunks": 206,
+    "camera": {
+      "width": 470,
+      "height": 280,
+      "hfov_deg": 120.0,
+      "position_body_native": [
+        0,
+        0.88,
+        0
+      ],
+      "orientation_euler": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "K": [
+        [
+          135.67731325956208,
+          0.0,
+          235.0
+        ],
+        [
+          0.0,
+          135.67731325956208,
+          140.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "min_depth_m": 0.0,
+      "max_depth_m": 10.0,
+      "depth_unit": "metre",
+      "depth_type": "camera_z",
+      "depth_normalized": false,
+      "depth_clipped_to_range": true,
+      "invalid_depth": "use each depth NPZ valid mask"
+    },
+    "output_dir": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911"
+  },
+  "validation": {
+    "episodes": 10,
+    "frames": 506,
+    "full_rvq_10": 406,
+    "full_fm_30": 206,
+    "stop_samples": 10,
+    "depth_reprojection_turn_pairs": 50,
+    "median_pair_depth_reprojection_error_m": 0.0029462551125073455,
+    "max_pair_median_depth_reprojection_error_m": 0.006376097855191554,
+    "all_saved_images_depths_poses_masks_checked": true,
+    "all_recorded_turns_match_15_degree_sign": true
+  },
+  "original_manifest": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/manifest.json",
+  "original_provenance": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/provenance",
+  "source": "Copied from the completed collection; original dataset/provenance unchanged."
+}

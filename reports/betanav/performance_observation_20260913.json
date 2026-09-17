@@ -1,0 +1,55 @@
+{
+  "source_trace": "runs/betanav_profile/performance_native_20260913/batch-8-rank-0.json",
+  "source_telemetry": "reports/betanav/training_performance_native_2gpu_20260913.gpu.csv",
+  "kernel_duration_sums_seconds": {
+    "nccl": 1.849973977000002,
+    "non_nccl": 2.826802959000048
+  },
+  "telemetry_all_probe_phases": {
+    "1": {
+      "utilization.gpu [%]": {
+        "min": 0.0,
+        "median": 73.0,
+        "max": 100.0
+      },
+      "memory.used [MiB]": {
+        "min": 33879.0,
+        "median": 66869.0,
+        "max": 66869.0
+      },
+      "power.draw [W]": {
+        "min": 86.92,
+        "median": 261.28999999999996,
+        "max": 504.77
+      },
+      "clocks.current.sm [MHz]": {
+        "min": 2295.0,
+        "median": 2392.0,
+        "max": 2422.0
+      }
+    },
+    "2": {
+      "utilization.gpu [%]": {
+        "min": 0.0,
+        "median": 41.5,
+        "max": 100.0
+      },
+      "memory.used [MiB]": {
+        "min": 33879.0,
+        "median": 68099.0,
+        "max": 68099.0
+      },
+      "power.draw [W]": {
+        "min": 89.97,
+        "median": 282.05,
+        "max": 502.05
+      },
+      "clocks.current.sm [MHz]": {
+        "min": 2325.0,
+        "median": 2407.0,
+        "max": 2422.0
+      }
+    }
+  },
+  "caveat": "Instrumented trace; kernel duration sums may overlap across streams and are NOT wall-clock fractions. Telemetry spans warmup, timing, FLOP probe and trace."
+}

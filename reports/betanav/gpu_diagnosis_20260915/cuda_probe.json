@@ -1,0 +1,58 @@
+[
+  {
+    "gpu": 0,
+    "returncode": 0,
+    "wall_seconds": 20.199930906295776,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"0\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.996483406983316, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  },
+  {
+    "gpu": 1,
+    "returncode": 0,
+    "wall_seconds": 20.241009950637817,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"1\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.9959101071581244, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  },
+  {
+    "gpu": 2,
+    "returncode": 0,
+    "wall_seconds": 19.86715292930603,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"2\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.995451794937253, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  },
+  {
+    "gpu": 3,
+    "returncode": 0,
+    "wall_seconds": 20.264378309249878,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"3\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.9960300773382187, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  },
+  {
+    "gpu": 4,
+    "returncode": 0,
+    "wall_seconds": 20.03767442703247,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"4\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.99541206471622, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  },
+  {
+    "gpu": 5,
+    "returncode": 0,
+    "wall_seconds": 19.85244584083557,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"5\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.9963366482406855, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  },
+  {
+    "gpu": 6,
+    "returncode": 0,
+    "wall_seconds": 19.989157676696777,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"6\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.9956818651407957, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  },
+  {
+    "gpu": 7,
+    "returncode": 0,
+    "wall_seconds": 20.33770227432251,
+    "stdout": "{\"stage\": \"imported\", \"torch\": \"2.10.0+cu129\", \"cuda\": \"12.9\", \"physical_gpu\": \"7\"}\n{\"stage\": \"done\", \"ok\": true, \"init_and_compute_seconds\": 1.9961132714524865, \"max_memory_mib\": 9.18798828125, \"capability\": [12, 0]}\n",
+    "stderr": ""
+  }
+]

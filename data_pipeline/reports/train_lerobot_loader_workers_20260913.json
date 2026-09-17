@@ -1,0 +1,153 @@
+{
+  "dataset": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+  "model_path": "/mnt/cfs/Models/Light",
+  "selected_episodes": 2,
+  "selected_frames": 72,
+  "batch": {
+    "samples": [
+      {
+        "dataset_index": 0,
+        "global_frame_index": 0,
+        "episode_index": 0,
+        "source_episode_id": "1802",
+        "source_scene_id": "mp3d/17DRP5sb8fy/17DRP5sb8fy.glb",
+        "frame_index": 0,
+        "instruction": "Walk through the door. Turn left. Walk past the table. Turn left. Stop next to the bar stools. ",
+        "target_text": "<apos_934><opos_0><act_l0_32><act_l1_62><act_l2_122>",
+        "token_valid": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "explicit_stop": false,
+        "fm_valid_steps": 30,
+        "history": [
+          {
+            "frame_ids": [
+              0,
+              0
+            ],
+            "pool_spatial": 1,
+            "pool_mode": "avg",
+            "tier": 0
+          }
+        ]
+      },
+      {
+        "dataset_index": 1,
+        "global_frame_index": 1,
+        "episode_index": 0,
+        "source_episode_id": "1802",
+        "source_scene_id": "mp3d/17DRP5sb8fy/17DRP5sb8fy.glb",
+        "frame_index": 1,
+        "instruction": "Walk through the door. Turn left. Walk past the table. Turn left. Stop next to the bar stools. ",
+        "target_text": "<apos_982><opos_0><act_l0_108><act_l1_145><act_l2_150>",
+        "token_valid": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "explicit_stop": false,
+        "fm_valid_steps": 30,
+        "history": [
+          {
+            "frame_ids": [
+              0,
+              1
+            ],
+            "pool_spatial": 1,
+            "pool_mode": "avg",
+            "tier": 0
+          }
+        ]
+      }
+    ],
+    "model_inputs": {
+      "input_ids": [
+        2,
+        219
+      ],
+      "attention_mask": [
+        2,
+        219
+      ],
+      "pixel_values_videos": [
+        896,
+        1536
+      ],
+      "video_grid_thw": [
+        2,
+        3
+      ],
+      "_original_video_grid_thw": [
+        2,
+        3
+      ],
+      "_post_vit_pool_factors": [
+        1,
+        1
+      ]
+    },
+    "labels_shape": [
+      2,
+      219
+    ],
+    "answer_start": [
+      212,
+      212
+    ],
+    "ce_tokens_per_sample": [
+      6,
+      6
+    ],
+    "fm_shape": [
+      2,
+      30,
+      3
+    ],
+    "fm_valid_steps": [
+      30,
+      30
+    ],
+    "fm_first_three": [
+      [
+        [
+          0.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          0.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0
+        ],
+        [
+          0.25,
+          0.0,
+          0.0
+        ]
+      ]
+    ]
+  }
+}

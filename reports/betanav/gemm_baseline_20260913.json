@@ -1,0 +1,47 @@
+{
+  "hardware": {
+    "cuda_name": "NVIDIA RPBZZZ6",
+    "compute_capability": [
+      12,
+      0
+    ],
+    "multiprocessors": 188,
+    "total_gib": 94.97064208984375,
+    "pci_bus_id": "00000000:62:00.0",
+    "torch_version": "2.10.0+cu128",
+    "nvidia_smi": {
+      "name": "NVIDIA RPBZZZ6",
+      "pci.device_id": "0x2BB910DE",
+      "pci.sub_device_id": "0x209110DE",
+      "driver_version": "580.126.20",
+      "power.limit": "600.00",
+      "clocks.max.sm": "2430",
+      "clocks.max.memory": "12481"
+    }
+  },
+  "gemm": [
+    {
+      "size": 4096,
+      "iterations": 50,
+      "milliseconds": [
+        0.36306304931640626,
+        0.36302593231201175,
+        0.3634374237060547
+      ],
+      "median_ms": 0.36306304931640626,
+      "dense_bf16_tflops": 378.553955658052
+    },
+    {
+      "size": 8192,
+      "iterations": 50,
+      "milliseconds": [
+        3.0321389770507814,
+        3.0676922607421875,
+        3.080682373046875
+      ],
+      "median_ms": 3.0676922607421875,
+      "dense_bf16_tflops": 358.41653409849783
+    }
+  ],
+  "caveat": "Measured dense BF16 GEMM reference, not vendor peak or training MFU."
+}

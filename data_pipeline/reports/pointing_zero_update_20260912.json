@@ -1,0 +1,303 @@
+{
+  "status": "code_updated_and_cpu_checks_passed; original_dataset_migration_unavailable",
+  "current_pointing_config": {
+    "horizon": 10,
+    "tail_policy": "terminal",
+    "path_spacing_m": 0.02,
+    "depth_tolerance_m": 0.05,
+    "depth_relative_tolerance": 0.01,
+    "opos_mode": "terminal_ground",
+    "unknown_token_id": 0
+  },
+  "new_semantics": {
+    "unknown_apos": {
+      "token_id": 0,
+      "token": "<apos_0>",
+      "state": "unknown",
+      "loss_valid": false
+    },
+    "unknown_opos": {
+      "token_id": 0,
+      "token": "<opos_0>",
+      "state": "unknown",
+      "loss_valid": false
+    },
+    "confirmed_invisible_opos": {
+      "token_id": 0,
+      "token": "<opos_0>",
+      "state": "not_visible",
+      "loss_valid": true
+    },
+    "spatial_missing_values": "JSON null / float NaN / integer -1 remain unchanged; these are not token IDs.",
+    "rvq_fm": "Unchanged, including RVQ STOP, masks and non-pointing padding sentinels.",
+    "legacy_reading": "Metadata without unknown_token_id preserves historical -1/null validation only."
+  },
+  "verification": {
+    "pipeline_cpu_tests_passed": 51,
+    "ruff_passed": true,
+    "legacy_negative_overlay_and_current_zero_overlay_validation_tested": true,
+    "invalid_depth_masked_zero_serialization_tested": true,
+    "source_arrays_in_cached_episode": 30,
+    "cached_label_frames_checked": 52,
+    "preview_changed_pointing_ids": {
+      "apos": 14
+    },
+    "all_other_cached_sample_fields_unchanged": true,
+    "all_preview_pointing_tokens_atomically_encode": true,
+    "zero_tokenizer_ids": {
+      "<apos_0>": 152443,
+      "<opos_0>": 153743
+    },
+    "preserved_missing_rvq_code_entries": 27
+  },
+  "data_availability": {
+    "raw_dataset_exists": false,
+    "final_annotation_exists": false,
+    "data_root_entries": [
+      "DATA_COLLECTION.md",
+      "README.md",
+      "dataset_index.json",
+      "rerun_collection.sh",
+      "visual"
+    ],
+    "migration_attempt": "Reannotation stopped before creating output because the original raw episodes directory was absent.",
+    "data_files_changed": false,
+    "datasets_regenerated": false
+  },
+  "preview_source": {
+    "path": "/tmp/lightnav_final_pipeline_2864_20260912/episodes/2864",
+    "samples_sha256": "144a15800a21b52475124ce0f2a2897f29c5397a1ec66f64af8f7420c71e9c56",
+    "description": "Preserved temporary label cache only. Examples below apply the token-ID/string mapping in memory; they are not a migrated dataset and cannot restore missing RGB/depth."
+  },
+  "examples": [
+    {
+      "frame_id": 2,
+      "history_start": 0,
+      "history_end_inclusive": 2,
+      "rvq_codes": [
+        174,
+        232,
+        82
+      ],
+      "rvq_tokens": "<act_l0_174><act_l1_232><act_l2_82>",
+      "rvq_loss_valid": true,
+      "fm_valid_steps": 30,
+      "explicit_stop": false,
+      "stop_loss_valid": false,
+      "current_rgb": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/rgb/000002.png",
+      "current_depth": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/depth/000002.npz",
+      "array_file": "targets.npz",
+      "array_row": 2,
+      "apos": {
+        "state": "unknown",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": false,
+        "reason": "no_visible_ground_point",
+        "target_frame_id": 12,
+        "target_world_point": [
+          -4.915103912353516,
+          -0.2089579850435257,
+          1.8561657667160034
+        ],
+        "pixel_rc": null,
+        "grid": null
+      },
+      "opos": {
+        "state": "not_visible",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": true,
+        "reason": "stop_location_outside_view",
+        "target_frame_id": 51,
+        "target_world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "pixel_rc": null,
+        "grid": null
+      },
+      "apos_tokens": "<apos_0>",
+      "opos_tokens": "<opos_0>"
+    },
+    {
+      "frame_id": 20,
+      "history_start": 0,
+      "history_end_inclusive": 20,
+      "rvq_codes": [
+        32,
+        150,
+        207
+      ],
+      "rvq_tokens": "<act_l0_32><act_l1_150><act_l2_207>",
+      "rvq_loss_valid": true,
+      "fm_valid_steps": 30,
+      "explicit_stop": false,
+      "stop_loss_valid": false,
+      "current_rgb": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/rgb/000020.png",
+      "current_depth": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/depth/000020.npz",
+      "array_file": "targets.npz",
+      "array_row": 20,
+      "apos": {
+        "target_frame_id": 30,
+        "target_world_point": [
+          -3.7680554389953613,
+          -0.2089579850435257,
+          -1.4246740341186523
+        ],
+        "state": "point",
+        "pixel": [
+          252.8622596427058,
+          200.73272671411436
+        ],
+        "world_point": [
+          -3.7680554389953613,
+          -0.2089579850435257,
+          -1.4246740341186523
+        ],
+        "token_id": 938,
+        "loss_valid": true,
+        "selected_frame_fraction": 30.0,
+        "backtrack_m": 0.0,
+        "reason": "t_plus_10",
+        "pixel_rc": [
+          200,
+          252
+        ],
+        "grid": {
+          "row": 19,
+          "col": 25,
+          "cell_id": 938
+        }
+      },
+      "opos": {
+        "state": "point",
+        "pixel": [
+          255.04741565219888,
+          159.47498118491475
+        ],
+        "world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "token_id": 747,
+        "loss_valid": true,
+        "reason": "visible_terminal_ground_location",
+        "target_frame_id": 51,
+        "target_world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "pixel_rc": [
+          159,
+          255
+        ],
+        "grid": {
+          "row": 15,
+          "col": 26,
+          "cell_id": 747
+        }
+      },
+      "apos_tokens": "<apos_938>",
+      "opos_tokens": "<opos_747>"
+    },
+    {
+      "frame_id": 51,
+      "history_start": 0,
+      "history_end_inclusive": 51,
+      "rvq_codes": [
+        6,
+        122,
+        174
+      ],
+      "rvq_tokens": "<act_l0_6><act_l1_122><act_l2_174>",
+      "rvq_loss_valid": true,
+      "fm_valid_steps": 0,
+      "explicit_stop": true,
+      "stop_loss_valid": true,
+      "current_rgb": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/rgb/000051.png",
+      "current_depth": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/depth/000051.npz",
+      "array_file": "targets.npz",
+      "array_row": 51,
+      "apos": {
+        "state": "unknown",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": false,
+        "reason": "no_visible_ground_point",
+        "target_frame_id": 51,
+        "target_world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "pixel_rc": null,
+        "grid": null
+      },
+      "opos": {
+        "state": "not_visible",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": true,
+        "reason": "stop_location_outside_view",
+        "target_frame_id": 51,
+        "target_world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "pixel_rc": null,
+        "grid": null
+      },
+      "apos_tokens": "<apos_0>",
+      "opos_tokens": "<opos_0>"
+    }
+  ],
+  "last_frame_fm_valid_mask": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "changed_runtime_files": [
+    "pointing.py",
+    "collect_r2r.py",
+    "annotate_r2r.py",
+    "validate_pointing.py",
+    "validate_r2r.py",
+    "configs/pointing.json"
+  ]
+}

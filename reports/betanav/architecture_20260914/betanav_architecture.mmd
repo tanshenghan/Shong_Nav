@@ -1,0 +1,59 @@
+flowchart TB
+  subgraph train["训练：BetaModel.forward(batch)"]
+    direction LR
+    rgb["截至 t 的 RGB 历史
+原图 470×280"] --> sf["SlowFast 采样
+resize 至 448×256"]
+    sf --> vit["Qwen3-VL 视觉塔
+ViT + merger：冻结"] --> pool["Post-ViT 空间池化"]
+    prompt["指令 + prompt
+训练时拼接 GT 回答"] --> vlm["LightNav / Qwen3-VL 因果主干
+隐藏维度 2560"]
+    pool --> vlm
+    vlm --> lm["LM head"] --> tok["apos + opos + RVQ L0/L1/L2
+五个任务 token + 回答结束 token"] --> ce["CE loss
+只监督有效标签"]
+    token_gt["Token GT + 各通道 mask"] -.-> ce
+    vlm --> prefix["仅提取回答开始前的有效特征
+[B,N,2560]"]
+    prefix --> detach["detach：截断 FM 到主干的梯度"] --> proj["可训练 context projection
+2560 → 512"]
+    gt["量化前连续 GT
+30步局部 SE2 增量 + mask"] --> norm["固定尺度归一化：a = GT / scale"]
+    norm --> mix["在线采样 ε、τ
+xτ = (1−τ)ε + τa
+目标流场 v* = a−ε"]
+    mix --> expert["独立 FlowActionExpert
+输入投影 + 步位置嵌入
+6层：双向 self-attn → cross-attn → FFN
+宽512 / 8头 / FFN2048
+τ 经正弦嵌入和MLP注入FiLM"]
+    proj -->|"上下文 K、V"| expert
+    expert --> velocity["预测流场 [B,30,3]"] --> fm["FM loss
+有效未来动作上的 masked MSE"]
+    mix -.->|"a−ε、mask"| fm
+    ce --> loss["总损失 = CE + 2.0 × FM
+CE 更新语言主干/LM head
+FM 更新投影/动作专家"]
+    fm --> loss
+  end
+  subgraph infer["推理：BetaModel.predict(...)"]
+    direction LR
+    prefill["仅输入历史图像与指令
+一次 prefill，缓存上下文"] --> gen["生成 token
+RVQ 解码并判定 STOP"]
+    gen -->|"STOP"| stop["跳过 FM，输出零轨迹"]
+    gen -->|"继续"| flow["复用前缀上下文
+高斯噪声 → FM专家
+10次 Euler 积分：τ=0 → 1"]
+    flow --> act["反归一化 + SE2 组合
+30步连续增量与30个路点"]
+  end
+  classDef ceTrain fill:#edf4fd,stroke:#2365a5;
+  classDef fmTrain fill:#fff3e4,stroke:#b86b11;
+  classDef frozen fill:#f0f2f5,stroke:#637184;
+  classDef barrier fill:#fcedee,stroke:#b54146;
+  class vlm,lm,tok,ce ceTrain;
+  class proj,expert,velocity,fm fmTrain;
+  class vit,pool,norm frozen;
+  class detach barrier;

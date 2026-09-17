@@ -1,0 +1,36 @@
+{
+  "image": "/mnt/cfs/data/beta_nav/visual/episode_2864_frame_000000_apos_grid_20260912.png",
+  "episode_id": "2864",
+  "frame_id": 0,
+  "channel": "apos",
+  "original_size_wh": [
+    470,
+    280
+  ],
+  "grid_shape_rc": [
+    27,
+    48
+  ],
+  "pixel": [
+    250.27269760412952,
+    257.77368471328936
+  ],
+  "pixel_rc": [
+    257,
+    250
+  ],
+  "grid": {
+    "row": 24,
+    "col": 25,
+    "cell_id": 1178
+  },
+  "code_sha256": "3a4f45deb657b31c6cae7050145f6555bff6e44587a555a49711833bd1bb3f6d",
+  "source_rgb": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864/rgb/000000.png",
+  "annotation_samples_sha256": "03604388ffcd098930448928c0da8e015ba0f398f0be558160e4e71f36238b8f",
+  "output_size_wh": [
+    1436,
+    793
+  ],
+  "pixel_inside_highlighted_cell_verified": true,
+  "focused_tests_passed": 18
+}

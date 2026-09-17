@@ -1,0 +1,176 @@
+{
+  "utc": "2026-09-13T10:04:03.759029+00:00",
+  "reason": "User requested rolling full-state checkpoints plus permanent model archives and a new stopping limit; restart from committed full-state step 3047",
+  "old_worker_pids": [
+    453793,
+    453794,
+    453795,
+    453796,
+    453797,
+    453798,
+    453799,
+    453800
+  ],
+  "signal": "SIGKILL",
+  "resume_from": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00003047",
+  "last_logged_step": 3150,
+  "minimum_discarded_updates": 103,
+  "old_launch_dir": "runs/betanav_launch/20260913T095634Z_all_data_async_model",
+  "resume_launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260913T101538Z_dual_checkpoints",
+  "confirmed_global_stop_step": 29589,
+  "cpu_tests": "768 passed, 5 skipped, 2 deselected",
+  "gpu_async_test": "2 GPUs: full Adam/RNG replay and retention passed",
+  "verified_at_utc": "2026-09-13T10:20:23.658657+00:00",
+  "status": "verified_and_training",
+  "full_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00003050",
+  "checkpoint_format": "betanav_checkpoint_v2",
+  "checkpoint_world_size": 8,
+  "checkpoint_state": {
+    "run_id": "3eac56d9f142440784fad82c43a01c0b",
+    "step": 3050,
+    "epoch": 0,
+    "batch_offset": 3,
+    "samples_seen": 195200,
+    "vlm_updates": 3050,
+    "fm_updates": 3050,
+    "best_validation": null
+  },
+  "checkpoint_files_bytes": {
+    "COMPLETE": 22,
+    "metadata.json": 5648,
+    "model.pt": 17939743603,
+    "rank-00000.pt": 4072509621,
+    "rank-00001.pt": 4064884593,
+    "rank-00002.pt": 4064901098,
+    "rank-00003.pt": 4062934829,
+    "rank-00004.pt": 4072858482,
+    "rank-00005.pt": 4072857647,
+    "rank-00006.pt": 4072857647,
+    "rank-00007.pt": 4072858482,
+    "timing-00000.json": 82,
+    "timing-00001.json": 84,
+    "timing-00002.json": 83,
+    "timing-00003.json": 83,
+    "timing-00004.json": 83,
+    "timing-00005.json": 84,
+    "timing-00006.json": 84,
+    "timing-00007.json": 81,
+    "trainer.json": 200
+  },
+  "full_checkpoint_size_gib": 47.028448931872845,
+  "per_rank_save_timing": {
+    "timing-00000": {
+      "snapshot_seconds": 5.592920080758631,
+      "write_seconds": 50.21848712768406
+    },
+    "timing-00001": {
+      "snapshot_seconds": 1.1720465747639537,
+      "write_seconds": 24.615328228101134
+    },
+    "timing-00002": {
+      "snapshot_seconds": 1.0090024787932634,
+      "write_seconds": 23.97593188099563
+    },
+    "timing-00003": {
+      "snapshot_seconds": 1.2260443419218063,
+      "write_seconds": 24.61545534990728
+    },
+    "timing-00004": {
+      "snapshot_seconds": 1.1446544472128153,
+      "write_seconds": 24.68278785608709
+    },
+    "timing-00005": {
+      "snapshot_seconds": 1.0974585805088282,
+      "write_seconds": 24.625994664616883
+    },
+    "timing-00006": {
+      "snapshot_seconds": 1.1013652961701155,
+      "write_seconds": 24.619725657626987
+    },
+    "timing-00007": {
+      "snapshot_seconds": 1.079625309444964,
+      "write_seconds": 24.3543411931023
+    }
+  },
+  "rolling_checkpoints": [
+    "step-00003000",
+    "step-00003047",
+    "step-00003050"
+  ],
+  "permanent_model_checkpoints": [
+    "step-00003000"
+  ],
+  "latest_verified_training_metric": {
+    "step": 3060,
+    "time_unix": 1789294801.3034196,
+    "train_loss": 2.29985363141998,
+    "train_ce": 0.9863059244113054,
+    "train_fm": 0.6567738535043374,
+    "lr_vlm": 9.88529727492066e-06,
+    "lr_fm": 9.88529727492066e-05,
+    "grad_norm_vlm": 8.209845542907715,
+    "grad_norm_fm": 4.545520305633545,
+    "ce_tokens": 334,
+    "fm_valid_steps": 1414,
+    "samples": 64,
+    "samples_seen": 195840,
+    "epoch": 0,
+    "batch_offset": 13,
+    "no_future_samples": 0,
+    "padding_fraction": 0.31956859093730605,
+    "update_seconds": 3.2562436824664474,
+    "samples_per_second": 19.65454868891234,
+    "input_tokens_per_second": 13465.515568167802,
+    "data_wait_seconds_max": 0.0001240083947777748,
+    "update_seconds_by_rank": [
+      3.255751929245889,
+      3.256002546288073,
+      3.2560021681711078,
+      3.2561047170311213,
+      3.256119883619249,
+      3.2562436824664474,
+      3.2562216129153967,
+      3.2556280670687556
+    ],
+    "data_wait_seconds_by_rank": [
+      9.537115693092346e-05,
+      0.00011952221393585205,
+      0.0001146458089351654,
+      9.574182331562042e-05,
+      0.0001240083947777748,
+      0.00010965205729007721,
+      0.00012056808918714523,
+      0.00011362042278051376
+    ],
+    "peak_memory_gib": 48.56398153305054,
+    "peak_reserved_memory_gib": 53.18359375
+  },
+  "resume_preserved_cursor": true,
+  "normal_training_command": [
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/.venv-train/bin/python",
+    "-u",
+    "-m",
+    "accelerate.commands.launch",
+    "--config_file",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/configs/betanav/accelerate_8gpu.yaml",
+    "--main_process_port",
+    "38049",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/train_betanav.py",
+    "--config",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260913T101538Z_dual_checkpoints/train_config.yaml",
+    "--resume",
+    "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00003050"
+  ],
+  "current_train_log": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260913T101538Z_dual_checkpoints/train.log",
+  "supervisor_pid": 509383,
+  "launcher_pid": 517187,
+  "validation_enabled": false,
+  "policy": {
+    "full_every": 1000,
+    "full_keep_last": 3,
+    "permanent_model_every": 3000,
+    "stop_global_step": 29589,
+    "final_full_checkpoint": true,
+    "async_cpu_snapshot_then_background_io": true
+  }
+}

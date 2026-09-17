@@ -1,0 +1,169 @@
+{
+  "episode_id": "2864",
+  "source_episode": "/mnt/cfs/data/beta_nav/r2r_train_470x280_20260911/episodes/2864",
+  "target_world": [
+    -2.0651228427886963,
+    -0.2089579850435257,
+    -5.280107021331787
+  ],
+  "candidate_frame_ids": [
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "api_called": false,
+  "status": "pending_external_api_approval",
+  "candidates": [
+    {
+      "frame_id": 44,
+      "geometry_candidate": {
+        "state": "point",
+        "pixel": [
+          249.2404135743136,
+          236.83670266008434
+        ],
+        "world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "token_id": 1082,
+        "loss_valid": true,
+        "reason": "visible_terminal_ground_location",
+        "pixel_rc": [
+          236,
+          249
+        ],
+        "grid": {
+          "row": 22,
+          "col": 25,
+          "cell_id": 1082
+        }
+      }
+    },
+    {
+      "frame_id": 45,
+      "geometry_candidate": {
+        "state": "point",
+        "pixel": [
+          213.49070075966924,
+          237.51040758351215
+        ],
+        "world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "token_id": 1078,
+        "loss_valid": true,
+        "reason": "visible_terminal_ground_location",
+        "pixel_rc": [
+          237,
+          213
+        ],
+        "grid": {
+          "row": 22,
+          "col": 21,
+          "cell_id": 1078
+        }
+      }
+    },
+    {
+      "frame_id": 46,
+      "geometry_candidate": {
+        "state": "point",
+        "pixel": [
+          207.97235617021045,
+          262.52735551076455
+        ],
+        "world_point": [
+          -2.0651228427886963,
+          -0.2089579850435257,
+          -5.280107021331787
+        ],
+        "token_id": 1222,
+        "loss_valid": true,
+        "reason": "visible_terminal_ground_location",
+        "pixel_rc": [
+          262,
+          207
+        ],
+        "grid": {
+          "row": 25,
+          "col": 21,
+          "cell_id": 1222
+        }
+      }
+    },
+    {
+      "frame_id": 47,
+      "geometry_candidate": {
+        "state": "not_visible",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": true,
+        "reason": "stop_location_outside_view",
+        "pixel_rc": null,
+        "grid": null
+      }
+    },
+    {
+      "frame_id": 48,
+      "geometry_candidate": {
+        "state": "not_visible",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": true,
+        "reason": "stop_location_outside_view",
+        "pixel_rc": null,
+        "grid": null
+      }
+    },
+    {
+      "frame_id": 49,
+      "geometry_candidate": {
+        "state": "not_visible",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": true,
+        "reason": "stop_location_outside_view",
+        "pixel_rc": null,
+        "grid": null
+      }
+    },
+    {
+      "frame_id": 50,
+      "geometry_candidate": {
+        "state": "not_visible",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": true,
+        "reason": "stop_location_outside_view",
+        "pixel_rc": null,
+        "grid": null
+      }
+    },
+    {
+      "frame_id": 51,
+      "geometry_candidate": {
+        "state": "not_visible",
+        "pixel": null,
+        "world_point": null,
+        "token_id": 0,
+        "loss_valid": true,
+        "reason": "stop_location_outside_view",
+        "pixel_rc": null,
+        "grid": null
+      }
+    }
+  ]
+}

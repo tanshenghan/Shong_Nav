@@ -1,0 +1,236 @@
+{
+  "status": "completed",
+  "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260915T013250Z_resume26000_8gpu",
+  "resume_state": {
+    "run_id": "3eac56d9f142440784fad82c43a01c0b",
+    "step": 26000,
+    "epoch": 2,
+    "batch_offset": 3225,
+    "samples_seen": 1663904,
+    "vlm_updates": 26000,
+    "fm_updates": 26000,
+    "best_validation": null
+  },
+  "source_checks": {
+    "runtime.py": {
+      "expected": "8ec96fe8f88accbf1cd604606a99a429a638fcebf9fc1d75191e8368b0bba9c1",
+      "actual": "8ec96fe8f88accbf1cd604606a99a429a638fcebf9fc1d75191e8368b0bba9c1",
+      "matches": true
+    },
+    "prepare_data.py": {
+      "expected": "a1979ecf16d3ce438ac1c8fbc80447e9a3e7c6d94e8d9f59edaeccc243cc91d5",
+      "actual": "a1979ecf16d3ce438ac1c8fbc80447e9a3e7c6d94e8d9f59edaeccc243cc91d5",
+      "matches": true
+    },
+    "full_checkpoint.py": {
+      "expected": "ee392e7d4fdfe5a09e13abd2f91d1db6893413d717397e1fec0fae2bcff54d88",
+      "actual": "ee392e7d4fdfe5a09e13abd2f91d1db6893413d717397e1fec0fae2bcff54d88",
+      "matches": true
+    },
+    "performance.py": {
+      "expected": "136ae05e5f1d1769d5b54bf8db26c619e07ea5c3cf002e089e5a4bcd26db5c7c",
+      "actual": "136ae05e5f1d1769d5b54bf8db26c619e07ea5c3cf002e089e5a4bcd26db5c7c",
+      "matches": true
+    },
+    "model_checkpoint.py": {
+      "expected": "83786a6d0eead993744b2dfda6c7b717f344659fed9ba6cb1e7da41b904bfa26",
+      "actual": "83786a6d0eead993744b2dfda6c7b717f344659fed9ba6cb1e7da41b904bfa26",
+      "matches": true
+    },
+    "__init__.py": {
+      "expected": "738161c191cd31f028657dbd033d222c6b652f0049a9bbdf620ced3e7a3b84d0",
+      "actual": "738161c191cd31f028657dbd033d222c6b652f0049a9bbdf620ced3e7a3b84d0",
+      "matches": true
+    },
+    "checkpoint.py": {
+      "expected": "e83d22a9038ca0d1f627178b1cdb3cc090d77ac34cb08e1523a47900228cfa4f",
+      "actual": "e83d22a9038ca0d1f627178b1cdb3cc090d77ac34cb08e1523a47900228cfa4f",
+      "matches": true
+    },
+    "profile_batch.py": {
+      "expected": "d9e535d11a478bb333588f0164650cd9f8341396dbf82758158dbc7514a3362c",
+      "actual": "d9e535d11a478bb333588f0164650cd9f8341396dbf82758158dbc7514a3362c",
+      "matches": true
+    },
+    "config.py": {
+      "expected": "9011b48a09d37d4d738a176deb7b4bf4c4a1a1b5a4551395290ca2cb79e20081",
+      "actual": "9011b48a09d37d4d738a176deb7b4bf4c4a1a1b5a4551395290ca2cb79e20081",
+      "matches": true
+    },
+    "train_betanav.py": {
+      "expected": "741b46ef0145203b736c952fd71b6975a4660c9062590f8805e5c51148910549",
+      "actual": "741b46ef0145203b736c952fd71b6975a4660c9062590f8805e5c51148910549",
+      "matches": true
+    }
+  },
+  "configuration_identical_to_previous_launch": true,
+  "verified_at_utc": "2026-09-15T01:38:42Z",
+  "latest_verified_metric": {
+    "step": 26020,
+    "time_unix": 1789436312.8510337,
+    "train_loss": 1.0430843267192782,
+    "train_ce": 0.03197417129038416,
+    "train_fm": 0.5055550777144471,
+    "lr_vlm": 1.3416910216152063e-06,
+    "lr_fm": 1.3416910216152062e-05,
+    "grad_norm_vlm": 3.6997926235198975,
+    "grad_norm_fm": 597.5191650390625,
+    "ce_tokens": 337,
+    "fm_valid_steps": 1351,
+    "samples": 64,
+    "samples_seen": 1665184,
+    "epoch": 2,
+    "batch_offset": 3245,
+    "no_future_samples": 1,
+    "padding_fraction": 0.35437805897099195,
+    "update_seconds": 3.3116978351026773,
+    "samples_per_second": 19.325434621971095,
+    "input_tokens_per_second": 13064.899684200365,
+    "data_wait_seconds_max": 0.00013748742640018463,
+    "update_seconds_by_rank": [
+      3.311188750900328,
+      3.3112470731139183,
+      3.3113618986681104,
+      3.3114725705236197,
+      3.311609492637217,
+      3.311628468334675,
+      3.3116978351026773,
+      3.3110478380694985
+    ],
+    "data_wait_seconds_by_rank": [
+      0.00013748742640018463,
+      0.00013548694550991058,
+      0.0001124134287238121,
+      0.00011696480214595795,
+      9.821169078350067e-05,
+      0.00010646507143974304,
+      0.00013304222375154495,
+      0.00010950583964586258
+    ],
+    "peak_memory_gib": 48.492760181427,
+    "peak_reserved_memory_gib": 53.22265625
+  },
+  "supervisor_pid": 11589,
+  "launcher_pid": 11591,
+  "training_worker_pids": [
+    11632,
+    11633,
+    11634,
+    11635,
+    11636,
+    11637,
+    11638,
+    11639
+  ],
+  "resume_audit": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/resumes/1789436083396843974-322d00e6.json",
+  "data_cursor_reset": false,
+  "max_steps_override": false,
+  "confirmed_devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "max_steps": 29589,
+  "initial_updates_requested": 3589,
+  "current_train_log": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260915T013250Z_resume26000_8gpu/train.log",
+  "gpu_probe": "8/8 passed before launch; no source edits needed",
+  "completion_verified_at_utc": "2026-09-15T05:37:58Z",
+  "finished_at_utc": "2026-09-15T04:47:30.663311+00:00",
+  "finished_at_beijing": "2026-09-15T12:47:30.663311+08:00",
+  "exit_code": 0,
+  "final_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00029589",
+  "final_state": {
+    "run_id": "3eac56d9f142440784fad82c43a01c0b",
+    "step": 29589,
+    "epoch": 2,
+    "batch_offset": 6814,
+    "samples_seen": 1893600,
+    "vlm_updates": 29589,
+    "fm_updates": 29589,
+    "best_validation": null
+  },
+  "final_checkpoint_file_bytes": {
+    "COMPLETE": 22,
+    "metadata.json": 5650,
+    "model.pt": 17939743603,
+    "rank-00000.pt": 4072509493,
+    "rank-00001.pt": 4064884465,
+    "rank-00002.pt": 4064900970,
+    "rank-00003.pt": 4062934701,
+    "rank-00004.pt": 4072858354,
+    "rank-00005.pt": 4072857519,
+    "rank-00006.pt": 4072857519,
+    "rank-00007.pt": 4072858354,
+    "timing-00000.json": 82,
+    "timing-00001.json": 82,
+    "timing-00002.json": 82,
+    "timing-00003.json": 84,
+    "timing-00004.json": 83,
+    "timing-00005.json": 84,
+    "timing-00006.json": 83,
+    "timing-00007.json": 83,
+    "trainer.json": 207
+  },
+  "last_metric": {
+    "step": 29580,
+    "time_unix": 1789447561.075237,
+    "train_loss": 1.1381124014935418,
+    "train_ce": 0.008620271883067042,
+    "train_fm": 0.5647460648052374,
+    "lr_vlm": 1.0000022008969074e-06,
+    "lr_fm": 1.0000022008969074e-05,
+    "grad_norm_vlm": 3.119415521621704,
+    "grad_norm_fm": 349.5575866699219,
+    "ce_tokens": 352,
+    "fm_valid_steps": 1404,
+    "samples": 64,
+    "samples_seen": 1893024,
+    "epoch": 2,
+    "batch_offset": 6805,
+    "no_future_samples": 1,
+    "padding_fraction": 0.2687120178593576,
+    "update_seconds": 2.9115670630708337,
+    "samples_per_second": 21.98129001105649,
+    "input_tokens_per_second": 16201.241111117903,
+    "data_wait_seconds_max": 0.00011828634887933731,
+    "update_seconds_by_rank": [
+      2.9110846957191825,
+      2.9111757846549153,
+      2.9112167144194245,
+      2.9114066576585174,
+      2.9114670176059008,
+      2.9115670630708337,
+      2.9115663645789027,
+      2.9109018351882696
+    ],
+    "data_wait_seconds_by_rank": [
+      8.958764374256134e-05,
+      0.00011828634887933731,
+      9.522214531898499e-05,
+      8.890219032764435e-05,
+      9.884685277938843e-05,
+      9.529851377010345e-05,
+      0.00010650325566530228,
+      0.00010169018059968948
+    ],
+    "peak_memory_gib": 48.657347679138184,
+    "peak_reserved_memory_gib": 53.505859375
+  },
+  "last_100_logged_batches": {
+    "step_range": [
+      28590,
+      29580
+    ],
+    "train_loss": 1.254420736783488,
+    "train_ce": 0.00663959072199527,
+    "train_fm": 0.6238905730307465,
+    "update_seconds": 3.116621955242008
+  },
+  "launch_to_completion_seconds": 11659.017625808716,
+  "nonfinite_logged_metrics": 0
+}

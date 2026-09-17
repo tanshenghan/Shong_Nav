@@ -9,6 +9,8 @@ Human-facing documentation lives in [docs/GETTING_STARTED.md](docs/GETTING_START
 ```text
 src/lightnav/
   inference/   model backends (hf, vllm_local), the vLLM 0.19.x patch, RVQ decoding
+  dataloader/  training data readers and BetaTrainBatch collation
+  training/    BetaNav Accelerate/DDP/ZeRO-1 training, optimizer and resume contracts
   serving/     lightnav-serve: WebSocket server, session state, micro-batch scheduler
   cli/         predict, ws_client, eval_habitat, eval_merge, render entry points
   habitat/     Habitat evaluation client (talks to habitat_server over ZMQ)
@@ -134,8 +136,54 @@ a page that renders proves nothing about the server. Check the telemetry, not th
 
 ## Conventions
 
+- The user-named Token+FM model is **BetaModel**, implemented in
+  `src/lightnav/inference/beta_model.py`. CE updates the HF LightNav backbone/LM
+  head; FM updates only the separate action expert and its context projection.
+  Its interfaces and checkpoint contract are in `docs/BETA_MODEL.md`.
+  Optional `training_mode: fm_only` freezes the complete original VLM in eval/no_grad,
+  removes CE/RVQ targets and trains only a fresh context projection/action expert.
+  The separate FM-only experiment uses three full epochs (`num_epochs: 3`), not the
+  previous run's numerical 29,589-step target. See `configs/betanav/r2r_fm_only.yaml`.
+- BetaNav training starts at `train_betanav.py`; runtime code belongs in
+  `src/lightnav/training/`, training configs in `configs/betanav/`, and tests in
+  `tests/`. See `docs/TRAIN_BETANAV.md`. Training split/statistics preparation is
+  `python -m lightnav.training.prepare_data`; frozen manifests belong in
+  `configs/betanav/data/`, training reports in `reports/betanav/`, and the independent
+  environment in `.venv-train/` (`scripts/setup_betanav_train.sh`). Training must
+  work without the `data_pipeline/` code directory. Use the independent training env;
+  preserve CE/FM gradient isolation, global mask weighting and complete resume state.
+  User-requested R2R policy: train on all episodes (no validation split); every 1,000
+  global steps save complete model/Adam/RNG/data-cursor state and retain only the newest
+  three. Also retain model-only archives every 3,000 global steps permanently.
+  Capture immutable CPU snapshots at an update boundary, then write asynchronously
+  using per-rank Adam shards; avoid ZeRO optimizer consolidation. Permanent model
+  exports omit Adam/RNG state and must not be presented as exact-resume checkpoints.
+  The user confirmed stopping this run at global step 29,589; do not replace that
+  numerical target with three complete epochs after the full-data migration.
 - Match the surrounding code; `make check` (ruff) is authoritative on style.
 - New CPU-testable behaviour gets a test under `tests/`. Mark anything needing CUDA or
   weights with `gpu` so `make test` keeps skipping it.
 - Every server / CLI flag is documented in [docs/CONFIGURATION.md](docs/CONFIGURATION.md);
   add new ones there in the same pass.
+
+## Data pipeline location (user convention)
+
+- `data_pipeline/` is the canonical home for all future data-pipeline code,
+  dataset-generation paradigms, configuration, documentation, validation tools
+  and small reports. Start with [data_pipeline/README.md](data_pipeline/README.md).
+- Pipeline-specific CPU tests live in `data_pipeline/tests/` and are included in
+  `make test`. This is the data-pipeline exception to the general `tests/` location.
+- Keep substantive pipeline implementations out of `scripts/`, `src/lightnav/`,
+  `docs/` and `outputs/`; existing compatibility entry points and documentation
+  links may remain there. Shared inference utilities remain in their own package.
+  User-requested exception: training data readers belong in `src/lightnav/dataloader/`,
+  with `Train_Lerobot_DataLoader.py` as the Beta training entry point and tests in
+  `tests/test_train_lerobot_loader.py`. All training setup, split preparation,
+  documentation and reports follow the training convention above; only dataset
+  generation and its setup, documentation and reports remain in `data_pipeline/`.
+- Large generated datasets stay under `/mnt/cfs/data/beta_nav` unless the user
+  specifies another destination. Record their locations and checks in
+  `data_pipeline/`; do not relocate existing data or rewrite provenance snapshots.
+- User-requested exception: the standalone GT video renderer is one file at
+  `visual/render_episode_gt.py`. Its documentation, tests and small reports stay
+  in `data_pipeline/`; generated videos stay under the configured data root.

@@ -1,0 +1,12 @@
+{
+  "cpu_tests": {
+    "passed": 628,
+    "skipped": 1
+  },
+  "scoped_ruff": "passed",
+  "git_diff_check": "passed",
+  "real_doubao_request": false,
+  "missing_api_credentials_fail_before_writes": true,
+  "apos_validation_report": "apos10_validation_20260911.json",
+  "semantic_geometry_report": "semantic_geometry_20260911.json"
+}

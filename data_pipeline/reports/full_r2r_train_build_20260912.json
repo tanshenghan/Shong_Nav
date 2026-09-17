@@ -1,0 +1,127 @@
+{
+  "state": "complete",
+  "dataset": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+  "work_directory": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912.work",
+  "plan_sha256": "88d58dbb91b1a151d967d87bf6ba2295cf4fb73236a2aaca33a5e88a23e54e01",
+  "scope": {
+    "source_episodes": 10819,
+    "physical_routes": 3603,
+    "scenes": 61,
+    "frames": 631244,
+    "rendered_frames": 210194,
+    "unique_instruction_texts": 10815
+  },
+  "tests": {
+    "pipeline_cpu_passed": 95,
+    "ruff": "passed",
+    "shell_syntax": "passed"
+  },
+  "angular_validation_fix": {
+    "kind": "validation-only periodic angular distance",
+    "captured_routes_rechecked_python39": 107,
+    "stored_fm_arrays_unchanged": true
+  },
+  "real_merge_check": "full_train_real_merge_check_20260912.json",
+  "code_sha256": {
+    "build_r2r_train.py": "fe317f8c45b01874aa85c5db5d8188a342365ac4a0c871accf6edf5e1a7d575f",
+    "merge_lerobot.py": "b48f7bd09036d05890777b6ee6467f523583b4fde20de5fb5041800c03f0e211",
+    "run_r2r_train.sh": "f16628615989083eb3b143a1d9dd4a2f2fe7e1a887a1bffe9c999886e8c3fa00",
+    "collect_r2r.py": "673ef9277af1eb47a4db01bcb420029630f81b8594ff815839694e924750c909",
+    "geometry.py": "aa09057e2ba3c63d74b8f36e9abb95e71442aea5e4cf45a9a1f3d842df1ad7b2",
+    "lerobot_stats.py": "7235229b633e701e1e64e5bb7456abbf98bd602f5c6b732d288e208aec33968b",
+    "export_lerobot.py": "a550b92b9d03885984a64aee7bbc0c562c39878d8ff38485814199790fa7168a",
+    "validate_lerobot.py": "8a04d6fe9123b2746f48ac53560c7b8e95719c0847e5910be1a72b4a51175de9",
+    "tests/test_full_train.py": "c1690771a2f6c1da3c650c712368b41bbed17f4ff4cd83f9b6f59c404db49220"
+  },
+  "note": "Dataset generation, complete source coverage, all Parquet values and official loader/DataLoader checks passed.",
+  "expected_supervision": {
+    "episodes": 10819,
+    "frames": 631244,
+    "explicit_stop_frames": 10819,
+    "rvq_motion_valid_frames": 523054,
+    "rvq_valid_including_stop_frames": 533873,
+    "full_fm30_frames": 307250,
+    "valid_fm_future_steps": 13908162
+  },
+  "empty_depth_handling": {
+    "diagnosed_episode_id": "2039",
+    "scene": "VVfe2KiqLaN",
+    "frame_0": "RGB all zero, depth all zero; actual outdoor scan gap",
+    "later_frames": "valid surfaces gradually appear after expert rotation",
+    "policy": "retain original pixels/depth/poses and false depth mask; use existing unknown pointing masks",
+    "repair_status": "completed; all 480 shards and all source instructions are present"
+  },
+  "summary": {
+    "complete": true,
+    "episodes": 10819,
+    "frames": 631244,
+    "tasks": 10815,
+    "files": 4853,
+    "physical_routes": 3603,
+    "scenes": 61,
+    "plan_sha256": "88d58dbb91b1a151d967d87bf6ba2295cf4fb73236a2aaca33a5e88a23e54e01",
+    "format": "LeRobotDataset v3.0",
+    "repo_id": "beta-nav/r2r-train",
+    "dataset_root": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+    "data_parquet_bytes": 394516328547,
+    "data_parquet_gib": 367.422,
+    "features": 49,
+    "width": 470,
+    "height": 280,
+    "hfov_deg": 120.0,
+    "camera_height_m": 0.88,
+    "fps": 1,
+    "time_basis": "frame_index",
+    "physical_dt_s": null,
+    "fm_horizon": 30,
+    "rvq_horizon": 10,
+    "opos_visibility_window": "last_half",
+    "opos_rule": "t >= floor(N/2) AND actual projection/depth visibility",
+    "unknown_pointing_token_id": 0,
+    "apos_visible_frames": 487797,
+    "opos_visible_frames": 159568,
+    "empty_depth_frames": 15,
+    "black_rgb_frames": 15,
+    "rgb_storage": "lossless PNG bytes in Parquet",
+    "depth_storage": "float32 camera-Z metres + boolean validity in Parquet",
+    "self_contained": true,
+    "validation": "meta/full_train_validation.json",
+    "quality": "meta/quality.json",
+    "source_scope": "Complete local R2R-VLNCE v1-3 preprocessed train; all original instruction episodes retained"
+  },
+  "validation": {
+    "frames": 631244,
+    "episodes": 10819,
+    "tasks": 10815,
+    "files": 4853,
+    "all_parquet_columns_readback_exact": true,
+    "provenance_files_verified": 27398,
+    "all_source_ids_exact": true,
+    "all_instructions_exact": true,
+    "global_frame_indices_exact": true,
+    "official_merged_loader_episode_indices": [
+      0,
+      5409,
+      10818
+    ],
+    "merged_dataloader_batch": true,
+    "complete": true,
+    "plan_sha256": "88d58dbb91b1a151d967d87bf6ba2295cf4fb73236a2aaca33a5e88a23e54e01",
+    "source_episodes": 10819,
+    "physical_routes": 3603,
+    "scenes": 61,
+    "all_shards_independently_validated": true,
+    "shard_validation": "all frames: official loader, RGB/depth/GT hashes and geometry",
+    "merged_validation": "every Parquet value read back exactly after index remapping; complete source coverage; official loader sample",
+    "compatible_definition_updates": [
+      {
+        "original_plan_sha256": "88d58dbb91b1a151d967d87bf6ba2295cf4fb73236a2aaca33a5e88a23e54e01",
+        "original_collector_sha256": "2d34db5ec4e5071221dd7b3efa8a4a92cfa0a2a4aa0a2c932c3ab368a2798c8c",
+        "current_collector_sha256": "673ef9277af1eb47a4db01bcb420029630f81b8594ff815839694e924750c909",
+        "change": "remove only the no-valid-depth rejection; preserve actual RGB/depth, false masks and all poses/GT",
+        "compatibility": "source text differs only by the two-line rejection; outputs on all formerly accepted inputs are unchanged",
+        "reason": "MP3D outdoor scan gaps can yield an empty initial view before expert rotation reveals valid geometry"
+      }
+    ]
+  }
+}

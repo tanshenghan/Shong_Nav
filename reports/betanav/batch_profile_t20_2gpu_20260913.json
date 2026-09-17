@@ -1,0 +1,216 @@
+{
+  "status": "complete",
+  "config": {
+    "dataset_root": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+    "model_path": "/mnt/cfs/Models/Light",
+    "data_manifest": "configs/betanav/data/r2r_train_20260913.json",
+    "output_dir": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start",
+    "seed": 42,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "max_steps": 30000,
+    "warmup_steps": 1000,
+    "min_lr_ratio": 0.1,
+    "lr_vlm": 1e-05,
+    "lr_fm": 0.0001,
+    "weight_decay": 0.01,
+    "adam_betas": [
+      0.9,
+      0.95
+    ],
+    "adam_eps": 1e-08,
+    "clip_vlm": 1.0,
+    "clip_fm": 1.0,
+    "lambda_fm": 2.0,
+    "freeze_vision": true,
+    "gradient_checkpointing": true,
+    "mixed_precision": "bf16",
+    "optimizer": "zero1",
+    "attention": "sdpa",
+    "expert_hidden_size": 512,
+    "expert_num_layers": 6,
+    "expert_num_heads": 8,
+    "expert_intermediate_size": 2048,
+    "expert_dropout": 0.0,
+    "num_flow_steps": 10,
+    "num_workers": 2,
+    "prefetch_factor": 1,
+    "cache_row_groups": 4,
+    "cache_frames": 64,
+    "cpu_threads": 4,
+    "log_every": 10,
+    "eval_every": 500,
+    "eval_max_batches": 64,
+    "eval_sample_batches": 4,
+    "save_every": 1000,
+    "keep_last": 3,
+    "save_best": true,
+    "tracker": "none",
+    "project_name": "betanav",
+    "wandb_mode": "offline",
+    "cpu": false,
+    "tiny_model": false
+  },
+  "world_size": 2,
+  "torch_version": "2.10.0+cu128",
+  "gpu": "NVIDIA RPBZZZ6",
+  "device_total_gib": 94.97064208984375,
+  "cuda_visible_devices": "1,2",
+  "sample": {
+    "dataset_index": 219684,
+    "global_frame_index": 237727,
+    "episode_index": 4112,
+    "source_episode_id": "6965",
+    "source_scene_id": "mp3d/PuKPg4mmafe/PuKPg4mmafe.glb",
+    "frame_index": 20,
+    "instruction": "Cross the table and continue down the hallway. Turn left passed the piano. Go to the couches and go straight until you reach the second to last couch. ",
+    "target_text": "<apos_0><opos_0><act_l0_19><act_l1_185><act_l2_48>",
+    "token_valid": [
+      false,
+      true,
+      true,
+      true,
+      true
+    ],
+    "explicit_stop": false,
+    "fm_valid_steps": 30,
+    "history": [
+      {
+        "frame_ids": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          18
+        ],
+        "pool_spatial": 2,
+        "pool_mode": "avg",
+        "tier": 1
+      },
+      {
+        "frame_ids": [
+          19,
+          20
+        ],
+        "pool_spatial": 1,
+        "pool_mode": "avg",
+        "tier": 0
+      }
+    ]
+  },
+  "sequence_length": 588,
+  "history_frames": 22,
+  "effective_batch_size": 16,
+  "warmup_updates": 1,
+  "measured_updates": 3,
+  "results": [
+    {
+      "batch_size": 1,
+      "accumulation": 8,
+      "update_seconds": [
+        3.1976492404937744,
+        3.233330488204956,
+        3.149625062942505
+      ],
+      "mean_update_seconds": 3.1935349305470786,
+      "samples_per_second": 5.01012212108764,
+      "peak_allocated_gib_by_rank": [
+        70.47559356689453,
+        70.47247314453125
+      ],
+      "peak_reserved_gib_by_rank": [
+        72.498046875,
+        72.5546875
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.33161544799805,
+        47.32390594482422
+      ],
+      "cpu_collation_seconds": 0.018703271634876728,
+      "last_losses_rank0": [
+        33.35123062133789,
+        18.431936264038086,
+        7.4586920738220215
+      ]
+    },
+    {
+      "batch_size": 4,
+      "accumulation": 2,
+      "update_seconds": [
+        1.8812552690505981,
+        1.8779125213623047,
+        1.8864346742630005
+      ],
+      "mean_update_seconds": 1.881867488225301,
+      "samples_per_second": 8.50219268897027,
+      "peak_allocated_gib_by_rank": [
+        71.29964447021484,
+        71.29204559326172
+      ],
+      "peak_reserved_gib_by_rank": [
+        75.0625,
+        74.99609375
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.33161544799805,
+        47.32390594482422
+      ],
+      "cpu_collation_seconds": 0.06515912618488073,
+      "last_losses_rank0": [
+        5.110616207122803,
+        5.606940269470215,
+        4.707395553588867
+      ]
+    },
+    {
+      "batch_size": 8,
+      "accumulation": 1,
+      "update_seconds": [
+        1.6531537771224976,
+        1.65458083152771,
+        1.654958724975586
+      ],
+      "mean_update_seconds": 1.654231111208598,
+      "samples_per_second": 9.672167263442555,
+      "peak_allocated_gib_by_rank": [
+        57.08012390136719,
+        57.07162094116211
+      ],
+      "peak_reserved_gib_by_rank": [
+        64.2109375,
+        63.861328125
+      ],
+      "persistent_allocated_gib_by_rank": [
+        47.33161544799805,
+        47.32390594482422
+      ],
+      "cpu_collation_seconds": 0.11945585440844297,
+      "last_losses_rank0": [
+        3.422987937927246,
+        4.044737339019775,
+        4.449844837188721
+      ]
+    }
+  ],
+  "limitations": "Repeated real frame, cached CPU input; excludes data-loading time. Optimizer states/gradients included. Tested world size only; no training checkpoint saved.",
+  "parameters": {
+    "total": 4484860419,
+    "vlm": 4032994816,
+    "fm": 36517891
+  }
+}

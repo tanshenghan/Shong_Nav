@@ -1,0 +1,12 @@
+{
+  "episodes": 1,
+  "frames": 60,
+  "full_rvq_10": 50,
+  "full_fm_30": 30,
+  "stop_samples": 1,
+  "depth_reprojection_turn_pairs": 14,
+  "median_pair_depth_reprojection_error_m": 0.0031438481190961265,
+  "max_pair_median_depth_reprojection_error_m": 0.005336094394511437,
+  "all_saved_images_depths_poses_masks_checked": true,
+  "all_recorded_turns_match_15_degree_sign": null
+}

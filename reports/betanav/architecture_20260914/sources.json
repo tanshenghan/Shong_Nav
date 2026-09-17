@@ -1,0 +1,21 @@
+{
+  "source_hashes": {
+    "src/lightnav/inference/beta_model.py": "8a93faa3ba95396d66c8bcd90f6a757484c6768b33f2dbf9f4162965bd1affdb",
+    "src/lightnav/dataloader/Train_Lerobot_DataLoader.py": "d245f6ed52b15a69d7cae48e2ddd198a72ae131762ba235e3ee8cd4501e2ee5e",
+    "configs/betanav/r2r.yaml": "03ff74fbb0462b1e1dafc46602d8715b600236d23e268807db44e72d10d8009a"
+  },
+  "checkpoint_metadata": "/mnt/cfs/Models/beta_nav/r2r_ce_fm_01_start/checkpoints/step-00018000/metadata.json",
+  "current_model": "BetaModel",
+  "horizon": 30,
+  "rvq_levels": 3,
+  "rvq_horizon": 10,
+  "num_flow_steps": 10,
+  "expert_width": 512,
+  "expert_layers": 6,
+  "expert_heads": 8,
+  "expert_ffn": 2048,
+  "vlm_hidden_size": 2560,
+  "loss": "CE + 2.0 * FM",
+  "freeze_vision": true,
+  "context": "prefix-only hidden states detached before trainable projection"
+}

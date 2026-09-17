@@ -1,0 +1,115 @@
+{
+  "dataset": "rxr",
+  "split": "train",
+  "role": "guide",
+  "results": [
+    {
+      "episode_id": "58477",
+      "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+      "turn_angle_deg": 15,
+      "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+      "allow_sliding": true,
+      "frames": 111,
+      "collisions": 1,
+      "max_route_deviation_m": 0.049775897681557005,
+      "goal_distance_m": 0.3922860026359558,
+      "source_gt_goal_distance_m": 0.43515026569366455,
+      "terminal_world": [
+        0.47214794158935547,
+        0.39466360211372375,
+        3.15122127532959
+      ],
+      "source_gt_terminal_world": [
+        0.4616125822067261,
+        0.42293184995651245,
+        3.1158859729766846
+      ],
+      "source_goal": [
+        0.40522798895835876,
+        0.1920035183429718,
+        3.480370044708252
+      ]
+    },
+    {
+      "episode_id": "58477",
+      "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+      "turn_angle_deg": 15,
+      "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+      "allow_sliding": false,
+      "frames": 111,
+      "collisions": 1,
+      "max_route_deviation_m": 4.704188990488502e-06,
+      "goal_distance_m": 0.4351481795310974,
+      "source_gt_goal_distance_m": 0.43515026569366455,
+      "terminal_world": [
+        0.4616128206253052,
+        0.422930508852005,
+        3.1158876419067383
+      ],
+      "source_gt_terminal_world": [
+        0.4616125822067261,
+        0.42293184995651245,
+        3.1158859729766846
+      ],
+      "source_goal": [
+        0.40522798895835876,
+        0.1920035183429718,
+        3.480370044708252
+      ]
+    },
+    {
+      "episode_id": "58477",
+      "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+      "turn_angle_deg": 30,
+      "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+      "allow_sliding": true,
+      "frames": 84,
+      "collisions": 1,
+      "max_route_deviation_m": 0.04977599930457596,
+      "goal_distance_m": 0.3922902047634125,
+      "source_gt_goal_distance_m": 0.43515026569366455,
+      "terminal_world": [
+        0.47214633226394653,
+        0.394666463136673,
+        3.1512176990509033
+      ],
+      "source_gt_terminal_world": [
+        0.4616125822067261,
+        0.42293184995651245,
+        3.1158859729766846
+      ],
+      "source_goal": [
+        0.40522798895835876,
+        0.1920035183429718,
+        3.480370044708252
+      ]
+    },
+    {
+      "episode_id": "58477",
+      "scene_id": "mp3d/1LXtFkjw3qL/1LXtFkjw3qL.glb",
+      "turn_angle_deg": 30,
+      "navmesh_mode": "rxr_height_0.88_radius_0.18_in_memory",
+      "allow_sliding": false,
+      "frames": 84,
+      "collisions": 1,
+      "max_route_deviation_m": 0.0,
+      "goal_distance_m": 0.43515026569366455,
+      "source_gt_goal_distance_m": 0.43515026569366455,
+      "terminal_world": [
+        0.4616125822067261,
+        0.42293184995651245,
+        3.1158859729766846
+      ],
+      "source_gt_terminal_world": [
+        0.4616125822067261,
+        0.42293184995651245,
+        3.1158859729766846
+      ],
+      "source_goal": [
+        0.40522798895835876,
+        0.1920035183429718,
+        3.480370044708252
+      ]
+    }
+  ]
+}

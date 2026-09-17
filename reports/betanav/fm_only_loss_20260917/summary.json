@@ -1,0 +1,51 @@
+{
+  "created_at_utc": "2026-09-17T05:11:15.979629+00:00",
+  "source": "/mnt/cfs/Models/beta_nav/r2r_fm_only_frozen_lightnav_20260916/metrics.jsonl",
+  "source_sha256": "ce0adb209d40dcfe798f9b433d21d74d72c230383a9dacc14a440716c4335c76",
+  "training_mode": "fm_only",
+  "world_size": 8,
+  "global_batch": 512,
+  "logged_points": 370,
+  "logged_step_range": [
+    1,
+    3690
+  ],
+  "no_missing_or_duplicate_points": true,
+  "no_nonfinite_losses": true,
+  "final_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_fm_only_frozen_lightnav_20260916/checkpoints/step-00003699",
+  "final_state": {
+    "run_id": "7cc6b828ffb64c8b9ccd4ebf0e664019",
+    "step": 3699,
+    "epoch": 3,
+    "batch_offset": 0,
+    "samples_seen": 1893744,
+    "vlm_updates": 0,
+    "fm_updates": 3699,
+    "best_validation": null
+  },
+  "epoch_boundaries": [
+    1233,
+    2466
+  ],
+  "smoothing": "Trailing 20 logged batches for loss; trailing 10 for time, excluding startup step 1.",
+  "first_recorded_loss": {
+    "train_loss": 6.824331718344592,
+    "train_fm": 3.412165859172296,
+    "update_seconds": 35.81923470366746
+  },
+  "last_recorded_loss": {
+    "train_loss": 0.9134103726603606,
+    "train_fm": 0.4567051863301803,
+    "update_seconds": 6.975263492204249
+  },
+  "last_20_logged_means": {
+    "train_loss": 0.9897936727462971,
+    "train_fm": 0.4948968363731486,
+    "update_seconds": 7.199160405527801
+  },
+  "epoch_fm_means_of_logged_batches": {
+    "1": 0.7256883950092308,
+    "2": 0.5387634465594052,
+    "3": 0.5049509777058336
+  }
+}

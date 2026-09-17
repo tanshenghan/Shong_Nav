@@ -94,13 +94,30 @@ def merge_results(
     for shard in shard_dirs:
         records = load_results(shard)
         for rec in records:
+            video = rec.get("video")
+            if video and not Path(str(video)).is_absolute():
+                rec["video"] = str(Path(shard.name) / str(video))
             rec.setdefault("shard", shard.name)
         all_results.extend(records)
         summary = _load_summary(shard)
         shard_infos.append({"dir": str(shard), "episodes": len(records)})
         elapsed = max(elapsed, float(summary.get("total_time_sec") or 0.0))
-        for key in ("model", "backend"):
-            if key not in info and summary.get(key):
+        for key in (
+            "model",
+            "backend",
+            "action_output",
+            "beta_checkpoint",
+            "beta_checkpoint_step",
+            "fm_seed",
+            "fm_steps",
+            "fm_stop_mode",
+            "training_mode",
+            "stop_protocol",
+            "max_steps",
+            "episode_manifest",
+            "oracle_stop_distance",
+        ):
+            if key not in info and summary.get(key) is not None:
                 info[key] = summary[key]
 
     merged_jsonl = output_dir / RESULTS_FILENAME

@@ -152,6 +152,8 @@ class VLNCEEnv(BaseHabitatEnv):
         self.habitat_time_step: Optional[float] = None
         self.lin_vel_range: Optional[Tuple[float, float]] = None
         self.ang_vel_range: Optional[Tuple[float, float]] = None
+        self.min_abs_lin_speed: Optional[float] = None
+        self.min_abs_ang_speed: Optional[float] = None
 
         # Early stop is applied by forcing a STOP action through Habitat so that
         # ``is_stop_called`` is set and Success / SPL are well defined.
@@ -189,11 +191,15 @@ class VLNCEEnv(BaseHabitatEnv):
             self.habitat_time_step = None
             self.lin_vel_range = None
             self.ang_vel_range = None
+            self.min_abs_lin_speed = None
+            self.min_abs_ang_speed = None
             return
 
         self.habitat_time_step = float(vel_cfg.time_step)
         self.lin_vel_range = tuple(float(x) for x in vel_cfg.lin_vel_range)
         self.ang_vel_range = tuple(float(x) for x in vel_cfg.ang_vel_range)
+        self.min_abs_lin_speed = float(vel_cfg.min_abs_lin_speed)
+        self.min_abs_ang_speed = float(vel_cfg.min_abs_ang_speed)
         if len(self.lin_vel_range) != 2 or len(self.ang_vel_range) != 2:
             raise ValueError(
                 "velocity_control lin_vel_range and ang_vel_range must each contain exactly two values"
@@ -413,6 +419,10 @@ class VLNCEEnv(BaseHabitatEnv):
             info["lin_vel_range"] = self.lin_vel_range
         if self.ang_vel_range is not None:
             info["ang_vel_range"] = self.ang_vel_range
+        if self.min_abs_lin_speed is not None:
+            info["min_abs_lin_speed"] = self.min_abs_lin_speed
+        if self.min_abs_ang_speed is not None:
+            info["min_abs_ang_speed"] = self.min_abs_ang_speed
         if self._current_language:
             info["language"] = self._current_language
 

@@ -15,6 +15,10 @@ _LAZY_EXPORTS: dict[str, tuple[str, str]] = {
     "VLNInferenceEngine": ("lightnav.inference.engine", "VLNInferenceEngine"),
     "VitResult": ("lightnav.inference.engine", "VitResult"),
     "ModelBundle": ("lightnav.inference.model", "ModelBundle"),
+    "BetaModel": ("lightnav.inference.beta_model", "BetaModel"),
+    "BetaModelConfig": ("lightnav.inference.beta_model", "BetaModelConfig"),
+    "BetaTrainBatch": ("lightnav.inference.beta_model", "BetaTrainBatch"),
+    "load_beta_model": ("lightnav.inference.beta_model", "load_beta_model"),
     "NavigationPolicy": ("lightnav.inference.policies", "NavigationPolicy"),
 }
 

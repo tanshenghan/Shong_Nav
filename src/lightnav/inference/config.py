@@ -21,7 +21,7 @@ class InferenceConfig:
     device: str = "cuda"
 
     # vLLM engine sizing (vllm_local backend only).
-    gpu_memory_utilization: float = 0.65
+    gpu_memory_utilization: float = 0.85
     max_num_seqs: int = 1  # vLLM batch width; >1 enables micro-batching.
 
     # HF backend attention kernel override (None -> LIGHTNAV_ATTN env or "sdpa").
