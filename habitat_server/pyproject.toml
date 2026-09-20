@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lightnav-habitat-server"
+version = "0.1.0"
+description = "ZeroMQ environment server exposing Habitat VLN-CE and ObjectNav benchmarks to a remote policy (see docs/HABITAT_SERVER.md)"
+requires-python = ">=3.9,<3.10"
+license = { text = "Apache-2.0" }
+# habitat-sim and habitat-lab are NOT listed here: install them into the conda
+# environment first (see environment.yml and docs/HABITAT_SERVER.md). habitat-lab must be
+# installed with --no-deps so numpy stays below 1.24 (numpy-quaternion requirement).
+dependencies = [
+  "pyzmq>=25",
+  "pyyaml>=6.0",
+  "numpy>=1.20,<1.24",
+  "fastdtw>=0.3.4",
+]
+
+[project.optional-dependencies]
+# Fallback DTW backend for the NDTW measure when fastdtw is unavailable.
+dtw = ["dtw-python>=1.3"]
+
+[project.scripts]
+lightnav-habitat-serve = "lightnav_habitat.serve:main"
+
+[tool.setuptools.packages.find]
+include = ["lightnav_habitat*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]

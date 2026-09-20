@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e1013">
+  <title>VLN MuJoCo Console</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero panel">
+      <div class="section-head">
+        <div><h1>Viewer</h1></div>
+        <div class="camera-actions">
+          <div class="camera-switch" role="group" aria-label="Camera view">
+            <button id="first-person-view" class="active" type="button">First person</button>
+            <button id="third-person-view" type="button">Third person</button>
+          </div>
+        </div>
+      </div>
+      <div class="camera">
+        <img id="camera-image" alt="Live camera view of the TurtleBot in MuJoCo">
+        <canvas id="path-overlay" width="480" height="270" aria-hidden="true"></canvas>
+      </div>
+      <div class="metrics">
+        <span>SIM TIME<strong id="sim-time">0.0 s</strong></span>
+        <span>CAMERA<strong id="camera-fps">—</strong></span>
+        <span>LATENCY<strong id="latency">—</strong></span>
+        <span>WAYPOINTS<strong id="waypoint-count">0</strong></span>
+      </div>
+    </section>
+
+    <aside class="controls panel">
+      <div class="form-block">
+        <label for="server-url">VLN Server WebSocket</label>
+        <div class="inline-form">
+          <input id="server-url" inputmode="url" autocomplete="url" placeholder="ws://127.0.0.1:8050">
+          <button id="save-server">Save</button>
+        </div>
+        <label for="instruction">Instruction</label>
+        <textarea id="instruction" maxlength="500" rows="3" placeholder="e.g. move forward, then go to the trashcan on the right">move forward, then go to the trashcan on the right</textarea>
+        <button class="primary" id="vln-toggle">Start VLN</button>
+        <p class="hint"><b id="vln-state">IDLE</b> · <span id="vln-detail">Set the server URL to get started.</span></p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-head compact drive-head">
+        <div><span class="eyebrow">MANUAL DRIVE</span><h2>WASD Driving</h2></div>
+        <button class="text-button" id="control-toggle">Take control</button>
+      </div>
+      <div class="drive-grid" aria-label="Direction controls">
+        <button class="drive-key w" data-key="w" aria-label="Forward">W</button>
+        <button class="drive-key a" data-key="a" aria-label="Turn left">A</button>
+        <button class="drive-key s" data-key="s" aria-label="Backward">S</button>
+        <button class="drive-key d" data-key="d" aria-label="Turn right">D</button>
+      </div>
+      <div class="safety-row">
+        <button class="stop" id="stop-button">STOP</button>
+        <button class="reset" id="reset-button">RESET</button>
+      </div>
+    </aside>
+
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

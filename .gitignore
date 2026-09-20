@@ -1,0 +1,80 @@
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# virtual envs
+.venv/
+.venv-*/
+
+# runtime state written by scripts/start_servers.sh
+.servers_ready/
+.servers.pids
+logs/
+*.log
+
+# evaluation outputs and local datasets / checkpoints (repo root only)
+/output/
+/data/
+/checkpoints/
+/runs/
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/
+
+# local Claude Code config; never track
+.claude/
+
+# Local datasets and generated evaluation artifacts
+/outputs/
+/datasets/
+/dataset/
+*.parquet
+*.arrow
+*.hdf5
+*.h5
+
+# Model weights and training checkpoint state
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Local credentials and agent state
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+/.agents/
+/.codex/
+
+# Last4FM source snapshot: local data and generated artifacts
+/reports/
+/configs/betanav/data/*.json
+/data_pipeline/**/reports/
+/data_pipeline/**/archive/
+/data_pipeline/**/releases/
+/data_pipeline/vlnverse/configs/planned_0055*.json
+/mujoco_demo/vln_mujoco/assets/
+/docs/assets/
+/docs/*.pdf
+*.npy
+*.npz
+*.bin
+*.pkl
+*.pickle
+*.onnx
+*.tar
+*.tar.gz
+*.zip
+*.mp4
+*.avi
+*.mov

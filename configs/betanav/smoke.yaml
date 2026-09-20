@@ -1,0 +1,25 @@
+# Infrastructure only: real LeRobot data/processor, tiny RANDOM Qwen3-VL + FM.
+dataset_root: /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912
+model_path: /mnt/cfs/Models/Light
+data_manifest: configs/betanav/data/r2r_train_20260913.json
+output_dir: runs/betanav/smoke
+cpu: true
+tiny_model: true
+mixed_precision: "no"
+batch_size: 1
+gradient_accumulation_steps: 2
+max_steps: 4
+warmup_steps: 1
+optimizer: zero1
+expert_hidden_size: 32
+expert_num_layers: 2
+expert_num_heads: 4
+expert_intermediate_size: 64
+num_workers: 0
+cpu_threads: 1
+log_every: 1
+eval_every: 2
+eval_max_batches: 2
+eval_sample_batches: 1
+save_every: 2
+num_flow_steps: 2

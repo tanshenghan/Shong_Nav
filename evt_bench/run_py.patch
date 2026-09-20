@@ -1,0 +1,26 @@
+--- a/run.py
++++ b/run.py
+@@ -91,6 +91,23 @@
+             dataset = make_dataset(id_dataset=config.habitat.dataset.type, config=config.habitat.dataset)
+             dataset_split = dataset.get_splits(split_num)[split_id]
+             evaluate_agent(config, dataset_split, save_path)
++        elif model_name == 'trackvla':
++            from evt_bench.default import get_config
++            from habitat.datasets import make_dataset
++            from trackvla_client_agent import evaluate_agent
++
++            config=get_config(exp_config)
++            random.seed(config.habitat.simulator.seed)
++            np.random.seed(config.habitat.simulator.seed)
++            dataset = make_dataset(id_dataset=config.habitat.dataset.type, config=config.habitat.dataset)
++            dataset_split = dataset.get_splits(split_num)[split_id]
++            # --model-path carries the WebSocket URL of a running lightnav-serve
++            # instance (falls back to TRACKVLA_WS_URL / ws://localhost:8050 when empty).
++            server_url = model_path if model_path else None
++            if server_url:
++                evaluate_agent(config, dataset_split, save_path, server_url=server_url)
++            else:
++                evaluate_agent(config, dataset_split, save_path)
+         else:
+             raise ValueError(f"The model name: {model_name} is not supported")
+     else:

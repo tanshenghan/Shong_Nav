@@ -1,0 +1,65 @@
+# @package _global_
+# VLN-CE RxR benchmark config (val_unseen, guide annotations).
+#
+# Same task as R2R with multilingual instructions. When the data_path looks like RxR and
+# no `languages` list is set, VLNCEEnv injects habitat.dataset.languages = [en-US, en-IN]
+# (English-only evaluation, 3,669 episodes). Edit that list to evaluate other languages;
+# the raw split contains 11,006 episodes over en-US / en-IN / hi-IN / te-IN.
+#
+# Runtime measure injection is the same as for R2R (see vlnce_r2r.yaml). The NDTW ground
+# truth is expected at <root>/{split}/{split}_guide_gt.json.gz.
+#
+# Paths below are examples relative to the working directory. Note that --data-path
+# rewrites data_path to <root>/{split}/{split}.json.gz and therefore cannot express the
+# `_guide` suffix: edit this file (or pass --scenes-dir only) for RxR.
+
+defaults:
+  - /habitat: habitat_config_base
+  - /habitat/task: vln_r2r
+  - /habitat/task/actions@habitat.task.actions.velocity_control: velocity_control
+  - /habitat/simulator/sensor_setups@habitat.simulator.agents.main_agent: rgbd_agent
+  - /habitat/dataset: dataset_config_schema
+  - _self_
+
+habitat:
+  environment:
+    max_episode_steps: 500
+
+  task:
+    actions:
+      velocity_control:
+        # Per-step caps of 0.25 m and 30 deg, each command integrated for 0.1 s.
+        lin_vel_range: [0.0, 2.5]      # m/s   -> 2.5 * 0.1 = 0.25 m/step
+        ang_vel_range: [-300.0, 300.0] # deg/s -> 300 * 0.1 = 30 deg/step
+        # Low thresholds: only a true zero-speed command counts as STOP.
+        min_abs_lin_speed: 0.01        # m/s
+        min_abs_ang_speed: 0.5         # deg/s
+        time_step: 0.1                 # seconds
+
+  dataset:
+    type: VLN-CE-v1
+    split: val_unseen
+    data_path: "data/datasets/RxR_VLNCE_v0/{split}/{split}_guide.json.gz"
+    scenes_dir: "data/scene_datasets/"
+
+  simulator:
+    agents:
+      main_agent:
+        sim_sensors:
+          rgb_sensor:
+            width: 480
+            height: 270
+            hfov: 120
+            type: HabitatSimRGBSensor
+            position: [0, 0.88, 0]
+          depth_sensor:
+            width: 480
+            height: 270
+            hfov: 120
+            type: HabitatSimDepthSensor
+            position: [0, 0.88, 0]
+    forward_step_size: 0.25
+    turn_angle: 15
+    habitat_sim_v0:
+      gpu_device_id: 0
+      allow_sliding: true

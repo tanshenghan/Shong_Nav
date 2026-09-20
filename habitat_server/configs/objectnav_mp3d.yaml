@@ -1,0 +1,53 @@
+# @package _global_
+# MP3D ObjectNav v1 benchmark config (official val split: 2,195 episodes, 21 categories).
+#
+# Mirrors objectnav_hm3d_v1.yaml exactly (same velocity-control setup, camera and agent
+# geometry); only the dataset is swapped to MP3D ObjectNav v1. The 21 categories reach the
+# policy as text instructions built from episode.object_category, so the HM3D-vs-MP3D
+# category-table difference needs no code change; the standard ObjectNav-v1 loader reads
+# the goals_by_category maps from the split stub.
+#
+# success_distance: leave unset -> env default 0.1 m (distance to the nearest goal
+# viewpoint), the habitat MP3D ObjectNav standard.
+#
+# Dataset layout: <root>/{split}/{split}.json.gz (stub) next to <root>/{split}/content/
+# holding one shard per scene. Paths below are examples relative to the working directory;
+# override with --data-path / --scenes-dir.
+#   scenes_dir: directory containing mp3d/<id>/<id>.glb
+
+defaults:
+  - /benchmark/nav/objectnav: objectnav_mp3d
+  - _self_
+
+habitat:
+  environment:
+    max_episode_steps: 500
+
+  simulator:
+    turn_angle: 30
+    forward_step_size: 0.25
+    agents:
+      main_agent:
+        height: 0.88
+        radius: 0.18
+        sim_sensors:
+          rgb_sensor:
+            height: 270
+            width: 480
+            hfov: 120
+            position: [0, 0.88, 0]
+          depth_sensor:
+            height: 270
+            width: 480
+            hfov: 120
+            position: [0, 0.88, 0]
+            min_depth: 0.5
+            max_depth: 5.0
+    habitat_sim_v0:
+      allow_sliding: true
+      gpu_device_id: 0
+
+  dataset:
+    split: val
+    data_path: data/datasets/objectnav/mp3d/v1/{split}/{split}.json.gz
+    scenes_dir: data/scene_datasets

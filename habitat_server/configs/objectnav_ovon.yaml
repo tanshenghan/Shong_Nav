@@ -1,0 +1,52 @@
+# @package _global_
+# HM3D-OVON (open-vocabulary ObjectNav) benchmark config (val_unseen: 3,000 episodes).
+#
+# Same task / camera / velocity-control setup as objectnav_hm3d_v1.yaml; only the dataset
+# differs. Splits: val_seen | val_seen_synonyms | val_unseen (open-vocabulary
+# generalization, the headline OVON metric). Pass --success-distance 0.25 for OVON (the
+# env default 0.1 is the strict HM3D v1 standard).
+#
+# The OVON episode files carry fields habitat-lab 0.3.x does not know and empty category
+# maps; the lightnav_habitat.objectnav_extensions loader handles both. Each split needs a
+# <split>/<split>.json.gz stub next to <split>/content/*.json.gz (create an empty-episode
+# stub or a symlink if the release ships the stub under a different name).
+#
+# Paths below are examples relative to the working directory; override with
+# --data-path / --scenes-dir.
+
+defaults:
+  - /benchmark/nav/objectnav: objectnav_hm3d
+  - _self_
+
+habitat:
+  environment:
+    max_episode_steps: 500
+
+  simulator:
+    turn_angle: 30
+    forward_step_size: 0.25
+    agents:
+      main_agent:
+        height: 0.88
+        radius: 0.18
+        sim_sensors:
+          rgb_sensor:
+            height: 270
+            width: 480
+            hfov: 120
+            position: [0, 0.88, 0]
+          depth_sensor:
+            height: 270
+            width: 480
+            hfov: 120
+            position: [0, 0.88, 0]
+            min_depth: 0.5
+            max_depth: 5.0
+    habitat_sim_v0:
+      allow_sliding: true
+      gpu_device_id: 0
+
+  dataset:
+    split: val_unseen
+    data_path: data/datasets/ovon/hm3d/{split}/{split}.json.gz
+    scenes_dir: data/scene_datasets

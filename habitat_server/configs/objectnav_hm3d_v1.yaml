@@ -1,0 +1,52 @@
+# @package _global_
+# HM3D ObjectNav v1 benchmark config (official val split: 2,000 episodes, 6 categories).
+#
+# Builds on habitat-lab's objectnav_hm3d benchmark (task ObjectNav-v1 with the discrete
+# stop / move_forward / turn_left / turn_right / look_up / look_down actions and the
+# distance_to_goal (to view points) / success / spl / soft_spl measures) and overrides the
+# camera and agent geometry. The velocity_control action (0.25 m and 30 deg per step at
+# time_step 1 s) and the success / oracle_success / path_length / steps_taken measures are
+# injected at runtime by ObjectNavEnv._create_habitat_env(). success_distance is the env
+# kwarg (--success-distance); the default 0.1 m is the strict HM3D standard.
+#
+# Dataset layout: <root>/{split}/{split}.json.gz (stub) next to <root>/{split}/content/
+# holding one shard per scene. Paths below are examples relative to the working directory;
+# override with --data-path / --scenes-dir.
+#   scenes_dir: directory containing hm3d/val/<id>/<id>.basis.glb
+
+defaults:
+  - /benchmark/nav/objectnav: objectnav_hm3d
+  - _self_
+
+habitat:
+  environment:
+    max_episode_steps: 500
+
+  simulator:
+    turn_angle: 30
+    forward_step_size: 0.25
+    agents:
+      main_agent:
+        height: 0.88
+        radius: 0.18
+        sim_sensors:
+          rgb_sensor:
+            height: 270
+            width: 480
+            hfov: 120
+            position: [0, 0.88, 0]
+          depth_sensor:
+            height: 270
+            width: 480
+            hfov: 120
+            position: [0, 0.88, 0]
+            min_depth: 0.5
+            max_depth: 5.0
+    habitat_sim_v0:
+      allow_sliding: true
+      gpu_device_id: 0
+
+  dataset:
+    split: val
+    data_path: data/datasets/objectnav/hm3d/v1/{split}/{split}.json.gz
+    scenes_dir: data/scene_datasets

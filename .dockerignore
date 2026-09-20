@@ -1,0 +1,45 @@
+# Build-context hygiene: only code + packaging go into the image.
+# venvs (rebuilt inside the image with the correct linux/cu129 wheels)
+.venv/
+.venv-*/
+
+# python caches / build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# git + editor + os
+.git/
+.gitignore
+.DS_Store
+.claude/
+
+# runtime state from the local multi-server launcher
+.servers_ready/
+.servers.pids
+logs/
+*.log
+
+# never bake model weights / vocab / datasets into the image (mounted at runtime)
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.npy
+*.gguf
+*.onnx
+*.mp4
+*.avi
+output/
+data/
+
+# not needed by the serving image (README IS needed: pyproject readme=)
+tests/
+docs/
+habitat_server/
+evt_bench/
