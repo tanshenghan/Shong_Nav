@@ -226,6 +226,10 @@ def _success_response(pred, seq: int, latency_ms: float, session, rgb: np.ndarra
         "timings_ms": dict(getattr(pred, "timings_ms", {}) or {}),
         "raw_text": _bounded_raw_text(raw_text),
     }
+    for key in ("stop_score", "stop_threshold", "stop_source"):
+        value = getattr(pred, key, None)
+        if value is not None and value != "":
+            data[key] = value
     # Pixels in the frame THIS request carried, so the client can place a marker
     # without knowing the token encoding or what the server resized to. Absent for
     # checkpoints that emit no pointing tokens.
@@ -523,6 +527,8 @@ async def _warmup(service: BatchedTrackingService, bundle) -> None:
     try:
         await service.predict(session)
     except ValueError as exc:
+        if getattr(service, "warmup_strict", False):
+            raise
         logger.warning(
             "[%s] warmup decode raised ValueError: %s (continuing)", SERVER_LOG_TAG, exc
         )
@@ -532,13 +538,19 @@ async def _warmup(service: BatchedTrackingService, bundle) -> None:
 
 async def serve_forever(args: argparse.Namespace) -> None:
     """Build the engine and service, bind the port, and run until SIGTERM/SIGINT."""
-    import signal
-
-    from websockets import serve
-
     # Before the engine: a misconfigured --record_dir should fail in seconds, not after
     # the weights are loaded.
     recorder = _build_recorder(args)
+
+    service, bundle = _build_service(args)
+    await _run_service(args, service, bundle, recorder)
+
+
+def _build_service(args):
+    if getattr(args, "beta_checkpoint", None):
+        from lightnav.serving.beta_service import build_beta_service
+
+        return build_beta_service(args)
 
     rvq_bundle = None
     centroids = None
@@ -582,6 +594,14 @@ async def serve_forever(args: argparse.Namespace) -> None:
         serve_task=args.task,
         rvq_bundle=rvq_bundle,
     )
+    return service, bundle
+
+
+async def _run_service(args, service, bundle, recorder=None):
+    import signal
+
+    from websockets import serve
+
     await service.start()
     ready_file = Path(args.ready_file) if args.ready_file else None
     try:
@@ -663,6 +683,27 @@ def _build_parser() -> argparse.ArgumentParser:
         "hf = transformers.generate (lighter, useful for debugging).",
     )
     parser.add_argument("--device", default="cuda", help="Torch device for the hf backend.")
+    parser.add_argument(
+        "--beta_checkpoint", default=None,
+        help="Trained Beta model.pt, committed checkpoint, or run directory; requires --backend hf --task vln.",
+    )
+    parser.add_argument(
+        "--beta_fm_steps", type=int, default=None,
+        help="Beta flow integration steps (default: checkpoint).",
+    )
+    parser.add_argument(
+        "--beta_seed", type=int, default=42,
+        help="Beta per-session sampling seed; reset restarts the sequence (default: 42).",
+    )
+    parser.add_argument(
+        "--beta_stop_mode", choices=["manual", "rvq", "learned"], default=None,
+        help="Continuous Beta STOP: manual, frozen LightNav RVQ, or trained StopHead. "
+        "Default: learned for fm_stop checkpoints; manual otherwise.",
+    )
+    parser.add_argument(
+        "--beta_stop_threshold", type=float, default=0.5,
+        help="Learned StopHead score threshold in [0, 1] (default: 0.5; requires calibration).",
+    )
     parser.add_argument(
         "--gpu_memory_utilization",
         type=float,
@@ -799,6 +840,29 @@ def resolve_decoder_args(args: argparse.Namespace) -> argparse.Namespace:
     directory) is used, so a checkpoint that ships its decoder needs no extra flags.
     Raises ``ValueError`` when both flags are given or nothing can be resolved.
     """
+    if getattr(args, "beta_checkpoint", None):
+        from lightnav.inference.beta_model import (
+            resolve_beta_checkpoint,
+            uses_frozen_continuous_backbone,
+        )
+
+        if args.backend != "hf" or args.task != "vln":
+            raise ValueError("--beta_checkpoint requires --backend hf --task vln")
+        if args.beta_fm_steps is not None and args.beta_fm_steps < 1:
+            raise ValueError("--beta_fm_steps must be positive")
+        if not math.isfinite(args.beta_stop_threshold) or not 0 <= args.beta_stop_threshold <= 1:
+            raise ValueError("--beta_stop_threshold must be finite and between 0 and 1")
+        path, metadata = resolve_beta_checkpoint(args.beta_checkpoint)
+        args.beta_checkpoint = str(path)
+        mode = metadata["beta_config"].get("training_mode", "ce_fm")
+        if args.beta_stop_mode is None:
+            args.beta_stop_mode = "learned" if mode == "fm_stop" else "manual"
+        if args.beta_stop_mode == "learned" and mode != "fm_stop":
+            raise ValueError("--beta_stop_mode learned requires an fm_stop checkpoint")
+        if (uses_frozen_continuous_backbone(mode)
+                and args.beta_stop_mode != "rvq"):
+            args.horizon = int(metadata["beta_config"]["horizon"])
+            return args
     if args.traj_vocab_path and args.action_tokenizer_bundle:
         raise ValueError("pass only one of --traj_vocab_path (flat) or --action_tokenizer_bundle (rvq)")
     if args.traj_vocab_path or args.action_tokenizer_bundle:

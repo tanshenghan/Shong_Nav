@@ -1,0 +1,54 @@
+{
+  "real_dataset": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+  "samples": [
+    0,
+    30,
+    35
+  ],
+  "fm_gt_shape": [
+    3,
+    10,
+    3
+  ],
+  "valid_steps": [
+    10,
+    5,
+    0
+  ],
+  "prefix_matches_stored_gt": true,
+  "model_horizon": 10,
+  "sampled_delta_shape": [
+    3,
+    10,
+    3
+  ],
+  "waypoint_shape": [
+    3,
+    10,
+    3
+  ],
+  "no_vlm_gradients": true,
+  "projection_receives_gradient": true,
+  "finite_fm_loss": 4.470771789550781,
+  "model_config": {
+    "action_scale": [
+      0.11452871089985171,
+      0.02,
+      0.14315529937756227
+    ],
+    "horizon": 10,
+    "hidden_size": 32,
+    "num_layers": 2,
+    "num_heads": 4,
+    "intermediate_size": 64,
+    "dropout": 0.0,
+    "num_flow_steps": 3,
+    "training_mode": "fm_only",
+    "flow_time_distribution": "beta",
+    "flow_time_alpha": 1.0,
+    "flow_time_beta": 1.5
+  },
+  "pretrained_weights_loaded": false,
+  "device": "cpu",
+  "note": "Real LeRobot data and tokenizer with tiny random Qwen3-VL/expert; interface verification only."
+}

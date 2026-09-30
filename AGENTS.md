@@ -171,8 +171,15 @@ a page that renders proves nothing about the server. Check the telemetry, not th
 - `data_pipeline/` is the canonical home for all future data-pipeline code,
   dataset-generation paradigms, configuration, documentation, validation tools
   and small reports. Start with [data_pipeline/README.md](data_pipeline/README.md).
-- Pipeline-specific CPU tests live in `data_pipeline/tests/` and are included in
+- R2R and RxR generation code, configuration, documentation, tests and small reports
+  live together in `data_pipeline/R2R/`; see [its README](data_pipeline/R2R/README.md).
+  Keep the existing ignored runtime environments at `data_pipeline/.venv/`.
+- R2R/RxR pipeline-specific CPU tests live in `data_pipeline/R2R/tests/` and are included in
   `make test`. This is the data-pipeline exception to the general `tests/` location.
+- VLNVerse generation code, configs, docs, CPU tests and small reports live in
+  `data_pipeline/vlnverse/`; start with [its README](data_pipeline/vlnverse/README.md).
+  Keep source, scene geometry, motion, replay, labels and export stages separate.
+  Retimed poses use synthetic seconds and require new scene observations before training.
 - Keep substantive pipeline implementations out of `scripts/`, `src/lightnav/`,
   `docs/` and `outputs/`; existing compatibility entry points and documentation
   links may remain there. Shared inference utilities remain in their own package.
@@ -186,4 +193,4 @@ a page that renders proves nothing about the server. Check the telemetry, not th
   `data_pipeline/`; do not relocate existing data or rewrite provenance snapshots.
 - User-requested exception: the standalone GT video renderer is one file at
   `visual/render_episode_gt.py`. Its documentation, tests and small reports stay
-  in `data_pipeline/`; generated videos stay under the configured data root.
+  in `data_pipeline/R2R/`; generated videos stay under the configured data root.

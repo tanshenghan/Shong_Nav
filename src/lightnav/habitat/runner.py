@@ -51,7 +51,9 @@ class HabitatEvalConfig:
     backend: str = "vllm_local"
     action_output: str = "token"  # token | fm (BetaNav continuous expert)
     beta_checkpoint: str = ""  # checkpoint dir/model.pt or run dir with latest pointers
-    fm_only_stop_mode: str = "max_steps"  # max_steps | rvq (frozen VLM baseline STOP)
+    fm_only_stop_mode: str | None = None  # default: learned for fm_stop, max_steps otherwise
+    stop_threshold: float = 0.5  # learned StopHead score threshold
+    stop_confirm_steps: int = 1  # consecutive observations above the learned threshold
     fm_seed: int = 42
     fm_steps: int | None = None  # None = checkpoint's configured integration steps
     fm_stop_mode: str = "baseline"  # baseline | decode_continue | explicit_gate
@@ -257,6 +259,9 @@ def _default_engine_factory(cfg: HabitatEvalConfig) -> tuple[Any, Any]:
             stop_mode=cfg.fm_stop_mode,
             action_output=cfg.action_output,
             fm_only_stop_mode=cfg.fm_only_stop_mode,
+            stop_threshold=cfg.stop_threshold,
+            stop_confirm_steps=cfg.stop_confirm_steps,
+            checkpoint_metadata=metadata,
         ), bundle
 
     if cfg.action_output != "token":
@@ -308,15 +313,22 @@ def build_velocity_policy(
             "The env server must report habitat_time_step / lin_vel_range / ang_vel_range in info."
         )
     model_config = getattr(getattr(engine, "beta_model", None), "config", None)
-    if getattr(model_config, "training_mode", None) == "fm_only":
+    training_mode = getattr(model_config, "training_mode", None)
+    if training_mode in {"fm_only", "fm_stop"}:
         if cfg.action_output != "fm" or cfg.fm_stop_mode != "baseline":
-            raise ValueError("fm_only evaluation requires FM output and baseline configuration")
-        if cfg.oracle_stop_distance is not None or not cfg.force_stop_at_max_steps:
+            raise ValueError("continuous Beta evaluation requires FM output and baseline configuration")
+        if (training_mode == "fm_only"
+                and (cfg.oracle_stop_distance is not None or not cfg.force_stop_at_max_steps)):
             raise ValueError("fm_only evaluation uses forced STOP at max_steps, without oracle STOP")
         from lightnav.habitat.beta_policy import BetaFMOnlyVLNCEPolicy
 
+        engine.fm_only_stop_mode = cfg.fm_only_stop_mode or (
+            "learned" if training_mode == "fm_stop" else "max_steps"
+        )
+        engine.stop_threshold = cfg.stop_threshold
+        engine.stop_confirm_steps = cfg.stop_confirm_steps
         stop_bundle = None
-        if cfg.fm_only_stop_mode == "rvq":
+        if engine.fm_only_stop_mode == "rvq":
             centroids, stop_bundle = resolve_action_decoder(cfg, bundle)
             if centroids is not None or stop_bundle is None:
                 raise ValueError("FM-only RVQ STOP requires an RVQ decoder")
@@ -513,7 +525,54 @@ class _EvalVisualizer:
         )
         if diagnostics:
             frame = self._diagnostic_overlay(frame, diagnostics)
-        return frame
+        return self._instruction_banner(frame, instruction)
+
+    @staticmethod
+    def _instruction_banner(frame: np.ndarray, instruction: str) -> np.ndarray:
+        """Append the complete instruction below the camera image without truncation.
+
+        This affects evaluation videos only. The policy input and recorded raw RGB
+        retain the camera resolution, and every frame in an episode has the same size.
+        """
+        from PIL import Image, ImageDraw, ImageFont
+
+        text = " ".join(str(instruction or "").split())
+        if not text:
+            return frame
+        height, width = frame.shape[:2]
+        padding = max(2, min(12, width // 40))
+        try:
+            font = ImageFont.truetype("DejaVuSans.ttf", size=max(12, height // 30))
+        except OSError:
+            font = ImageFont.load_default()
+        measure = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+        available = max(1, width - 2 * padding)
+        lines: list[str] = []
+        line = ""
+        # Break at spaces where possible; character fallback preserves long words.
+        for word in ("Instruction: " + text).split():
+            candidate = f"{line} {word}" if line else word
+            if measure.textlength(candidate, font=font) <= available:
+                line = candidate
+                continue
+            if line:
+                lines.append(line)
+                line = ""
+            for character in word:
+                if line and measure.textlength(line + character, font=font) > available:
+                    lines.append(line)
+                    line = ""
+                line += character
+        if line:
+            lines.append(line)
+        top, bottom = font.getbbox("Ag")[1::2]
+        line_height = max(16, bottom - top + 5)
+        banner = Image.new("RGB", (width, len(lines) * line_height + 2 * padding), (8, 12, 20))
+        draw = ImageDraw.Draw(banner)
+        for index, line in enumerate(lines):
+            draw.text((padding, padding + index * line_height - top), line,
+                      font=font, fill=(235, 245, 255))
+        return np.concatenate((frame, np.asarray(banner)), axis=0)
 
     @staticmethod
     def _diagnostic_overlay(frame: np.ndarray, diagnostics: dict[str, Any]) -> np.ndarray:
@@ -536,6 +595,11 @@ class _EvalVisualizer:
             ),
             f"MODE {diagnostics.get('fm_stop_mode', 'baseline')}",
         ]
+        if diagnostics.get("stop_score") is not None:
+            threshold = diagnostics.get("stop_threshold")
+            threshold_text = "-" if threshold is None else f"{float(threshold):.3f}"
+            lines.insert(2, f"P(STOP) {float(diagnostics['stop_score']):.3f}  "
+                         f"THRESHOLD {threshold_text}")
         panel_width = min(width - 8, max(300, int(round(460 * scale))))
         panel_height = line_height * len(lines) + 10
         x0, y0 = 4, max(4, height - panel_height - 4)
@@ -755,6 +819,10 @@ def run_habitat_eval(
     env_factory = env_factory or _default_env_factory
     policy_factory = policy_factory or build_velocity_policy
     episode_filter = _load_episode_manifest(cfg.episode_manifest)
+    if type(cfg.stop_confirm_steps) is not int or cfg.stop_confirm_steps < 1:
+        raise ValueError("stop_confirm_steps must be a positive integer")
+    if cfg.stop_confirm_steps > 1 and cfg.action_output != "fm":
+        raise ValueError("stop_confirm_steps > 1 requires learned FM STOP")
     if cfg.oracle_stop_distance is not None and cfg.oracle_stop_distance <= 0:
         raise ValueError("oracle_stop_distance must be positive")
 
@@ -892,6 +960,13 @@ def run_habitat_eval(
                             policy.get_info() if hasattr(policy, "get_info") else {}
                         )
                     act_ms = (time.monotonic() - t_act) * 1000.0
+                    if (forced_stop_used or oracle_stop_used) and (
+                        getattr(engine, "fm_only_stop_mode", None) == "learned"
+                    ):
+                        policy_info.update(
+                            stop_confirm_steps=cfg.stop_confirm_steps,
+                            stop_confirmed=False,
+                        )
                     event_source = str(policy_info.get("stop_source", "") or "")
                     if event_source:
                         policy_event_counts[event_source] = policy_event_counts.get(event_source, 0) + 1
@@ -903,6 +978,12 @@ def run_habitat_eval(
                         policy_event_counts["stop_suppressed_steps"] = (
                             policy_event_counts.get("stop_suppressed_steps", 0) + 1
                         )
+                    if policy_info.get("stop_candidate"):
+                        key = "stop_candidate_steps"
+                        policy_event_counts[key] = policy_event_counts.get(key, 0) + 1
+                        if not policy_info.get("stop_confirmed"):
+                            key = "stop_pending_steps"
+                            policy_event_counts[key] = policy_event_counts.get(key, 0) + 1
                     if cfg.verbose:
                         print(
                             f"    Step {step}: {_format_action(action)}"
@@ -925,6 +1006,12 @@ def run_habitat_eval(
                                 "min_distance": min(min_distance_to_goal, current_dtg),
                                 "stop": bool(policy_info.get("stop")),
                                 "stop_source": event_source,
+                                "stop_score": policy_info.get("stop_score"),
+                                "stop_threshold": policy_info.get("stop_threshold"),
+                                **{key: policy_info[key] for key in (
+                                    "stop_candidate", "stop_confirmation_count",
+                                    "stop_confirm_steps", "stop_confirmed",
+                                ) if key in policy_info},
                                 "explicit_stop": bool(policy_info.get("explicit_stop")),
                                 "decode_failed": bool(policy_info.get("decode_failed")),
                                 "stop_suppressed": bool(policy_info.get("stop_suppressed")),
@@ -966,6 +1053,12 @@ def run_habitat_eval(
                             "min_distance": min(min_distance_to_goal, final_dtg),
                             "stop": True,
                             "stop_source": stop_source,
+                            "stop_score": policy_info.get("stop_score"),
+                            "stop_threshold": policy_info.get("stop_threshold"),
+                            **{key: policy_info[key] for key in (
+                                "stop_candidate", "stop_confirmation_count",
+                                "stop_confirm_steps", "stop_confirmed",
+                            ) if key in policy_info},
                             "explicit_stop": bool(policy_info.get("explicit_stop")),
                             "decode_failed": bool(policy_info.get("decode_failed")),
                             "stop_suppressed": bool(policy_info.get("stop_suppressed")),
@@ -1006,6 +1099,20 @@ def run_habitat_eval(
                 "policy_event_counts": policy_event_counts,
                 "termination_details": info.get("termination_details", {}),
             }
+            if policy_info.get("stop_score") is not None:
+                result.update(
+                    stop_score=policy_info["stop_score"],
+                    stop_threshold=policy_info["stop_threshold"],
+                    **{key: policy_info[key] for key in (
+                        "stop_candidate", "stop_confirmation_count",
+                        "stop_confirm_steps", "stop_confirmed",
+                    ) if key in policy_info},
+                )
+            if policy_info.get("stop_confirm_steps") is not None:
+                result.update(
+                    stop_confirm_steps=policy_info["stop_confirm_steps"],
+                    stop_confirmed=bool(policy_info.get("stop_confirmed")),
+                )
             if video_rel is not None:
                 result["video"] = video_rel
             results.append(result)
@@ -1058,8 +1165,22 @@ def run_habitat_eval(
             fm_stop_mode=cfg.fm_stop_mode,
         )
     beta_config = getattr(getattr(engine, "beta_model", None), "config", None)
-    if getattr(beta_config, "training_mode", None) == "fm_only":
-        extra_info.update(training_mode="fm_only", stop_protocol=cfg.fm_only_stop_mode, max_steps=cfg.max_steps)
+    if getattr(beta_config, "training_mode", None) in {"fm_only", "fm_stop"}:
+        extra_info.update(
+            training_mode=beta_config.training_mode,
+            stop_protocol=engine.fm_only_stop_mode, max_steps=cfg.max_steps,
+        )
+        if engine.fm_only_stop_mode == "learned":
+            metadata = getattr(engine, "checkpoint_metadata", None) or {}
+            extra_info.update(
+                stop_threshold=cfg.stop_threshold,
+                stop_confirm_steps=cfg.stop_confirm_steps,
+                stop_head_type=getattr(beta_config, "stop_head_type", None),
+                stop_positive_weight=getattr(beta_config, "stop_positive_weight", None),
+                stop_training_data_sha256=metadata.get("contract", {}).get("data_sha256"),
+            )
+            if "stop_supervision" in metadata.get("contract", {}):
+                extra_info["stop_supervision"] = metadata["contract"]["stop_supervision"]
     if cfg.episode_manifest:
         extra_info["episode_manifest"] = str(Path(cfg.episode_manifest).resolve())
     if cfg.oracle_stop_distance is not None:

@@ -2,7 +2,6 @@ import asyncio
 
 import pytest
 from aiohttp import web
-
 from vln_mujoco.vln_client import VlnClient
 
 
@@ -15,7 +14,8 @@ class NullLogger:
 
 
 @pytest.mark.asyncio
-async def test_vln_login_next_and_result(unused_tcp_port: int) -> None:
+@pytest.mark.parametrize("with_pointing", [True, False])
+async def test_vln_login_next_and_result(unused_tcp_port: int, with_pointing: bool) -> None:
     async def websocket(request: web.Request) -> web.WebSocketResponse:
         socket = web.WebSocketResponse()
         await socket.prepare(request)
@@ -32,7 +32,7 @@ async def test_vln_login_next_and_result(unused_tcp_port: int) -> None:
                             "actions": [0.6, 0.1, 0.2],
                             "stop": False,
                             "visible": True,
-                            "pointing": {},
+                            **({"pointing": {}} if with_pointing else {}),
                         }
                     }
                 )
@@ -64,6 +64,8 @@ async def test_vln_login_next_and_result(unused_tcp_port: int) -> None:
         assert results[0].sequence == 1
         assert results[0].waypoints == ((0.6, 0.1, 0.2),)
         assert results[0].visible is True
+        assert results[0].apos_px is None
+        assert results[0].opos_px is None
     finally:
         client.close()
         await runner.cleanup()

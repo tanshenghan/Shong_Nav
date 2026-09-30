@@ -1,0 +1,91 @@
+{
+  "date": "2026-09-20",
+  "dataset": "VLNVerse local raw_data/vlnverse_r2r/fine/train",
+  "source": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/vlnverse_r2r/fine/train/train.json.gz",
+  "sha256": "2c04948d8284191a332e2919f2476cd734170c0c8f066442d2db604eed496bff",
+  "episodes": 3963,
+  "unique_instruction_texts": 3960,
+  "empty_instruction_count": 0,
+  "counting": {
+    "regex": "[A-Za-z0-9]+(?:['’\\-][A-Za-z0-9]+)*",
+    "definition": "English lexical words; apostrophe contractions and hyphenated compounds count as one. Punctuation excluded. Count instruction_text, not padded instruction_tokens or model subword tokens.",
+    "averaging": "one equal weight per episode instruction"
+  },
+  "words": {
+    "count": 3963,
+    "mean": 68.31920262427454,
+    "median": 65.0,
+    "min": 0,
+    "max": 168,
+    "p10": 46.0,
+    "p25": 55.0,
+    "p75": 80.0,
+    "p90": 94.0
+  },
+  "whitespace_words": {
+    "count": 3963,
+    "mean": 68.31289427201615,
+    "median": 65.0,
+    "min": 1,
+    "max": 168,
+    "p10": 46.0,
+    "p25": 55.0,
+    "p75": 80.0,
+    "p90": 94.0
+  },
+  "characters": {
+    "count": 3963,
+    "mean": 375.5669947009841,
+    "median": 359.0,
+    "min": 1,
+    "max": 942,
+    "p10": 253.0,
+    "p25": 301.0,
+    "p75": 436.0,
+    "p90": 519.0
+  },
+  "mean_reference_path_m": 8.296114055008832,
+  "words_per_m_ratio_of_totals": 8.23508478442704,
+  "word_count_bins": {
+    "0-19": 4,
+    "20-39": 126,
+    "40-59": 1281,
+    "60-79": 1557,
+    "80-99": 722,
+    "100-999999": 273
+  },
+  "non_english_only_entries": [
+    {
+      "episode_id": "kujiale_0171_69_1",
+      "scene_id": "vlnverse/kujiale_0171",
+      "text": "调"
+    },
+    {
+      "episode_id": "kujiale_0025_30_2",
+      "scene_id": "vlnverse/kujiale_0025",
+      "text": "调"
+    },
+    {
+      "episode_id": "kujiale_0195_0_2",
+      "scene_id": "vlnverse/kujiale_0195",
+      "text": "调"
+    },
+    {
+      "episode_id": "kujiale_0088_13_3",
+      "scene_id": "vlnverse/kujiale_0088",
+      "text": "调"
+    }
+  ],
+  "words_excluding_non_english_only_entries": {
+    "count": 3959,
+    "mean": 68.38822935084617,
+    "median": 65.0,
+    "min": 26,
+    "max": 168,
+    "p10": 46.0,
+    "p25": 55.0,
+    "p75": 80.0,
+    "p90": 94.0
+  },
+  "data_quality_note": "Four source instructions consist of the single Chinese character 调. They contain no English words, contribute zero to the all-episode English word-count mean, and are additionally excluded in a separate summary. No source entries were modified."
+}

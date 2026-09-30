@@ -1,0 +1,127 @@
+{
+  "report_version": 1,
+  "date_utc": "2026-09-19",
+  "status": "complete",
+  "episode_id": "kujiale_0018_2_2",
+  "instruction": "Walk forward into the main room, passing a dining table on your right. Continue straight, keeping a long white cabinet and a TV on your left, and a living room sofa and coffee table on your right. Stop between the two open doorways directly in front of you, with the bathroom entrance on your left and the bedroom entrance on your right.",
+  "instruction_layout": {
+    "single": {
+      "lines": [
+        "Walk forward into the main room, passing a",
+        "dining table on your right. Continue straight,",
+        "keeping a long white cabinet and a TV on your",
+        "left, and a living room sofa and coffee table on",
+        "your right. Stop between the two open doorways",
+        "directly in front of you, with the bathroom",
+        "entrance on your left and the bedroom entrance",
+        "on your right."
+      ],
+      "font_size": 18,
+      "width": 480,
+      "height": 246
+    },
+    "side_by_side": {
+      "lines": [
+        "Walk forward into the main room, passing a dining table on your right. Continue",
+        "straight, keeping a long white cabinet and a TV on your left, and a living room sofa",
+        "and coffee table on your right. Stop between the two open doorways directly in",
+        "front of you, with the bathroom entrance on your left and the bedroom entrance on",
+        "your right."
+      ],
+      "font_size": 22,
+      "width": 960,
+      "height": 192
+    }
+  },
+  "source_poses": 23,
+  "smoothed_poses": 111,
+  "video_frames": 111,
+  "video_fps": 15,
+  "video_duration_s": 7.4,
+  "camera": {
+    "height_above_source_z_m": 1.25,
+    "hfov_deg": 90.0,
+    "pitch_down_deg": 20.0,
+    "width": 480,
+    "height": 360,
+    "convention": "world +X forward at yaw zero, +Z up",
+    "extrinsics_origin": "chosen preview camera, not recovered official sensor calibration"
+  },
+  "future_horizon_steps": 30,
+  "future_semantics": "Smoothed GT poses i+1 through min(i+30,N-1); current pose is only the line origin; no tail padding",
+  "ground_projection": {
+    "validation": "first downward scene hit, upward and near source Z; identified floor or verified flat structural ground cap with identified floor beneath",
+    "config": {
+      "horizon_steps": 30,
+      "line_width_m": 0.04,
+      "point_diameter_m": 0.05,
+      "ground_lift_m": 0.012,
+      "ray_start_above_source_m": 0.3,
+      "max_ground_source_delta_m": 0.08,
+      "minimum_up_normal_z": 0.98,
+      "structural_cap_tolerance_m": 0.002
+    },
+    "verified_ground_points": 111,
+    "structural_ground_caps": 5,
+    "frame_count": 111,
+    "full_audit_manifest": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/render_instruction_path/smoothed/render_manifest.json"
+  },
+  "overlay": "Cyan 3D line and pose markers on verified scene ground; scene geometry occludes the path and camera FOV clips it",
+  "video_paths": {
+    "original_gt.mp4": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review_instruction_path_15fps/original_gt.mp4",
+    "smoothed_6poses.mp4": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review_instruction_path_15fps/smoothed_6poses.mp4",
+    "side_by_side.mp4": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review_instruction_path_15fps/side_by_side.mp4"
+  },
+  "validation": {
+    "videos": {
+      "original_gt.mp4": {
+        "frames": 111,
+        "fps": 15,
+        "duration_s": 7.4,
+        "width": 480,
+        "height": 710,
+        "sha256": "7a1a1e8cc0e9cc800d53abf5cd81631df1fe5e7ee10e27b32e968be1846556b1"
+      },
+      "smoothed_6poses.mp4": {
+        "frames": 111,
+        "fps": 15,
+        "duration_s": 7.4,
+        "width": 480,
+        "height": 710,
+        "sha256": "7ddccece7df1bdd3aafc73f9552d11a0a7d2f39d7b41b2161d3d6532e7502d1d"
+      },
+      "side_by_side.mp4": {
+        "frames": 111,
+        "fps": 15,
+        "duration_s": 7.4,
+        "width": 960,
+        "height": 656,
+        "sha256": "c70faf6bf24cbf552e927294b311510b84341567bb8f6975752146e6043e1373"
+      }
+    },
+    "instruction_complete": true,
+    "future_window_checked_every_frame": true,
+    "last_frame_no_future_overlay_mae": 0.0
+  },
+  "cpu_tests": {
+    "tests": 178,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "code_sha256": {
+    "replay/compare.py": "958d08f8ee55e4bae2c6faa2595731dae74713b4bcf6ca4c3a92e228a5bf180a",
+    "replay/video_layout.py": "846ce2c14c65fb447b72e95b081685c3a19dcce10b263679e97f95dcc70e145a",
+    "replay/blender_render.py": "9757fadd060301dc6a235b99e591a0c366a5798cb049b7d7ea6d75d01f49cfbf",
+    "replay/future_path.py": "f4afbaeb0e24ee4fa83d710e0948e57c7c4ce2294d1e152e2944e76006b8b820"
+  },
+  "reference_npz_unchanged": true,
+  "preserves_reference_timing": false,
+  "physics_replayed": false,
+  "limitations": [
+    "Review annotation, not clean training RGB or a model prediction",
+    "Chosen preview camera pitched down 20 degrees on both sides; not official sensor calibration",
+    "Only points inside the camera frustum and unoccluded by the scene are visible",
+    "CPU shading remains approximate; 15 FPS pose-order playback does not preserve reference dt"
+  ]
+}

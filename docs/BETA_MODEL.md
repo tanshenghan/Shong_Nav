@@ -2,10 +2,16 @@
 
 模型入口固定为 `src/lightnav/inference/beta_model.py`。
 这是一个可训练的 PyTorch/HF 模型接口，保留现有 LightNav VLM 与 token 词表，
-新增独立连续动作专家。`lightnav-serve`、原有 `build_engine` 不会自动切换到 Beta。
+新增独立连续动作专家。`lightnav-serve --backend hf --task vln --beta_checkpoint PATH`
+可显式加载训练后的 Beta；原有 `build_engine` 不会自动切换到 Beta。
 `load_beta_model` 初始化的新专家没有经过训练，不能把它的输出当作导航能力验证。
 分布式训练入口为 [train_betanav.py](../train_betanav.py)，超参数、Accelerate/DDP/ZeRO-1、
 训练数据准备和恢复命令见 [TRAIN_BETANAV.md](TRAIN_BETANAV.md)。
+
+连续策略的独立停止分支方案见 [FM + StopHead 设计](BETA_STOP_HEAD_DESIGN.md)。
+`fm_stop` 已实现：冻结 VLM、训练独立 StopHead 和 FM，并共享一次 VLM 编码。
+既有 `fm_only` / `ce_fm` 保持各自行为；配置与启动步骤见
+[FM + StopHead 训练](TRAIN_BETANAV.md#fm--stophead)。
 
 ## 模型与梯度
 
@@ -13,8 +19,15 @@
 从原始 LightNav 初始化并冻结整个 VLM（含视觉编码器、语言主干和 LM head），
 VLM 始终保持 `eval()`，前向在 `no_grad()` 中执行。输入只有指令、截至 t 的 RGB
 历史及回答起始标记，不含任何 GT 回答；不计算 CE，也不使用 RVQ、apos、opos 标签或码本。
-只更新随机初始化的 context projection 和 FM 专家，训练 loss 为 `2.0 × FM`。
+只更新随机初始化的 FM 专家（旧架构还包含 context projection），训练 loss 为 `lambda_fm × FM`，
+当前 FM-only 训练配置使用 `lambda_fm=1.0`。
 BF16 训练时冻结主干以 BF16 加载，专家参数与 Adam 状态保持 FP32。
+
+训练时间采样默认 `flow_time_distribution="uniform"`；设为 `"beta"` 后，使用
+`Beta(flow_time_alpha, flow_time_beta)`，每个样本抽一个标量，整段动作共享。
+本实现 `X_tau=(1-tau)*noise+tau*GT`，所以 `Beta(1,2)` 偏向大噪声输入，
+`P(tau <= 0.3)=0.51`。采样使用每个 rank 的 Torch RNG，由完整 checkpoint 一并恢复；
+显式传入 `flow_time` 时使用传入值。采样设置写入模型配置，推理仍从 tau=0 到 1 积分。
 
 FM-only 评估输入使用 `inference.samples.build_continuous_traj_sample()`，
 保持训练时的连续轨迹提示、SlowFast 分段和空回答，不能复用 RVQ 输出提示。
@@ -35,11 +48,87 @@ FM-only 推理接口为 `encode_context()` → `sample_actions()`；`predict()` 
 
 - CE 更新 VLM/LM Head 的可训练参数；若要冻结 ViT，可在构建 optimizer 前单独设置。
 - FM 更新 context projection 和动作专家，梯度不会进入主干。detach 在 projection 前。
-- 专家默认 6 层、宽度 512、8 heads、FFN 2048；每层依次执行动作双向 self-attention、
+- 兼容旧 checkpoint 的默认 `expert_architecture="cross_attention_v1"` 为 6 层、宽度 512、8 heads、FFN 2048；每层依次执行动作双向 self-attention、
   对上下文的 cross-attention、FFN。流时间通过 sinusoidal embedding、MLP 和 FiLM 注入。
 - 主干上下文维度从 `vlm.config.text_config.hidden_size` 读取，当前 Light checkpoint 为 2560。
-- 专家输出流场 `[B,30,3]`。Euler 从 `tau=0` 噪声积分至 `tau=1` 干净动作，默认 10 次。
-  30 个未来动作步与 10 次流积分是独立参数；流场不是机器人的物理速度。
+- 专家输出流场 `[B,H,3]`。训练 YAML 的 `fm_horizon` 同时设置 GT 和专家 horizon；
+  新的 2026-09-18 FM-only 三组实验使用 `H=10`，单条输出为 `10×3`。
+  Euler 从 `tau=0` 噪声积分至 `tau=1` 干净动作，`num_flow_steps=10` 为积分次数，
+  与未来动作步数独立。模型 API/旧配置默认仍为 H=30，以兼容既有 checkpoint。
+  推理从 checkpoint 的 `beta_config.horizon` 恢复实际长度；流场不是机器人的物理速度。
+
+## 选层 Prefix KV + 时间自适应归一化（30 步）
+
+新变体使用 `expert_architecture="prefix_kv_v1"`，支持 `training_mode="fm_only"` 或 `"fm_stop"`。
+它保留冻结的原始 LightNav，从第 `[6,12,18,24,30,36]` 层读取原生 attention K/V，
+依次供 6 个动作层使用；层号从 1 开始，必须严格递增、无重复且数量等于动作层数。
+这是一种适配 LightNav 的轻量 π 风格变体，未复现 π 的全部模型或训练配方。
+
+```text
+语言指令 + 截至 t 的 SlowFast RGB
+          ↓
+冻结 Qwen3-VL（eval / no_grad，保持原始 causal attention 和 mRoPE）
+          └→ 6 个选定层的原生 K/V（detach；只缓存选定层）
+                              ↓
+X_tau: [B,30,3] → 动作嵌入 → 6 层动作专家 → 流场 [B,30,3]
+                              ↑
+                         tau → 时间 MLP
+                              → 每层 attention/FFN 前的 AdaRMSNorm
+```
+
+每层动作 Query 对 `[prefix_K; action_K]`、`[prefix_V; action_V]` 进行一次联合 attention，
+两类 Key 共享 softmax。动作之间双向可见、可读取全部有效 prefix，prefix 不读取动作。
+VLM 原生 K 已经过对应层的 `k_norm` 和 Qwen 多模态 RoPE，V 来自 `v_proj`，不做
+归一化或 RoPE。动作 Q/K 分别使用 `q_norm`/`k_norm`，遵守相同 head 维度及位置编码
+约定，并从 prefix 之后延续位置。padding 不参与 attention；真实
+未来长度的 GT mask 只用于 FM loss，不作为专家条件、位置编码或 attention mask。
+
+动作残差宽度为 512、FFN 为 2048；当前原始 LightNav 的 attention 使用 32 个 Query
+heads、8 个 KV heads、每头 128 维，因此动作投影的 attention 宽度与残差宽度不同。
+模型从实际 backbone 推导 KV heads、head dimension 和 RoPE 参数并检查匹配，不能把旧
+512 维、8 heads 的 `MultiheadAttention` 权重直接迁入。VLM 只运行一次，选定层 KV 可在
+同一次轨迹采样的各次积分中复用；新观测到来后重新编码。
+
+时间自适应归一化在此架构固定开启，不再仅在动作输入上加时间 embedding。
+标量 `tau` 经 sinusoidal embedding 和 MLP 后调制每层 attention/FFN 的 RMSNorm，
+产生 scale、shift 和残差 gate；输出头前再使用不含 gate 的时间 AdaRMSNorm。
+调制线性层零初始化，初始残差 gate 为零，第一步先学习打开 gate，随后 attention/FFN
+接收非零梯度。这样每层可以根据当前噪声水平处理轨迹。VLM 全部参数冻结，FM 梯度仅更新动作投影、时间
+网络、归一化调制和动作专家层。没有 CE、RVQ 或 STOP loss。
+
+训练用现有 LeRobot 中完整的 30 步连续局部 SE(2) 增量，无需重新生成数据。
+`X_tau=(1-tau)*noise+tau*GT`，监督流场仍为 `GT-noise`，系数仍为 `1.0 × FM`；
+短 episode/尾部使用现有有效 mask。`fm_horizon: 30` 是未来动作数量，
+`num_flow_steps: 10` 是从噪声到轨迹的 Euler 积分次数，两者没有绑定关系。
+
+新实验配置和启动方式见 [TRAIN_BETANAV.md](TRAIN_BETANAV.md#30-步-prefix-kv-联合注意力变体)。
+默认架构保持旧行为；新变体应从原始 LightNav 和全新动作专家开始。架构和选层列表
+参与精确续训契约，不能用旧 cross-attention checkpoint 的 Adam 状态精确续训该变体。
+`beta_config.prefix_kv_config` 记录实际 backbone 的层数、Query/KV heads、head dimension、
+RMSNorm epsilon 和 RoPE 配置，加载时核对，避免相同权重形状下静默改变注意力语义。
+低层推理仍通过 `encode_context()` → `sample_actions()`，输出 `30×3` 增量和组合航点。
+若评测需要 STOP，继续通过冻结 LightNav 的独立 RVQ prompt 判断，FM prompt 与 STOP
+prompt 不共享 KV；这不构成新的 STOP 监督。
+
+## 独立 StopHead
+
+`training_mode="fm_stop"` 要求 `stop_head_type="last_prefix_mlp_v1"`。
+`stop_head.py` 中的 `LayerNorm(D) → Linear(D,256) → SiLU → Linear(256,1)`
+读取输入前缀最后一个有效 token 的最终层特征；特征 detach，不读取未来 GT 或 FM 输出。
+两种专家架构都复用同一次冻结主干调用，不运行 RVQ 或 LM head。
+
+`BetaTrainBatch` 增加可选 `stop_target` / `stop_valid_mask`，此模式要求二者均为 `[B]`。
+成功终止帧即使 FM mask 全空，也能训练 StopHead；未知终止帧不参与停止损失。
+训练目标为 `lambda_fm * FM + lambda_stop * STOP`，正例权重固定为审计 manifest 中
+训练集的 `N_negative / N_positive`。停止损失按有效样本的权重总和归一化，跨 rank、
+跨累积步使用同一全局分母。StopHead 使用独立 AdamW；空分支不更新参数或 Adam 状态。
+
+推理使用 `predict_continuous(prefix_inputs, stop_threshold=0.5, generator=...)`，
+返回 `stop_logits`、`stop_scores`、`stop`、`se2_deltas` 和 `waypoints`。
+仅 CONTINUE 行进入 FM 积分；STOP 行的零轨迹是协议占位，必须以 `stop` 标记决定终止。
+分数是加权分类训练产生的 sigmoid 分数，未经校准；0.5 是初始阈值。
+服务对当前任务锁存 STOP，新任务/reset 才清除。完整 checkpoint 包含新增权重与独立 Adam 状态；
+旧 FM 权重迁入新模式使用显式 `--warm-start`，不能当作精确 resume。
 
 ## 加载
 
@@ -72,7 +161,7 @@ Blackwell 上运行完整 HF 权重仍需仓库安装说明指定的兼容 CUDA/
 和视觉 patch 拼接。直接使用它迭代出的 batch 调用 `model(batch)`；
 安装与训练端示例见 [读取器文档](TRAIN_LEROBOT_DATALOADER.md)。
 
-训练数据读取/采样代码归 `src/lightnav/dataloader/`，数据生产代码归 `data_pipeline/`；
+训练数据读取/采样代码归 `src/lightnav/dataloader/`，R2R / RxR 数据生产代码归 `data_pipeline/R2R/`；
 模型接收已经对齐、完成各通道 mask 的 tensor。
 
 | 字段 | 约定 |

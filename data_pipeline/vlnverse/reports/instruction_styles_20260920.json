@@ -1,0 +1,112 @@
+{
+  "scope": "Bounded local read-only audit of requested jiayilin raw_data directory; no broad storage search and no download",
+  "requested_coarse_train_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/vlnverse_r2r/coarse/train",
+  "coarse_directory_exists": false,
+  "vlnverse_r2r_top_level_names": [
+    "embeddings.json.gz",
+    "fine"
+  ],
+  "final_splits_file_names": [
+    "fine_test.json.gz",
+    "fine_train.json.gz",
+    "fine_val.json.gz",
+    "fine_val_unseen.json.gz"
+  ],
+  "files": [
+    {
+      "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/vlnverse_r2r/fine/train/train.json.gz",
+      "sha256": "2c04948d8284191a332e2919f2476cd734170c0c8f066442d2db604eed496bff",
+      "episodes": 3963,
+      "unique_episode_ids": 3963,
+      "instruction_schemas": [
+        {
+          "keys": [
+            "instruction_text",
+            "instruction_tokens"
+          ],
+          "count": 3963
+        }
+      ],
+      "single_text_count": 3963,
+      "explicit_style_key_count": 0,
+      "selected_single_text_examples": [
+        {
+          "episode_id": "kujiale_0042_48_4",
+          "trajectory_id": "kujiale_0042_48_4",
+          "instruction_text": "Walk straight through the doorway, passing the TV and cabinet on your left. Continue into the room, with the couch and coffee table on your left and a large plant on your right. Turn slightly left and stop in front of the large window with the outdoor view, having the couch to your left and a TV and console table on the far left wall."
+        },
+        {
+          "episode_id": "kujiale_0191_35_1",
+          "trajectory_id": "kujiale_0191_35_1",
+          "instruction_text": "Walk straight through the doorway to enter the kitchen. Turn right, then walk straight past the kitchen island on your right and the dining table on your left. Continue straight into the living room, keeping the wall decoration on your right. Pass the brown armchair on your left and the sofa on your right, then stop in front of the large window overlooking the lake."
+        },
+        {
+          "episode_id": "kujiale_0055_10_3",
+          "trajectory_id": "kujiale_0055_10_3",
+          "instruction_text": "Walk forward through the doorway, passing the dining table on your left. Continue straight, keeping the living room with the sofa and TV on your right, moving towards the large window. Turn right into the utility area and stop in front of the sink and washing machine."
+        },
+        {
+          "episode_id": "kujiale_0056_21_2",
+          "trajectory_id": "kujiale_0056_21_2",
+          "instruction_text": "Turn right to enter the dining room. Walk straight, passing a dining table and a wooden cabinet on your left, and a living room area with a TV and shelves on your right. Go through the doorway ahead into the kitchen. Continue straight into the kitchen, with a refrigerator on your right, and stop in front of the kitchen counter with the sink and window."
+        }
+      ]
+    },
+    {
+      "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/final_splits/fine_train.json.gz",
+      "sha256": "ef2506211d5d45c5cc42655ca97c1832c073f893c69c0630fcb83a426a9e2bf4",
+      "episodes": 3963,
+      "unique_episode_ids": 3963,
+      "instruction_schemas": [
+        {
+          "keys": [
+            "instruction_text",
+            "instruction_tokens"
+          ],
+          "count": 3963
+        }
+      ],
+      "single_text_count": 3963,
+      "explicit_style_key_count": 0,
+      "selected_single_text_examples": [
+        {
+          "episode_id": "kujiale_0042_48_4",
+          "trajectory_id": "kujiale_0042_48_4",
+          "instruction_text": "Walk straight through the doorway, passing the TV and cabinet on your left. Continue into the room, with the couch and coffee table on your left and a large plant on your right. Turn slightly left and stop in front of the large window with the outdoor view, having the couch to your left and a TV and console table on the far left wall."
+        },
+        {
+          "episode_id": "kujiale_0191_35_1",
+          "trajectory_id": "kujiale_0191_35_1",
+          "instruction_text": "Walk straight through the doorway to enter the kitchen. Turn right, then walk straight past the kitchen island on your right and the dining table on your left. Continue straight into the living room, keeping the wall decoration on your right. Pass the brown armchair on your left and the sofa on your right, then stop in front of the large window overlooking the lake."
+        },
+        {
+          "episode_id": "kujiale_0055_10_3",
+          "trajectory_id": "kujiale_0055_10_3",
+          "instruction_text": "Walk forward through the doorway, passing the dining table on your left. Continue straight, keeping the living room with the sofa and TV on your right, moving towards the large window. Turn right into the utility area and stop in front of the sink and washing machine."
+        },
+        {
+          "episode_id": "kujiale_0056_21_2",
+          "trajectory_id": "kujiale_0056_21_2",
+          "instruction_text": "Turn right to enter the dining room. Walk straight, passing a dining table and a wooden cabinet on your left, and a living room area with a TV and shelves on your right. Go through the doorway ahead into the kitchen. Continue straight into the kitchen, with a refrigerator on your right, and stop in front of the kitchen counter with the sink and window."
+        }
+      ]
+    }
+  ],
+  "coarse_style_counts": null,
+  "coarse_triplet_found": false,
+  "per_style_word_counts_computed": false,
+  "reason": "Coarse directory absent in the requested local source. Fine instruction objects have one instruction_text and no explicit style label; do not infer style from prose.",
+  "fine_preprocessed_and_final_splits_episode_text_mapping_identical": true,
+  "reader_support_evidence": [
+    {
+      "path": "/mnt/pfs/tanshenghan/ECCV_2026/vlnverse_emr/vlnverse/dataset/cma_lerobot_dataset.py",
+      "line": 90,
+      "meaning": "Reader supports formal/natural/casual dictionary iteration; not proof that local coarse files are present."
+    },
+    {
+      "path": "/mnt/pfs/tanshenghan/ECCV_2026/vlnverse_emr/vlnverse/dataset/rdp_lerobot_dataset.py",
+      "line": 153,
+      "meaning": "Reader supports same three-style dictionary iteration."
+    }
+  ]
+}

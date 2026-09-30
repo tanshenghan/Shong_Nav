@@ -86,7 +86,7 @@ select = ["E", "F", "I"]   # pyflakes + pycodestyle + isort
 ignore = ["E501"]          # line length is advisory; the 100-col limit is not enforced
 
 [tool.pytest.ini_options]
-testpaths = ["tests", "data_pipeline/tests"]
+testpaths = ["tests", "data_pipeline/R2R/tests", "data_pipeline/vlnverse/tests"]
 markers = [
     "gpu: needs a real GPU / torch CUDA / model weights (deselected on CPU with -m 'not gpu')",
     "video: needs ffmpeg/imageio video dependencies",

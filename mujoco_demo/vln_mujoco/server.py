@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 
 from aiohttp import WSMsgType, web
 
+from .model import SCENE_DATASET, SCENE_ID, SCENE_NAME
 from .mpc import (
     A_MAX_V,
     A_MAX_W,
@@ -22,12 +23,12 @@ from .mpc import (
     Q_WEIGHTS,
     R_WEIGHTS,
     TRACK_V_MAX,
-    WAYPOINT_DT_S,
     W_MAX,
+    WAYPOINT_DT_S,
     MpcTracker,
 )
-from .model import SCENE_DATASET, SCENE_ID, SCENE_NAME
 from .simulation import Simulation
+from .streaming import stream_camera
 from .vln_client import VlnClient
 
 WEB_DIR = Path(__file__).resolve().parent / "web"
@@ -50,6 +51,7 @@ class VlnMujocoServer:
         self.simulation = simulation or Simulation()
         self.vln = VlnClient(logging.getLogger("vln_mujoco.vln"), default_vln_server)
         self.sockets: set[web.WebSocketResponse] = set()
+        self.camera_sockets: set[web.WebSocketResponse] = set()
         self.manual_owner: web.WebSocketResponse | None = None
         self.auto_owner: web.WebSocketResponse | None = None
         self.update_task: asyncio.Task | None = None
@@ -60,6 +62,7 @@ class VlnMujocoServer:
         self.mpc = MpcTracker()
         self.capture_poses: dict[int, tuple[float, float, float]] = {}
         self._last_runtime_signature: tuple[object, ...] | None = None
+        self._path_received_at = 0.0
 
     def app(self) -> web.Application:
         app = web.Application()
@@ -68,6 +71,8 @@ class VlnMujocoServer:
         app.router.add_get("/api/health", self.health)
         app.router.add_get("/api/camera.jpg", self.camera)
         app.router.add_get("/api/third-person.jpg", self.third_person_camera)
+        app.router.add_get("/camera/ws", self.camera_stream)
+        app.router.add_post("/api/stop", self.emergency_stop)
         app.router.add_static("/static", WEB_DIR)
         app.on_startup.append(self.on_startup)
         app.on_shutdown.append(self.on_shutdown)
@@ -78,6 +83,8 @@ class VlnMujocoServer:
         self.update_task = asyncio.create_task(self.update_loop())
 
     async def on_shutdown(self, _app: web.Application) -> None:
+        for socket in tuple(self.camera_sockets):
+            await socket.close(code=1001, message=b"server shutdown")
         if self.update_task is not None:
             self.update_task.cancel()
             with contextlib.suppress(asyncio.CancelledError):
@@ -97,8 +104,19 @@ class VlnMujocoServer:
         return web.json_response({"ok": True, **self.snapshot(None)})
 
     async def camera(self, _request: web.Request) -> web.Response:
-        frame = self.simulation.frame()
+        frame = self.simulation.display_frame()
         return self.camera_response(frame)
+
+    async def camera_stream(self, request):
+        return await stream_camera(request, self.simulation, self.camera_sockets)
+
+    async def emergency_stop(self, request):
+        origin = request.headers.get("Origin")
+        if origin and urlparse(origin).netloc != request.host:
+            raise web.HTTPForbidden(text="invalid origin")
+        self.manual_owner = None
+        self.stop_vln()
+        return web.json_response({"ok": True, "message": "robot stopped"})
 
     async def third_person_camera(self, _request: web.Request) -> web.Response:
         frame = self.simulation.third_person_frame()
@@ -179,6 +197,8 @@ class VlnMujocoServer:
             self.last_result = empty_vln_result()
             self.capture_poses.clear()
             self.mpc.reset()
+            self.simulation.set_path()
+            self._path_received_at = 0.0
             self.simulation.set_velocity(0.0, 0.0)
             await self.result(socket, True, "VLN started")
             return
@@ -228,6 +248,9 @@ class VlnMujocoServer:
     def stop_vln(self) -> None:
         self.auto_owner = None
         self.auto_command = (0.0, 0.0)
+        self.simulation.set_velocity(0.0, 0.0)
+        self.simulation.set_path()
+        self._path_received_at = 0.0
         self.waypoints = ()
         self.last_result = empty_vln_result()
         self.capture_poses.clear()
@@ -347,15 +370,18 @@ class VlnMujocoServer:
     async def update_loop(self) -> None:
         control_period_s = 1.0 / CONTROL_RATE_HZ
         next_control_s = time.monotonic()
+        next_broadcast_s = 0.0
         while True:
             frame = self.simulation.frame()
             if frame is not None and frame.stamp_ns != self.last_frame_stamp:
                 if self.vln.offer_frame(frame.stamp_ns, frame.jpeg):
                     self.last_frame_stamp = frame.stamp_ns
                     self.capture_poses[frame.stamp_ns] = frame.pose
-                    while len(self.capture_poses) > 32:
+                    while len(self.capture_poses) > 1024:
                         self.capture_poses.pop(next(iter(self.capture_poses)))
             for result in self.vln.take_results():
+                if self.auto_owner is None:
+                    continue
                 self.waypoints = result.waypoints
                 self.last_result = {
                     "latency_ms": result.latency_ms,
@@ -372,6 +398,8 @@ class VlnMujocoServer:
                     self.auto_owner = None
                     self.capture_poses.clear()
                     self.mpc.reset()
+                    self.simulation.set_path()
+                    self._path_received_at = 0.0
                     self.vln.stop()
                     break
                 capture_pose = self.capture_poses.pop(result.stamp_ns, None)
@@ -382,6 +410,8 @@ class VlnMujocoServer:
                     self.simulation.set_velocity(0.0, 0.0)
                     continue
                 self.mpc.set_body_path(result.waypoints, capture_pose)
+                self.simulation.set_path(result.waypoints, capture_pose)
+                self._path_received_at = time.monotonic()
                 self.auto_command = self.mpc.command
 
             solved_command = self.mpc.poll()
@@ -391,6 +421,15 @@ class VlnMujocoServer:
                     self.simulation.set_velocity(*self.auto_command)
 
             now_s = time.monotonic()
+            if self.auto_owner is not None and self._path_received_at and now_s - self._path_received_at > 5.0:
+                # A dropped model connection must not drive the same old path forever.
+                self.mpc.reset()
+                self.simulation.set_path()
+                self.waypoints = ()
+                self._path_received_at = 0.0
+                self.auto_command = (0.0, 0.0)
+                self.simulation.set_velocity(0.0, 0.0)
+                self.mpc.error = "Waiting for a fresh trajectory; robot paused."
             if self.auto_owner is not None and now_s >= next_control_s:
                 simulation = self.simulation.snapshot()
                 pose = simulation["pose"]
@@ -400,6 +439,7 @@ class VlnMujocoServer:
                     next_control_s += control_period_s
             elif self.auto_owner is None:
                 next_control_s = now_s
-            if self.runtime_signature() != self._last_runtime_signature:
+            if now_s >= next_broadcast_s and self.runtime_signature() != self._last_runtime_signature:
                 await self.broadcast()
+                next_broadcast_s = now_s + 0.1
             await asyncio.sleep(0.01)

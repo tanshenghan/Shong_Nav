@@ -5,6 +5,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
+import pytest
 import torch
 
 from lightnav.habitat.beta_policy import BetaFMRuntime, BetaFMVLNCEPolicy, _prompt_only_inputs
@@ -288,3 +289,191 @@ def test_frozen_rvq_stop_matches_baseline_and_uses_rvq_prompt(monkeypatch):
     assert policy._rvq_requests_stop()
     assert policy._decode_failed and policy._last_stop_source == "decode_failure"
     assert prompts == ["rvq"] * 4
+
+
+class _LearnedStopModel:
+    config = SimpleNamespace(training_mode="fm_stop", horizon=2)
+    stop_head = object()
+    expert = SimpleNamespace(step_embedding=torch.zeros(1))
+
+    def __init__(self, scores, motion=0.1):
+        self.scores = iter(scores)
+        self.motion = motion
+        self.calls = 0
+
+    def predict_continuous(
+        self, prefix, *, stop_threshold, num_steps, generator, stop_eligible=None,
+    ):
+        assert not torch.is_grad_enabled()
+        assert prefix["input_ids"].shape == (1, 3) and "labels" not in prefix
+        assert generator is not None
+        self.calls += 1
+        score = next(self.scores)
+        stop = bool(torch.tensor(score) >= stop_threshold)
+        if stop_eligible is not None:
+            stop = stop and bool(stop_eligible[0])
+        waypoints = torch.zeros(1, 2, 3)
+        if not stop:
+            waypoints[:, :, 0] = self.motion
+        return SimpleNamespace(
+            stop=torch.tensor([stop]), stop_scores=torch.tensor([score]),
+            se2_deltas=waypoints, waypoints=waypoints,
+        )
+
+
+def _learned_policy(monkeypatch, model, **config):
+    from lightnav.habitat.runner import HabitatEvalConfig, build_velocity_policy
+
+    def forbid_decoder(*args, **kwargs):
+        raise AssertionError("learned STOP must not load RVQ")
+
+    monkeypatch.setattr("lightnav.habitat.runner.resolve_action_decoder", forbid_decoder)
+    monkeypatch.setattr("lightnav.inference.samples.build_continuous_traj_sample", lambda *a: {})
+    bundle = SimpleNamespace(
+        data_processor=_Processor(), num_history_frames=4,
+        video_size=(4, 4), processor=SimpleNamespace(video_processor=None),
+    )
+    runtime = BetaFMRuntime(model, bundle, Path("/checkpoint"), 1)
+    cfg = HabitatEvalConfig(model_path="/base", action_output="fm", beta_checkpoint="/checkpoint", **config)
+    info = dict(habitat_time_step=0.1, lin_vel_range=(0, 2.5), ang_vel_range=(-300, 300))
+    policy = build_velocity_policy(cfg, runtime, bundle, info)
+    policy.reset({"instruction": "go"})
+    policy.agent.observe = lambda rgb: None
+    policy.agent._get_video_tensor = lambda: torch.zeros(1, 3, 4, 4)
+    return policy
+
+
+def test_learned_habitat_single_prediction_and_stop_latch(monkeypatch):
+    model = _LearnedStopModel([0.6, 0.9, 0.1])
+    policy = _learned_policy(monkeypatch, model, stop_threshold=0.8)
+    obs = {"rgb": np.zeros((4, 4, 3), dtype=np.uint8)}
+    assert policy.runtime.fm_only_stop_mode == "learned"
+    assert not policy._command_would_stop(policy.act(obs))
+    assert policy.get_info()["stop_score"] == pytest.approx(0.6)
+    assert policy.get_info()["stop_threshold"] == 0.8
+    assert policy._command_would_stop(policy.act(obs))
+    assert policy.get_info()["stop_source"] == "learned_head"
+    assert policy.get_info()["action_source"] == "fm_stop"
+    assert policy.get_info()["stop"] and not policy.get_info()["decode_failed"]
+    assert policy._command_would_stop(policy.act(obs))
+    assert model.calls == 2
+    policy.reset({"instruction": "new task"})
+    assert not policy._command_would_stop(policy.act(obs))
+    assert model.calls == 3
+
+
+def test_learned_habitat_zero_motion_does_not_claim_head_completion(monkeypatch):
+    model = _LearnedStopModel([0.1, 0.1], motion=0)
+    policy = _learned_policy(monkeypatch, model)
+    obs = {"rgb": np.zeros((4, 4, 3), dtype=np.uint8)}
+    assert policy._command_would_stop(policy.act(obs))
+    assert policy.get_info()["stop_source"] == "fm_zero_command"
+    assert policy.get_info()["stop"] and not policy._completed
+    policy.act(obs)
+    assert model.calls == 2  # no learned completion latch
+
+
+def test_learned_confirmation_requires_consecutive_new_observations_and_latches(monkeypatch):
+    model = _LearnedStopModel([0.7, 0.2, 0.7, 0.9])
+    policy = _learned_policy(monkeypatch, model, stop_threshold=0.7, stop_confirm_steps=2)
+    obs = {"rgb": np.zeros((4, 4, 3), dtype=np.uint8)}
+    observations = []
+    policy.agent.observe = lambda rgb: observations.append(rgb.copy())
+    for step, count in enumerate([1, 0, 1], start=1):
+        obs["rgb"].fill(step)
+        action = policy.act(obs)
+        assert not policy._command_would_stop(action)
+        assert policy.get_info()["stop_confirmation_count"] == count
+        assert policy.get_info()["stop_candidate"] == bool(count)
+        assert not policy.get_info()["stop_confirmed"]
+        assert policy.get_info()["stop_confirm_steps"] == 2
+        assert policy.get_info()["action_waypoint"][0] == pytest.approx(0.1)
+        assert model.calls == step
+    obs["rgb"].fill(4)
+    assert policy._command_would_stop(policy.act(obs))
+    assert policy.get_info()["stop_confirmation_count"] == 2
+    assert policy.get_info()["stop_confirmed"]
+    assert policy.get_info()["stop_source"] == "learned_head"
+    assert policy._command_would_stop(policy.act(obs))
+    assert model.calls == 4 and len(observations) == 4
+    assert [int(frame[0, 0, 0]) for frame in observations] == [1, 2, 3, 4]
+
+
+def test_learned_confirmation_resets_pending_count_between_episodes(monkeypatch):
+    model = _LearnedStopModel([0.9, 0.9, 0.9])
+    policy = _learned_policy(monkeypatch, model, stop_confirm_steps=2)
+    obs = {"rgb": np.zeros((4, 4, 3), dtype=np.uint8)}
+    assert not policy._command_would_stop(policy.act(obs))
+    assert policy.get_info()["stop_confirmation_count"] == 1
+    policy.reset({"instruction": "another task"})
+    assert policy.get_info()["stop_confirmation_count"] == 0
+    assert not policy.get_info()["stop_candidate"]
+    assert not policy._command_would_stop(policy.act(obs))
+    assert policy._command_would_stop(policy.act(obs))
+    policy.reset({"instruction": "third task"})
+    assert policy.get_info()["stop_confirmation_count"] == 0
+    assert not policy.get_info()["stop_confirmed"] and not policy._completed
+
+
+def test_pending_confirmation_cannot_terminate_via_zero_fm_motion(monkeypatch):
+    model = _LearnedStopModel([0.9, 0.9], motion=0)
+    policy = _learned_policy(monkeypatch, model, stop_confirm_steps=2)
+    obs = {"rgb": np.zeros((4, 4, 3), dtype=np.uint8)}
+    assert not policy._command_would_stop(policy.act(obs))
+    info = policy.get_info()
+    assert info["stop_candidate"] and info["stop_confirmation_count"] == 1
+    assert info["stop_suppressed"] and not info["stop"]
+    assert info["stop_source"] == "stop_confirmation_zero_command_suppressed"
+    assert policy._command_would_stop(policy.act(obs))
+    assert policy.get_info()["stop_confirmed"] and model.calls == 2
+
+
+def test_external_budget_stop_does_not_invent_a_second_confirmation(monkeypatch):
+    model = _LearnedStopModel([0.9])
+    policy = _learned_policy(monkeypatch, model, stop_confirm_steps=2)
+    obs = {"rgb": np.zeros((4, 4, 3), dtype=np.uint8)}
+    assert not policy._command_would_stop(policy.act(obs))
+    assert policy._command_would_stop(policy.stop_action())
+    # The runner may stop at its budget without evaluating this observation.
+    # This must not resample, advance the confirmation counter, or latch the head.
+    info = policy.get_info()
+    assert model.calls == 1
+    assert info["stop_confirmation_count"] == 1 and not info["stop_confirmed"]
+    assert not policy._completed
+    policy.reset({"instruction": "next episode"})
+    assert policy.get_info()["stop_confirmation_count"] == 0
+
+
+@pytest.mark.parametrize("value", [0, -1, 1.5, True])
+def test_stop_confirmation_rejects_invalid_count(value):
+    with pytest.raises(ValueError, match="positive integer"):
+        BetaFMRuntime(_LearnedStopModel([]), object(), Path("/checkpoint"), 1,
+                      stop_confirm_steps=value)
+
+
+def test_stop_confirmation_requires_learned_protocol():
+    with pytest.raises(ValueError, match="requires learned STOP"):
+        BetaFMRuntime(_LearnedStopModel([]), object(), Path("/checkpoint"), 1,
+                      fm_only_stop_mode="max_steps", stop_confirm_steps=2)
+
+
+def test_habitat_learned_rejects_checkpoint_without_stop_head():
+    model = _LearnedStopModel([])
+    model.stop_head = None
+    with pytest.raises(ValueError, match="trained StopHead"):
+        BetaFMRuntime(model, object(), Path("/checkpoint"), 1)
+    model.config = SimpleNamespace(training_mode="fm_only")
+    with pytest.raises(ValueError, match="trained StopHead"):
+        BetaFMRuntime(model, object(), Path("/checkpoint"), 1, fm_only_stop_mode="learned")
+
+
+def test_habitat_cli_learned_threshold():
+    from lightnav.cli.eval_habitat import build_parser, config_from_args
+
+    args = build_parser().parse_args([
+        "--model_path", "/base", "--backend", "hf", "--action_output", "fm",
+        "--beta_checkpoint", "/checkpoint", "--fm_only_stop_mode", "learned",
+        "--stop_threshold", "0.7",
+    ])
+    config = config_from_args(args)
+    assert config.fm_only_stop_mode == "learned" and config.stop_threshold == 0.7

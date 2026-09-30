@@ -18,7 +18,7 @@ adam_betas: [0.9, 0.95]
 adam_eps: 1.0e-8
 clip_vlm: 1.0
 clip_fm: 1.0
-lambda_fm: 2.0
+lambda_fm: 1.0  # FM-only objective: 1.0 * FM
 freeze_vision: true
 gradient_checkpointing: false  # frozen VLM runs under no_grad; no backward activations
 mixed_precision: bf16

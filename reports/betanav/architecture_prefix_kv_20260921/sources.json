@@ -1,0 +1,55 @@
+{
+  "checkpoint": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_beta1_1p5/checkpoints/step-00003699",
+  "beta_config": {
+    "action_scale": [
+      0.11452871089985171,
+      0.02,
+      0.14315529937756227
+    ],
+    "horizon": 30,
+    "hidden_size": 512,
+    "num_layers": 6,
+    "num_heads": 32,
+    "intermediate_size": 2048,
+    "dropout": 0.0,
+    "num_flow_steps": 10,
+    "training_mode": "fm_only",
+    "flow_time_distribution": "beta",
+    "flow_time_alpha": 1.0,
+    "flow_time_beta": 1.5,
+    "expert_architecture": "prefix_kv_v1",
+    "prefix_layers": [
+      6,
+      12,
+      18,
+      24,
+      30,
+      36
+    ],
+    "prefix_kv_config": {
+      "model_type": "qwen3_vl_text",
+      "num_hidden_layers": 36,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "head_dim": 128,
+      "rms_norm_eps": 1e-06,
+      "rope_parameters": {
+        "mrope_interleaved": true,
+        "mrope_section": [
+          24,
+          20,
+          20
+        ],
+        "rope_theta": 5000000,
+        "rope_type": "default"
+      }
+    }
+  },
+  "sha256": {
+    "/mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_beta1_1p5/checkpoints/step-00003699/metadata.json": "2c5633bc62d606aabacbd65755c0973aa94531373e84329f2cd1ed60f5a04456",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/inference/beta_model.py": "c3d2d50894f89c4f9540bfbe16e4153e9ed96e8f0303131b4d6360757dfe7ad7",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/inference/prefix_kv.py": "d35ceee41e086bcb6412a4a970dcef918d0d4f0817f08af8521362058dc6b830",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/inference/pi_action_expert.py": "5103bba53fb3f8ceb62141ceabf08ee9640ff3a270be40a3388cd9157c7423eb",
+    "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260920T081142Z_fm_only_h30_prefix_kv_beta1_1p5_8gpu/train_config.yaml": "ac7078cf408403aec73d6af31f1e3e060e0ef07c38cca425261e7dfc3432f47f"
+  }
+}

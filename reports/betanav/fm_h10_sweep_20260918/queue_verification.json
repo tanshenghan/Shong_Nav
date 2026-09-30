@@ -1,0 +1,86 @@
+{
+  "checked_at_utc": "2026-09-18T07:29:17.752142+00:00",
+  "runs": [
+    {
+      "beta": [
+        1,
+        1.5
+      ],
+      "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta1_1p5_8gpu",
+      "configuration": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/configs/betanav/r2r_fm_only_h10_beta1_1p5.yaml",
+      "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta1_1p5_frozen_lightnav_20260918",
+      "queue_state": {
+        "queue_pid": 980355,
+        "not_before_utc": "2026-09-18T07:28:10.145974+00:00",
+        "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta1_1p5_8gpu",
+        "status": "waiting_for_gpus",
+        "checked_at_utc": "2026-09-18T07:29:17.393797+00:00",
+        "details": {
+          "gpu_compute_pids": [
+            "950051",
+            "950062",
+            "950027",
+            "950031",
+            "950069",
+            "950076",
+            "950037",
+            "950045"
+          ]
+        }
+      },
+      "alive": true,
+      "launch_status": "prepared"
+    },
+    {
+      "beta": [
+        1,
+        2.0
+      ],
+      "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta12_8gpu",
+      "configuration": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/configs/betanav/r2r_fm_only_h10_beta12.yaml",
+      "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta12_frozen_lightnav_20260918",
+      "queue_state": {
+        "queue_pid": 980356,
+        "not_before_utc": "2026-09-18T07:28:10.145974+00:00",
+        "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta12_8gpu",
+        "status": "waiting_for_previous_run",
+        "checked_at_utc": "2026-09-18T07:29:17.229369+00:00",
+        "details": {
+          "previous_status": "prepared"
+        }
+      },
+      "alive": true,
+      "launch_status": "prepared"
+    },
+    {
+      "beta": [
+        1,
+        3.0
+      ],
+      "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta13_8gpu",
+      "configuration": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/configs/betanav/r2r_fm_only_h10_beta13.yaml",
+      "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta13_frozen_lightnav_20260918",
+      "queue_state": {
+        "queue_pid": 980357,
+        "not_before_utc": "2026-09-18T07:28:10.145974+00:00",
+        "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta13_8gpu",
+        "status": "waiting_for_previous_run",
+        "checked_at_utc": "2026-09-18T07:29:17.232899+00:00",
+        "details": {
+          "previous_status": "prepared"
+        }
+      },
+      "alive": true,
+      "launch_status": "prepared"
+    }
+  ],
+  "tests": {
+    "passed": 854,
+    "skipped": 7,
+    "gpu_deselected": 2
+  },
+  "static_checks": "make check syntax fallback and git diff --check passed",
+  "real_data_check": "real_data_cpu_check.json",
+  "gpu_snapshot": "index, memory.used [MiB], utilization.gpu [%]\n0, 32623 MiB, 54 %\n1, 32567 MiB, 1 %\n2, 31561 MiB, 25 %\n3, 32669 MiB, 91 %\n4, 33633 MiB, 40 %\n5, 30515 MiB, 92 %\n6, 31569 MiB, 96 %\n7, 36877 MiB, 6 %\n",
+  "compute_processes": "pid, process_name, used_gpu_memory [MiB]\n950051, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 32604 MiB\n950062, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 32548 MiB\n950027, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 31542 MiB\n950031, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 32650 MiB\n950069, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 33614 MiB\n950076, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 30496 MiB\n950037, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 31550 MiB\n950045, /mnt/pfs/jiayilin/JanusVLN_Qwen2_5_V2_Fair_eval_20260828/runtime/janusvln-v2fair-eval/bin/python, 36858 MiB\n"
+}

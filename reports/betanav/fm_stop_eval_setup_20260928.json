@@ -1,0 +1,51 @@
+{
+  "date_utc": "2026-09-28",
+  "entrypoint": "scripts/eval_betanav_fm_stop_8gpu.sh",
+  "checkpoint_step": 3699,
+  "protocol": {
+    "split": "val_unseen",
+    "num_gpus": 8,
+    "workers_per_gpu": 2,
+    "num_shards": 64,
+    "load_parallelism": 2,
+    "stop_protocol": "learned",
+    "stop_threshold": 0.5,
+    "fm_steps": 10,
+    "fm_seed": 42,
+    "max_steps": 500,
+    "success_distance_m": 3.0,
+    "oracle_stop": false
+  },
+  "validation": {
+    "new_eval_cpu_tests": {"passed": 120},
+    "full_cpu_suite": {
+      "command": "make test PYTHON=.venv-train-stop/bin/python",
+      "passed": 1457,
+      "skipped": 9,
+      "deselected": 2,
+      "elapsed_seconds": 74.91,
+      "note": "First attempt received SIGTERM without a pytest failure. Verbose full retry completed successfully; the initial interruption cause was not established."
+    },
+    "ruff_new_files": "passed",
+    "make_check": "25 pre-existing errors in old MuJoCo tests, plotting reports and tests/test_beta_prefix_model.py; no errors in this task's new files",
+    "bash_syntax": "passed",
+    "shell_entrypoint_help": "passed, including local environment setup",
+    "habitat_imports": {
+      "python": ".venv-habitat/bin/python",
+      "python_version": "3.9.23",
+      "habitat": true,
+      "habitat_sim": true,
+      "lightnav_habitat_serve": true,
+      "simulator_created": false,
+      "gl_libraries": ".venv-beta-demo/egl/usr/lib/x86_64-linux-gnu"
+    },
+    "check_only": {
+      "passed": false,
+      "reason": "Current development account lacks read permission for the R2R dataset. The platform job account must have access to R2R/MP3D resources.",
+      "failed_path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/val_unseen/val_unseen.json.gz"
+    }
+  },
+  "gpu_evaluation_started": false,
+  "actual_navigation_metrics_available": false,
+  "throughput_and_peak_memory_measured": false
+}

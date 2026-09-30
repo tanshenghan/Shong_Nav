@@ -1,0 +1,6 @@
+# Separate Python 3.11 environment for the optional static USD/Blender preview.
+# Do not install these packages into the training, inference, or Isaac env.
+bpy==4.2.0
+numpy==1.26.4
+usd-core==26.8
+Pillow==12.3.0

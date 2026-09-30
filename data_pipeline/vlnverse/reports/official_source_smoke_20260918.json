@@ -1,0 +1,61 @@
+{
+  "date": "2026-09-18",
+  "scope": "official_source_parser_and_cpu_regression",
+  "input": {
+    "parquet_url": "https://huggingface.co/datasets/Eyz/VLNVerse_data/resolve/main/traj_data/vlnverse/kujiale_0005/0_0/data/chunk-000/episode_000000.parquet",
+    "metadata_url": "https://huggingface.co/datasets/Eyz/VLNVerse_data/resolve/main/traj_data/vlnverse/kujiale_0005/0_0/meta/episodes.jsonl",
+    "parquet_sha256": "7943b4bf7c82a305d4cffc877c9de2dd9a111b7b1a432cba64f6b26a884aeeee",
+    "metadata_sha256": "347edf48dea2cc63160ebfdbfdfe60010f7d380f73967111391d894b085a2398",
+    "revision": "main at download; input identity fixed by SHA256"
+  },
+  "official_sample": {
+    "episodes_checked": 1,
+    "parse_passed": 1,
+    "parse_failed": 0,
+    "frames": 82,
+    "translation_length_m": 12.000000000000002,
+    "geometric_motion_runs": 43,
+    "source_timestamp_first": 0.0,
+    "source_timestamp_last": 81.0,
+    "source_timestamp_units": "unverified; not assumed seconds",
+    "scene_calibrated": false,
+    "retimed_against_actual_scene": false,
+    "simulator_replayed": false
+  },
+  "validation": {
+    "pipeline_tests_passed": 198,
+    "r2r_tests_passed": 127,
+    "vlnverse_tests_passed": 71,
+    "console_script_tests_passed": 8,
+    "failures": 0,
+    "pipeline_command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src HF_HUB_OFFLINE=1 data_pipeline/.venv/lerobot/bin/python -m pytest -q data_pipeline/R2R/tests data_pipeline/vlnverse/tests",
+    "console_command": ".venv/bin/python -m pytest -q tests/cli/test_console_scripts.py",
+    "ruff_command": ".venv/bin/ruff check data_pipeline/vlnverse tests/cli/test_console_scripts.py",
+    "ruff_passed": true
+  },
+  "default_config_sha256": "ca7295e9de3c8729a3f3e0618140407ed042af6a78662570165257a342061e86",
+  "git_head": "0e0e5cbff81ac54608cd4aef31e21c5458fbd162",
+  "code_identity": "working-tree file hashes; git HEAD alone does not include current changes",
+  "code_sha256": {
+    "__init__.py": "3da75830849fdc5384d8abc099bb3985a57abd012da047762557656af79b3945",
+    "cli/__init__.py": "8f205b99a80c1bf57ab4e15f313ef39e98823cdec9e7ce23a132d2c065221597",
+    "cli/retime.py": "2207664c748ee3b8653f0007fb47bd37d0603fd09489718b5cd5354a85e54ce5",
+    "motion/__init__.py": "0e604f12fe5c36520dc3c957877ec8c6a13ec8fa895283e1d95437b72a9ef5f1",
+    "motion/retime.py": "0a85ad527fa0601ee8fb31bdf2611d841e71a2fc72e11075a5a28eb95ec825b4",
+    "scene/__init__.py": "1ba87c58096a5dea7d6b90e80fc5a258b9db3940a7a8b399fc931d1decd7f42e",
+    "scene/occupancy.py": "b4d97fdfe32fd76f3db322e73e60c059715010967876728e9c0fcc09e60bb40a",
+    "source/__init__.py": "287881596142d462a16ac80539025f9b6c6c3e92eb1f3420ec5b990cef0a0d58",
+    "source/official.py": "882417d31b35f557db98c9835b4ff25d4bea177e6a6a11ae5df3378d6b33b9d1",
+    "tests/test_occupancy.py": "3c89dc433b19c0265ea112b0f064fa10d1ff0f2c2319fdf5079d455a89fcb799",
+    "tests/test_official_source.py": "a046f4dfc6aada803fa01359273501b6d564cbcbe0ad2e9e05a9abe7b3ba6aa1",
+    "tests/test_retime.py": "65399c483230684c92ab570c4a3155ec4992fdf65283ff9ed6c7ef753c5b9a37",
+    "tests/test_retime_cli.py": "5bb8424e1c14b4fb8cd4658d72155be9c3948fe6bcbe1c440fc790c8818a9731",
+    "validation/__init__.py": "74073ee76c44e32a40f4746aa93476aa220c9471675a5bec4ac4da6d3390ee10",
+    "validation/motion.py": "2eec67d4789c43858c99cc76e8a2e0a1f6d3f0b78b1ceab20a6d69453bee0b84"
+  },
+  "limits": [
+    "CPU checks use synthetic canonical maps; no actual scene collision guarantee has been established.",
+    "One official source sample is not a complete dataset audit.",
+    "Replay, labels and export directories currently define contracts only."
+  ]
+}

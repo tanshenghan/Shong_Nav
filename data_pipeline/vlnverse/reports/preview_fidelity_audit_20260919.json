@@ -1,0 +1,636 @@
+{
+  "date": "2026-09-19",
+  "user_issue": "Preview episodes look too simple and visual content differs from instructions.",
+  "output_root": "/mnt/cfs/data/beta_nav/vlnverse/audit_20260919_preview_fidelity",
+  "findings": {
+    "episode_truncated": false,
+    "instruction_identity_mismatch": false,
+    "unrepresentative_selection": true,
+    "rendered_visual_fidelity_failed": true,
+    "instruction_main_route_matches_official_rgb": true,
+    "prior_tests_scope": "Pose/index/hash/motion/video checks passed; these do not validate instruction semantics or renderer visual fidelity."
+  },
+  "episode_integrity": {
+    "episode_id": "kujiale_0172_51_0",
+    "official_file_integrity": [
+      {
+        "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/official/kujiale_0172/51_0/data/chunk-000/episode_000000.parquet",
+        "bytes": 7020,
+        "checksum_algorithm": "sha256",
+        "checksum": "466db6e2f46783cffbc87df7e28be6ccc8d22b0d9ef0aa6c390a8ee43ba2d708",
+        "official_tree_checksum_matches": true
+      },
+      {
+        "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/official/kujiale_0172/51_0/meta/episodes.jsonl",
+        "bytes": 467,
+        "checksum_algorithm": "git_blob_sha1",
+        "checksum": "0c2659bcb84347203f87438aef8aceaab78935d4",
+        "official_tree_checksum_matches": true
+      },
+      {
+        "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/official/kujiale_0172/51_0/meta/info.json",
+        "bytes": 106,
+        "checksum_algorithm": "git_blob_sha1",
+        "checksum": "233e36ddb208d6294260113be956ea8adf137230",
+        "official_tree_checksum_matches": true
+      }
+    ],
+    "official_tree_file_paths": [
+      "traj_data/vlnverse/kujiale_0172/51_0/data/chunk-000/episode_000000.parquet",
+      "traj_data/vlnverse/kujiale_0172/51_0/meta/episodes.jsonl",
+      "traj_data/vlnverse/kujiale_0172/51_0/meta/info.json",
+      "traj_data/vlnverse/kujiale_0172/51_0/meta/tasks.jsonl",
+      "traj_data/vlnverse/kujiale_0172/51_0/videos/chunk-000/observation.images.depth/depth.npy",
+      "traj_data/vlnverse/kujiale_0172/51_0/videos/chunk-000/observation.images.rgb/rgb.npy"
+    ],
+    "official_parquet_count": 1,
+    "raw_fine_train_match_count": 1,
+    "step_count": 23,
+    "step_range": [
+      0,
+      22
+    ],
+    "frame_index_range": [
+      0,
+      22
+    ],
+    "progress_range": [
+      0.0,
+      1.0
+    ],
+    "raw_reference_and_parquet_position_max_difference_m": 0.0,
+    "source_npz_and_parquet_position_max_difference_m": 0.0,
+    "source_npz_and_parquet_yaw_max_difference_rad": 0.0,
+    "goal_position_error_m": 0.0,
+    "path_length_m": 4.5,
+    "action_counts": {
+      "forward_1": 18,
+      "left_2": 2,
+      "right_3": 2,
+      "stop_0": 1
+    },
+    "action_semantics": "Row i observation.action leads from row i pose to row i+1 pose; last row is STOP. No separate new_position column exists.",
+    "translation_next_step_max_residual_m": 1.34e-15,
+    "yaw_next_step_max_residual_rad": 5.33e-15,
+    "robot_camera_columns_identical": true,
+    "sensor_extrinsics_recovered": false,
+    "metadata_instruction_matches_raw_and_tasks": true,
+    "official_finish_status": "success",
+    "official_rgb": {
+      "path": "/tmp/vlnverse_0172_51_0_official_rgb/rgb.npy",
+      "shape": [
+        23,
+        256,
+        256,
+        3
+      ],
+      "dtype": "uint8",
+      "sha256": "69a1317b037e5c37611948691d1af3ee80e5a686ceef2d0a355762227411e7a6"
+    },
+    "derived_preview_video": "/tmp/vlnverse_0172_51_0_official_rgb/official_rgb_preview_10fps.mp4",
+    "preview_video_timing": "Encoded from official RGB array at metadata nominal 10 FPS; not an official pre-encoded video and not verified action wall-clock timing.",
+    "contact_sheet": "/tmp/vlnverse_0172_51_0_official_rgb/official_vs_blender_head_mid_tail.png",
+    "visual_findings": [
+      "Official frame0 shows living room to left and outdoor water/grass through right windows.",
+      "Official frame11 shows tiled left wall.",
+      "Official frame22 shows vertical garden ahead and left open doorway.",
+      "Current Blender preview follows corresponding layout but omits outdoor environment and differs strongly in lighting/material appearance; chosen preview camera also has different resolution/aspect and unverified extrinsics."
+    ],
+    "source_assets_modified": false
+  },
+  "local_fine_train": {
+    "source_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/vlnverse_r2r/fine/train/train.json.gz",
+    "source_sha256": "2c04948d8284191a332e2919f2476cd734170c0c8f066442d2db604eed496bff",
+    "counts": {
+      "raw_task_records": 3963,
+      "unique_episode_ids": 3963,
+      "unique_declared_trajectory_ids": 3963,
+      "scenes": 176,
+      "unique_instruction_strings": 3960,
+      "exact_scene_path_start_rotation_groups": 3953,
+      "exact_path_group_size_histogram": {
+        "1": 3943,
+        "2": 10
+      },
+      "id_prefix_without_final_suffix_groups": 3640,
+      "id_prefix_group_size_histogram": {
+        "1": 3375,
+        "2": 213,
+        "3": 47,
+        "4": 4,
+        "5": 1
+      }
+    },
+    "distribution": {
+      "reference_pose_count": {
+        "count": 3963,
+        "mean": 49.327277315165276,
+        "quantiles": {
+          "p0": 17.0,
+          "p10": 29.0,
+          "p25": 35.0,
+          "p50": 46.0,
+          "p75": 60.0,
+          "p90": 74.0,
+          "p95": 83.0,
+          "p99": 101.0,
+          "p100": 150.0
+        },
+        "zero_count": 0
+      },
+      "path_length_m": {
+        "count": 3963,
+        "mean": 8.296114055008832,
+        "quantiles": {
+          "p0": 4.0,
+          "p10": 4.75,
+          "p25": 5.75,
+          "p50": 7.75,
+          "p75": 10.25,
+          "p90": 12.75,
+          "p95": 14.25,
+          "p99": 17.095000000000027,
+          "p100": 22.5
+        },
+        "zero_count": 0
+      },
+      "translation_transition_count": {
+        "count": 3963,
+        "mean": 33.18445622003533,
+        "quantiles": {
+          "p0": 16.0,
+          "p10": 19.0,
+          "p25": 23.0,
+          "p50": 31.0,
+          "p75": 41.0,
+          "p90": 51.0,
+          "p95": 57.0,
+          "p99": 68.38000000000011,
+          "p100": 90.0
+        },
+        "zero_count": 0
+      },
+      "stationary_position_transition_count": {
+        "count": 3963,
+        "mean": 15.142821095129952,
+        "quantiles": {
+          "p0": 0.0,
+          "p10": 7.0,
+          "p25": 10.0,
+          "p50": 14.0,
+          "p75": 19.0,
+          "p90": 25.0,
+          "p95": 30.0,
+          "p99": 38.38000000000011,
+          "p100": 64.0
+        },
+        "zero_count": 28
+      },
+      "moving_heading_changes_gt5deg": {
+        "count": 3963,
+        "mean": 9.317183951551854,
+        "quantiles": {
+          "p0": 0.0,
+          "p10": 5.0,
+          "p25": 6.0,
+          "p50": 9.0,
+          "p75": 12.0,
+          "p90": 15.0,
+          "p95": 17.0,
+          "p99": 22.0,
+          "p100": 32.0
+        },
+        "zero_count": 28
+      },
+      "major_moving_heading_changes_ge45deg": {
+        "count": 3963,
+        "mean": 1.3878374968458238,
+        "quantiles": {
+          "p0": 0.0,
+          "p10": 0.0,
+          "p25": 1.0,
+          "p50": 1.0,
+          "p75": 2.0,
+          "p90": 3.0,
+          "p95": 3.0,
+          "p99": 5.0,
+          "p100": 6.0
+        },
+        "zero_count": 978
+      },
+      "cumulative_moving_heading_change_deg": {
+        "count": 3963,
+        "mean": 219.2316426949281,
+        "quantiles": {
+          "p0": 0.0,
+          "p10": 105.0,
+          "p25": 150.0,
+          "p50": 210.0,
+          "p75": 285.0,
+          "p90": 360.0,
+          "p95": 405.0,
+          "p99": 525.0,
+          "p100": 810.0
+        },
+        "zero_count": 28
+      },
+      "tortuosity": {
+        "count": 3963,
+        "mean": 1.4003941295944988,
+        "quantiles": {
+          "p0": 1.0,
+          "p10": 1.04462216,
+          "p25": 1.1043149995000001,
+          "p50": 1.213866374,
+          "p75": 1.4571460945,
+          "p90": 1.9847804340000001,
+          "p95": 2.452621315199998,
+          "p99": 3.5546760521000045,
+          "p100": 8.293202301
+        },
+        "zero_count": 0
+      }
+    }
+  },
+  "rendered_examples": [
+    {
+      "episode_id": "kujiale_0018_2_2",
+      "scene": "kujiale_0018",
+      "reference_pose_count": 23,
+      "path_length_m": 5.5,
+      "translation_transition_count": 22,
+      "stationary_position_transition_count": 0,
+      "moving_heading_changes_gt5deg": 0,
+      "major_moving_heading_changes_ge45deg": 0,
+      "cumulative_moving_heading_change_deg": 0.0,
+      "net_displacement_m": 5.5,
+      "tortuosity": 1.0,
+      "endpoint_goal_distance_m": 0.0,
+      "instruction": "Walk forward into the main room, passing a dining table on your right. Continue straight, keeping a long white cabinet and a TV on your left, and a living room sofa and coffee table on your right. Stop between the two open doorways directly in front of you, with the bathroom entrance on your left and the bedroom entrance on your right.",
+      "empirical_percentiles": {
+        "reference_pose_count": {
+          "strictly_lower_pct": 1.2112036336109009,
+          "at_or_below_pct": 2.094372949785516,
+          "midpoint_pct": 1.6527882916982084
+        },
+        "path_length_m": {
+          "strictly_lower_pct": 19.15215745647237,
+          "at_or_below_pct": 22.53343426696947,
+          "midpoint_pct": 20.84279586172092
+        },
+        "translation_transition_count": {
+          "strictly_lower_pct": 19.15215745647237,
+          "at_or_below_pct": 22.53343426696947,
+          "midpoint_pct": 20.84279586172092
+        },
+        "stationary_position_transition_count": {
+          "strictly_lower_pct": 0.0,
+          "at_or_below_pct": 0.7065354529396921,
+          "midpoint_pct": 0.35326772646984606
+        },
+        "moving_heading_changes_gt5deg": {
+          "strictly_lower_pct": 0.0,
+          "at_or_below_pct": 0.7065354529396921,
+          "midpoint_pct": 0.35326772646984606
+        },
+        "major_moving_heading_changes_ge45deg": {
+          "strictly_lower_pct": 0.0,
+          "at_or_below_pct": 24.678274034822103,
+          "midpoint_pct": 12.339137017411051
+        },
+        "cumulative_moving_heading_change_deg": {
+          "strictly_lower_pct": 0.0,
+          "at_or_below_pct": 0.7065354529396921,
+          "midpoint_pct": 0.35326772646984606
+        },
+        "tortuosity": {
+          "strictly_lower_pct": 0.0,
+          "at_or_below_pct": 0.7065354529396921,
+          "midpoint_pct": 0.35326772646984606
+        }
+      },
+      "instruction_semantics_zh": "向前进入主房间并直行，餐桌/沙发在右、白色柜子和电视在左；在前方两个敞开门口之间停下，左浴室右卧室。没有要求进入浴室或卧室。",
+      "official_pose_yaw_audit_from_prior_render_report": {
+        "in_place_turn_actions": 0
+      }
+    },
+    {
+      "episode_id": "kujiale_0172_51_0",
+      "scene": "kujiale_0172",
+      "reference_pose_count": 23,
+      "path_length_m": 4.5,
+      "translation_transition_count": 18,
+      "stationary_position_transition_count": 4,
+      "moving_heading_changes_gt5deg": 4,
+      "major_moving_heading_changes_ge45deg": 0,
+      "cumulative_moving_heading_change_deg": 60.0,
+      "net_displacement_m": 4.482962913,
+      "tortuosity": 1.003800408,
+      "endpoint_goal_distance_m": 0.0,
+      "instruction": "Walk forward through the hallway, keeping the living room on your left and a series of windows displaying a lake on your right. Continue straight, passing the tiled wall on your left. Stop in the hallway in front of the vertical garden wall, with the open doorway to the room containing a desk and chair on your left.",
+      "empirical_percentiles": {
+        "reference_pose_count": {
+          "strictly_lower_pct": 1.2112036336109009,
+          "at_or_below_pct": 2.094372949785516,
+          "midpoint_pct": 1.6527882916982084
+        },
+        "path_length_m": {
+          "strictly_lower_pct": 4.592480444107999,
+          "at_or_below_pct": 8.251324753974263,
+          "midpoint_pct": 6.421902599041131
+        },
+        "translation_transition_count": {
+          "strictly_lower_pct": 4.592480444107999,
+          "at_or_below_pct": 8.251324753974263,
+          "midpoint_pct": 6.421902599041131
+        },
+        "stationary_position_transition_count": {
+          "strictly_lower_pct": 2.498107494322483,
+          "at_or_below_pct": 4.314912944738834,
+          "midpoint_pct": 3.4065102195306585
+        },
+        "moving_heading_changes_gt5deg": {
+          "strictly_lower_pct": 4.390613171839516,
+          "at_or_below_pct": 8.856926570779713,
+          "midpoint_pct": 6.623769871309614
+        },
+        "major_moving_heading_changes_ge45deg": {
+          "strictly_lower_pct": 0.0,
+          "at_or_below_pct": 24.678274034822103,
+          "midpoint_pct": 12.339137017411051
+        },
+        "cumulative_moving_heading_change_deg": {
+          "strictly_lower_pct": 2.498107494322483,
+          "at_or_below_pct": 4.314912944738834,
+          "midpoint_pct": 3.4065102195306585
+        },
+        "tortuosity": {
+          "strictly_lower_pct": 1.110269997476659,
+          "at_or_below_pct": 1.1355034065102196,
+          "midpoint_pct": 1.1228867019934392
+        }
+      },
+      "instruction_semantics_zh": "沿走廊向前，左侧客厅、右侧湖景窗，继续经过左侧瓷砖墙；在走廊内的垂直绿植墙前停下，左侧是通向有桌椅房间的敞开门。没有要求进入该房间或穿越多个房间。",
+      "official_pose_yaw_audit_from_prior_render_report": {
+        "in_place_turn_actions": 4,
+        "degrees": [
+          15,
+          -15,
+          -15,
+          15
+        ]
+      }
+    }
+  ],
+  "long_route_contrasts": [
+    {
+      "episode_id": "kujiale_0149_111_3",
+      "scene": "kujiale_0149",
+      "reference_pose_count": 145,
+      "path_length_m": 22.5,
+      "translation_transition_count": 90,
+      "stationary_position_transition_count": 54,
+      "moving_heading_changes_gt5deg": 32,
+      "major_moving_heading_changes_ge45deg": 5,
+      "cumulative_moving_heading_change_deg": 810.0,
+      "net_displacement_m": 8.909241412,
+      "tortuosity": 2.525467541,
+      "endpoint_goal_distance_m": 0.0,
+      "instruction": "Turn right into the kitchen. Walk forward through the kitchen, passing the kitchen island with a stool on your left and the refrigerators and built-in oven on your right. Exit the kitchen into the open living area, continuing straight with a long dining table on your left and a decorative cabinet on your right. Turn left into the hallway. Walk straight down the hallway, passing multiple doorways on both sides, towards the teal decorative door at the far end. Turn right into the bedroom, just before reaching the teal door. Walk through the bedroom, keeping the bed on your left and an open closet on your right. Turn slightly right to enter the bathroom. Stop in the bathroom, in front of the toilet and shower, with the bathtub on your left.",
+      "instruction_semantics_zh": "厨房→开放式客餐厅→走廊→卧室→浴室，明确包含多个房间与多次转弯，最终在浴室内停下。",
+      "purpose": "Descriptive full raw-task contrast only; not selected for rendering, scene access/collision not checked here."
+    },
+    {
+      "episode_id": "kujiale_0250_14_3",
+      "scene": "kujiale_0250",
+      "reference_pose_count": 114,
+      "path_length_m": 20.25,
+      "translation_transition_count": 81,
+      "stationary_position_transition_count": 32,
+      "moving_heading_changes_gt5deg": 15,
+      "major_moving_heading_changes_ge45deg": 6,
+      "cumulative_moving_heading_change_deg": 480.0,
+      "net_displacement_m": 12.541804642,
+      "tortuosity": 1.614600177,
+      "endpoint_goal_distance_m": 0.0,
+      "instruction": "Walk forward into the bedroom, passing the bed on your left, towards the window in front of you. Turn right, then enter the hallway on your right. Walk straight down the hallway, passing pictures on the right wall. Exit the hallway to enter the living room, with a dining table appearing on your left. Turn left, walking past the light-colored sofa on your right and the large windows on your left. Continue forward until you are in front of the TV wall. Turn right and stop in front of the gallery wall with pictures, with the sofa on your right.",
+      "instruction_semantics_zh": "进入卧室→转向进入走廊→退出走廊进入客厅→沿沙发/窗前进→电视墙附近转向，在照片墙前停下。",
+      "purpose": "Descriptive full raw-task contrast only; not selected for rendering, scene access/collision not checked here."
+    }
+  ],
+  "selection_reaudit": {
+    "initial_candidates": 1976,
+    "geometric_rejections": 1907,
+    "calibration_rejections": 57,
+    "png_shape_rejections": 12,
+    "algorithm_comparison": {
+      "geometrically_screened_episodes": 1907,
+      "pipeline_pass": 0,
+      "canonical_exact_circle_pass": 8,
+      "native_exact_circle_pass": 72,
+      "native_centerline_pass": 1907,
+      "pipeline_blocked_segments": 46337,
+      "canonical_circle_blocked_segments": 32221,
+      "native_circle_blocked_segments": 16942,
+      "native_centerline_blocked_segments": 0
+    },
+    "note": "Independent diagnostic at unchanged 0.30m radius; does not change production decisions or certify 3D robot clearance.",
+    "additional_adapter_findings": [
+      {
+        "scene": "kujiale_0014",
+        "error": "world room vertices exceed the declared map bounds",
+        "episode_count": 15,
+        "max_xy_bounds_overshoot_m": 4.3336662258752767e-07,
+        "bounds": {
+          "scale": 0.05,
+          "center": [
+            0.01149993896484336,
+            -0.11054352206763784,
+            0.0
+          ],
+          "upper": [
+            7.050730314814236,
+            6.379723199445878,
+            1.0
+          ],
+          "lower": [
+            -7.027730436884549,
+            -6.6008102435811535,
+            0.1
+          ],
+          "min": [
+            -7.027730436884549,
+            -6.6008102435811535,
+            0.1
+          ],
+          "max": [
+            7.050730314814236,
+            6.379723199445878,
+            1.0
+          ]
+        }
+      },
+      {
+        "scene": "kujiale_0237",
+        "error": "world room vertices exceed the declared map bounds",
+        "episode_count": 14,
+        "max_xy_bounds_overshoot_m": 0.1071014720754766,
+        "bounds": {
+          "scale": 0.05,
+          "center": [
+            1.3934146436806474,
+            -1.4096952132831073,
+            0.0
+          ],
+          "upper": [
+            6.057707114136226,
+            6.837975672984462,
+            1.0
+          ],
+          "lower": [
+            -5.470363859955773,
+            -7.637362819742905,
+            0.1
+          ],
+          "min": [
+            -5.470363859955773,
+            -7.637362819742905,
+            0.1
+          ],
+          "max": [
+            6.057707114136227,
+            6.837975672984462,
+            1.0
+          ]
+        }
+      },
+      {
+        "scene": "kujiale_0239",
+        "error": "world room vertices exceed the declared map bounds",
+        "episode_count": 17,
+        "max_xy_bounds_overshoot_m": 4.0823714719806503e-07,
+        "bounds": {
+          "scale": 0.05,
+          "center": [
+            1.169614719995399,
+            -1.0002444479812405,
+            0.0
+          ],
+          "upper": [
+            6.063829961076824,
+            5.269985431606603,
+            1.0
+          ],
+          "lower": [
+            -8.160000027073544,
+            -5.270474775152376,
+            0.1
+          ],
+          "min": [
+            -8.160000027073544,
+            -5.270474775152375,
+            0.1
+          ],
+          "max": [
+            6.0638299610768245,
+            5.269985431606603,
+            1.0
+          ]
+        }
+      },
+      {
+        "scene": "kujiale_0100",
+        "error": "freemap classes do not match occupancy.png (0/255/127)",
+        "episode_count": 12,
+        "native_shape": [
+          258,
+          353
+        ],
+        "png_shape": [
+          258,
+          353,
+          4
+        ],
+        "pixel_mismatch_count": null
+      },
+      {
+        "scene": "kujiale_0227",
+        "error": "world room vertices exceed the declared map bounds",
+        "episode_count": 11,
+        "max_xy_bounds_overshoot_m": 1.646756042639197e-07,
+        "bounds": {
+          "scale": 0.05,
+          "center": [
+            1.109905108994973,
+            -1.0118650577894508,
+            0.0
+          ],
+          "upper": [
+            6.793014718319007,
+            3.4588028136946987,
+            1.0
+          ],
+          "lower": [
+            -6.909538121693846,
+            -3.482533282590021,
+            0.1
+          ],
+          "min": [
+            -6.909538121693846,
+            -3.482533282590021,
+            0.1
+          ],
+          "max": [
+            6.793014718319006,
+            3.4588028136946987,
+            1.0
+          ]
+        }
+      }
+    ],
+    "rgba_diagnostic": {
+      "image_mode": "RGBA",
+      "rgb_channels_equal": true,
+      "alpha_values": [
+        255
+      ],
+      "gray_vs_native_mismatch_pixels": 0,
+      "pixels": 91074
+    }
+  },
+  "visual_fidelity": {
+    "original_gt_video_semantics": "Re-rendered official GT poses in Blender; NOT official RGB recording.",
+    "official_rgb": "/mnt/cfs/data/beta_nav/vlnverse/audit_20260919_preview_fidelity/official_0172_51_0/rgb.npy",
+    "official_rgb_sha256": "69a1317b037e5c37611948691d1af3ee80e5a686ceef2d0a355762227411e7a6",
+    "contact_sheet": "/mnt/cfs/data/beta_nav/vlnverse/audit_20260919_preview_fidelity/official_0172_51_0/official_vs_blender_head_mid_tail.png",
+    "observed_differences": [
+      "Official right-window outdoor landscape is absent in the preview.",
+      "Official left tiled wall loses its visible material pattern in the preview.",
+      "Lighting, glass/reflections, ceiling and camera aspect differ."
+    ],
+    "known_code_causes": [
+      "usd_scene.py skips source DomeLight and other original lights.",
+      "blender_render.py installs a constant gray PreviewWorld and camera fill light.",
+      "usd_materials.py approximates MDL and does not evaluate all material features."
+    ],
+    "source_dome_texture": "Materials/limpopo_golf_course_4k.hdr",
+    "official_sensor_extrinsics_recovered": false,
+    "code_sha256": {
+      "data_pipeline/vlnverse/replay/usd_scene.py": "ab77efa29298fc6328d4728b84ea61b4f912a3d6a05fceeac2b071ef2cbb77a5",
+      "data_pipeline/vlnverse/replay/usd_materials.py": "2dc23600846ab5bb4fcc193af3863193c947cabc2bebacaf6b913089f80a7d15",
+      "data_pipeline/vlnverse/replay/blender_render.py": "9757fadd060301dc6a235b99e591a0c366a5798cb049b7d7ea6d75d01f49cfbf"
+    }
+  },
+  "next_acceptance_requirements": [
+    "Audit full official RGB, source pose sequence, instructions and goal before using a preview as a semantic example.",
+    "Separate motion-debug previews from representative dataset samples; stratify path length and large turns.",
+    "Report rejected episodes and diagnose map compatibility/clearance rather than silently replacing all difficult episodes with easy ones.",
+    "Match camera calibration and landmark appearance to official RGB before treating newly rendered smooth RGB as equivalent observations."
+  ],
+  "implementation_changes": "Audit/documentation only; original data, prior videos, robot footprint, motion trajectory and collision algorithms unchanged.",
+  "evidence_files": [
+    "/mnt/cfs/data/beta_nav/vlnverse/audit_20260919_preview_fidelity/train_distribution/report.json",
+    "/mnt/cfs/data/beta_nav/vlnverse/audit_20260919_preview_fidelity/selection_reaudit/audit.json",
+    "/mnt/cfs/data/beta_nav/vlnverse/audit_20260919_preview_fidelity/official_0172_51_0/episode_integrity_audit.json"
+  ]
+}

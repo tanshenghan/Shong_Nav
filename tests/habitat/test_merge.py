@@ -125,6 +125,20 @@ def test_merge_requires_shards():
         merge_results([], "x")
 
 
+def test_merge_preserves_learned_stop_threshold_and_training_provenance(tmp_path):
+    shard = _write_shard(tmp_path, "shard_0", [_vlnce_record(0, 1.0, 0.8, 0.9, 1.0)], 1.0)
+    metadata = {
+        "stop_protocol": "learned", "stop_threshold": 0.7, "stop_confirm_steps": 2,
+        "stop_head_type": "last_prefix_mlp_v1", "stop_positive_weight": 12.0,
+        "stop_training_data_sha256": "manifest-hash",
+        "stop_supervision": {"version": "test_v1", "counts": {"positive": 2, "negative": 24}},
+    }
+    (shard / "summary.json").write_text(json.dumps(metadata))
+    summary = merge_results([shard], tmp_path / "out")
+    for key, value in metadata.items():
+        assert summary[key] == value
+
+
 def test_cli_merges_a_parent_directory_in_place(two_shards, capsys):
     root, _, _ = two_shards
     assert eval_merge.main([str(root)]) == 0

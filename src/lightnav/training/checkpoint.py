@@ -26,6 +26,7 @@ class TrainState:
     samples_seen: int = 0
     vlm_updates: int = 0
     fm_updates: int = 0
+    stop_updates: int = 0
     best_validation: float = float("inf")
 
 

@@ -674,7 +674,9 @@ def test_save_video_writes_one_mp4_per_episode_with_a_terminal_frame(tmp_path):
     for r in results:
         shapes = _video_frames(Path(cfg.output_dir) / r["video"])
         assert len(shapes) == 3 + 1  # one frame per policy step + the terminal observation
-        assert shapes[0] == (36, 64, 3)
+        assert len(set(shapes)) == 1  # the full-instruction banner is stable per episode
+        assert shapes[0][0] > 36 and shapes[0][0] % 2 == 0
+        assert shapes[0][1:] == (64, 3)
     assert not list(videos.glob("*.partial*"))
     # results.jsonl carries the same relative path.
     rows = _read_jsonl(Path(cfg.output_dir) / "results.jsonl")
@@ -702,7 +704,85 @@ def test_save_video_pads_odd_frames_for_the_encoder(tmp_path):
 
     cfg = _cfg(tmp_path, episodes=1, save_video=True)
     (result,) = Harness(OddEnv(steps_to_terminate=2)).run(cfg)
-    assert _video_frames(Path(cfg.output_dir) / result["video"])[0] == (36, 64, 3)
+    shape = _video_frames(Path(cfg.output_dir) / result["video"])[0]
+    assert shape[0] > 35 and shape[0] % 2 == 0
+    assert shape[1:] == (64, 3)
+
+
+def test_video_instruction_banner_preserves_full_text_and_camera_image(monkeypatch):
+    from PIL import ImageDraw
+
+    from lightnav.habitat.runner import _EvalVisualizer
+
+    drawn = []
+    original_text = ImageDraw.ImageDraw.text
+
+    def capture(self, xy, text, *args, **kwargs):
+        drawn.append(text)
+        return original_text(self, xy, text, *args, **kwargs)
+
+    monkeypatch.setattr(ImageDraw.ImageDraw, "text", capture)
+    frame = np.full((120, 180, 3), 37, dtype=np.uint8)
+    instruction = "Walk through the living room. Then stop at the verylastdoorwayidentifier."
+    rendered = _EvalVisualizer._instruction_banner(frame, instruction)
+
+    assert rendered.shape[0] > frame.shape[0]
+    assert rendered.shape[1:] == frame.shape[1:]
+    np.testing.assert_array_equal(rendered[:frame.shape[0]], frame)
+    assert len(drawn) > 2
+    assert "".join("".join(drawn).split()) == "".join(("Instruction: " + instruction).split())
+
+
+def test_video_instruction_banner_leaves_empty_instruction_unchanged():
+    from lightnav.habitat.runner import _EvalVisualizer
+
+    frame = np.zeros((120, 180, 3), dtype=np.uint8)
+    assert _EvalVisualizer._instruction_banner(frame, " \n ") is frame
+
+
+def test_video_diagnostics_display_stop_probability_and_threshold(monkeypatch):
+    cv2 = pytest.importorskip("cv2")
+    from lightnav.habitat.runner import _EvalVisualizer
+
+    drawn = []
+    original_put_text = cv2.putText
+
+    def capture(image, text, *args, **kwargs):
+        drawn.append(text)
+        return original_put_text(image, text, *args, **kwargs)
+
+    monkeypatch.setattr(cv2, "putText", capture)
+    _EvalVisualizer._diagnostic_overlay(np.zeros((480, 640, 3), dtype=np.uint8), {
+        "distance_to_goal": 2.4, "min_distance": 2.4, "stop_source": "learned_head",
+        "stop_score": 0.73456, "stop_threshold": 0.5,
+    })
+    assert "P(STOP) 0.735  THRESHOLD 0.500" in drawn
+
+
+def test_terminal_video_frame_preserves_last_stop_probability(tmp_path, monkeypatch):
+    pytest.importorskip("cv2")
+    pytest.importorskip("imageio_ffmpeg")
+    from lightnav.habitat.runner import _EvalVisualizer
+
+    captured = []
+    original_final = _EvalVisualizer.final_frame
+
+    def capture(self, rgb, **kwargs):
+        captured.append(kwargs["diagnostics"])
+        return original_final(self, rgb, **kwargs)
+
+    class LearnedStopPolicy(TrajPolicy):
+        def get_info(self):
+            return {**super().get_info(), "stop_score": 0.71, "stop_threshold": 0.5,
+                    "stop_source": "learned_head", "stop": True}
+
+    monkeypatch.setattr(_EvalVisualizer, "final_frame", capture)
+    h = Harness(FrameEnv(steps_to_terminate=2))
+    h.policy = LearnedStopPolicy()
+    (result,) = h.run(_cfg(tmp_path, episodes=1, save_video=True))
+    assert captured[0]["stop_score"] == result["stop_score"] == 0.71
+    assert captured[0]["stop_threshold"] == result["stop_threshold"] == 0.5
+    assert captured[0]["stop_source"] == "learned_head"
 
 
 def test_save_video_false_writes_no_video_and_no_video_key(tmp_path):
@@ -873,6 +953,25 @@ def test_last_budgeted_action_is_an_explicit_stop(tmp_path):
     assert env.actions[0]["action_args"]["linear_velocity"] == 0.1  # model actions before it
     assert policy.acts == 2  # the model is not queried for the forced step
     assert results[0]["forced_stop"] is True and results[0]["steps"] == 3
+
+
+def test_budget_stop_does_not_fabricate_learned_confirmation_or_current_score(tmp_path):
+    class PendingStopPolicy(StoppablePolicy):
+        def get_info(self):
+            return {"stop_score": 0.75, "stop_threshold": 0.7, "stop_confirm_steps": 2,
+                    "stop_candidate": True, "stop_confirmation_count": 1, "stop_confirmed": False}
+
+    # The server ends the episode when the second action is the forced STOP.
+    h = Harness(FakeEnv(steps_to_terminate=2))
+    h.engine.fm_only_stop_mode = "learned"
+    h.policy = PendingStopPolicy()
+    (result,) = h.run(_cfg(tmp_path, episodes=1, max_steps=2, action_output="fm", stop_confirm_steps=2))
+    assert h.policy.acts == 1
+    assert result["stop_source"] == "max_steps"
+    assert result["stop_confirm_steps"] == 2 and result["stop_confirmed"] is False
+    assert "stop_score" not in result  # The final observation was not scored by the model.
+    assert result["policy_event_counts"]["stop_candidate_steps"] == 1
+    assert result["policy_event_counts"]["stop_pending_steps"] == 1
 
 
 def test_force_stop_can_be_disabled(tmp_path):

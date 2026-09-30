@@ -1,0 +1,170 @@
+{
+  "report_version": 1,
+  "date_utc": "2026-09-19",
+  "status": "complete",
+  "episode_id": "kujiale_0018_2_2",
+  "output_root": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2",
+  "selection": {
+    "seed": 20260919,
+    "method": "seeded random order, accept first candidate passing calibrated map and unchanged 0.30m footprint sweep",
+    "accepted_draw": 236,
+    "report": "preview_geometry_20260919.json"
+  },
+  "source_pose_count": 23,
+  "smoothed_pose_count": 111,
+  "moving_source_transitions": 22,
+  "poses_per_source_step": 6,
+  "path_length_m": 5.5,
+  "path_type": "straight, no turn example",
+  "source_parquet": {
+    "source_format": "vlnverse_official_parquet",
+    "source_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/inputs/official/kujiale_0018/2_2/data/chunk-000/episode_000000.parquet",
+    "source_sha256": "4a6d2af291966aae7cf5943b8422d2140739222c0ce93d5035b3de48e9dda060",
+    "source_order_columns": [
+      "frame_index",
+      "observation.step"
+    ],
+    "source_coordinate_system": "world_xyz_z_up",
+    "source_timestamp_semantics": "unverified_source_values_not_seconds",
+    "finish_status": "success",
+    "metadata_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/inputs/official/kujiale_0018/2_2/meta/episodes.jsonl",
+    "metadata_sha256": "9d935b1b64530187f9298b34d85fe9636410a33093f34071e49ce3dc44a64377",
+    "source_metadata": {
+      "episode_id": "2_2",
+      "instruction_text": "Walk forward into the main room, passing a dining table on your right. Continue straight, keeping a long white cabinet and a TV on your left, and a living room sofa and coffee table on your right. Stop between the two open doorways directly in front of you, with the bathroom entrance on your left and the bedroom entrance on your right.",
+      "instruction_tokens": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finish_status": "success",
+      "fail_reason": null
+    }
+  },
+  "config_sha256": "addfd0fbe85b87f7d985e4bd0888f75ca92c3276e159606dec8e70f689edd2d0",
+  "code_sha256": {
+    "__init__.py": "3da75830849fdc5384d8abc099bb3985a57abd012da047762557656af79b3945",
+    "cli/__init__.py": "8f205b99a80c1bf57ab4e15f313ef39e98823cdec9e7ce23a132d2c065221597",
+    "cli/retime.py": "1411c4048ce0a61c21eb5ac3d8b55fd96c239d435c87fe436fbb3c76a46e761b",
+    "motion/__init__.py": "0e604f12fe5c36520dc3c957877ec8c6a13ec8fa895283e1d95437b72a9ef5f1",
+    "motion/retime.py": "e6731182908c8befc3cf9710a7e6a925a52798bdef74bc5a824804989d5cd3ac",
+    "replay/__init__.py": "a0f636f6e3ca9f22d0af5d46d72b5703d731335af7f14a6144363d706f672be6",
+    "replay/blender_render.py": "eb882f1a8809109c01dec1628729f13c6f24f4cc68a62dfc3e596f46373c6bba",
+    "replay/compare.py": "069e2d3b7b7f649c91e31aa21082529f56c4e7394fccca3602e866a61a5213ba",
+    "replay/isaac_render.py": "4b0a4f64c0e70cbd95dcc497a4f22805ae962a4d6863aec9769313dbd267cdda",
+    "replay/usd_materials.py": "2dc23600846ab5bb4fcc193af3863193c947cabc2bebacaf6b913089f80a7d15",
+    "replay/usd_scene.py": "ab77efa29298fc6328d4728b84ea61b4f912a3d6a05fceeac2b071ef2cbb77a5",
+    "scene/__init__.py": "1ba87c58096a5dea7d6b90e80fc5a258b9db3940a7a8b399fc931d1decd7f42e",
+    "scene/occupancy.py": "b4d97fdfe32fd76f3db322e73e60c059715010967876728e9c0fcc09e60bb40a",
+    "scene/official_map.py": "7cf076b43f28a6ddd74a155dba0cdc87f5e57849dad3157cb16afbfab213d18f",
+    "source/__init__.py": "287881596142d462a16ac80539025f9b6c6c3e92eb1f3420ec5b990cef0a0d58",
+    "source/official.py": "882417d31b35f557db98c9835b4ff25d4bea177e6a6a11ae5df3378d6b33b9d1",
+    "validation/__init__.py": "74073ee76c44e32a40f4746aa93476aa220c9471675a5bec4ac4da6d3390ee10",
+    "validation/motion.py": "aaa5bae1e3f5db6cbd02243ceaa250a2ec6d23d025a8f60479a3aeadf3b41ff4"
+  },
+  "scene_usd": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/start_result_navigation.usd",
+  "scene_root_sha256": "a0591ad7ab638145af5db31fa5f458a8bb549a395cea0b60f1ac1fc9e9a52ee3",
+  "scene_selection_evidence": "navigation_stage_selection_20260919.json",
+  "motion_quality": {
+    "valid": true,
+    "frames": 111,
+    "duration_s": 30.07812500000003,
+    "sampling_mode": "per_source_step",
+    "sample_hz": null,
+    "poses_per_source_step": 6,
+    "uniform_timestamps": false,
+    "time_basis": "synthetic_retimed_seconds",
+    "primitive_count": 1,
+    "maxima": {
+      "velocity_xyz": 0.39999999999999963,
+      "acceleration_xyz": 0.0456732590161248,
+      "jerk_xyz": 0.010611327373924732,
+      "yaw_rate_rad_s": 4.844609562000677e-17,
+      "yaw_accel_rad_s2": 5.5317276839313e-18,
+      "yaw_jerk_rad_s3": 1.2851934515308834e-18
+    },
+    "continuous_maxima": {
+      "velocity_xyz": 0.3999999999999998,
+      "acceleration_xyz": 0.04567572497873019,
+      "jerk_xyz": 0.01061132737392475,
+      "yaw_rate_rad_s": 4.8446095620006785e-17,
+      "yaw_accel_rad_s2": 5.5320263495817395e-18,
+      "yaw_jerk_rad_s3": 1.2851934515308857e-18
+    },
+    "collision_check": "continuous_segments_against_conservatively_inflated_2d_grid",
+    "footprint_radius_with_margin_m": 0.3,
+    "simulator_replayed": false,
+    "measured_physical_timing": false
+  },
+  "validation": {
+    "episode_id": "kujiale_0018_2_2",
+    "videos": {
+      "original_gt.mp4": {
+        "decoded_frames": 603,
+        "width": 480,
+        "height": 464,
+        "duration_s": 30.15,
+        "bytes": 551360,
+        "sha256": "3931fc2a67709cad2feff50cbe7b6ff89fcd5c7dfd2f17d9aa7317bf73b3ff2c"
+      },
+      "smoothed_6poses.mp4": {
+        "decoded_frames": 603,
+        "width": 480,
+        "height": 464,
+        "duration_s": 30.15,
+        "bytes": 1069533,
+        "sha256": "45d85a5c91f17324fa5cb55ea714c12ecc3146149b6ec9d5a0b2e158055f8c50"
+      },
+      "side_by_side.mp4": {
+        "decoded_frames": 603,
+        "width": 960,
+        "height": 464,
+        "duration_s": 30.15,
+        "bytes": 1551121,
+        "sha256": "4c3949a0eabdffc12ef2e95cc25a54920cea1445fce0d68769a7d6dc98bcccf2"
+      }
+    },
+    "all_source_anchors_rendered_consistently": true,
+    "anchor_mean_absolute_rgb_error_max": 0.0,
+    "original_new_views": 23,
+    "smoothed_new_views": 111,
+    "camera": {
+      "height_above_source_z_m": 1.25,
+      "hfov_deg": 90.0,
+      "width": 480,
+      "height": 360,
+      "convention": "world +X forward at yaw zero, +Z up",
+      "extrinsics_origin": "chosen preview camera, not recovered official sensor calibration"
+    },
+    "renderer": "Blender 4.2.0 Cycles CPU",
+    "synthetic_reference_duration_s": 30.07812500000003,
+    "physics_replayed": false,
+    "scene_usd": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/start_result_navigation.usd"
+  },
+  "videos": {
+    "original_gt.mp4": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review/original_gt.mp4",
+    "smoothed_6poses.mp4": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review/smoothed_6poses.mp4",
+    "side_by_side.mp4": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review/side_by_side.mp4"
+  },
+  "checks": {
+    "cpu_tests": "141 passed",
+    "ruff": "passed for data_pipeline/vlnverse",
+    "all_mp4_frames_decoded": true,
+    "source_anchor_rgb_identical": true,
+    "manual_visual_inspection": "first, middle, final views match navigation-room geometry"
+  },
+  "limitations": [
+    "CPU Cycles preview with approximate materials and shared replacement lighting; not official Isaac RGB",
+    "chosen preview camera at source Z+1.25m, HFOV90; not recovered official sensor calibration",
+    "shared synthetic reference clock; poses held until their next timestamps, no optical flow",
+    "0.30m planar footprint checked on supplied map with obstacle height range 0.1-1.0m; no full 3D dynamics claim",
+    "no controlled robot physics replay, actual-state/depth/contact capture or training-label/export stage"
+  ]
+}

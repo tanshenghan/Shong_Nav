@@ -1,0 +1,59 @@
+{
+  "source_path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz",
+  "source_sha256": "340a80133b2157520354ab055a91d98feb2f42e4bbda17b200c911f8788492ea",
+  "scope": "Three illustrative local R2R-VLNCE train examples; selected for approximate route lengths and typical instruction word count, not a random or representative statistical sample",
+  "selection": {
+    "target_lengths_m": [
+      5.5,
+      8.0,
+      12.0
+    ],
+    "length_tolerance_m": 0.5,
+    "allowed_lexical_words": [
+      19,
+      32
+    ],
+    "different_scenes": true,
+    "manual_readability_choice": true
+  },
+  "distance_formula": "sum(norm(reference_path[i+1]-reference_path[i], ord=2)) in XYZ metres",
+  "word_count_formula": "len(re.findall(pattern, instruction_text))",
+  "word_count_pattern": "[A-Za-z0-9]+(?:['’\\-][A-Za-z0-9]+)*",
+  "model_tokenizer_used": false,
+  "verbatim_text_preserved_including_whitespace": true,
+  "examples": [
+    {
+      "source_path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz",
+      "episode_id": 4809,
+      "scene_id": "mp3d/qoiz87JEwZ2/qoiz87JEwZ2.glb",
+      "trajectory_id": 3176,
+      "target_reference_length_m": 5.5,
+      "reference_length_m": 5.501765853986632,
+      "lexical_word_count": 25,
+      "instruction_text": "Walk into the bedroom that is right of the tapestry.  Walk past the bed and walk into the bathroom.  Stop after passing through the doorway. ",
+      "reference_path_points": 6
+    },
+    {
+      "source_path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz",
+      "episode_id": 10746,
+      "scene_id": "mp3d/sT4fr6TAbpF/sT4fr6TAbpF.glb",
+      "trajectory_id": 7264,
+      "target_reference_length_m": 8.0,
+      "reference_length_m": 8.000450513872785,
+      "lexical_word_count": 25,
+      "instruction_text": "Walk out of the bathroom and veer left. Go down the hall, and enter the room straight ahead. Stop in the doorway to the kitchen. ",
+      "reference_path_points": 5
+    },
+    {
+      "source_path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz",
+      "episode_id": 7240,
+      "scene_id": "mp3d/JeFG25nYj2p/JeFG25nYj2p.glb",
+      "trajectory_id": 4811,
+      "target_reference_length_m": 12.0,
+      "reference_length_m": 12.00094114001267,
+      "lexical_word_count": 24,
+      "instruction_text": "Exit the room and walk down the hall, past the zebra painting. Enter the room at the end and stop on the striped rug. ",
+      "reference_path_points": 6
+    }
+  ]
+}

@@ -34,7 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["token", "fm"],
         default=_DEFAULTS.action_output,
         help="Use token/RVQ (base model or --beta_checkpoint) or the BetaNav FM trajectory. FM still "
-        "uses the trained token branch for STOP and requires --backend hf.",
+        "uses the checkpoint's token branch or fm_stop head for STOP and requires --backend hf.",
     )
     p.add_argument(
         "--beta_checkpoint",
@@ -44,9 +44,19 @@ def build_parser() -> argparse.ArgumentParser:
     )
     p.add_argument(
         "--fm_only_stop_mode",
-        choices=["max_steps", "rvq"],
+        choices=["max_steps", "rvq", "learned"],
         default=_DEFAULTS.fm_only_stop_mode,
-        help="FM-only checkpoints: fixed budget, or frozen LightNav RVQ baseline STOP.",
+        help="Continuous checkpoints: fixed budget, frozen LightNav RVQ STOP, or trained StopHead. "
+        "Default: learned for fm_stop checkpoints; max_steps for fm_only.",
+    )
+    p.add_argument(
+        "--stop_threshold", type=float, default=_DEFAULTS.stop_threshold,
+        help="Learned StopHead score threshold in [0, 1] (default: 0.5; requires calibration).",
+    )
+    p.add_argument(
+        "--stop_confirm_steps", type=int, default=_DEFAULTS.stop_confirm_steps,
+        help="Consecutive observations above the learned STOP threshold (default: 1). "
+        "Pending confirmation executes FM motion and observes the next state.",
     )
     p.add_argument(
         "--fm_seed",
@@ -201,6 +211,8 @@ def config_from_args(args: argparse.Namespace) -> HabitatEvalConfig:
         beta_checkpoint=args.beta_checkpoint,
         fm_seed=args.fm_seed,
         fm_only_stop_mode=args.fm_only_stop_mode,
+        stop_threshold=args.stop_threshold,
+        stop_confirm_steps=args.stop_confirm_steps,
         fm_steps=args.fm_steps,
         fm_stop_mode=args.fm_stop_mode,
         episodes=args.episodes,

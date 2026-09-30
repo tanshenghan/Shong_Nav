@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e1013">
   <title>VLN MuJoCo Console</title>
   <link rel="stylesheet" href="/static/styles.css">
-  <script src="/static/app.js" defer></script>
+  <script src="/static/app.js?v=ground-stream-2" defer></script>
 </head>
 <body>
   <main class="shell">
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="camera">
-        <img id="camera-image" alt="Live camera view of the TurtleBot in MuJoCo">
+        <canvas id="camera-image" width="480" height="270" aria-label="Live camera view of the TurtleBot in MuJoCo"></canvas>
         <canvas id="path-overlay" width="480" height="270" aria-hidden="true"></canvas>
       </div>
       <div class="metrics">

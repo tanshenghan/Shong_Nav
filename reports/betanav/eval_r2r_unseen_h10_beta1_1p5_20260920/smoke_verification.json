@@ -1,0 +1,13 @@
+{
+  "episodes": 1,
+  "step_cap": 20,
+  "stop_protocol": "max_steps",
+  "moving_frames": 19,
+  "waypoint_shape": [
+    10,
+    3
+  ],
+  "checkpoint": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta1_1p5_frozen_lightnav_20260918/checkpoints/step-00003699",
+  "included_in_formal_evaluation": false,
+  "output_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_eval/20260920T011359Z_h10_beta1_1p5_r2r_unseen_smoke20"
+}

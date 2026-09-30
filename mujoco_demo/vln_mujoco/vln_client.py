@@ -135,8 +135,9 @@ class VlnClient:
 
     def offer_frame(self, stamp_ns: int, jpeg: bytes) -> bool:
         with self._lock:
-            if not self._instruction or not self._connected or self._pending_frame is not None:
+            if not self._instruction or not self._connected:
                 return False
+            # While inference is busy, replace the pending image with the newest.
             self._pending_frame = int(stamp_ns), bytes(jpeg)
             return True
 
@@ -225,12 +226,15 @@ class VlnClient:
                             },
                         }
                     )
-                    data = self._response_data(await self._receive(websocket, 3.0), "next")
+                    # HF Beta can take longer than token-only vLLM, especially as
+                    # visual history grows. The control loop remains independent.
+                    data = self._response_data(await self._receive(websocket, 30.0), "next")
                     if data.get("seq") != sequence:
                         raise RuntimeError("VLN response sequence mismatch")
-                    pointing = data.get("pointing")
+                    # FM-only checkpoints provide trajectories without grounding.
+                    pointing = data.get("pointing", {})
                     if not isinstance(pointing, dict):
-                        raise RuntimeError("next response has no object data.pointing")
+                        raise RuntimeError("next response data.pointing must be an object")
                     result = InferenceResult(
                         sequence=sequence,
                         stamp_ns=stamp_ns,
@@ -243,8 +247,7 @@ class VlnClient:
                         opos_px=self._optional_pixel(pointing, "opos_px"),
                         latency_ms=(time.monotonic() - sent_at) * 1000.0,
                     )
-                    if self._is_active(session):
-                        self._results.put_nowait(result)
+                    self._publish_result(session, result)
                 with contextlib.suppress(Exception):
                     await websocket.send_json({"action": "reset"})
 
@@ -291,6 +294,13 @@ class VlnClient:
                 self._results.get_nowait()
             except queue.Empty:
                 return
+
+    def _publish_result(self, session: int, result: InferenceResult) -> None:
+        # STOP and result delivery share the same lock. A late reply can never
+        # be enqueued after STOP has cleared this session's result queue.
+        with self._lock:
+            if self._session == session and self._instruction:
+                self._results.put_nowait(result)
 
     @staticmethod
     async def _receive(websocket: aiohttp.ClientWebSocketResponse, timeout: float) -> str | bytes:

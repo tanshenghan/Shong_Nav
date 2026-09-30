@@ -19,9 +19,10 @@ pa = pytest.importorskip("pyarrow")
 pq = pytest.importorskip("pyarrow.parquet")
 
 from lightnav.dataloader.Train_Lerobot_DataLoader import (  # noqa: E402
+    FM_STOP_TARGET_COLUMNS,
+    FM_TARGET_COLUMNS,
     RGB_KEY,
     TARGET_COLUMNS,
-    FM_TARGET_COLUMNS,
     BetaLerobotCollator,
     LeRobotFrameDataset,
     LightNavTrainingSpec,
@@ -30,6 +31,11 @@ from lightnav.dataloader.Train_Lerobot_DataLoader import (  # noqa: E402
 from lightnav.inference.beta_model import BetaTrainBatch  # noqa: E402
 from lightnav.inference.frame_preprocessing import rgb_frame_to_model_tensor  # noqa: E402
 from lightnav.inference.samples import build_vln_traj_sample  # noqa: E402
+from lightnav.training.prepare_data import make_manifest, sha256  # noqa: E402
+from lightnav.training.stop_labels import (  # noqa: E402
+    validate_stop_supervision,
+    verify_stop_supervision,
+)
 
 
 @pytest.fixture(autouse=True, scope="module")
@@ -128,6 +134,181 @@ def dataset(files):
     return LeRobotFrameDataset(root, LightNavTrainingSpec.from_checkpoint(model), cache_frames=2)
 
 
+def _write_stop_provenance(files, *, unknown=(), merged=False):
+    root, _, rows = files
+    metadata_path = root / "meta/episodes/chunk-000/file-000.parquet"
+    metadata = pq.read_table(metadata_path).to_pylist()
+    records = []
+    for episode in metadata:
+        i, n = episode["episode_index"], episode["length"]
+        saved_rows = rows[episode["dataset_from_index"]:episode["dataset_to_index"]]
+        if i in unknown:
+            saved_rows[-1]["action.explicit_stop"] = False
+            saved_rows[-1]["action.stop_loss_valid"] = False
+        folder = (root / f"meta/provenance/shards/{i:05d}/episodes/000000" if merged
+                  else root / f"meta/provenance/episodes/{i:06d}")
+        write_json(folder / "episode.json", dict(episode_id=f"source-{i}", scene_id=f"scene-{i}", frames=n,
+                   complete=i not in unknown, terminal_stop_supervised=i not in unknown,
+                   goal_distance_m=.5, max_gt_route_deviation_m=.1))
+        with (folder / "samples.jsonl").open("w") as stream:
+            for t, row in enumerate(saved_rows):
+                stream.write(json.dumps(dict(frame_id=t, array_row=t,
+                    explicit_stop=row["action.explicit_stop"], stop_loss_valid=row["action.stop_loss_valid"])) + "\n")
+        record = dict(episode_index=i, episode_id=f"source-{i}", scene_id=f"scene-{i}", frames=n,
+                      source_hashes={name: sha256(folder / name) for name in ("episode.json", "samples.jsonl")})
+        if merged:
+            record["source_shard"] = i
+        records.append(record)
+        episode.update({"stats/action.fm.clean_se2_diff/count": [max(0, n - 1)],
+                        "stats/action.fm.clean_se2_diff/mean": [.25, 0, 0],
+                        "stats/action.fm.clean_se2_diff/std": [0., 0., 0.]})
+    pq.write_table(pa.Table.from_pylist(rows), root / "data/chunk-000/file-000.parquet", row_group_size=17)
+    pq.write_table(pa.Table.from_pylist(metadata), metadata_path)
+    write_json(root / "meta/beta_nav.json", dict(format="beta_nav_lerobot_v1", episodes=records))
+    return make_manifest(root, val_fraction=0, with_stop_labels=True)
+
+
+def test_fm_stop_requires_audited_supervision(files):
+    root, model, _ = files
+    spec = LightNavTrainingSpec.from_checkpoint(model, training_mode="fm_stop")
+    with pytest.raises(ValueError, match="with-stop-labels"):
+        LeRobotFrameDataset(root, spec)
+
+
+def test_stop_preparation_and_loader_keep_terminal_and_tail_supervision_without_rvq(files):
+    root, model, _ = files
+    manifest = _write_stop_provenance(files, unknown=(2,))
+    supervision = manifest["stop_supervision"]
+    assert manifest["train_episodes"] == [0, 1, 2]  # no new held-out split
+    assert supervision["counts"]["train"] == dict(positive=2, negative=143, invalid=1)
+    assert supervision["positive_weight"] == 143 / 2
+    assert supervision["train_episode_ids"] == [0, 1, 2]
+    verify_stop_supervision(root, supervision)
+    shutil.rmtree(root / "assets/action_tokenizer")
+    shutil.rmtree(model / "action_tokenizer")
+    info = json.loads((root / "meta/info.json").read_text())
+    info["features"] = {k: v for k, v in info["features"].items() if k in FM_STOP_TARGET_COLUMNS + [RGB_KEY]}
+    write_json(root / "meta/info.json", info)
+    path = root / "data/chunk-000/file-000.parquet"
+    table = pq.read_table(path, columns=FM_STOP_TARGET_COLUMNS + [RGB_KEY])
+    pq.write_table(table, path, row_group_size=17)
+    # Workers rely exclusively on the small audited mapping and raw STOP columns.
+    shutil.rmtree(root / "meta/provenance")
+    loader = Train_Lerobot_DataLoader(root, model, fm_horizon=10, training_mode="fm_stop",
+                                     stop_supervision=supervision)
+    ds = loader.dataset
+    assert ds.rvq_manifest is None and not loader.spec.rvq_path
+    items = [ds[0], ds[138], ds[139], ds[144], ds[145]]
+    batch = FakeCollator(loader.spec)(items)
+    assert batch.stop_target.dtype == torch.float32 and batch.stop_valid_mask.dtype == torch.bool
+    assert batch.stop_target.tolist() == [0., 0., 1., 1., 0.]
+    assert batch.stop_valid_mask.tolist() == [True, True, True, True, False]
+    assert batch.fm_valid_mask.sum(1).tolist() == [10, 1, 0, 0, 0]
+    assert (batch.labels == -100).all() and (batch.answer_start == batch.labels.shape[1]).all()
+    assert not (batch.model_inputs["input_ids"] == 4).any()
+    assert all(not item["tokens"] and not item["token_valid"] for item in items)
+    assert "trajectory tokens" not in items[0]["sample"]["conversations"][0]["value"]
+    assert items[-1]["info"]["explicit_stop"] is False  # not inferred from final-frame position
+    assert pickle.loads(pickle.dumps(ds))[139]["stop_target"] == 1.
+
+
+@pytest.mark.parametrize("merged", [False, True])
+def test_stop_preparation_supports_original_and_merged_provenance_and_detects_changes(files, merged):
+    root, _, _ = files
+    manifest = _write_stop_provenance(files, merged=merged)
+    supervision = manifest["stop_supervision"]
+    assert supervision["counts"]["train"] == dict(positive=3, negative=143, invalid=0)
+    verify_stop_supervision(root, supervision)
+    path = root / next(iter(supervision["source_sha256"]))
+    path.write_text(path.read_text() + "\n")
+    with pytest.raises(ValueError, match="provenance changed"):
+        verify_stop_supervision(root, supervision)
+    with pytest.raises(ValueError, match="exporter fingerprint"):
+        make_manifest(root, val_fraction=0, with_stop_labels=True)
+
+
+def test_stop_preparation_fingerprints_raw_labels_and_rejects_midroute_stop(files):
+    root, model, rows = files
+    supervision = _write_stop_provenance(files)["stop_supervision"]
+    rows[2]["action.explicit_stop"] = rows[2]["action.stop_loss_valid"] = True
+    path = root / "data/chunk-000/file-000.parquet"
+    pq.write_table(pa.Table.from_pylist(rows), path, row_group_size=17)
+    with pytest.raises(ValueError, match="row labels changed"):
+        verify_stop_supervision(root, supervision)
+    with pytest.raises(ValueError, match="disagree with provenance"):
+        make_manifest(root, val_fraction=0, with_stop_labels=True)
+    spec = LightNavTrainingSpec.from_checkpoint(model, training_mode="fm_stop")
+    ds = LeRobotFrameDataset(root, spec, stop_supervision=supervision)
+    with pytest.raises(ValueError, match="nonterminal STOP"):
+        ds[2]
+
+
+def test_stop_audit_rejects_bad_success_geometry_and_missing_terminal_stop(files):
+    root, _, rows = files
+    _write_stop_provenance(files)
+    path = root / "meta/provenance/episodes/000000/episode.json"
+    meta = json.loads(path.read_text())
+    meta["goal_distance_m"] = 4.
+    write_json(path, meta)
+    custom_path = root / "meta/beta_nav.json"
+    custom = json.loads(custom_path.read_text())
+    custom["episodes"][0]["source_hashes"]["episode.json"] = sha256(path)
+    write_json(custom_path, custom)
+    with pytest.raises(ValueError, match="successful expert replay"):
+        make_manifest(root, val_fraction=0, with_stop_labels=True)
+    rows[139]["action.explicit_stop"] = rows[139]["action.stop_loss_valid"] = False
+    with pytest.raises(ValueError, match="one explicit terminal STOP"):
+        _write_stop_provenance(files)
+
+
+def test_stop_contract_counts_are_fixed_to_audited_split(files):
+    supervision = _write_stop_provenance(files)["stop_supervision"]
+    wrong = copy.deepcopy(supervision)
+    wrong["counts"]["train"]["negative"] += 1
+    wrong["positive_weight"] = wrong["counts"]["train"]["negative"] / wrong["counts"]["train"]["positive"]
+    with pytest.raises(ValueError, match="counts disagree"):
+        validate_stop_supervision(wrong)
+    wrong = copy.deepcopy(supervision)
+    wrong["validation_episode_ids"] = [0]
+    with pytest.raises(ValueError, match="split identities"):
+        validate_stop_supervision(wrong)
+
+
+def test_unknown_episode_does_not_invent_continue_labels_but_preserves_fm(files):
+    root, model, _ = files
+    supervision = _write_stop_provenance(files, unknown=(1,))["stop_supervision"]
+    assert supervision["counts"]["train"] == dict(positive=2, negative=139, invalid=5)
+    spec = LightNavTrainingSpec.from_checkpoint(model, training_mode="fm_stop")
+    ds = LeRobotFrameDataset(root, spec, stop_supervision=supervision)
+    first, last = ds[140], ds[144]
+    assert not first["stop_valid_mask"] and not last["stop_valid_mask"]
+    assert first["fm_valid"].sum() == 4 and not last["fm_valid"].any()
+
+
+def test_stop_audit_rejects_global_range_misalignment(files):
+    root, _, _ = files
+    _write_stop_provenance(files)
+    path = root / "meta/episodes/chunk-000/file-000.parquet"
+    metadata = pq.read_table(path).to_pylist()
+    metadata[1]["dataset_to_index"] += 1
+    pq.write_table(pa.Table.from_pylist(metadata), path)
+    with pytest.raises(ValueError, match="global frame ranges"):
+        make_manifest(root, val_fraction=0, with_stop_labels=True)
+
+
+def test_stop_class_weight_uses_only_training_episodes(files):
+    root, _, _ = files
+    _write_stop_provenance(files)
+    manifest = make_manifest(root, val_fraction=.34, with_stop_labels=True)
+    supervision = manifest["stop_supervision"]
+    episodes = supervision["episodes"]
+    positive = len(manifest["train_episodes"])
+    negative = sum(episodes[str(i)]["length"] - 1 for i in manifest["train_episodes"])
+    assert supervision["positive_weight"] == negative / positive
+    assert supervision["train_episode_ids"] == manifest["train_episodes"]
+    assert supervision["validation_episode_ids"] == manifest["val_episodes"]
+
+
 class FakeTokenizer:
     pad_token_id = 0
 
@@ -194,6 +375,41 @@ def test_fm_only_needs_no_rvq_assets_or_token_columns(files):
     assert (batch.answer_start == batch.labels.shape[1]).all()
     assert not (batch.model_inputs["input_ids"] == 4).any()  # no assistant EOS/answer
     assert batch.fm_valid_mask[0].all() and not batch.fm_valid_mask[1].any()
+
+
+@pytest.mark.parametrize("mode", ["fm_only", "ce_fm"])
+def test_ten_step_targets_are_consecutive_prefix_with_episode_tail_masks(files, mode):
+    root, model, rows = files
+    spec = LightNavTrainingSpec.from_checkpoint(model, training_mode=mode)
+    ds = LeRobotFrameDataset(root, spec, fm_horizon=10)
+    assert len(ds) == len(rows)  # shortening a target must not drop training frames
+    # Distinct values detect downsampling/interpolation or zero-padding mistakes.
+    row = copy.deepcopy(rows[0])
+    row["action.fm.clean_se2_diff"] = np.arange(90, dtype=np.float32).reshape(30, 3).tolist()
+    _, _, clean, valid = ds._targets(ds.episodes[0], 0, row)
+    torch.testing.assert_close(clean, torch.arange(30, dtype=torch.float32).reshape(10, 3))
+    assert valid.shape == (10,) and valid.all()
+    items = [ds[0], ds[134], ds[139], ds[145]]
+    batch = FakeCollator(spec)(items)
+    assert batch.fm_clean_se2_diff.shape == (4, 10, 3)
+    assert batch.fm_valid_mask.shape == (4, 10)
+    assert batch.fm_valid_mask.sum(dim=1).tolist() == [10, 5, 0, 0]
+    assert all(item["info"]["fm_horizon"] == 10 for item in items)
+    if mode == "fm_only":
+        assert (batch.labels == -100).all()
+
+
+@pytest.mark.parametrize("horizon", [0, 31, 1.5, True])
+def test_reader_rejects_invalid_fm_horizon(files, horizon):
+    root, model, _ = files
+    with pytest.raises(ValueError, match="fm_horizon"):
+        Train_Lerobot_DataLoader(root, model, fm_horizon=horizon)
+
+
+def test_loader_passes_ten_step_horizon_to_dataset(files):
+    root, model, _ = files
+    loader = Train_Lerobot_DataLoader(root, model, fm_horizon=10, training_mode="fm_only")
+    assert loader.dataset[0]["fm_clean"].shape == (10, 3)
 
 
 def test_metadata_index_is_complete_and_subset_uses_original_episode_ids(files):

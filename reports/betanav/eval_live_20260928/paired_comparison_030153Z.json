@@ -1,0 +1,250 @@
+{
+  "snapshot": "reports/betanav/eval_live_20260928/results_snapshot_030153Z.jsonl",
+  "matched": 638,
+  "new_unique": 638,
+  "old_unique": 1839,
+  "new_duplicates": 0,
+  "old_duplicates": 0,
+  "new_unmatched": 0,
+  "current_same_episodes": {
+    "n": 638,
+    "SR": 49.843260188087775,
+    "OS": 51.724137931034484,
+    "SPL": 48.13288818846519,
+    "NDTW": 60.44816390137544,
+    "avg_steps": 54.43416927899686,
+    "avg_NE": 5.776654163428048,
+    "OS_not_SR": 12,
+    "forced_stop": 2,
+    "sources": {
+      "learned_head": 636,
+      "max_steps": 2
+    }
+  },
+  "historical_same_episodes": {
+    "n": 638,
+    "SR": 55.79937304075236,
+    "OS": 63.63636363636363,
+    "SPL": 47.38340252070141,
+    "NDTW": 51.7242524132657,
+    "avg_steps": 89.98432601880877,
+    "avg_NE": 5.9785211335015145,
+    "OS_not_SR": 50,
+    "forced_stop": 4,
+    "sources": {
+      "explicit_token_stop": 633,
+      "max_steps": 4,
+      "decode_failure": 1
+    }
+  },
+  "historical_all": {
+    "n": 1839,
+    "SR": 57.368134855899946,
+    "OS": 65.79662860250136,
+    "SPL": 50.14404616919504,
+    "NDTW": 57.11461555941458,
+    "avg_steps": 89.32463295269169,
+    "avg_NE": 5.289866186351383,
+    "OS_not_SR": 155,
+    "forced_stop": 34,
+    "sources": {
+      "explicit_token_stop": 1803,
+      "max_steps": 34,
+      "decode_failure": 2
+    }
+  },
+  "paired_success_transitions": {
+    "old_0_new_1": 92,
+    "old_1_new_0": 130,
+    "old_1_new_1": 226,
+    "old_0_new_0": 190
+  },
+  "by_scene": {
+    "2azQ1b91cZZ": {
+      "current": {
+        "n": 252,
+        "SR": 52.77777777777778,
+        "OS": 53.96825396825397,
+        "SPL": 50.6717014229833,
+        "NDTW": 58.38784196071855,
+        "avg_steps": 54.80952380952381,
+        "avg_NE": 6.201629193824908,
+        "OS_not_SR": 3,
+        "forced_stop": 1,
+        "sources": {
+          "learned_head": 251,
+          "max_steps": 1
+        }
+      },
+      "historical": {
+        "n": 252,
+        "SR": 53.57142857142857,
+        "OS": 61.904761904761905,
+        "SPL": 45.81768664991148,
+        "NDTW": 50.099935626124704,
+        "avg_steps": 86.13888888888889,
+        "avg_NE": 6.666221320865646,
+        "OS_not_SR": 21,
+        "forced_stop": 1,
+        "sources": {
+          "explicit_token_stop": 251,
+          "max_steps": 1
+        }
+      }
+    },
+    "8194nk5LbLH": {
+      "current": {
+        "n": 39,
+        "SR": 58.97435897435898,
+        "OS": 58.97435897435898,
+        "SPL": 58.77799227968057,
+        "NDTW": 65.67067184143991,
+        "avg_steps": 64.51282051282051,
+        "avg_NE": 5.151216175311651,
+        "OS_not_SR": 0,
+        "forced_stop": 1,
+        "sources": {
+          "learned_head": 38,
+          "max_steps": 1
+        }
+      },
+      "historical": {
+        "n": 39,
+        "SR": 58.97435897435898,
+        "OS": 61.53846153846154,
+        "SPL": 47.49380331180572,
+        "NDTW": 52.51341557609705,
+        "avg_steps": 100.84615384615384,
+        "avg_NE": 4.557369875411193,
+        "OS_not_SR": 1,
+        "forced_stop": 1,
+        "sources": {
+          "explicit_token_stop": 38,
+          "max_steps": 1
+        }
+      }
+    },
+    "EU6Fwq7SyZv": {
+      "current": {
+        "n": 132,
+        "SR": 46.96969696969697,
+        "OS": 50.0,
+        "SPL": 44.734943080504166,
+        "NDTW": 59.897009689918775,
+        "avg_steps": 47.28787878787879,
+        "avg_NE": 4.978253587854631,
+        "OS_not_SR": 4,
+        "forced_stop": 0,
+        "sources": {
+          "learned_head": 132
+        }
+      },
+      "historical": {
+        "n": 132,
+        "SR": 53.78787878787878,
+        "OS": 63.63636363636363,
+        "SPL": 44.22673107230034,
+        "NDTW": 49.229542424419016,
+        "avg_steps": 82.21212121212122,
+        "avg_NE": 4.976550462966164,
+        "OS_not_SR": 13,
+        "forced_stop": 0,
+        "sources": {
+          "explicit_token_stop": 131,
+          "decode_failure": 1
+        }
+      }
+    },
+    "QUCTc6BB5sX": {
+      "current": {
+        "n": 123,
+        "SR": 43.90243902439025,
+        "OS": 43.90243902439025,
+        "SPL": 42.66839293926453,
+        "NDTW": 57.928112297798506,
+        "avg_steps": 60.77235772357724,
+        "avg_NE": 6.89520722821476,
+        "OS_not_SR": 0,
+        "forced_stop": 0,
+        "sources": {
+          "learned_head": 123
+        }
+      },
+      "historical": {
+        "n": 123,
+        "SR": 54.47154471544715,
+        "OS": 60.16260162601627,
+        "SPL": 46.64984838557995,
+        "NDTW": 48.35033263874916,
+        "avg_steps": 112.88617886178862,
+        "avg_NE": 7.3842974813973035,
+        "OS_not_SR": 7,
+        "forced_stop": 2,
+        "sources": {
+          "explicit_token_stop": 121,
+          "max_steps": 2
+        }
+      }
+    },
+    "TbHJrupSAjP": {
+      "current": {
+        "n": 39,
+        "SR": 51.28205128205128,
+        "OS": 61.53846153846154,
+        "SPL": 49.16121471422172,
+        "NDTW": 71.38608092858108,
+        "avg_steps": 55.94871794871795,
+        "avg_NE": 3.790180016022462,
+        "OS_not_SR": 4,
+        "forced_stop": 0,
+        "sources": {
+          "learned_head": 39
+        }
+      },
+      "historical": {
+        "n": 39,
+        "SR": 66.66666666666666,
+        "OS": 71.7948717948718,
+        "SPL": 57.292705223092824,
+        "NDTW": 63.90889007432713,
+        "avg_steps": 78.7948717948718,
+        "avg_NE": 3.9528771883402114,
+        "OS_not_SR": 2,
+        "forced_stop": 0,
+        "sources": {
+          "explicit_token_stop": 39
+        }
+      }
+    },
+    "zsNo4HB9uLZ": {
+      "current": {
+        "n": 53,
+        "SR": 49.056603773584904,
+        "OS": 50.943396226415096,
+        "SPL": 48.61622669303248,
+        "NDTW": 65.57388575938002,
+        "avg_steps": 47.20754716981132,
+        "avg_NE": 5.070573307433218,
+        "OS_not_SR": 1,
+        "forced_stop": 0,
+        "sources": {
+          "learned_head": 53
+        }
+      },
+      "historical": {
+        "n": 53,
+        "SR": 64.15094339622641,
+        "OS": 75.47169811320755,
+        "SPL": 57.019246916958245,
+        "NDTW": 63.94394013064335,
+        "avg_steps": 74.71698113207547,
+        "avg_NE": 4.47803440577579,
+        "OS_not_SR": 6,
+        "forced_stop": 0,
+        "sources": {
+          "explicit_token_stop": 53
+        }
+      }
+    }
+  }
+}

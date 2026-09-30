@@ -1,7 +1,8 @@
 """Create an all-training or scene-separated manifest and FM scales from saved metadata.
 
-This training utility reads episode statistics, never RGB/depth, and writes one new manifest.
-The exporter-provided beta_nav.json is read once here, not in training workers.
+This utility reads episode statistics and optional STOP labels/provenance, never
+RGB/depth, and writes one new manifest. The exporter-provided beta_nav.json is
+read once here, not in training workers.
 """
 
 from __future__ import annotations
@@ -47,7 +48,8 @@ def combine_statistics(rows, floors):
                 action_scale=np.maximum(std, floors).tolist(), transform="clean_se2_diff / action_scale")
 
 
-def make_manifest(root, *, seed=42, val_fraction=0.1, scale_floor=(0.05, 0.02, 0.05), normalization_from=None):
+def make_manifest(root, *, seed=42, val_fraction=0.1, scale_floor=(0.05, 0.02, 0.05), normalization_from=None,
+                  with_stop_labels=False):
     import pyarrow.parquet as pq
 
     root = Path(root).resolve()
@@ -55,6 +57,12 @@ def make_manifest(root, *, seed=42, val_fraction=0.1, scale_floor=(0.05, 0.02, 0
         raise ValueError("val_fraction must be in [0,1); 0 uses all episodes for training")
     custom_path = root / "meta/beta_nav.json"
     custom = json.loads(custom_path.read_text())
+    stop_records = None
+    if with_stop_labels:
+        if custom.get("format") != "beta_nav_lerobot_v1":
+            raise ValueError("STOP label audit requires the beta_nav_lerobot_v1 source format")
+        keys = ("episode_index", "episode_id", "scene_id", "frames", "source_shard", "source_hashes")
+        stop_records = [{key: record[key] for key in keys if key in record} for record in custom["episodes"]]
     records = {int(e["episode_index"]): (e["scene_id"], int(e["frames"])) for e in custom["episodes"]}
     if len(records) != len(custom["episodes"]):
         raise ValueError("duplicate episode identities")
@@ -69,6 +77,9 @@ def make_manifest(root, *, seed=42, val_fraction=0.1, scale_floor=(0.05, 0.02, 0
     train_ids, stats_rows, seen, fingerprints = set(train), [], set(), {}
     prefix = "stats/action.fm.clean_se2_diff/"
     columns = ["episode_index", "length", *[prefix + k for k in ("mean", "std", "count")]]
+    stop_episode_rows = []
+    if with_stop_labels:
+        columns.extend(["data/chunk_index", "data/file_index", "dataset_from_index", "dataset_to_index"])
     for path in sorted((root / "meta/episodes").rglob("*.parquet")):
         fingerprints[str(path.relative_to(root))] = sha256(path)
         for row in pq.read_table(path, columns=columns, use_threads=False).to_pylist():
@@ -76,6 +87,8 @@ def make_manifest(root, *, seed=42, val_fraction=0.1, scale_floor=(0.05, 0.02, 0
             if i in seen or i not in records or row["length"] != records[i][1]:
                 raise ValueError("episode metadata identity/length mismatch")
             seen.add(i)
+            if with_stop_labels:
+                stop_episode_rows.append(row)
             if i in train_ids:
                 stats_rows.append(row)
     info = json.loads((root / "meta/info.json").read_text())
@@ -95,6 +108,10 @@ def make_manifest(root, *, seed=42, val_fraction=0.1, scale_floor=(0.05, 0.02, 0
         result["normalization"] = previous["normalization"]
         result["normalization_source"] = dict(path=str(Path(normalization_from).resolve()), sha256=sha256(normalization_from),
                                               reason="Preserve the action scale used by existing trained weights")
+    if with_stop_labels:
+        from lightnav.training.stop_labels import audit_stop_supervision
+
+        result["stop_supervision"] = audit_stop_supervision(root, stop_records, stop_episode_rows, train_ids)
     return result
 
 
@@ -106,11 +123,13 @@ def main():
     parser.add_argument("--val-fraction", type=float, default=0.1)
     parser.add_argument("--scale-floor", type=float, nargs=3, default=[0.05, 0.02, 0.05])
     parser.add_argument("--normalization-from", type=Path, help="reuse a frozen scale from the same dataset for continued training")
+    parser.add_argument("--with-stop-labels", action="store_true",
+                        help="audit explicit STOP provenance and freeze fm_stop targets/class weights")
     args = parser.parse_args()
     if args.output.exists():
         parser.error("output already exists; use a new manifest path")
     result = make_manifest(args.dataset, seed=args.seed, val_fraction=args.val_fraction, scale_floor=args.scale_floor,
-                           normalization_from=args.normalization_from)
+                           normalization_from=args.normalization_from, with_stop_labels=args.with_stop_labels)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("x") as stream:
         json.dump(result, stream, indent=2, ensure_ascii=False)

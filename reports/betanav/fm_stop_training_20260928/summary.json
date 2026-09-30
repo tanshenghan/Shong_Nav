@@ -1,0 +1,158 @@
+{
+  "run_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5",
+  "completed": true,
+  "completion_evidence": {
+    "latest": {
+      "checkpoint": "step-00003699",
+      "step": 3699
+    },
+    "trainer": {
+      "run_id": "1508369f5b114e32ae17038cb31f2152",
+      "step": 3699,
+      "epoch": 3,
+      "batch_offset": 0,
+      "samples_seen": 1893744,
+      "vlm_updates": 0,
+      "fm_updates": 3699,
+      "stop_updates": 3699,
+      "best_validation": null
+    },
+    "checkpoint_path": "/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5/checkpoints/step-00003699",
+    "training_state_complete": true,
+    "complete_marker": "betanav_checkpoint_v2",
+    "planned_max_steps": 3699,
+    "planned_num_epochs": 3,
+    "checkpoint_marker_mtime_utc": "2026-09-27T14:04:39.579742+00:00"
+  },
+  "training": {
+    "mode": "fm_stop",
+    "world_size": 8,
+    "global_batch_size": 512,
+    "dataset_unique_frames": 631244,
+    "steps_per_epoch": 1233,
+    "samples_seen_including_ddp_padding": 1893744,
+    "stop_positive_weight": 57.34587300120159,
+    "lambda_fm": 1.0,
+    "lambda_stop": 1.0
+  },
+  "logging": {
+    "num_records": 370,
+    "log_every_steps": 10,
+    "first_logged_step": 1,
+    "last_logged_step": 3690,
+    "final_checkpoint_step": 3699,
+    "missing_expected_logged_steps": [],
+    "unlogged_final_steps": [
+      3691,
+      3692,
+      3693,
+      3694,
+      3695,
+      3696,
+      3697,
+      3698,
+      3699
+    ],
+    "first_logged_utc": "2026-09-24T17:07:42.660240+00:00",
+    "last_logged_utc": "2026-09-27T13:57:00.253186+00:00",
+    "elapsed_hours_between_first_and_last_log": 68.82155359599325,
+    "note": "Each loss record is one logged update, not an average of all intervening updates."
+  },
+  "first_logged_losses": {
+    "train_loss": 3.8596903607141235,
+    "train_fm": 3.130454894544891,
+    "train_stop": 0.7292354661692326
+  },
+  "last_logged_losses": {
+    "train_loss": 0.639874304125303,
+    "train_fm": 0.4300470706165044,
+    "train_stop": 0.2098272335087986
+  },
+  "first_window": {
+    "inclusive_step_range": [
+      1,
+      100
+    ],
+    "logged_observations": 11,
+    "observed_steps": [
+      1,
+      10,
+      20,
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100
+    ],
+    "arithmetic_mean_of_logged_update_losses": {
+      "train_loss": 2.900862315444641,
+      "train_fm": 2.2833777358577816,
+      "train_stop": 0.6174845795868592
+    }
+  },
+  "last_window": {
+    "inclusive_step_range": [
+      3591,
+      3690
+    ],
+    "logged_observations": 10,
+    "observed_steps": [
+      3600,
+      3610,
+      3620,
+      3630,
+      3640,
+      3650,
+      3660,
+      3670,
+      3680,
+      3690
+    ],
+    "arithmetic_mean_of_logged_update_losses": {
+      "train_loss": 0.7183329485384734,
+      "train_fm": 0.4649133158743936,
+      "train_stop": 0.25341963266407974
+    }
+  },
+  "relative_reduction_between_window_means": {
+    "train_loss": 0.7523726153034023,
+    "train_fm": 0.7963922882432141,
+    "train_stop": 0.5895935849383714
+  },
+  "smoothing": {
+    "kind": "trailing arithmetic mean of observed logged update losses",
+    "window_global_steps": 100,
+    "definition": "At logged step s, average existing log records whose steps satisfy s-window < step <= s; no interpolation or missing-step loss imputation."
+  },
+  "interpretation": "Training losses only. They do not measure held-out navigation success rate, oracle success, SPL, or STOP accuracy/calibration.",
+  "source_files": [
+    {
+      "path": "/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5/latest.json",
+      "sha256": "bdbe42c320c449035934ccad064fdfdea98e4c9d838863e2c492544b697ddbaf",
+      "mtime_utc": "2026-09-27T14:04:39.604505+00:00"
+    },
+    {
+      "path": "/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5/checkpoints/step-00003699/trainer.json",
+      "sha256": "7d3d3fad41f24ea4c8fe9f20dd568ae79ce761d8978426505431c87b1ffd5aab",
+      "mtime_utc": "2026-09-27T14:04:39.566374+00:00"
+    },
+    {
+      "path": "/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5/checkpoints/step-00003699/metadata.json",
+      "sha256": "bb5baaa2659b4d512fdc3f3d7143fd3a3f38f4382559097501e2b42c769b7364",
+      "mtime_utc": "2026-09-27T14:04:39.552004+00:00"
+    },
+    {
+      "path": "/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5/checkpoints/step-00003699/COMPLETE",
+      "sha256": "972411e68a03ab9dd9aa3a38ff21bfd81c7c65d663e7bc919b31b414c152a01d",
+      "mtime_utc": "2026-09-27T14:04:39.579742+00:00"
+    },
+    {
+      "path": "/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5/metrics.jsonl",
+      "sha256": "13b61dc3293c9d2edccdfbfc2083dbfb3d1b984a91fd81a3ee6de0a45ccb3369",
+      "mtime_utc": "2026-09-27T13:57:00.257530+00:00"
+    }
+  ]
+}

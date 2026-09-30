@@ -1,0 +1,45 @@
+{
+  "report_version": 1,
+  "date_utc": "2026-09-19",
+  "episode_id": "kujiale_0018_2_2",
+  "request": "Show one smoothed pose per video frame at 15 FPS",
+  "original_unique_poses": 23,
+  "smoothed_unique_poses": 111,
+  "video_frames_per_file": 111,
+  "video_fps": 15,
+  "video_duration_s": 7.4,
+  "original_playback": "Source views held until their corresponding next source anchor; 23 unique poses in 111 encoded frames",
+  "smooth_playback": "Each of 111 rendered poses appears exactly once",
+  "preserves_reference_timing": false,
+  "reference_duration_s": 30.07812500000003,
+  "reference_npz_unchanged": true,
+  "previous_preview_retained": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review",
+  "new_preview_directory": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review_15fps",
+  "videos": {
+    "original_gt.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review_15fps/original_gt.mp4",
+      "sha256": "daaaccf6d0923a2e9fb342b7deb5ac9f26ad8a6a3818882f47e6f5157c567285"
+    },
+    "smoothed_6poses.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review_15fps/smoothed_6poses.mp4",
+      "sha256": "8a22fc784f0f8788a106a53deae43bcbd63835cdfc008df5935bcfc3b1c3bbea"
+    },
+    "side_by_side.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0018_2_2/review_15fps/side_by_side.mp4",
+      "sha256": "386dd866362529a1f5533a41f66ae16ad925155502b054bb182282d0d86d9a5b"
+    }
+  },
+  "validation": {
+    "full_decode_passed": true,
+    "each_smooth_pose_once": true,
+    "all_source_anchors_aligned": true,
+    "final_indices": [
+      22,
+      110
+    ],
+    "cpu_timeline_tests": "8 passed",
+    "ruff": "passed"
+  },
+  "encoder_sha256": "d1a7bd6095970f02f9a8deb21fc9a701198116480c3a71a323a06a85c8532c9e",
+  "time_semantics": "Pose-index playback clock only; the original variable reference dt and physical derivative limits are not preserved by this display speed"
+}

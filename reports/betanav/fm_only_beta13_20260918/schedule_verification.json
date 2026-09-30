@@ -1,0 +1,27 @@
+{
+  "checked_at_utc": "2026-09-17T09:20:14.947692+00:00",
+  "queue_alive": true,
+  "queue_state": {
+    "queue_pid": 464849,
+    "not_before_utc": "2026-09-17T17:08:44+00:00",
+    "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260917T091717Z_fm_only_beta13_scheduled_8gpu",
+    "status": "waiting_for_time",
+    "checked_at_utc": "2026-09-17T09:19:58.887318+00:00",
+    "details": {
+      "remaining_seconds": 28125.11271214485
+    }
+  },
+  "frozen_files_verified": true,
+  "new_training_status": "prepared",
+  "previous_status": "running",
+  "previous_launcher_alive": true,
+  "previous_latest_step": 220,
+  "previous_latest_fm_loss": 0.8517446302868263,
+  "tests": {
+    "passed": 837,
+    "skipped": 7,
+    "gpu_deselected": 2
+  },
+  "make_check": "syntax compile passed; ruff unavailable",
+  "duplicate_attempt": "Rejected by exclusive flock; only the original queue PID is alive."
+}

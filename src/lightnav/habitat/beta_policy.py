@@ -13,7 +13,9 @@ import numpy as np
 import torch
 
 from lightnav.habitat.policy import extract_instruction, select_action_waypoint
+from lightnav.inference.beta_model import uses_frozen_continuous_backbone
 from lightnav.inference.samples import build_vln_traj_sample
+from lightnav.inference.samples import prompt_only_inputs as _prompt_only_inputs
 from lightnav.tracking import TrackingAgent
 from lightnav.velocity import first_waypoint_to_velocity_cmd
 from lightnav.vln_utils import parse_rvq_action_tokens
@@ -35,51 +37,31 @@ class BetaFMRuntime:
     aspect_mode: str = "stretch"
     stop_mode: str = "baseline"  # baseline | decode_continue | explicit_gate
     action_output: str = "fm"  # fm | token (trained BetaNav RVQ branch)
-    fm_only_stop_mode: str = "max_steps"  # max_steps | rvq
+    fm_only_stop_mode: str | None = None  # checkpoint default; max_steps | rvq | learned
+    stop_threshold: float = 0.5
+    stop_confirm_steps: int = 1
+    checkpoint_metadata: dict[str, Any] | None = None
+
+    def __post_init__(self) -> None:
+        if self.fm_only_stop_mode is None:
+            config = getattr(self.beta_model, "config", None)
+            self.fm_only_stop_mode = (
+                "learned" if getattr(config, "training_mode", None) == "fm_stop" else "max_steps"
+            )
+        if not math.isfinite(self.stop_threshold) or not 0 <= self.stop_threshold <= 1:
+            raise ValueError("stop_threshold must be finite and between 0 and 1")
+        if type(self.stop_confirm_steps) is not int or self.stop_confirm_steps < 1:
+            raise ValueError("stop_confirm_steps must be a positive integer")
+        if self.stop_confirm_steps != 1 and self.fm_only_stop_mode != "learned":
+            raise ValueError("stop_confirm_steps > 1 requires learned STOP")
+        if self.fm_only_stop_mode == "learned" and (
+            getattr(getattr(self.beta_model, "config", None), "training_mode", None) != "fm_stop"
+            or getattr(self.beta_model, "stop_head", None) is None
+        ):
+            raise ValueError("learned STOP requires an fm_stop checkpoint with trained StopHead weights")
 
     def reset_episode_state(self) -> None:
         """Beta HF inference currently has no episode-local engine cache."""
-
-
-def _prompt_only_inputs(processed: dict[str, Any]) -> dict[str, Any]:
-    """Trim the placeholder answer and batch one processed inference sample."""
-    result = dict(processed)
-    labels = result.pop("labels", None)
-    answer_start: int | None = None
-    if labels is not None:
-        answer_tokens = (labels != -100).nonzero(as_tuple=False)
-        if answer_tokens.numel():
-            answer_start = int(answer_tokens[0].item())
-
-    sequence_keys = ("input_ids", "attention_mask", "image_mask", "video_mask")
-    for key in sequence_keys:
-        value = result.get(key)
-        if not isinstance(value, torch.Tensor):
-            continue
-        if answer_start is not None:
-            value = value[:answer_start]
-        if key in {"input_ids", "attention_mask"} and value.ndim == 1:
-            value = value.unsqueeze(0)
-        result[key] = value
-
-    # BetaModel reconstructs native multimodal RoPE and deliberately ignores the
-    # processor's position ids. Keep only its documented tensor/metadata contract.
-    keep = {
-        "input_ids",
-        "attention_mask",
-        "pixel_values",
-        "pixel_values_videos",
-        "image_grid_thw",
-        "video_grid_thw",
-        "position_ids",
-        "mm_token_type_ids",
-        "image_mask",
-        "video_mask",
-        "_original_video_grid_thw",
-        "_post_vit_pool_factors",
-        "_post_vit_pool_spatial",
-    }
-    return {key: value for key, value in result.items() if key in keep}
 
 
 class BetaFMVLNCEPolicy:
@@ -138,12 +120,16 @@ class BetaFMVLNCEPolicy:
         self._decode_failed = False
         self._last_explicit_stop = False
         self._last_stop_source = ""
+        self._last_stop_score: float | None = None
+        self._last_stop_candidate = False
         self._last_stop_suppressed = False
 
     def reset(self, obs: dict[str, Any] | None = None) -> None:
         self.instruction = extract_instruction(obs) if obs is not None else ""
         self.agent.reset(self.instruction)
         self._step = 0
+        self._completed = False
+        self._stop_candidate_streak = 0
         self._clear_last()
 
     def observe(self, obs: dict[str, Any], info: dict[str, Any] | None = None) -> None:
@@ -310,7 +296,7 @@ class BetaFMVLNCEPolicy:
 
 
 class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
-    """FM-only motion with fixed-budget or frozen-LightNav RVQ baseline STOP."""
+    """Continuous motion with fixed-budget, RVQ baseline, or learned-head STOP."""
 
     def __init__(
         self, runtime: BetaFMRuntime, *, dt: float,
@@ -320,8 +306,8 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
     ) -> None:
         from lightnav.inference.policies import NavigationPolicy
 
-        if runtime.beta_model.config.training_mode != "fm_only":
-            raise ValueError("continuous-only policy requires an fm_only checkpoint")
+        if not uses_frozen_continuous_backbone(runtime.beta_model.config.training_mode):
+            raise ValueError("continuous-only policy requires an fm_only or fm_stop checkpoint")
         if runtime.action_output != "fm" or runtime.stop_mode != "baseline":
             raise ValueError("fm_only requires action_output=fm and baseline configuration")
         if dt <= 0:
@@ -335,8 +321,18 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
         self.num_history_frames = int(num_history_frames)
         self.min_abs_lin_speed = float(min_abs_lin_speed)
         self.min_abs_ang_speed = float(min_abs_ang_speed)
-        if runtime.fm_only_stop_mode not in {"max_steps", "rvq"}:
-            raise ValueError("fm_only_stop_mode must be max_steps or rvq")
+        if runtime.fm_only_stop_mode not in {"max_steps", "rvq", "learned"}:
+            raise ValueError("fm_only_stop_mode must be max_steps, rvq or learned")
+        if type(runtime.stop_confirm_steps) is not int or runtime.stop_confirm_steps < 1:
+            raise ValueError("stop_confirm_steps must be a positive integer")
+        if runtime.stop_confirm_steps != 1 and runtime.fm_only_stop_mode != "learned":
+            raise ValueError("stop_confirm_steps > 1 requires learned STOP")
+        if not math.isfinite(runtime.stop_threshold) or not 0 <= runtime.stop_threshold <= 1:
+            raise ValueError("stop_threshold must be finite and between 0 and 1")
+        if runtime.fm_only_stop_mode == "learned" and (
+            self.model.config.training_mode != "fm_stop" or getattr(self.model, "stop_head", None) is None
+        ):
+            raise ValueError("learned STOP requires an fm_stop checkpoint with trained StopHead weights")
         if runtime.fm_only_stop_mode == "rvq":
             if rvq_bundle is None:
                 raise ValueError("RVQ STOP requires the frozen LightNav decoder")
@@ -346,6 +342,8 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
             self.agent = NavigationPolicy(runtime, num_history_frames=num_history_frames)
         self.instruction = ""
         self._step = 0
+        self._completed = False
+        self._stop_candidate_streak = 0
         self._clear_last()
 
     @torch.no_grad()
@@ -388,9 +386,12 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
             return True
         return False
 
+    @torch.no_grad()
     def act(self, obs: dict[str, Any], info: dict[str, Any] | None = None) -> dict[str, Any]:
         from lightnav.inference.samples import build_continuous_traj_sample
 
+        if self._completed:
+            return self.stop_action()
         self._clear_last()
         self.agent.observe(obs["rgb"])
         if self.runtime.fm_only_stop_mode == "rvq" and self._rvq_requests_stop():
@@ -404,14 +405,44 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
         processed = self.bundle.data_processor.process_sample(
             sample, add_generation_prompt=True, validate_video_shapes=False,
         )
-        context = self.model.encode_context(_prompt_only_inputs(processed))
-        deltas, waypoints = self.model.sample_actions(
-            context, num_steps=self.runtime.fm_steps, generator=self._generator(info),
-        )
+        if self.runtime.fm_only_stop_mode == "learned":
+            confirmation = {}
+            if self.runtime.stop_confirm_steps > 1:
+                confirmation["stop_eligible"] = torch.tensor([
+                    self._stop_candidate_streak >= self.runtime.stop_confirm_steps - 1,
+                ], dtype=torch.bool)
+            prediction = self.model.predict_continuous(
+                _prompt_only_inputs(processed), stop_threshold=self.runtime.stop_threshold,
+                num_steps=self.runtime.fm_steps, generator=self._generator(info),
+                **confirmation,
+            )
+            deltas, waypoints = prediction.se2_deltas, prediction.waypoints
+            self._last_stop_score = float(prediction.stop_scores[0].item())
+            if not math.isfinite(self._last_stop_score):
+                raise RuntimeError("StopHead produced a non-finite score")
+            self._last_stop_candidate = bool(
+                (prediction.stop_scores[0] >= self.runtime.stop_threshold).item()
+            )
+            self._stop_candidate_streak = (
+                self._stop_candidate_streak + 1 if self._last_stop_candidate else 0
+            )
+            self._last_stop = bool(prediction.stop[0].item())
+        else:
+            context = self.model.encode_context(_prompt_only_inputs(processed))
+            deltas, waypoints = self.model.sample_actions(
+                context, num_steps=self.runtime.fm_steps, generator=self._generator(info),
+            )
         self._last_se2_deltas = deltas[0].float().cpu().numpy().copy()
         self._last_waypoints = waypoints[0].float().cpu().numpy().copy()
         if not np.isfinite(self._last_waypoints).all():
             raise RuntimeError("FM-only produced non-finite waypoints")
+        if self._last_stop:
+            self._last_stop_source = "learned_head"
+            self._last_action_waypoint_index = 0
+            self._last_action_waypoint = np.zeros(3, dtype=np.float32)
+            self._completed = True
+            self._step += 1
+            return self.stop_action()
         index, waypoint = select_action_waypoint(self._last_waypoints)
         self._last_action_waypoint_index = int(index)
         self._last_action_waypoint = np.asarray(waypoint, dtype=np.float32).copy()
@@ -421,7 +452,19 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
         if self._command_would_stop(action):
             # Habitat treats near-zero velocity as STOP. Keep the requested fixed
             # budget protocol: try later predicted waypoints, then a recovery turn.
-            if self.runtime.fm_only_stop_mode == "rvq":
+            if (
+                self.runtime.fm_only_stop_mode == "learned"
+                and self._last_stop_candidate
+                and self._stop_candidate_streak < self.runtime.stop_confirm_steps
+            ):
+                # A pending head decision must advance to a fresh observation;
+                # even genuinely zero FM motion cannot bypass confirmation.
+                self._last_stop_suppressed = True
+                self._last_stop_source = "stop_confirmation_zero_command_suppressed"
+                action = self._explicit_gate_action(self._last_waypoints)
+                if self._command_would_stop(action):
+                    raise RuntimeError("velocity limits cannot support a non-STOP recovery action")
+            elif self.runtime.fm_only_stop_mode in {"rvq", "learned"}:
                 self._last_stop = True
                 self._last_stop_source = "fm_zero_command"
             else:
@@ -435,7 +478,8 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
 
     def get_info(self) -> dict[str, Any]:
         result = {
-            "action_source": "fm_only", "stop_protocol": self.runtime.fm_only_stop_mode,
+            "action_source": self.model.config.training_mode,
+            "stop_protocol": self.runtime.fm_only_stop_mode,
             "raw_text": self._last_raw_text, "rvq_codes": self._last_rvq_codes,
             "num_history_frames": self.num_history_frames,
             "stop": self._last_stop, "explicit_stop": self._last_explicit_stop,
@@ -447,7 +491,16 @@ class BetaFMOnlyVLNCEPolicy(BetaFMVLNCEPolicy):
             "action_waypoint_index": self._last_action_waypoint_index,
             "action_waypoint": self._last_action_waypoint,
         }
-        if self.runtime.fm_only_stop_mode == "max_steps":
+        if self.runtime.fm_only_stop_mode != "rvq":
             result.pop("raw_text")
             result.pop("rvq_codes")
+        if self.runtime.fm_only_stop_mode == "learned":
+            result.update(
+                stop_score=self._last_stop_score,
+                stop_threshold=self.runtime.stop_threshold,
+                stop_candidate=self._last_stop_candidate,
+                stop_confirmation_count=self._stop_candidate_streak,
+                stop_confirm_steps=self.runtime.stop_confirm_steps,
+                stop_confirmed=self._last_stop and self._last_stop_source == "learned_head",
+            )
         return result

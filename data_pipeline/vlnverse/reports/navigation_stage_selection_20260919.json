@@ -1,0 +1,173 @@
+{
+  "report_version": 1,
+  "date": "2026-09-19",
+  "scene_id": "kujiale_0018",
+  "episode_id": "kujiale_0018/2_2",
+  "problem": "With world transforms fixed, the base scene still rendered a nearby glass-paneled door instead of the navigation room view.",
+  "resolution": "Use the released start_result_navigation.usd, matching the evaluator scene-selection logic; do not move the source poses to work around base-scene doors.",
+  "scene_files": {
+    "base": {
+      "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/kujiale_0018.usda",
+      "bytes": 224171,
+      "sha256": "53f8cd1c35a414feca625c365b574654e997a9b80ef2f17815297b0582dd4dc2",
+      "composed_mesh_count": 1658
+    },
+    "navigation": {
+      "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/start_result_navigation.usd",
+      "bytes": 4891741,
+      "sha256": "a0591ad7ab638145af5db31fa5f458a8bb549a395cea0b60f1ac1fc9e9a52ee3",
+      "composed_mesh_count": 1273
+    }
+  },
+  "stage_comparison": {
+    "shared_mesh_paths": 1273,
+    "new_meshes_in_navigation": 0,
+    "removed_meshes_from_base": 385,
+    "removed_door_meshes": 348,
+    "removed_window_meshes": 0,
+    "removed_actor_counts": {
+      "/Root/Meshes/other/door_0000": 165,
+      "/Root/Meshes/other/door_0001": 84,
+      "/Root/Meshes/other/door_0002": 52,
+      "/Root/Meshes/other/door_0004": 47,
+      "/Root/Meshes/other/door_handle_0000": 2,
+      "/Root/Meshes/other/door_handle_0001": 2,
+      "/Root/Meshes/other/door_handle_0002": 2,
+      "/Root/Meshes/other/door_handle_0003": 2,
+      "/Root/Meshes/other/door_handle_0004": 2,
+      "/Root/Meshes/other/door_handle_0005": 2,
+      "/Root/Meshes/other/doorsill_0000": 6,
+      "/Root/Meshes/other/doorsill_0001": 6,
+      "/Root/Meshes/other/doorsill_0002": 6,
+      "/Root/Meshes/other/doorsill_0003": 1,
+      "/Root/Meshes/other/doorsill_0004": 6
+    },
+    "removed_mesh_paths_sha256": "887a658e85439c6a1fd279420799f5725f665b43788059890ad2d2632065422c",
+    "shared_world_matrix_max_difference": 0.0,
+    "shared_active_or_visibility_difference_count": 0,
+    "description": "Navigation composition removes door geometry; common mesh paths retain their world transforms, activation and visibility. No coordinate offset correction is required.",
+    "removed_door_actor_count": 4,
+    "removed_door_handle_meshes": 12,
+    "removed_doorsill_meshes": 25
+  },
+  "evaluator_selection_evidence": {
+    "local_source_file": "/mnt/pfs/tanshenghan/ECCV_2026/vlnverse_emr/vlnverse/evaluator/utils/common.py",
+    "source_sha256": "30eaf83ddb2a8f44768f69185215970156179f5c5a37d0352cb55fc765eef506",
+    "function": "load_kujiale_scene_usd",
+    "function_start_line": 290,
+    "function_end_line": 303,
+    "source_excerpt": "def load_kujiale_scene_usd(kujiale_iros_data_dir, scan):\n    \"\"\"Load scene USD based on the scan\"\"\"\n    scene_usd_path = os.path.join(kujiale_iros_data_dir, scan, 'start_result_navigation.usd')\n    if not os.path.exists(scene_usd_path):\n        if 'kujiale' in scan and 'fix' in scan:\n            scan_no_fix = scan.replace('_fix','')\n            scene_usd_path = os.path.join(kujiale_iros_data_dir, scan, f'{scan_no_fix}.usda')\n        else:\n            scene_usd_path = os.path.join(kujiale_iros_data_dir, scan, f'{scan}.usda')\n    if not os.path.exists(scene_usd_path):\n        log.error('Scene USD not found for scan %s', scan)\n        return None\n    return scene_usd_path\n",
+    "priority": [
+      "<assets>/<scan>/start_result_navigation.usd",
+      "<assets>/<scan>/<scan>.usda (fallback, with _fix-name handling)"
+    ],
+    "caller_path": "/mnt/pfs/tanshenghan/ECCV_2026/vlnverse_emr/vlnverse/evaluator/utils/eval.py",
+    "caller_selection_line": 51
+  },
+  "ray_evidence": {
+    "diagnostic_path": "/tmp/lightnav-vlnverse-preview-20260919/camera_ray_diagnostic.json",
+    "diagnostic_sha256": "6b805a79b8076defecebabf7aa017d9edfca0f75aac20f65d5f6334055394e04",
+    "camera_world_position_xyz": [
+      2.1971023,
+      5.5559414,
+      1.25
+    ],
+    "camera_yaw_rad": -1.65182388,
+    "camera_forward_xyz": [
+      -0.08093891838750447,
+      -0.996719063472883,
+      0.0
+    ],
+    "first_hits_in_base_scene": [
+      {
+        "distance_m": 0.9200846431459213,
+        "position": [
+          2.122631788253784,
+          4.638875484466553,
+          1.2499998807907104
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "usd_path": "/Root/Meshes/other/door_0001/Meshes/door_0001/group_0001/mesh_0029/SM_Door_0325",
+        "material_name": "MI_60ed393cd849e10001add428",
+        "material_usd_path": "/Root/Meshes/other/door_0001/Looks/MI_60ed393cd849e10001add428"
+      },
+      {
+        "distance_m": 0.9245993550092519,
+        "position": [
+          2.1222665309906006,
+          4.63437557220459,
+          1.249999761581421
+        ],
+        "normal": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "usd_path": "/Root/Meshes/other/door_0001/Meshes/door_0001/group_0001/mesh_0038/SM_Door_0478",
+        "material_name": "Glass_01",
+        "material_usd_path": "/Root/Looks/Glass_01"
+      },
+      {
+        "distance_m": 0.9296154524926867,
+        "position": [
+          2.1218605041503906,
+          4.62937593460083,
+          1.2499996423721313
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "usd_path": "/Root/Meshes/other/door_0001/Meshes/door_0001/group_0001/mesh_0038/SM_Door_0478",
+        "material_name": "Glass_01",
+        "material_usd_path": "/Root/Looks/Glass_01"
+      },
+      {
+        "distance_m": 0.9451665370838336,
+        "position": [
+          2.1206018924713135,
+          4.613875865936279,
+          1.2499995231628418
+        ],
+        "normal": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "usd_path": "/Root/Meshes/other/door_0001/Meshes/door_0001/group_0001/mesh_0029/SM_Door_0325",
+        "material_name": "MI_60ed393cd849e10001add428",
+        "material_usd_path": "/Root/Meshes/other/door_0001/Looks/MI_60ed393cd849e10001add428"
+      }
+    ],
+    "first_hit_removed_in_navigation": true,
+    "glass_hit_removed_in_navigation": true,
+    "camera_offset_02m_first_hit_distance_m": 0.7200846624432602,
+    "conclusion": "The center ray hits door_0001 at 0.9201 m and its Glass_01 pane at 0.9246 m. A 0.2 m forward camera offset merely reduces these distances and does not remove the obstruction."
+  },
+  "probe_images": {
+    "base_stage": {
+      "path": "/tmp/lightnav-vlnverse-preview-20260919/blender_probe_world/000000.png",
+      "sha256": "179f20fa5ddd24dc83be3aaad111353e419b6f97a51ab8442a3790a06022e711"
+    },
+    "navigation_stage": {
+      "path": "/tmp/lightnav-vlnverse-preview-20260919/blender_probe_navigation/000000.png",
+      "sha256": "657405128f824074ad6d6dc726e9bbc14b1f7c6df350d443aaa39deaf71849eb"
+    }
+  },
+  "visual_check": {
+    "navigation_probe_checked": true,
+    "observation": "Navigation-stage probe shows the living-room layout also present in the local Janus recollection, while the base-stage probe is blocked by the paneled door. Lighting differs under the documented approximate CPU renderer.",
+    "local_janus_reference": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/collections/janusvln_rgb_40shard_v2/fine/shards/shard-38/images/kujiale_0018_2_2/000000_MOVE_FORWARD.png",
+    "reference_source_type": "local derived Janus recollection, not an official RGB release"
+  },
+  "limits": [
+    "This report audits stage selection and a visual probe; it does not certify physics replay.",
+    "Material appearance and preview camera remain explicitly approximate.",
+    "No original asset or previous report was modified."
+  ]
+}

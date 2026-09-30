@@ -1,0 +1,367 @@
+{
+  "date": "2026-09-19",
+  "episode_id": "kujiale_0055_10_3",
+  "output_root": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3",
+  "source_manifest": {
+    "source_format": "vlnverse_official_parquet",
+    "source_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/official/kujiale_0055/10_3/data/chunk-000/episode_000000.parquet",
+    "source_sha256": "57bbba3802a0df65342f56affd4ac15960b27c0cd562c4f5ef7a396398c23412",
+    "source_order_columns": [
+      "frame_index",
+      "observation.step"
+    ],
+    "source_coordinate_system": "world_xyz_z_up",
+    "source_timestamp_semantics": "unverified_source_values_not_seconds",
+    "finish_status": "success",
+    "metadata_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/official/kujiale_0055/10_3/meta/episodes.jsonl",
+    "metadata_sha256": "c1796e0c6b5b653afab6864c288bc13b029dfbf26997ddf6f4913fe2ce363ad1",
+    "source_metadata": {
+      "episode_id": "10_3",
+      "instruction_text": "Walk forward through the doorway, passing the dining table on your left. Continue straight, keeping the living room with the sofa and TV on your right, moving towards the large window. Turn right into the utility area and stop in front of the sink and washing machine.",
+      "instruction_tokens": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finish_status": "success",
+      "fail_reason": null
+    }
+  },
+  "instruction": "Walk forward through the doorway, passing the dining table on your left. Continue straight, keeping the living room with the sofa and TV on your right, moving towards the large window. Turn right into the utility area and stop in front of the sink and washing machine.",
+  "method": "ordered_checkpoint_astar_quintic_curve",
+  "source_poses": 67,
+  "previous_smooth_poses": 331,
+  "planned_poses": 664,
+  "source_length_m": 14.500000000000004,
+  "sampled_planned_length_m": 14.550865770498106,
+  "motion_duration_s": 44.2,
+  "video_duration_s": 44.266666666666666,
+  "sample_hz": 15,
+  "video_fps": 15,
+  "previous_in_place_turns": 8,
+  "planned_in_place_turns": 0,
+  "interior_stops": 0,
+  "planning": {
+    "planner": "cost_aware_8_connected_astar_with_ordered_source_corridors",
+    "curve": "clamped_C4_quintic_interpolating_spline",
+    "waypoint_indices": [
+      0,
+      8,
+      29,
+      49,
+      60,
+      66
+    ],
+    "certificate": {
+      "certified": true,
+      "method": "recursive_bezier_hull_capsules",
+      "footprint_radius_m": 0.3,
+      "corridor_half_width_m": 0.5,
+      "leaves": 17,
+      "max_depth": 1,
+      "max_leaf_enclosure_radius_m": 0.10176380902050282,
+      "min_parameter_speed_lower_bound": 0.9482561417674945,
+      "planar_raster_only": true
+    }
+  },
+  "continuous_motion_bounds": {
+    "speed_m_s": 0.39972622433447447,
+    "accel_m_s2": 0.15791048188306894,
+    "jerk_m_s3": 0.14494314142333845,
+    "yaw_rate_rad_s": 0.30521295729661513,
+    "yaw_accel_rad_s2": 0.28910132535496835,
+    "yaw_jerk_rad_s3": 0.5543307019305007
+  },
+  "motion_config": {
+    "sample_hz": 15.0,
+    "time_law": "ramp_cruise",
+    "ramp_fraction": 0.1,
+    "max_speed_m_s": 0.4,
+    "max_accel_m_s2": 0.5,
+    "max_jerk_m_s3": 1.0,
+    "max_yaw_rate_rad_s": 0.8,
+    "max_yaw_accel_rad_s2": 1.0,
+    "max_yaw_jerk_rad_s3": 2.0,
+    "certificate_subdivisions": 32,
+    "max_regularity_depth": 18,
+    "minimum_tangent_norm": 1e-08,
+    "join_tolerance": 1e-06,
+    "max_samples": 200000
+  },
+  "independent_validation": {
+    "validation": "independent_read_only_0055_planned_output",
+    "passed": true,
+    "formal_output": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3/planned",
+    "input_sha256": {
+      "source_poses": "3a973936ddfac26a94c5061ea7a19a169dd9fac3df9d768ed15a509711c15fe3",
+      "trajectory": "cb537f271032b84e7a7e550348d90170307bc39e23c03b6c1f98f6f5c9d3b6da",
+      "planned_curve": "2a2582ba0c7e6be324f45dd2966b6904f31fc0d95474a30280d8124199285891"
+    },
+    "hash_checks": {
+      "source_poses": true,
+      "trajectory": true,
+      "planned_curve": true,
+      "official_parquet": true,
+      "map": true
+    },
+    "source": {
+      "frames": 67,
+      "official_parquet_exact_position_and_yaw_match": true,
+      "length_m": 14.500000000000004,
+      "inplace_turn_count": 8,
+      "inplace_source_interval_start_indices": [
+        7,
+        29,
+        49,
+        54,
+        57,
+        59,
+        61,
+        64
+      ]
+    },
+    "curve": {
+      "bezier_segments": 9,
+      "guide_points": 10,
+      "parameter_units": "cumulative_guide_chord_metres_not_arc_length",
+      "endpoint_position_error_m": 1.790180836524724e-15,
+      "endpoint_yaw_error_rad": 1.3322676295501878e-15,
+      "maximum_C4_join_errors_orders_0_to_4": [
+        1.831026719408895e-15,
+        5.8330473478720454e-15,
+        4.251460294923959e-14,
+        9.493564083890151e-14,
+        1.997024293259212e-13
+      ],
+      "checkpoint_matches": [
+        {
+          "source_index": 0,
+          "curve_knot_index": 0,
+          "position_error_m": 0.0
+        },
+        {
+          "source_index": 8,
+          "curve_knot_index": 1,
+          "position_error_m": 0.0
+        },
+        {
+          "source_index": 29,
+          "curve_knot_index": 4,
+          "position_error_m": 0.0
+        },
+        {
+          "source_index": 49,
+          "curve_knot_index": 7,
+          "position_error_m": 0.0
+        },
+        {
+          "source_index": 60,
+          "curve_knot_index": 8,
+          "position_error_m": 0.0
+        },
+        {
+          "source_index": 66,
+          "curve_knot_index": 9,
+          "position_error_m": 1.790180836524724e-15
+        }
+      ],
+      "continuous_length_lower_m": 14.550887777649852,
+      "continuous_length_upper_m": 14.550887786422999,
+      "length_bound_method": "12 levels de Casteljau; sum of endpoint chords <= arc length <= sum of control polygons",
+      "maximum_deviation_from_source_polyline_lower_m": 0.104127566916929,
+      "maximum_deviation_from_source_polyline_upper_m": 0.10435777539306881,
+      "min_centerline_clearance_lower_m": 0.3383518635551359,
+      "min_centerline_clearance_upper_m": 0.3385820720312757,
+      "min_remaining_clearance_outside_030m_envelope_lower_m": 0.03835186355513592,
+      "geometric_bound_method": "Euclidean dense point-to-rectangle/polyline distances plus 1-Lipschitz unsampled error from leaf control-polygon length",
+      "dense_reference_points": 36865,
+      "unsampled_distance_error_bound_m": 0.0002302084761398122,
+      "ordered_leg_certificates": [
+        {
+          "source_start": 0,
+          "source_end": 8,
+          "certificate": {
+            "certified": true,
+            "method": "recursive_bezier_hull_capsules",
+            "footprint_radius_m": 0.3,
+            "corridor_half_width_m": 0.5,
+            "leaves": 2,
+            "max_depth": 1,
+            "max_leaf_enclosure_radius_m": 0.020189150064930547,
+            "min_parameter_speed_lower_bound": 0.988586108598516,
+            "planar_raster_only": true
+          }
+        },
+        {
+          "source_start": 8,
+          "source_end": 29,
+          "certificate": {
+            "certified": true,
+            "method": "recursive_bezier_hull_capsules",
+            "footprint_radius_m": 0.3,
+            "corridor_half_width_m": 0.5,
+            "leaves": 6,
+            "max_depth": 1,
+            "max_leaf_enclosure_radius_m": 0.02686285319520435,
+            "min_parameter_speed_lower_bound": 0.9787503582312845,
+            "planar_raster_only": true
+          }
+        },
+        {
+          "source_start": 29,
+          "source_end": 49,
+          "certificate": {
+            "certified": true,
+            "method": "recursive_bezier_hull_capsules",
+            "footprint_radius_m": 0.3,
+            "corridor_half_width_m": 0.5,
+            "leaves": 6,
+            "max_depth": 1,
+            "max_leaf_enclosure_radius_m": 0.01944150279689425,
+            "min_parameter_speed_lower_bound": 0.9482561417674945,
+            "planar_raster_only": true
+          }
+        },
+        {
+          "source_start": 49,
+          "source_end": 60,
+          "certificate": {
+            "certified": true,
+            "method": "recursive_bezier_hull_capsules",
+            "footprint_radius_m": 0.3,
+            "corridor_half_width_m": 0.5,
+            "leaves": 2,
+            "max_depth": 1,
+            "max_leaf_enclosure_radius_m": 0.08239511532034738,
+            "min_parameter_speed_lower_bound": 0.978521353085431,
+            "planar_raster_only": true
+          }
+        },
+        {
+          "source_start": 60,
+          "source_end": 66,
+          "certificate": {
+            "certified": true,
+            "method": "recursive_bezier_hull_capsules",
+            "footprint_radius_m": 0.3,
+            "corridor_half_width_m": 0.5,
+            "leaves": 1,
+            "max_depth": 0,
+            "max_leaf_enclosure_radius_m": 0.10176380902050282,
+            "min_parameter_speed_lower_bound": 0.9659258262890632,
+            "planar_raster_only": true
+          }
+        }
+      ]
+    },
+    "samples": {
+      "count": 664,
+      "duration_s": 44.2,
+      "sample_hz": 15.0,
+      "sampled_chord_length_m": 14.550865770498106,
+      "maximum_position_reconstruction_error_m": 3.66205343881779e-15,
+      "maximum_yaw_tangent_error_rad": 4.440892098500626e-16,
+      "maximum_lateral_reference_velocity_m_s": 1.8041124150158794e-16,
+      "minimum_interior_forward_speed_m_s": 1.2185006251258516e-05,
+      "inplace_turn_count": 0,
+      "interior_stops": 0,
+      "all_chords_pass_030m_swept_disc": true
+    },
+    "limitations": [
+      "Bounds cover calibrated canonical 2D raster and circular footprint only, not full 3D dynamics.",
+      "Checkpoint order and corridor preserve reviewed route constraints; this does not automatically validate every instruction clause.",
+      "Values and bounds use float64 arithmetic with a 1e-10 m audit allowance; this is not an arbitrary-precision formal proof.",
+      "Yaw/velocity checks describe the planned reference, not physical execution."
+    ]
+  },
+  "videos": {
+    "planned.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3/review/planned.mp4",
+      "sha256": "1d2863f36a107835af9b14330d32fbd3bee85a6311a49d84c108878e431d614e",
+      "fully_decoded": true,
+      "frames": 664,
+      "fps": 15.0,
+      "duration_s": 44.266666666666666,
+      "width": 480,
+      "height": 680,
+      "timestamps_match_reference": true
+    },
+    "before_after.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3/review/before_after.mp4",
+      "sha256": "30d4cb880774c708f7635de787598c695d0535bcd72454dc5a4392b667eb9e1c",
+      "fully_decoded": true,
+      "frames": 664,
+      "fps": 15.0,
+      "duration_s": 44.266666666666666,
+      "width": 960,
+      "height": 646,
+      "timestamps_match_reference": true
+    },
+    "clean_rgb": {
+      "frames": 664,
+      "unique_png_files": 664,
+      "rgb_mae_start_to_5s": 66.82466049382717,
+      "rgb_mae_start_to_end": 71.19510416666667
+    }
+  },
+  "comparison": {
+    "path": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3/review/comparison_manifest.json",
+    "sha256": "bf28727ecbfc9e8e27454d963bcbf594753244e594a12679a214c6e7f52e4d5d",
+    "left_reference_timing_preserved": false,
+    "right_reference_timing_preserved": true,
+    "previous_omitted_pose_indices": [
+      16,
+      80,
+      87,
+      94,
+      101,
+      109,
+      185,
+      192,
+      199,
+      205,
+      215,
+      260
+    ],
+    "all_eight_old_turn_intervals_fully_displayed": true,
+    "future_horizon_poses": 30,
+    "future_horizon_s": 2
+  },
+  "render": {
+    "path": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3/render/planned/render_manifest.json",
+    "sha256": "c1c3b22e1322f20320da8e760f7df43224d8e38a1176942c94bef4f7e8cf9c95",
+    "scene": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0055/start_result_navigation.usd",
+    "physics_replayed": false,
+    "isaac_equivalent": false
+  },
+  "provenance": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3/provenance/snapshot_manifest.json",
+  "validation": {
+    "tests_passed": 434,
+    "test_command": "PYTHONPATH=src data_pipeline/.venv/lerobot/bin/python -m pytest data_pipeline/vlnverse/tests tests/viz -q",
+    "ruff_passed": true,
+    "independent_math_review_passed": true,
+    "fully_decoded_videos": true,
+    "visual_review_frames": [
+      0,
+      332,
+      450,
+      525,
+      600,
+      663
+    ]
+  },
+  "limitations": [
+    "Synthetic reference motion and planar static footprint validation; no physical robot rollout.",
+    "Blender uses approximate materials/lighting and selected camera calibration.",
+    "Original instruction retained under ordered checkpoints and source-route corridor; not automatic semantic verification.",
+    "Shared LightNav future ribbon has a visual forward offset and no depth occlusion.",
+    "Left comparison clock normalized to the right duration, so spatial progress may differ."
+  ]
+}

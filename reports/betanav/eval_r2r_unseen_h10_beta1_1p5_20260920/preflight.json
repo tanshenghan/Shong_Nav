@@ -1,0 +1,9 @@
+{
+  "all_1839_gt_entries_present": true,
+  "all_11_scene_files_present": true,
+  "habitat_imports_ok": true,
+  "client_imports_ok": true,
+  "torch": "2.10.0+cu129",
+  "checkpoint_complete": true,
+  "fm_horizon": 10
+}

@@ -14,12 +14,115 @@ ZeRO-1 只分片优化器状态，模型参数和梯度仍在每张卡上保留�
 GPU 实时监控、每卡耗时/数据等待、TFLOPS 估算和 CUDA 时间线见
 [TRAINING_PERFORMANCE.md](TRAINING_PERFORMANCE.md)。
 
+## FM + StopHead
+
+新配置 [r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5.yaml](../configs/betanav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5.yaml)
+匹配现有 36 层、H=30 的 FM 专家，新增独立停止头。VLM 完全冻结；FM 和 StopHead
+共享一次主干编码、分别接受 FM 和 STOP 损失。旧配置保持原有模式。
+
+### 平台排队的一行启动命令
+
+把以下命令填写到平台的作业启动命令中，平台分配 GPU 后会运行脚本：
+
+```bash
+exec bash /mnt/pfs/tanshenghan/vln4project/LightNav-0/scripts/train_betanav_fm_stop.sh
+```
+
+脚本以前台 `exec` 交给 `python -m torch.distributed.run`，适用于单机多卡。
+它尊重平台设置的 `CUDA_VISIBLE_DEVICES`，默认使用全部可见 GPU，不再次运行本地等待队列。
+例如申请 4 卡时可显式在命令后加 `--num-gpus 4`。
+默认从 `/mnt/cfs/Models/Light` 加载并冻结原始 VLM，**全新初始化 FM 和 StopHead**。
+不传 `--warm-start` 或 `--resume`。默认输出目录为
+`/mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5`。
+
+默认每卡 batch=8、全局 batch=512，自动推导梯度累积次数：4 卡为 16，8 卡为 8。
+三轮完整 R2R 数据；沿用 36 层 prefix KV、H=30、Beta(1,1.5)、BF16 和 ZeRO-1。
+每 1,000 步保存完整训练状态并保留最新三份，每 3,000 步额外保留永久模型归档。
+实际 GPU 需容纳冻结 VLM 与完整动作专家；没有 CUDA 时会报错，不自动转 CPU 训练。
+
+启动入口会在缺少 STOP manifest 时生成并审计，已有 manifest 则校验来源。
+每次写出独立的 `runs/betanav_launch/*_fm_stop_platform/` 启动记录与有效配置，
+不改原始 YAML。已有训练输出目录要求显式 `--resume auto`，精确恢复仍要求相同 GPU
+数量、batch/累积和训练契约；使用新 `--output-dir` 可启动另一个独立实验。
+
+可以在不启动训练、不加载模型权重的情况下先准备输入：
+
+```bash
+bash /mnt/pfs/tanshenghan/vln4project/LightNav-0/scripts/train_betanav_fm_stop.sh \
+  --prepare-only --num-gpus 4
+```
+
+默认使用独立 `.venv-train-stop/`，由
+`scripts/setup_betanav_stop_train.sh` 复用本仓库已经安装的 Torch/Transformers 和训练依赖，
+无需网络下载。此环境使用仓库内可执行的 Python 3.11，避免原 `.venv-train/bin/python`
+指向不可访问的外部 runtime。可用 `BETA_TRAIN_PYTHON=/absolute/python` 显式指定其他完整
+训练环境；第一次建立默认环境时可用 `BETA_STOP_BOOTSTRAP_PYTHON` 指定 Python 3.11。
+
+这里的启动命令是提交训练作业的 shell 命令。导航语言指令来自每条 R2R episode 的
+`meta/episodes/*.parquet` 中的 `tasks` 字段，读取器自动将其与截至当前时刻的 RGB 历史
+组合成连续轨迹 prompt；无需在启动命令中逐条输入导航文本。
+
+### 手动准备与权重迁入
+
+先生成独立审计 manifest（只读现有数据，不重写 Parquet、图片或 provenance）：
+
+```bash
+.venv-train/bin/python -m lightnav.training.prepare_data \
+  /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912 \
+  --output configs/betanav/data/r2r_all_train_stop_v1.json \
+  --val-fraction 0 --with-stop-labels \
+  --normalization-from configs/betanav/data/r2r_all_train_20260913.json
+
+.venv-train/bin/python train_betanav.py \
+  --config configs/betanav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5.yaml --dry-run
+
+.venv-train/bin/torchrun --standalone --nproc_per_node=8 train_betanav.py \
+  --config configs/betanav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5.yaml \
+  --warm-start /mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_all36_beta1_1p5
+```
+
+`--warm-start PATH` 仅用于 `fm_only → fm_stop`，接受已提交的完整 checkpoint、model-only
+归档或 run 目录；不能与 `--resume` 同用。它复制冻结 VLM 和已训练 FM、随机初始化停止头，
+重新开始 Adam、调度与数据游标。模型架构、选层、horizon、动作尺度、时间分布和输入处理须匹配。
+`warm_start.json` 记录来源。这是新实验，不能宣称从源 checkpoint 精确续训。
+不传 `--warm-start` 则从原始 LightNav 与全新专家/停止头训练。
+此后可用同一配置 `--resume auto` 恢复所有分支、Adam、RNG 和数据游标。
+
+| 新 YAML 参数 | 初始值 | 含义 |
+| --- | --- | --- |
+| `training_mode` | `fm_stop` | 启用独立停止监督 |
+| `stop_head_type` | `last_prefix_mlp_v1` | 前缀末有效 token 的 MLP 分类头；旧模式为 `none` |
+| `stop_hidden_size` | `256` | StopHead 中间宽度 |
+| `lambda_stop` | `1.0` | 停止损失系数，fm_stop 必须大于零 |
+| `lr_stop` / `clip_stop` | `1e-4` / `1.0` | 独立 AdamW 学习率与梯度裁剪 |
+
+审计使用 raw `action.explicit_stop`、`action.stop_loss_valid` 和成功完成的 episode provenance；
+仅确认成功的终止帧为正例，有真实后继的非终止帧为负例（包括不足 RVQ horizon 的尾部）。
+失败或未知 episode 的停止标签忽略，FM 仍使用原有效 mask。metadata 中原有
+`info.explicit_stop` 不充当训练依据。标签规则、split、来源及 raw 列指纹写入 manifest，
+启动时复核。正例权重固定为训练集 `N_negative/N_positive`，总损失为
+`lambda_fm * FM + lambda_stop * weighted_BCE`；停止分母为有效权重之和。
+终止帧没有未来动作，也可以独立更新 StopHead。全局某分支无监督时跳过该分支 AdamW，
+全局 step 和 LR 调度仍按已消费的累积窗口推进。
+
+R2R 仍使用全部 episode，`eval_every: 0`；原有 777 条已进入训练集，不能用作独立阈值验证集。
+先用默认停止阈值 0.5；加权训练的 sigmoid 是分数，实际阈值需用独立场景导航验证。
+训练记录 `train_stop`、`stop_weight_sum`、`stop_samples`、`stop_positives`、
+`stop_updates`、`lr_stop` 和 `grad_norm_stop`，checkpoint 契约保存标签版本与来源 manifest hash。
+
+服务使用 `--beta_checkpoint PATH --beta_stop_mode learned --beta_stop_threshold 0.5`，
+Habitat 使用 `--action_output fm --beta_checkpoint PATH --fm_only_stop_mode learned --stop_threshold 0.5`。
+两者加载 `fm_stop` 时默认 learned，且只在 CONTINUE 后执行 FM。旧无头 checkpoint
+不能直接启用 learned。当前任务一旦 STOP 就保持完成，reset/new task 后才恢复推理。
+
 ## 冻结原始 VLM、仅训练 FM
 
 配置为 [r2r_fm_only.yaml](../configs/betanav/r2r_fm_only.yaml)，从
 `/mnt/cfs/Models/Light` 初始化冻结的 VLM，重新初始化动作专家，不加载上一轮 BetaNav。
 `training_mode: fm_only` 同时控制模型和读取器：只使用 prompt 的 hidden states 与原始
-连续轨迹监督，不读取 RVQ 码本或 token GT。只有 FM AdamW/ZeRO 状态，loss 为 `2.0 × FM`。
+连续轨迹监督，不读取 RVQ 码本或 token GT。只有 FM AdamW/ZeRO 状态，当前配置的
+`lambda_fm: 1.0`，loss 为 `1.0 × FM`。已完成的 2026-09-16 实验使用 `2.0 × FM`，
+其日志与 checkpoint 配置快照记录的是当时的训练设置。
 冻结主干以 BF16 执行无梯度前向；FM 投影与专家仍保留 FP32 参数。无需主干梯度检查点。
 
 `num_epochs: 3` 按实际分布式 DataLoader 长度计算 `max_steps`，包括每轮最后不足一个
@@ -41,6 +144,153 @@ batch 的数据。每卡 batch 为 B、8 卡、无梯度累积时，每轮更新
 恢复；旧契约缺省按 `ce_fm`、`num_epochs=null` 解释。
 
 下文的双优化器、RVQ、STOP 和主干学习率说明适用于默认 CE+FM 配置。
+
+### 30 步 Prefix KV 联合注意力变体
+
+配置为 [r2r_fm_only_h30_prefix_kv_beta1_1p5.yaml](../configs/betanav/r2r_fm_only_h30_prefix_kv_beta1_1p5.yaml)。
+选择 `expert_architecture: prefix_kv_v1` 和 `prefix_layers: [6,12,18,24,30,36]`，
+从冻结 LightNav 的这六个 Transformer 层取原生 K/V，各自供一个动作专家层读取。
+每层动作 Query 对 prefix 和动作 Key/Value 做一次联合 attention，时间通过
+attention/FFN 前的 AdaRMSNorm 注入；仅保留选定层的 prefix KV，沿用 Qwen 的原生
+head dimension 和多模态位置编码。残差宽度 512、6 层、FFN 2048，Query heads=32，
+实际 KV heads/head dimension/RoPE 参数由 backbone 推导和检查。
+模型接口与梯度关系见 [BETA_MODEL.md](BETA_MODEL.md#选层-prefix-kv--时间自适应归一化30-步)。
+
+`fm_horizon: 30` 使用已存储的 30 步真实局部增量及有效 mask，无需重新生产 LeRobot 数据。
+仍保持 Beta(1,1.5)、`lambda_fm: 1.0`、原始 VLM 完全冻结、仅训练全新动作专家，不使用
+CE/RVQ 标签，也不新增 STOP loss。推理的 `num_flow_steps: 10` 为积分次数；输出为 `30×3`。
+STOP 若采用冻结原始 LightNav，仍使用独立 RVQ prompt，不复用 FM 的 prefix KV。
+
+`--tiny-model` 可用于该配置的基础设施检查：保留选层所需的层数和 Query heads，
+缩小主干宽度与 head dimension，随机初始化且不加载预训练权重。其 checkpoint 不能
+用于正式模型续训，运行结果也不代表导航能力。
+
+该架构的显存/吞吐尚未实测。新 YAML 先设每卡 batch=8、累积 8、八卡全局 batch=512，
+这是待 profiling 的初始设置，不能据此前架构每卡 64 的测量推断其容量或训练耗时。
+三轮数据预计仍为 3,699 个更新窗口，由实际 loader 重新计算；每轮尾部累计窗口含
+464 个全局样本。LR=1e-4、warmup=1,000、cosine floor=0.1，未自动缩放学习率。
+正式启动前应在空闲 GPU 上用已有 `profile_batch` 测量完整前后向与 optimizer 更新。
+例如选择可用的 GPU、按逐步增大的 microbatch 测量，并保留每卡每次更新 64 个样本：
+
+```bash
+CUDA_VISIBLE_DEVICES=0 NCCL_DEBUG=WARN \
+.venv-train/bin/python -m lightnav.training.profile_batch \
+  --config configs/betanav/r2r_fm_only_h30_prefix_kv_beta1_1p5.yaml \
+  --batches 1 2 4 8 --per-rank-batch 64 --warmup 1 --steps 2 \
+  --report reports/betanav/NEW_h30_prefix_kv_profile.json
+```
+
+测量通过后，八卡启动入口沿用训练器：
+
+```bash
+CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
+.venv-train/bin/accelerate launch \
+  --config_file configs/betanav/accelerate_8gpu.yaml \
+  train_betanav.py --config configs/betanav/r2r_fm_only_h30_prefix_kv_beta1_1p5.yaml
+```
+
+本配置是新实验，默认输出到
+`/mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_beta1_1p5`，不覆盖 H=10 或旧 H=30 目录。
+关闭验证，保存策略仍为每 1,000 步完整 checkpoint 保留最近三份，每 3,000 步永久
+模型归档，最终再保存完整状态。`expert_architecture`、`prefix_layers`、`fm_horizon`
+参与精确恢复契约；旧缺省架构解释为 `cross_attention_v1`、空选层列表，兼容其原有恢复。
+切换架构或选层必须新建实验；禁止把旧专家/Adam 当成该新架构的精确恢复来源。
+这份配置和以上命令的添加本身不会启动训练。
+
+### 全 36 层 Prefix KV 变体（2026-09-21）
+
+[全层配置](../configs/betanav/r2r_fm_only_h30_prefix_kv_all36_beta1_1p5.yaml)
+将 `prefix_layers` 完整展开为 1–36，`expert_num_layers` 设为 36。
+每个动作层读取对应 VLM 层的原生 K/V；共有 359,802,371 个可训练专家参数。
+沿用原始冻结 LightNav、新初始化专家、30 步动作、Beta(1,1.5)、`1.0 × FM`、
+LR=1e-4、warmup=1,000、不验证，以及完整状态/永久模型的双保存策略。
+独立输出目录为 `/mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_all36_beta1_1p5`。
+
+基础 YAML 保守设为每卡 batch=8、累积8；GPU profile 后可生成独立的实际运行配置。
+八卡有效 batch 固定512，因此三轮仍为3,699次更新。微批量和累积次数必须在首次
+训练保存前固定；六层专家的 checkpoint 不能作为全36层的严格恢复来源。
+固定输入大小下，前缀 KV 缓存量是六层版的6倍；总显存和耗时应重新测量。
+现有 `gradient_checkpointing` 不会自动给 FM 动作专家启用 activation checkpointing。
+
+启动材料位于 `runs/betanav_launch/20260921T083422Z_fm_only_h30_prefix_kv_all36_beta1_1p5_8gpu/`。
+`train_config.yaml` 是冻结的准备配置；`profile_and_select.py` 在空闲 GPU 上用真实长历史
+数据测量完整前向、反向和参数更新，生成 `effective_train_config.yaml` 后才启动八卡训练。
+启动器先训练10步并验证完整保存，然后自动恢复到3,699步。
+`launch.json` 记录实际阶段，GPU繁忙时是否已排队以 `schedule_state.json` 为准，
+文件存在或状态 `prepared` 本身不表示训练已开始。
+
+### 未来 10 步的三组 FM-only 实验（2026-09-18）
+
+`fm_horizon: 10` 同时配置读取器和动作专家。原始数据保留 30 步，读取器校验后取前
+10 个连续 SE(2) 增量及 mask；没有抽样或插值，也不减少样本帧数。每条训练 GT、
+专家流场和推理动作均为 `10×3`，组合后的局部航点也是 `10×3`。
+`num_flow_steps: 10` 仍表示积分次数；两个参数互相独立。
+
+按以下顺序分别使用八卡训练，每组从冻结的原始 LightNav 和全新 FM 专家开始：
+
+| 配置 | 时间分布 |
+|---|---|
+| [r2r_fm_only_h10_beta1_1p5.yaml](../configs/betanav/r2r_fm_only_h10_beta1_1p5.yaml) | Beta(1,1.5) |
+| [r2r_fm_only_h10_beta12.yaml](../configs/betanav/r2r_fm_only_h10_beta12.yaml) | Beta(1,2) |
+| [r2r_fm_only_h10_beta13.yaml](../configs/betanav/r2r_fm_only_h10_beta13.yaml) | Beta(1,3) |
+
+三组均使用 seed=42、`1.0 × FM`、batch=64/card、全局 512、三轮 3,699 步，
+沿用相同 LR、warmup、动作尺度、数据清单及 checkpoint 策略。预计每版约十小时，
+实际按 epoch 完成，不设十小时强制停止。后续任务等待前一个退出和 GPU 空闲。
+不覆盖以前的 H=30 实验；训练契约缺省 horizon 按 30 解释，跨 horizon 禁止精确续训。
+
+### Beta(1,2) 时间采样实验
+
+[r2r_fm_only_beta12.yaml](../configs/betanav/r2r_fm_only_beta12.yaml) 为独立实验：
+冻结原始 LightNav、重新初始化专家、`lambda_fm: 1.0`，使用 GPU 0–7、每卡 batch=64，
+全局 batch=512，三轮 3,699 步。输出目录为
+`/mnt/cfs/Models/beta_nav/r2r_fm_only_beta12_frozen_lightnav_20260917`。
+
+```yaml
+flow_time_distribution: beta
+flow_time_alpha: 1.0
+flow_time_beta: 2.0
+```
+
+`tau=0` 对应噪声，`tau=1` 对应干净 GT。Beta(1,2) 的平均 tau 为 1/3，
+噪声系数至少为 0.7 的概率为 51%。GT/mask 仍来自原始连续轨迹，训练目标为 FM MSE。
+三个采样配置字段参与精确恢复契约，旧 checkpoint 缺省解释为均匀采样；切换分布应新建
+实验，不能混用优化器恢复状态。若启用现有验证器，它显式使用固定 RNG 的均匀时间采样，
+便于比较不同训练采样方案；本 R2R 配置仍关闭验证。
+
+### Beta(1,3) 与延迟启动
+
+[r2r_fm_only_beta13.yaml](../configs/betanav/r2r_fm_only_beta13.yaml) 沿用 Beta(1,2)
+的全部训练设置，仅将 `flow_time_beta` 改为 `3.0` 并使用独立输出目录
+`/mnt/cfs/Models/beta_nav/r2r_fm_only_beta13_frozen_lightnav_20260918`。
+仍从原始 LightNav 和新专家开始；平均 tau 为 1/4，噪声系数至少为 0.7 的概率为 65.7%。
+
+服务器一次性队列使用 `python -m lightnav.training.scheduled_launch --schedule PATH`。
+`--check` 仅验证冻结文件和当前可启动条件，不创建训练进程。
+准备好包含 `supervisor.py`、`train_config.yaml` 和状态为 `prepared` 的 `launch.json`
+的启动目录后，传入以下 JSON（路径必须为实际绝对路径）：
+
+```json
+{
+  "repository": "/absolute/repository",
+  "launch_dir": "/absolute/prepared_launch",
+  "not_before_utc": "2026-09-17T17:08:44+00:00",
+  "wait_for_launch_dir": "/absolute/previous_launch",
+  "gpu_indices": [0, 1, 2, 3, 4, 5, 6, 7],
+  "poll_seconds": 30,
+  "prepared_sha256": {
+    "/absolute/prepared_launch/train_config.yaml": "SHA256",
+    "/absolute/prepared_launch/supervisor.py": "SHA256"
+  }
+}
+```
+
+队列最早在指定时间触发；此前一轮结束后，再等待无训练/分析进程、无 GPU compute
+进程且所需八卡显存各不超过 1 GiB。检查失败继续等待，不中断已有任务。
+`wait_for_launch_dir` 可省略；`poll_seconds` 默认为 30，支持 1–60 秒。
+文件锁与 `schedule_state.json` 防止重复启动，启动前再次核对冻结文件哈希；
+状态文件记录排队 PID、等待原因、启动后的 supervisor PID 和最终结果。
+此队列是服务器后台进程，须保持服务器/容器在线，不自动恢复重启后的任务。
 
 ## 参考与取舍（CE+FM）
 

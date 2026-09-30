@@ -1,0 +1,253 @@
+{
+  "date": "2026-09-19",
+  "episode_id": "kujiale_0055_10_3",
+  "requested_min_length_m": 10,
+  "path_length_m": 14.500000000000004,
+  "original_poses": 67,
+  "smooth_poses": 331,
+  "video_fps": 15,
+  "video_duration_s": 22.066666666666666,
+  "reference_duration_s": 97.95679489880239,
+  "instruction": "Walk forward through the doorway, passing the dining table on your left. Continue straight, keeping the living room with the sofa and TV on your right, moving towards the large window. Turn right into the utility area and stop in front of the sink and washing machine.",
+  "output_root": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3",
+  "source": {
+    "source_format": "vlnverse_official_parquet",
+    "source_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/official/kujiale_0055/10_3/data/chunk-000/episode_000000.parquet",
+    "source_sha256": "57bbba3802a0df65342f56affd4ac15960b27c0cd562c4f5ef7a396398c23412",
+    "source_order_columns": [
+      "frame_index",
+      "observation.step"
+    ],
+    "source_coordinate_system": "world_xyz_z_up",
+    "source_timestamp_semantics": "unverified_source_values_not_seconds",
+    "finish_status": "success",
+    "metadata_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/official/kujiale_0055/10_3/meta/episodes.jsonl",
+    "metadata_sha256": "c1796e0c6b5b653afab6864c288bc13b029dfbf26997ddf6f4913fe2ce363ad1",
+    "source_metadata": {
+      "episode_id": "10_3",
+      "instruction_text": "Walk forward through the doorway, passing the dining table on your left. Continue straight, keeping the living room with the sofa and TV on your right, moving towards the large window. Turn right into the utility area and stop in front of the sink and washing machine.",
+      "instruction_tokens": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finish_status": "success",
+      "fail_reason": null
+    }
+  },
+  "config": {
+    "sample_mode": "per_source_step",
+    "poses_per_step": 6,
+    "sample_hz": 30.0,
+    "max_speed_m_s": 0.4,
+    "max_accel_m_s2": 0.5,
+    "max_jerk_m_s3": 1.0,
+    "max_yaw_rate_rad_s": 0.8,
+    "max_yaw_accel_rad_s2": 1.0,
+    "max_yaw_jerk_rad_s3": 2.0,
+    "robot_radius_m": 0.25,
+    "safety_margin_m": 0.05,
+    "max_heading_error_rad": 0.017453292519943295,
+    "planar_tolerance_m": 1e-05,
+    "max_merge_deviation_m": 1e-05
+  },
+  "config_sha256": "addfd0fbe85b87f7d985e4bd0888f75ca92c3276e159606dec8e70f689edd2d0",
+  "retime_code_sha256": {
+    "__init__.py": "3da75830849fdc5384d8abc099bb3985a57abd012da047762557656af79b3945",
+    "cli/__init__.py": "8f205b99a80c1bf57ab4e15f313ef39e98823cdec9e7ce23a132d2c065221597",
+    "cli/retime.py": "1411c4048ce0a61c21eb5ac3d8b55fd96c239d435c87fe436fbb3c76a46e761b",
+    "motion/__init__.py": "0e604f12fe5c36520dc3c957877ec8c6a13ec8fa895283e1d95437b72a9ef5f1",
+    "motion/retime.py": "e6731182908c8befc3cf9710a7e6a925a52798bdef74bc5a824804989d5cd3ac",
+    "replay/__init__.py": "a0f636f6e3ca9f22d0af5d46d72b5703d731335af7f14a6144363d706f672be6",
+    "replay/blender_render.py": "9757fadd060301dc6a235b99e591a0c366a5798cb049b7d7ea6d75d01f49cfbf",
+    "replay/compare.py": "c5d0716939413aa66fe16f8df03655ab332db0c847dff5c8f227d30f90d5da7a",
+    "replay/future_path.py": "f4afbaeb0e24ee4fa83d710e0948e57c7c4ce2294d1e152e2944e76006b8b820",
+    "replay/isaac_render.py": "4b0a4f64c0e70cbd95dcc497a4f22805ae962a4d6863aec9769313dbd267cdda",
+    "replay/usd_materials.py": "2dc23600846ab5bb4fcc193af3863193c947cabc2bebacaf6b913089f80a7d15",
+    "replay/usd_scene.py": "ab77efa29298fc6328d4728b84ea61b4f912a3d6a05fceeac2b071ef2cbb77a5",
+    "replay/video_layout.py": "4b3d7a1162172091642f732c5cc458125169373f348827fdaa6972ae7d6c3be8",
+    "replay/viz_style.py": "0a2bccac4b3b8722981dc67d4f87a64ff70476a36d453f9e5c98c2d1a48defb0",
+    "scene/__init__.py": "1ba87c58096a5dea7d6b90e80fc5a258b9db3940a7a8b399fc931d1decd7f42e",
+    "scene/occupancy.py": "d05ec8939f0f8285e02d3bd3202651cec9a3404708be8d7859ed474afe71e91f",
+    "scene/official_map.py": "8b6ab4034880386e5f90f3f9efb61edd80027bd0a7230a3fdd332cef15d69529",
+    "source/__init__.py": "287881596142d462a16ac80539025f9b6c6c3e92eb1f3420ec5b990cef0a0d58",
+    "source/official.py": "882417d31b35f557db98c9835b4ff25d4bea177e6a6a11ae5df3378d6b33b9d1",
+    "source/rgb.py": "e1210ab0e037e1e610b381a0c28ea69f61b16e334e0930d11bda3be17f067192",
+    "validation/__init__.py": "74073ee76c44e32a40f4746aa93476aa220c9471675a5bec4ac4da6d3390ee10",
+    "validation/motion.py": "9c7d6afc642b1db0acf5c04423fff5524a2759433f8430b4b6b657b648f6c0e0"
+  },
+  "motion_quality": {
+    "valid": true,
+    "frames": 331,
+    "duration_s": 97.95679489880239,
+    "sampling_mode": "per_source_step",
+    "sample_hz": null,
+    "poses_per_source_step": 6,
+    "uniform_timestamps": false,
+    "time_basis": "synthetic_retimed_seconds",
+    "primitive_count": 17,
+    "maxima": {
+      "velocity_xyz": 0.39999999999999974,
+      "acceleration_xyz": 0.41940313298696863,
+      "jerk_xyz": 1.0000000000000036,
+      "yaw_rate_rad_s": 0.2665003247997813,
+      "yaw_accel_rad_s2": 0.4672441182893381,
+      "yaw_jerk_rad_s3": 1.5360000000000036
+    },
+    "continuous_maxima": {
+      "velocity_xyz": 0.3999999999999998,
+      "acceleration_xyz": 0.42531243325861345,
+      "jerk_xyz": 1.000000000000002,
+      "yaw_rate_rad_s": 0.30122016601537743,
+      "yaw_accel_rad_s2": 0.5441612555114128,
+      "yaw_jerk_rad_s3": 2.0000000000000036
+    },
+    "collision_check": "exact_swept_disc_against_closed_2d_grid_cells",
+    "footprint_radius_with_margin_m": 0.3,
+    "simulator_replayed": false,
+    "measured_physical_timing": false
+  },
+  "review_code_sha256": {
+    "data_pipeline/vlnverse/replay/usd_materials.py": "2dc23600846ab5bb4fcc193af3863193c947cabc2bebacaf6b913089f80a7d15",
+    "data_pipeline/vlnverse/replay/__init__.py": "a0f636f6e3ca9f22d0af5d46d72b5703d731335af7f14a6144363d706f672be6",
+    "data_pipeline/vlnverse/replay/viz_style.py": "0a2bccac4b3b8722981dc67d4f87a64ff70476a36d453f9e5c98c2d1a48defb0",
+    "data_pipeline/vlnverse/replay/video_layout.py": "4b3d7a1162172091642f732c5cc458125169373f348827fdaa6972ae7d6c3be8",
+    "data_pipeline/vlnverse/replay/isaac_render.py": "4b0a4f64c0e70cbd95dcc497a4f22805ae962a4d6863aec9769313dbd267cdda",
+    "data_pipeline/vlnverse/replay/compare.py": "805fc78952a9c7f86a4256013453b1c94a46538aaeb424635222cd55ccc8ffd0",
+    "data_pipeline/vlnverse/replay/future_path.py": "f4afbaeb0e24ee4fa83d710e0948e57c7c4ce2294d1e152e2944e76006b8b820",
+    "data_pipeline/vlnverse/replay/usd_scene.py": "ab77efa29298fc6328d4728b84ea61b4f912a3d6a05fceeac2b071ef2cbb77a5",
+    "data_pipeline/vlnverse/replay/blender_render.py": "9757fadd060301dc6a235b99e591a0c366a5798cb049b7d7ea6d75d01f49cfbf"
+  },
+  "map_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/provenance/scene_occupancy_v2.npz",
+  "map_sha256": "b78fd507699f5991c05b3f63d9d3debf7e965a6276ca9450766bc78fb915a647",
+  "source_and_goal_unchanged": true,
+  "source_anchor_max_rgb_mae": 0.0,
+  "clean_render_validation": {
+    "original": {
+      "frames": 67,
+      "unique_images": 67,
+      "first_to_last_rgb_mae": 71.19510416666667
+    },
+    "smoothed": {
+      "frames": 331,
+      "unique_images": 331,
+      "first_to_last_rgb_mae": 71.19510416666667
+    }
+  },
+  "reviews": {
+    "review_lightnav_15fps": {
+      "manifest": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_lightnav_15fps/comparison_manifest.json",
+      "manifest_sha256": "865fe767fde0ca6bbbff11d51db720ef5ca8342a7753c9867bd98da60b4d0bf9",
+      "official_rgb": null,
+      "matched_left_right_camera": true,
+      "videos": {
+        "original_gt.mp4": {
+          "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_lightnav_15fps/original_gt.mp4",
+          "sha256": "962799994bd606e59ce4ebbf240dac5c33d3c0ced03de0558f93ec48213f8060",
+          "frames": 331,
+          "fps": 15,
+          "duration_s": 22.066666666666666,
+          "width": 480,
+          "height": 660,
+          "fully_decoded": true
+        },
+        "smoothed_6poses.mp4": {
+          "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_lightnav_15fps/smoothed_6poses.mp4",
+          "sha256": "a2c80bbc4cab04212254224cfa506a7a44d41a451deab7145e2f7fdf797f46d1",
+          "frames": 331,
+          "fps": 15,
+          "duration_s": 22.066666666666666,
+          "width": 480,
+          "height": 660,
+          "fully_decoded": true
+        },
+        "side_by_side.mp4": {
+          "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_lightnav_15fps/side_by_side.mp4",
+          "sha256": "1b7f4c2d46118966291e7c0c99446303bb04608ca1c306c141bb9a13616f6754",
+          "frames": 331,
+          "fps": 15,
+          "duration_s": 22.066666666666666,
+          "width": 960,
+          "height": 626,
+          "fully_decoded": true
+        }
+      }
+    },
+    "review_official_rgb_15fps": {
+      "manifest": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_official_rgb_15fps/comparison_manifest.json",
+      "manifest_sha256": "93f1e139f2f3e51234fe2263d001dc29b14db827a13930932da5b28979c5dfed",
+      "official_rgb": {
+        "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/official/kujiale_0055/10_3/videos/chunk-000/observation.images.rgb/rgb.npy",
+        "sha256": "5c7874773e46b257ae859bb76c3f130f78e7f5be4aeb5316b64b09b0cd84ee97",
+        "shape": [
+          67,
+          256,
+          256,
+          3
+        ],
+        "association": "same official episode root as verified Parquet; one RGB row per source pose",
+        "camera_calibration_verified": false,
+        "renderer": "official published RGB",
+        "display_fit": "preserve aspect ratio, letterbox without cropping",
+        "pixel_interpolation": "spatial resizing only; no temporal interpolation"
+      },
+      "matched_left_right_camera": false,
+      "videos": {
+        "official_rgb.mp4": {
+          "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_official_rgb_15fps/official_rgb.mp4",
+          "sha256": "e7538a72b4ef56e7445c9d8e39e74e59405838562a4a8095dd2f1d868c32a8cd",
+          "frames": 331,
+          "fps": 15,
+          "duration_s": 22.066666666666666,
+          "width": 480,
+          "height": 660,
+          "fully_decoded": true
+        },
+        "smoothed_6poses.mp4": {
+          "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_official_rgb_15fps/smoothed_6poses.mp4",
+          "sha256": "de9461a03e9e41f6b3c3cd8c3c9021b0518866ca4b6dc5fac6034964c4056bd2",
+          "frames": 331,
+          "fps": 15,
+          "duration_s": 22.066666666666666,
+          "width": 480,
+          "height": 660,
+          "fully_decoded": true
+        },
+        "official_vs_smoothed.mp4": {
+          "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/review_official_rgb_15fps/official_vs_smoothed.mp4",
+          "sha256": "7686452dbad06fc699fd2f1d7f283da4424a95a993ac220c6de41a4c8c192f4f",
+          "frames": 331,
+          "fps": 15,
+          "duration_s": 22.066666666666666,
+          "width": 960,
+          "height": 626,
+          "fully_decoded": true
+        }
+      }
+    }
+  },
+  "keyframes": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0055_10_3/provenance/official_rgb_keyframes_contact.png",
+  "code_changes": [
+    "Exact Euclidean swept-disc test replaces conservative square cell inflation; radius unchanged.",
+    "Official map accepts equivalent opaque grayscale RGB/RGBA and 1e-6m room vertex roundoff.",
+    "Review optionally uses episode-associated official RGB on the left, explicitly labeling camera/renderer mismatch."
+  ],
+  "validation": {
+    "tests_passed": 363,
+    "test_command": "PYTHONPATH=src data_pipeline/.venv/lerobot/bin/python -m pytest data_pipeline/vlnverse/tests tests/viz -q",
+    "ruff_passed": true
+  },
+  "limitations": [
+    "Right-side Blender lighting/MDL approximations and chosen camera are not official RGB equivalents.",
+    "15FPS is pose-order playback; saved synthetic reference timing is unchanged.",
+    "2D static clearance, not physical robot replay.",
+    "Shared LightNav ribbon has visual forward offset and no depth occlusion."
+  ]
+}

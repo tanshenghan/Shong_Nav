@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-24",
+  "before_public_jpeg_round_trip_ms": [
+    1309,
+    1184,
+    719
+  ],
+  "after_local_stream_fps": 15.39,
+  "after_public_stream_fps": 14.67,
+  "public_ws_stop_ack_ms": 357,
+  "public_http_stop_ack_ms": 846,
+  "stop_after_inflight_inference": "pose unchanged for 3 seconds; empty path; idle controller",
+  "trajectory": "MuJoCo world-space ground geoms, capture-pose anchored; raw inference image unchanged",
+  "stop_mode": "Frozen original LightNav RVQ STOP + Beta FM motion; prediction, not guaranteed goal detection",
+  "cpu_tests": {
+    "passed": 1232,
+    "skipped": 9,
+    "gpu_deselected": 2
+  },
+  "focused_tests_passed": 109,
+  "public_url": "https://complex-infrastructure-jerusalem-capacity.trycloudflare.com"
+}

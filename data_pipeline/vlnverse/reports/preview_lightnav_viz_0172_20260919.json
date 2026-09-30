@@ -1,0 +1,220 @@
+{
+  "date": "2026-09-19",
+  "episode_id": "kujiale_0172_51_0",
+  "output_root": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0",
+  "previous_episode_id": "kujiale_0018_2_2",
+  "different_scene_and_episode": true,
+  "instruction": "Walk forward through the hallway, keeping the living room on your left and a series of windows displaying a lake on your right. Continue straight, passing the tiled wall on your left. Stop in the hallway in front of the vertical garden wall, with the open doorway to the room containing a desk and chair on your left.",
+  "source": {
+    "source_format": "vlnverse_official_parquet",
+    "source_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/official/kujiale_0172/51_0/data/chunk-000/episode_000000.parquet",
+    "source_sha256": "466db6e2f46783cffbc87df7e28be6ccc8d22b0d9ef0aa6c390a8ee43ba2d708",
+    "source_order_columns": [
+      "frame_index",
+      "observation.step"
+    ],
+    "source_coordinate_system": "world_xyz_z_up",
+    "source_timestamp_semantics": "unverified_source_values_not_seconds",
+    "finish_status": "success",
+    "metadata_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/official/kujiale_0172/51_0/meta/episodes.jsonl",
+    "metadata_sha256": "c7a41a9d8bda6794267b904f6289ff14dac8101f5086a0a4d06da8b18e2511c6",
+    "source_metadata": {
+      "episode_id": "51_0",
+      "instruction_text": "Walk forward through the hallway, keeping the living room on your left and a series of windows displaying a lake on your right. Continue straight, passing the tiled wall on your left. Stop in the hallway in front of the vertical garden wall, with the open doorway to the room containing a desk and chair on your left.",
+      "instruction_tokens": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finish_status": "success",
+      "fail_reason": null
+    }
+  },
+  "scene_usd": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0172/start_result_navigation.usd",
+  "scene_usd_sha256": "83f2e1636c4877e0b67490985810db812af0c3ea3f70f84155374ef17b744901",
+  "map_path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/provenance/scene_occupancy.npz",
+  "map_sha256": "0c222916581d096bb0242c376d8952ce94b9f2d4531323f88ffac963c3605e9b",
+  "config": {
+    "sample_mode": "per_source_step",
+    "poses_per_step": 6,
+    "sample_hz": 30.0,
+    "max_speed_m_s": 0.4,
+    "max_accel_m_s2": 0.5,
+    "max_jerk_m_s3": 1.0,
+    "max_yaw_rate_rad_s": 0.8,
+    "max_yaw_accel_rad_s2": 1.0,
+    "max_yaw_jerk_rad_s3": 2.0,
+    "robot_radius_m": 0.25,
+    "safety_margin_m": 0.05,
+    "max_heading_error_rad": 0.017453292519943295,
+    "planar_tolerance_m": 1e-05,
+    "max_merge_deviation_m": 1e-05
+  },
+  "config_sha256": "addfd0fbe85b87f7d985e4bd0888f75ca92c3276e159606dec8e70f689edd2d0",
+  "code_sha256": {
+    "data_pipeline/vlnverse/replay/__init__.py": "a0f636f6e3ca9f22d0af5d46d72b5703d731335af7f14a6144363d706f672be6",
+    "data_pipeline/vlnverse/replay/blender_render.py": "9757fadd060301dc6a235b99e591a0c366a5798cb049b7d7ea6d75d01f49cfbf",
+    "data_pipeline/vlnverse/replay/compare.py": "1187a9ff61a07444ae5b9a6401fd08895294a3131a7e4e791b563d049add449a",
+    "data_pipeline/vlnverse/replay/future_path.py": "f4afbaeb0e24ee4fa83d710e0948e57c7c4ce2294d1e152e2944e76006b8b820",
+    "data_pipeline/vlnverse/replay/isaac_render.py": "4b0a4f64c0e70cbd95dcc497a4f22805ae962a4d6863aec9769313dbd267cdda",
+    "data_pipeline/vlnverse/replay/usd_materials.py": "2dc23600846ab5bb4fcc193af3863193c947cabc2bebacaf6b913089f80a7d15",
+    "data_pipeline/vlnverse/replay/usd_scene.py": "ab77efa29298fc6328d4728b84ea61b4f912a3d6a05fceeac2b071ef2cbb77a5",
+    "data_pipeline/vlnverse/replay/video_layout.py": "846ce2c14c65fb447b72e95b081685c3a19dcce10b263679e97f95dcc70e145a",
+    "data_pipeline/vlnverse/replay/viz_style.py": "0a2bccac4b3b8722981dc67d4f87a64ff70476a36d453f9e5c98c2d1a48defb0"
+  },
+  "original_poses": 23,
+  "smooth_poses": 111,
+  "translation_distance_m": 4.499999999999999,
+  "turn_count": 4,
+  "turn_degrees": [
+    14.999999999999996,
+    -14.999999999999996,
+    -14.999999999999996,
+    14.999999999999996
+  ],
+  "reference_duration_s": 34.435164694480285,
+  "playback_duration_s": 7.4,
+  "playback_fps": 15,
+  "video_frames": 111,
+  "preserves_reference_timing": false,
+  "motion_quality": {
+    "valid": true,
+    "frames": 111,
+    "duration_s": 34.435164694480285,
+    "sampling_mode": "per_source_step",
+    "sample_hz": null,
+    "poses_per_source_step": 6,
+    "uniform_timestamps": false,
+    "time_basis": "synthetic_retimed_seconds",
+    "primitive_count": 9,
+    "maxima": {
+      "velocity_xyz": 0.39999999999999974,
+      "acceleration_xyz": 0.41940313298696846,
+      "jerk_xyz": 1.0000000000000016,
+      "yaw_rate_rad_s": 0.2665003247997812,
+      "yaw_accel_rad_s2": 0.4672441182893381,
+      "yaw_jerk_rad_s3": 1.536000000000004
+    },
+    "continuous_maxima": {
+      "velocity_xyz": 0.3999999999999998,
+      "acceleration_xyz": 0.4253124332586133,
+      "jerk_xyz": 1.0000000000000016,
+      "yaw_rate_rad_s": 0.3012201660153772,
+      "yaw_accel_rad_s2": 0.5441612555114127,
+      "yaw_jerk_rad_s3": 2.0000000000000036
+    },
+    "collision_check": "continuous_segments_against_conservatively_inflated_2d_grid",
+    "footprint_radius_with_margin_m": 0.3,
+    "simulator_replayed": false,
+    "measured_physical_timing": false
+  },
+  "source_anchor_max_rgb_mae": 0.0,
+  "clean_rgb": {
+    "original": {
+      "frames": 23,
+      "unique_images": 23,
+      "first_to_last_mean_absolute_difference": 57.48860918209876,
+      "bounds_max_error_m": 2.623535690915446e-07
+    },
+    "smoothed": {
+      "frames": 111,
+      "unique_images": 111,
+      "first_to_last_mean_absolute_difference": 57.48860918209876,
+      "bounds_max_error_m": 2.623535690915446e-07
+    }
+  },
+  "camera": {
+    "height_above_source_z_m": 1.25,
+    "hfov_deg": 90.0,
+    "pitch_down_deg": 0.0,
+    "width": 480,
+    "height": 360,
+    "convention": "world +X forward at yaw zero, +Z up",
+    "extrinsics_origin": "chosen preview camera, not recovered official sensor calibration"
+  },
+  "shared_viz": {
+    "style": "lightnav.viz",
+    "future_horizon": 30,
+    "functions": [
+      "lightnav.viz.render.draw_traj_ribbon",
+      "lightnav.viz.render.draw_scifi_hud"
+    ],
+    "source_files": {
+      "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/viz/render.py": "fb70c9bfcb8b5906c4f29d5f81a7e7781a6f3e5091d8babd09b58f26d274ef1b",
+      "/mnt/pfs/tanshenghan/vln4project/LightNav-0/src/lightnav/viz/projection.py": "a49840f72972c0d109a4f976ae314270bcdf98abb8dbb9bf441b9f165ceef345"
+    },
+    "future_coordinates": "world future positions relative to current body; forward +X, lateral +left; no cumulative sum",
+    "ribbon_yaw_column": "zero for position-only GT projection; actual yaw retained in trajectory NPZ",
+    "forward_offset_mode": "auto, shared bottom-edge visibility offset",
+    "visual_forward_offset_m": 1.666666666666667,
+    "width_frac": 0.25,
+    "alpha": 0.9,
+    "depth_occlusion": false,
+    "physically_exact_ground_placement": false,
+    "hud_velocity": "saved synthetic reference derivative in body frame; unavailable for original GT",
+    "hud_step_and_rate": "video frame number and playback FPS, not measured source observation rate",
+    "original_source_rgb_overlay": false,
+    "review_only": true,
+    "training_observations": false
+  },
+  "complete_instruction_banner": true,
+  "all_future_windows_verified": true,
+  "every_smooth_pose_shown_once": true,
+  "source_and_trajectory_hashes_unchanged": true,
+  "comparison_manifest": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/review_lightnav_15fps/comparison_manifest.json",
+  "comparison_manifest_sha256": "e6584a1860452b558ad0be9e14240a83223c6dadf424ff1b48d86d6bbc39394c",
+  "videos": {
+    "original_gt.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/review_lightnav_15fps/original_gt.mp4",
+      "sha256": "a939489e0261a3f3a829d2999f7885ad70503360f996fe7b0d6b2dacc450b1f0",
+      "frames": 111,
+      "fps": 15.0,
+      "duration_s": 7.4,
+      "width": 480,
+      "height": 686,
+      "codec": "h264",
+      "fully_decoded": true
+    },
+    "smoothed_6poses.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/review_lightnav_15fps/smoothed_6poses.mp4",
+      "sha256": "50a1ba63d1078b482afe0fd3b4a53588047b433d42c30617e09158bb3478a789",
+      "frames": 111,
+      "fps": 15.0,
+      "duration_s": 7.4,
+      "width": 480,
+      "height": 686,
+      "codec": "h264",
+      "fully_decoded": true
+    },
+    "side_by_side.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/preview_20260919_kujiale_0172_51_0/review_lightnav_15fps/side_by_side.mp4",
+      "sha256": "d9027ed3cbd0089f563acb7f7337a636d1cc1f0120fe7069ab6ff8b7578f521a",
+      "frames": 111,
+      "fps": 15.0,
+      "duration_s": 7.4,
+      "width": 960,
+      "height": 626,
+      "codec": "h264",
+      "fully_decoded": true
+    }
+  },
+  "tests": {
+    "command": "PYTHONPATH=src data_pipeline/.venv/lerobot/bin/python -m pytest data_pipeline/vlnverse/tests tests/viz -q",
+    "passed": 341,
+    "ruff_command": ".venv/bin/ruff check data_pipeline/vlnverse",
+    "ruff_passed": true
+  },
+  "limitations": [
+    "CPU Cycles preview uses approximate USD materials, not Isaac RTX or physics.",
+    "Shared LightNav ribbon uses its visual forward offset; no scene depth occlusion.",
+    "HUD velocities are analytic synthetic reference derivatives, not 15 FPS playback motion.",
+    "2D static occupancy validation with 0.30m radius does not certify a simulator robot rollout."
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "source_run": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_eval/20260928T012647_241235Z_fm_stop_r2r_unseen",
+  "seed": 20260928,
+  "samples": [
+    {
+      "label": "success_1",
+      "dataset_index": 1324,
+      "original": {
+        "episode_id": "episode_008",
+        "habitat_episode_id": "938",
+        "raw_episode_id": "",
+        "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/oLBMNvg9in8/oLBMNvg9in8.glb",
+        "rollout_idx": 0,
+        "success": 1.0,
+        "oracle_success": true,
+        "spl": 1.0,
+        "ndtw": 0.8188412280798447,
+        "soft_spl": 0.0,
+        "object_category": "",
+        "steps": 23,
+        "final_distance": 2.6798336505889893,
+        "min_distance": 2.6798336505889893,
+        "instruction": "Go down the hallway and wait in the room next to the stairs. ",
+        "termination_reason": "agent_stop",
+        "forced_stop": false,
+        "oracle_stop": false,
+        "stop_source": "learned_head",
+        "policy_event_counts": {
+          "learned_head": 1
+        },
+        "termination_details": {
+          "original_action": "VEL(lin=-1.00,ang=+0.00)",
+          "executed_action": "VEL(lin=-1.00,ang=+0.00)",
+          "early_stop_rotation_limit": 0,
+          "early_stop_steps_limit": 0,
+          "total_steps": 23,
+          "action_counts": {
+            "VEL(lin=-1.00,ang=+0.50)": 4,
+            "VEL(lin=+1.00,ang=-0.00)": 13,
+            "VEL(lin=-0.91,ang=-0.47)": 1,
+            "VEL(lin=-1.00,ang=-0.50)": 4,
+            "VEL(lin=-1.00,ang=+0.00)": 1
+          },
+          "distance_to_goal_initial": 5.7876,
+          "distance_to_goal_final": 2.6798,
+          "distance_to_goal_min": 2.6798,
+          "distance_to_goal_min_at_step": 20,
+          "agent_stop": {
+            "description": "Agent voluntarily chose STOP at step 23. Distance to goal: 2.6798m. SUCCESS - within success_distance."
+          }
+        },
+        "stop_score": 0.564556360244751,
+        "stop_threshold": 0.5,
+        "shard": "shard_0047"
+      }
+    },
+    {
+      "label": "success_2",
+      "dataset_index": 1027,
+      "original": {
+        "episode_id": "episode_019",
+        "habitat_episode_id": "1091",
+        "raw_episode_id": "",
+        "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/X7HyMhZNoso/X7HyMhZNoso.glb",
+        "rollout_idx": 0,
+        "success": 1.0,
+        "oracle_success": true,
+        "spl": 1.0,
+        "ndtw": 0.8838181616443447,
+        "soft_spl": 0.0,
+        "object_category": "",
+        "steps": 28,
+        "final_distance": 1.8301504850387573,
+        "min_distance": 1.8301504850387573,
+        "instruction": "Turn around and go up the stairs. Turn right and stop just passed the bottom of the stairs with carpet. ",
+        "termination_reason": "agent_stop",
+        "forced_stop": false,
+        "oracle_stop": false,
+        "stop_source": "learned_head",
+        "policy_event_counts": {
+          "learned_head": 1
+        },
+        "termination_details": {
+          "original_action": "VEL(lin=-1.00,ang=+0.00)",
+          "executed_action": "VEL(lin=-1.00,ang=+0.00)",
+          "early_stop_rotation_limit": 0,
+          "early_stop_steps_limit": 0,
+          "total_steps": 28,
+          "action_counts": {
+            "VEL(lin=-1.00,ang=+0.50)": 10,
+            "VEL(lin=+0.99,ang=-0.00)": 2,
+            "VEL(lin=+1.00,ang=-0.00)": 11,
+            "VEL(lin=-1.00,ang=-0.50)": 3,
+            "VEL(lin=-0.99,ang=+0.49)": 1,
+            "VEL(lin=-1.00,ang=+0.00)": 1
+          },
+          "distance_to_goal_initial": 4.9755,
+          "distance_to_goal_final": 1.8302,
+          "distance_to_goal_min": 1.8302,
+          "distance_to_goal_min_at_step": 27,
+          "agent_stop": {
+            "description": "Agent voluntarily chose STOP at step 28. Distance to goal: 1.8302m. SUCCESS - within success_distance."
+          }
+        },
+        "stop_score": 0.5803952217102051,
+        "stop_threshold": 0.5,
+        "shard": "shard_0036"
+      }
+    },
+    {
+      "label": "failure_1",
+      "dataset_index": 567,
+      "original": {
+        "episode_id": "episode_007",
+        "habitat_episode_id": "1060",
+        "raw_episode_id": "",
+        "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/QUCTc6BB5sX/QUCTc6BB5sX.glb",
+        "rollout_idx": 0,
+        "success": 0.0,
+        "oracle_success": false,
+        "spl": 0.0,
+        "ndtw": 0.15006537030748215,
+        "soft_spl": 0.0,
+        "object_category": "",
+        "steps": 29,
+        "final_distance": 13.107532501220703,
+        "min_distance": 8.661920547485352,
+        "instruction": "Turn right and continue passed the piano. Turn left and stop in the archway. ",
+        "termination_reason": "agent_stop",
+        "forced_stop": false,
+        "oracle_stop": false,
+        "stop_source": "learned_head",
+        "policy_event_counts": {
+          "learned_head": 1
+        },
+        "termination_details": {
+          "original_action": "VEL(lin=-1.00,ang=+0.00)",
+          "executed_action": "VEL(lin=-1.00,ang=+0.00)",
+          "early_stop_rotation_limit": 0,
+          "early_stop_steps_limit": 0,
+          "total_steps": 29,
+          "action_counts": {
+            "VEL(lin=-1.00,ang=+0.50)": 8,
+            "VEL(lin=+1.00,ang=-0.00)": 18,
+            "VEL(lin=-1.00,ang=-0.50)": 2,
+            "VEL(lin=-1.00,ang=+0.00)": 1
+          },
+          "distance_to_goal_initial": 8.6619,
+          "distance_to_goal_final": 13.1075,
+          "distance_to_goal_min": 8.6619,
+          "distance_to_goal_min_at_step": 1,
+          "agent_stop": {
+            "description": "Agent voluntarily chose STOP at step 29. Distance to goal: 13.1075m. FAIL - not close enough to goal."
+          }
+        },
+        "stop_score": 0.5262278914451599,
+        "stop_threshold": 0.5,
+        "shard": "shard_0020"
+      }
+    },
+    {
+      "label": "failure_2",
+      "dataset_index": 1466,
+      "original": {
+        "episode_id": "episode_010",
+        "habitat_episode_id": "522",
+        "raw_episode_id": "",
+        "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/x8F5xyUWy9e/x8F5xyUWy9e.glb",
+        "rollout_idx": 0,
+        "success": 0.0,
+        "oracle_success": false,
+        "spl": 0.0,
+        "ndtw": 0.2103979285203297,
+        "soft_spl": 0.0,
+        "object_category": "",
+        "steps": 39,
+        "final_distance": 11.642537117004395,
+        "min_distance": 7.478219032287598,
+        "instruction": "From the sunken tub, head towards the exit, climbing three steps. Continue forward to another short staircase of three steps and climb them. Stop at the entrance to the room on your right. ",
+        "termination_reason": "agent_stop",
+        "forced_stop": false,
+        "oracle_stop": false,
+        "stop_source": "learned_head",
+        "policy_event_counts": {
+          "learned_head": 1
+        },
+        "termination_details": {
+          "original_action": "VEL(lin=-1.00,ang=+0.00)",
+          "executed_action": "VEL(lin=-1.00,ang=+0.00)",
+          "early_stop_rotation_limit": 0,
+          "early_stop_steps_limit": 0,
+          "total_steps": 39,
+          "action_counts": {
+            "VEL(lin=-1.00,ang=+0.50)": 6,
+            "VEL(lin=+0.99,ang=-0.00)": 14,
+            "VEL(lin=-1.00,ang=-0.50)": 2,
+            "VEL(lin=+1.00,ang=-0.00)": 16,
+            "VEL(lin=-1.00,ang=+0.00)": 1
+          },
+          "distance_to_goal_initial": 7.4782,
+          "distance_to_goal_final": 11.6425,
+          "distance_to_goal_min": 7.4782,
+          "distance_to_goal_min_at_step": 1,
+          "agent_stop": {
+            "description": "Agent voluntarily chose STOP at step 39. Distance to goal: 11.6425m. FAIL - not close enough to goal."
+          }
+        },
+        "stop_score": 0.7745786905288696,
+        "stop_threshold": 0.5,
+        "shard": "shard_0052"
+      }
+    }
+  ],
+  "source_results_sha256": "1c821e5d90ed327d26522317d3054fc34c38bf0a99e0f89bd16bd1a10cf328d2",
+  "source_job_sha256": "0827c95688d5aa4c5bd8aeebaaa35b2d1190049d040bb2b0cbee3137b0dc2993"
+}

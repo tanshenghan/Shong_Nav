@@ -1,0 +1,64 @@
+{
+  "checked_at_utc": "2026-09-19T08:31:06.169926+00:00",
+  "runs": [
+    {
+      "beta": [
+        1,
+        1.5
+      ],
+      "status": "completed",
+      "queue_status": "completed",
+      "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta1_1p5_frozen_lightnav_20260918",
+      "fm_horizon": 10,
+      "first_logged_loss": 2.544989355696753,
+      "last_logged_loss": 0.5152862200775196,
+      "last_logged_step": 3690,
+      "last_20_logs_mean": 0.5053218079173601,
+      "last_20_update_seconds": 9.867751798871904,
+      "finite_losses": true,
+      "zero_vlm_grad": true,
+      "started_beijing": "2026-09-18T18:14:17.703814+08:00",
+      "final_step": 3699,
+      "final_epoch": 3,
+      "checkpoint_complete": true,
+      "checkpoint_horizon": 10,
+      "final_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta1_1p5_frozen_lightnav_20260918/checkpoints/step-00003699",
+      "elapsed_hours": 10.02440949400266,
+      "completed_beijing": "2026-09-19T04:15:45.577992+08:00",
+      "error_signatures": []
+    },
+    {
+      "beta": [
+        1,
+        2.0
+      ],
+      "status": "running",
+      "queue_status": "launched",
+      "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta12_frozen_lightnav_20260918",
+      "fm_horizon": 10,
+      "first_logged_loss": 2.549695423082687,
+      "last_logged_loss": 0.590142651758092,
+      "last_logged_step": 1600,
+      "last_20_logs_mean": 0.6357187263146609,
+      "last_20_update_seconds": 7.3120411050040275,
+      "finite_losses": true,
+      "zero_vlm_grad": true,
+      "started_beijing": "2026-09-19T13:07:50.305209+08:00",
+      "recent_wall_seconds_per_step": 7.31758011014838,
+      "estimated_remaining_hours": 4.266555736444847,
+      "estimated_finish_beijing": "2026-09-19T20:46:25.577177+08:00",
+      "error_signatures": []
+    },
+    {
+      "beta": [
+        1,
+        3.0
+      ],
+      "status": "prepared",
+      "queue_status": "waiting_for_previous_run",
+      "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta13_frozen_lightnav_20260918",
+      "fm_horizon": 10
+    }
+  ],
+  "loss_plot": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/reports/betanav/fm_h10_status_20260919T083106Z/fm_h10_training_loss.png"
+}

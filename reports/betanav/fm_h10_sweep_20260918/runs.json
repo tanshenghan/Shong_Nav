@@ -1,0 +1,29 @@
+[
+  {
+    "beta": [
+      1,
+      1.5
+    ],
+    "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta1_1p5_8gpu",
+    "configuration": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/configs/betanav/r2r_fm_only_h10_beta1_1p5.yaml",
+    "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta1_1p5_frozen_lightnav_20260918"
+  },
+  {
+    "beta": [
+      1,
+      2.0
+    ],
+    "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta12_8gpu",
+    "configuration": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/configs/betanav/r2r_fm_only_h10_beta12.yaml",
+    "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta12_frozen_lightnav_20260918"
+  },
+  {
+    "beta": [
+      1,
+      3.0
+    ],
+    "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta13_8gpu",
+    "configuration": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/configs/betanav/r2r_fm_only_h10_beta13.yaml",
+    "output_dir": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta13_frozen_lightnav_20260918"
+  }
+]

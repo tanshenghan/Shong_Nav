@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-20",
+  "dataset": "VLNVerse local raw_data/vlnverse_r2r/fine/train",
+  "source": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/vlnverse_r2r/fine/train/train.json.gz",
+  "sha256": "2c04948d8284191a332e2919f2476cd734170c0c8f066442d2db604eed496bff",
+  "episodes": 3963,
+  "scenes": 176,
+  "length_xy_m": {
+    "mean": 8.296114055008832,
+    "median": 7.749999999999998,
+    "min": 3.999999999999995,
+    "max": 22.5,
+    "p25": 5.75,
+    "p75": 10.249999999999998
+  },
+  "length_xyz_m": {
+    "mean": 8.296114055008832,
+    "median": 7.749999999999998,
+    "min": 3.999999999999995,
+    "max": 22.5,
+    "p25": 5.75,
+    "p75": 10.249999999999998
+  },
+  "reference_pose_count": {
+    "mean": 49.327277315165276,
+    "median": 46.0,
+    "min": 17.0,
+    "max": 150.0,
+    "p25": 35.0,
+    "p75": 60.0
+  },
+  "max_z_range_per_episode_m": 0.0,
+  "fraction_longer_than_10m": 0.2548574312389604,
+  "fraction_longer_than_14_5m": 0.041635124905374715,
+  "averaging": "One weight per episode/task; physical path sums, stationary rotations add zero distance."
+}

@@ -1,0 +1,16 @@
+{
+  "sample_mode": "per_source_step",
+  "poses_per_step": 6,
+  "sample_hz": 30.0,
+  "max_speed_m_s": 0.4,
+  "max_accel_m_s2": 0.5,
+  "max_jerk_m_s3": 1.0,
+  "max_yaw_rate_rad_s": 0.8,
+  "max_yaw_accel_rad_s2": 1.0,
+  "max_yaw_jerk_rad_s3": 2.0,
+  "robot_radius_m": 0.25,
+  "safety_margin_m": 0.05,
+  "max_heading_error_rad": 0.017453292519943295,
+  "planar_tolerance_m": 0.00001,
+  "max_merge_deviation_m": 0.00001
+}

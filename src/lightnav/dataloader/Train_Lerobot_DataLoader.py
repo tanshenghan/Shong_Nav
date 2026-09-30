@@ -26,7 +26,7 @@ from PIL import Image
 from torch import Tensor
 from torch.utils.data import DataLoader, Dataset, DistributedSampler
 
-from lightnav.inference.beta_model import BetaTrainBatch
+from lightnav.inference.beta_model import BetaTrainBatch, uses_frozen_continuous_backbone
 from lightnav.inference.frame_preprocessing import rgb_frame_to_model_tensor
 from lightnav.inference.model import _resolve_processing_params, resolve_model_paths
 from lightnav.prompts import (
@@ -36,6 +36,7 @@ from lightnav.prompts import (
     to_rvq_prompt,
 )
 from lightnav.slowfast import slowfast_segments, validate_slowfast_tiers
+from lightnav.training.stop_labels import stop_target_for_row, validate_stop_supervision
 
 RGB_KEY = "observation.images.rgb"
 TARGET_COLUMNS = [
@@ -49,6 +50,7 @@ TARGET_COLUMNS = [
 FM_TARGET_COLUMNS = [name for name in TARGET_COLUMNS if not name.startswith(
     ("action.apos.", "action.opos.", "action.rvq.", "action.explicit_stop", "action.stop_loss_valid")
 )]
+FM_STOP_TARGET_COLUMNS = [*FM_TARGET_COLUMNS, "action.explicit_stop", "action.stop_loss_valid"]
 EPISODE_COLUMNS = [
     "episode_index", "tasks", "length", "data/chunk_index", "data/file_index",
     "dataset_from_index", "dataset_to_index",
@@ -93,15 +95,15 @@ class LightNavTrainingSpec:
 
     @classmethod
     def from_checkpoint(cls, model_path: str | Path, *, training_mode: str = "ce_fm"):
-        if training_mode not in {"ce_fm", "fm_only"}:
-            raise ValueError("training_mode must be ce_fm or fm_only")
+        if training_mode not in {"ce_fm", "fm_only", "fm_stop"}:
+            raise ValueError("training_mode must be ce_fm, fm_only or fm_stop")
         path = str(Path(model_path).resolve())
         params = _resolve_processing_params(path, task_type="vlnce")
         if not params.get("slowfast_tiers"):
             raise ValueError("Train_Lerobot_DataLoader requires checkpoint SlowFast tiers")
         params["slowfast_tiers"] = validate_slowfast_tiers(params["slowfast_tiers"])
         config_dir, _, processor_dir = resolve_model_paths(path)
-        if training_mode == "fm_only":
+        if uses_frozen_continuous_backbone(training_mode):
             params.pop("action_tokenizer", None)
             return cls(path, processor_dir, params, "", training_mode)
         action = params.get("action_tokenizer") or {}
@@ -158,14 +160,25 @@ class LeRobotFrameDataset(Dataset):
         self, root: str | Path, spec: LightNavTrainingSpec, *,
         episode_indices: Sequence[int] | None = None,
         cache_row_groups: int = 4, cache_frames: int = 64,
+        fm_horizon: int = 30,
+        stop_supervision: dict | None = None,
     ):
+        if type(fm_horizon) is not int or not 1 <= fm_horizon <= 30:
+            raise ValueError("fm_horizon must be an integer in [1,30] for this dataset")
+        self.fm_horizon = fm_horizon
         self.root = Path(root).resolve()
         self.spec = spec
+        self.stop_episodes = None
+        if spec.training_mode == "fm_stop":
+            validate_stop_supervision(stop_supervision)
+            self.stop_episodes = stop_supervision["episodes"]
         self.info = _json(self.root / "meta/info.json")
         if self.info.get("codebase_version") != "v3.0" or self.info.get("fps") != 1:
             raise ValueError("expected this project's frame-index-timed LeRobot v3.0 export (fps=1)")
         features = self.info["features"]
-        self.target_columns = FM_TARGET_COLUMNS if spec.training_mode == "fm_only" else TARGET_COLUMNS
+        self.target_columns = {"fm_only": FM_TARGET_COLUMNS, "fm_stop": FM_STOP_TARGET_COLUMNS}.get(
+            spec.training_mode, TARGET_COLUMNS
+        )
         missing = set(self.target_columns + [RGB_KEY]) - features.keys()
         if missing:
             raise ValueError(f"dataset lacks Beta training fields: {sorted(missing)}")
@@ -176,7 +189,7 @@ class LeRobotFrameDataset(Dataset):
         self.raw_rgb_shape = tuple(features[RGB_KEY]["shape"])
         if len(self.raw_rgb_shape) != 3 or self.raw_rgb_shape[-1] != 3:
             raise ValueError("RGB feature must be HWC with three channels")
-        self.rvq_manifest = None if spec.training_mode == "fm_only" else _check_codebooks(
+        self.rvq_manifest = None if uses_frozen_continuous_backbone(spec.training_mode) else _check_codebooks(
             self.root / "assets/action_tokenizer", Path(spec.rvq_path)
         )
         if cache_row_groups < 1 or cache_frames < 0:
@@ -215,6 +228,10 @@ class LeRobotFrameDataset(Dataset):
         ):
             raise ValueError("episode_indices must be unique existing LeRobot episode indices")
         self.episodes = [all_episodes[i] for i in selected]
+        if self.stop_episodes is not None:
+            for ep in self.episodes:
+                if str(ep.index) not in self.stop_episodes or self.stop_episodes[str(ep.index)]["length"] != ep.length:
+                    raise ValueError("STOP audit does not cover the selected episode/frame ranges")
         self._ends = np.cumsum([ep.length for ep in self.episodes]).tolist()
 
     def _reset_caches(self):
@@ -298,8 +315,8 @@ class LeRobotFrameDataset(Dataset):
             row["action.fm.future_frame_ids"], np.where(expected, future, -1)
         ):
             raise ValueError("invalid FM target values or future frame IDs")
-        if self.spec.training_mode == "fm_only":
-            return [], [], torch.from_numpy(clean.copy()), torch.from_numpy(valid.copy())
+        if uses_frozen_continuous_backbone(self.spec.training_mode):
+            return [], [], torch.from_numpy(clean[:self.fm_horizon].copy()), torch.from_numpy(valid[:self.fm_horizon].copy())
         tokens, supervised = [], []
         for channel in ("apos", "opos"):
             token_id = int(_scalar(row[f"action.{channel}.token_id"]))
@@ -339,12 +356,15 @@ class LeRobotFrameDataset(Dataset):
             rvq_tokens = [f"<act_l0_{placeholder_l0}>", "<act_l1_0>", "<act_l2_0>"]
         tokens.extend(rvq_tokens)
         supervised.extend([rvq_valid] * 3)
-        return tokens, supervised, torch.from_numpy(clean.copy()), torch.from_numpy(valid.copy())
+        return tokens, supervised, torch.from_numpy(clean[:self.fm_horizon].copy()), torch.from_numpy(valid[:self.fm_horizon].copy())
 
     def __getitem__(self, index):
         ep, t = self.locate(int(index))
         row = self._row(ep, t)
         tokens, supervised, clean, valid = self._targets(ep, t, row)
+        stop_target, stop_valid = None, None
+        if self.stop_episodes is not None:
+            stop_target, stop_valid = stop_target_for_row(self.stop_episodes[str(ep.index)], t, row)
         layout = slowfast_segments(t, t + 1, self.spec.params["slowfast_tiers"])
         selected = sorted({f for segment in layout for f in segment["frame_ids"]})
         if not selected or min(selected) < 0 or max(selected) > t:
@@ -355,7 +375,7 @@ class LeRobotFrameDataset(Dataset):
             "frame_indices": list(s["frame_ids"]), "total_frames": t + 1,
             "pool_spatial": s["pool_spatial"], "pool_mode": s["pool_mode"],
         } for s in layout]
-        template = (CONTINUOUS_TRAJ_PROMPT_TEMPLATE if self.spec.training_mode == "fm_only"
+        template = (CONTINUOUS_TRAJ_PROMPT_TEMPLATE if uses_frozen_continuous_backbone(self.spec.training_mode)
                     else to_rvq_prompt(UNIFIED_TRAJ_PROMPT_TEMPLATE))
         text = template.format(
             task=ep.instruction, videos=build_video_block(len(segments))
@@ -370,13 +390,15 @@ class LeRobotFrameDataset(Dataset):
             },
             "tokens": tokens, "token_valid": supervised,
             "fm_clean": clean, "fm_valid": valid,
+            "stop_target": stop_target, "stop_valid_mask": stop_valid,
             "info": {
                 "dataset_index": int(index), "global_frame_index": ep.start + t,
                 "episode_index": ep.index, "source_episode_id": row["source.episode_id"],
                 "source_scene_id": row["source.scene_id"], "frame_index": t,
                 "instruction": ep.instruction, "target_text": "".join(tokens),
-                "token_valid": supervised, "explicit_stop": t == ep.length - 1,
-                "fm_valid_steps": int(valid.sum()), "history": layout,
+                "token_valid": supervised, "explicit_stop": bool(_scalar(row["action.explicit_stop"]))
+                if "action.explicit_stop" in row else None,
+                "fm_horizon": self.fm_horizon, "fm_valid_steps": int(valid.sum()), "history": layout,
             },
         }
 
@@ -392,6 +414,10 @@ class TrainLerobotBatch(BetaTrainBatch):
                              for k, v in self.model_inputs.items()}
         for name in ("labels", "answer_start", "fm_clean_se2_diff", "fm_valid_mask"):
             setattr(self, name, getattr(self, name).pin_memory())
+        for name in ("stop_target", "stop_valid_mask"):
+            value = getattr(self, name, None)
+            if value is not None:
+                setattr(self, name, value.pin_memory())
         return self
 
 
@@ -447,11 +473,11 @@ class BetaLerobotCollator:
         if not header or not starts:
             raise ValueError("cannot locate the assistant answer boundary in the chat template")
         start = starts[-1]
-        if self.spec.training_mode == "fm_only":
+        if uses_frozen_continuous_backbone(self.spec.training_mode):
             # Empty assistant turn is a processor scaffold only. Drop its EOS/newline;
             # the VLM sees exactly the observation/instruction prefix and answer header.
             if item["tokens"] or item["token_valid"]:
-                raise ValueError("fm_only cannot contain action token targets")
+                raise ValueError("frozen continuous training cannot contain action token targets")
             result["input_ids"] = ids[:start]
             return result, torch.full_like(ids[:start], -100), start
         target_ids = [self._token_id(tokenizer, token) for token in item["tokens"]]
@@ -498,11 +524,18 @@ class BetaLerobotCollator:
             if any(value is None for value in factors):
                 raise ValueError("inconsistent per-sample post-ViT pool factors")
             inputs["_post_vit_pool_factors"] = [int(f) for values in factors for f in values]
+        stop_fields = {}
+        if self.spec.training_mode == "fm_stop":
+            if any(item.get("stop_target") is None or item.get("stop_valid_mask") is None for item in items):
+                raise ValueError("fm_stop batch requires independent audited STOP targets")
+            stop_fields = dict(stop_target=torch.tensor([item["stop_target"] for item in items], dtype=torch.float32),
+                               stop_valid_mask=torch.tensor([item["stop_valid_mask"] for item in items], dtype=torch.bool))
         return TrainLerobotBatch(
             model_inputs=inputs, labels=labels, answer_start=torch.tensor(starts),
             fm_clean_se2_diff=torch.stack([item["fm_clean"] for item in items]),
             fm_valid_mask=torch.stack([item["fm_valid"] for item in items]),
             sample_info=[item["info"] for item in items],
+            **stop_fields,
         )
 
 
@@ -521,6 +554,8 @@ class Train_Lerobot_DataLoader(DataLoader):
         cache_row_groups: int = 4, cache_frames: int = 64,
         rank: int = 0, world_size: int = 1,
         training_mode: str = "ce_fm",
+        fm_horizon: int = 30,
+        stop_supervision: dict | None = None,
     ):
         if batch_size < 1 or num_workers < 0 or prefetch_factor < 1:
             raise ValueError("invalid batch_size, num_workers or prefetch_factor")
@@ -528,7 +563,8 @@ class Train_Lerobot_DataLoader(DataLoader):
             raise ValueError("rank must be in [0,world_size)")
         spec = LightNavTrainingSpec.from_checkpoint(model_path, training_mode=training_mode)
         dataset = LeRobotFrameDataset(dataset_root, spec, episode_indices=episode_indices,
-                                      cache_row_groups=cache_row_groups, cache_frames=cache_frames)
+                                      cache_row_groups=cache_row_groups, cache_frames=cache_frames,
+                                      fm_horizon=fm_horizon, stop_supervision=stop_supervision)
         sampler = None
         if world_size > 1:
             sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank,
@@ -564,6 +600,8 @@ def describe_batch(batch: TrainLerobotBatch):
         "fm_shape": list(batch.fm_clean_se2_diff.shape),
         "fm_valid_steps": batch.fm_valid_mask.sum(dim=1).tolist(),
         "fm_first_three": batch.fm_clean_se2_diff[:, :3].tolist(),
+        "stop_target": batch.stop_target.tolist() if batch.stop_target is not None else None,
+        "stop_valid_mask": batch.stop_valid_mask.tolist() if batch.stop_valid_mask is not None else None,
     }
 
 
@@ -589,6 +627,8 @@ def _tiny_model_check(batch, spec):
         enable_post_vit_pool(vlm, spatial_factor=spec.params["pool_spatial"])
         vlm._post_vit_target = get_post_vit_target(vlm)
     model = BetaModel(vlm, BetaModelConfig(action_scale=(1., 1., 1.), hidden_size=32,
+                                         horizon=batch.fm_clean_se2_diff.shape[1], training_mode=spec.training_mode,
+                                         stop_head_type="last_prefix_mlp_v1" if spec.training_mode == "fm_stop" else "none",
                                          num_heads=4, num_layers=2, intermediate_size=64))
     out = model(batch)
     if not torch.isfinite(out.loss):
@@ -609,6 +649,9 @@ def main():
     parser.add_argument("--model-path", type=Path, required=True)
     parser.add_argument("--batch-size", type=int, default=2)
     parser.add_argument("--num-workers", type=int, default=0)
+    parser.add_argument("--fm-horizon", type=int, default=30, help="consecutive future actions, 1–30")
+    parser.add_argument("--training-mode", choices=["ce_fm", "fm_only", "fm_stop"], default="ce_fm")
+    parser.add_argument("--stop-manifest", type=Path, help="audited training manifest required for fm_stop")
     parser.add_argument("--episode-indices", type=int, nargs="+")
     parser.add_argument("--sample-indices", type=int, nargs="+",
                         help="Inspect these dataset-local frame indices instead of the first batch")
@@ -620,9 +663,21 @@ def main():
     if args.sample_indices and args.num_workers:
         parser.error("--sample-indices inspection uses the main process; use --num-workers 0")
     torch.set_num_threads(1)
+    stop_supervision = None
+    if args.training_mode == "fm_stop":
+        from lightnav.training.stop_labels import verify_stop_supervision
+
+        if args.stop_manifest is None:
+            parser.error("fm_stop requires --stop-manifest from prepare_data --with-stop-labels")
+        manifest = _json(args.stop_manifest)
+        if Path(manifest["dataset_root"]).resolve() != args.dataset.resolve():
+            parser.error("STOP manifest points at a different dataset")
+        stop_supervision = manifest.get("stop_supervision")
+        verify_stop_supervision(args.dataset, stop_supervision)
     loader = Train_Lerobot_DataLoader(args.dataset, args.model_path, batch_size=args.batch_size,
                                      num_workers=args.num_workers, shuffle=False,
-                                     episode_indices=args.episode_indices)
+                                     fm_horizon=args.fm_horizon, training_mode=args.training_mode,
+                                     episode_indices=args.episode_indices, stop_supervision=stop_supervision)
     if args.sample_indices:
         batch = loader.collate_fn([loader.dataset[i] for i in args.sample_indices])
     else:

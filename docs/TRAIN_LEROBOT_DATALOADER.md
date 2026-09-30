@@ -12,9 +12,20 @@
 
 新增 `training_mode="fm_only"` 参数（默认 `"ce_fm"`）：只读取原始连续动作 GT、有效
 mask、索引及图像历史，不要求 RVQ/apos/opos 列或码本文件。SlowFast 历史与连续 GT 的
-坐标、30 步 horizon 和尾部 mask 与原训练保持一致。prompt 不再要求输出离散 token；
+坐标和尾部 mask 与原训练保持一致。prompt 不再要求输出离散 token；
 collator 在 assistant 回答起始位置截断，移除空回答的 EOS，`labels` 全部为 `-100`。
 `answer_start` 指向每行补齐后的序列末端，VLM 只编码输入上下文。此模式未新增停止监督。
+
+`training_mode="fm_stop"` 使用相同的连续 prompt 和 FM GT，另外读取原始
+`action.explicit_stop` / `action.stop_loss_valid`，生成独立的 STOP 二分类监督。
+它同样不要求 RVQ/apos/opos 列或码本，但必须传入经过准备阶段审计的
+`stop_supervision=manifest["stop_supervision"]`。旧 manifest 仍可用于原有模式；
+缺少 STOP 审计时，`fm_stop` 直接报错。
+
+`fm_horizon=10` 将 FM GT 和 mask 同步取前十项，得到 `[B,10,3]` 和 `[B,10]`。
+它们对应 t→t+1 至 t+9→t+10 的连续增量，不做间隔抽样或插值。
+读取器仍检查磁盘上完整的 30 步字段，不修改原数据、不丢弃末尾帧；无效未来仍由 mask 排除。
+此参数支持 1–30，默认 30 保持旧行为。训练器通过 YAML 的同名字段同步配置动作专家。
 
 ```bash
 bash scripts/setup_betanav_train.sh
@@ -50,11 +61,14 @@ if __name__ == "__main__":
     main()  # spawn workers 需要 main guard；交互式环境先使用 num_workers=0。
 ```
 
-模型与读取器应指向同一 checkpoint 的 tokenizer、eval_config 和 RVQ 码本。
+模型与读取器应指向同一 checkpoint 的 tokenizer、eval_config；`ce_fm` 还需匹配 RVQ 码本。
 若模型加载时显式覆盖了图像尺寸/池化等参数，需要同时对齐读取器配置，不能只改一侧。
 当前读取器默认严格使用 checkpoint 的 vlnce 配置。
 
 ## 一条训练样本怎么形成
+
+下面步骤中的 token 回答与 CE 部分适用于 `ce_fm`；`fm_only` / `fm_stop` 使用
+连续 prompt、空回答并在回答起始处截断，STOP 标签不会拼进输入文本。
 
 1. **按 `(episode,t)` 定位。**初始化只读取 `meta/info.json` 和 episode 索引的必要列，
    建立全局帧范围与 Parquet 路径。每次只读取所在 row group 的监督列和 RGB 列，
@@ -71,7 +85,8 @@ if __name__ == "__main__":
    五个位置应用各通道 mask。prompt 和 padding 的 labels 为 -100；回答结束的
    `<|im_end|>` 参与 CE。因此普通完整样本通常有 6 个监督位置，即五个任务 token 加结束 token。
 6. **保留连续 GT。**直接取当前行 `action.fm.clean_se2_diff` 和 `action.fm.valid_mask`，
-   保持 `[30,3]` / `[30]`。不再次堆叠未来 30 行、不用 RVQ 重建值替换、也不在读取器中归一化。
+   校验存储的 `[30,3]` / `[30]` 后，取前 `fm_horizon` 项。不再次堆叠未来行、
+   不用 RVQ 重建值替换、也不在读取器中归一化。
 
 RGB 的压缩列按 row group 读入时可能包含未使用的其他帧字节；模型输入只解码和选取
 `<=t` 的历史帧。多个指令 episode 即使复用同一物理路线的图像，仍保持各自 episode 索引与指令。
@@ -103,6 +118,45 @@ label 的位置可能不同，例如 STOP 帧的第一个 apos 标签是 -100。
 FM 只读取该起点之前的主干上下文，GT 回答不会进入 FM 条件。
 序列超过 checkpoint `max_seq_len` 或回答不完整时直接报错，不截断后继续训练。
 
+### `fm_stop` 的独立终止监督
+
+| 当前帧状态 | `stop_target` | `stop_valid_mask` |
+|---|---|---|
+| 审计成功且完整的专家轨迹，原始显式 STOP 末帧 | 1 | true，即使 FM mask 全 false |
+| 同一可靠轨迹的非末帧，有真实后继且未标 STOP | 0 | true，包括未来不足十步的帧 |
+| 失败、截断或未确认成功的 episode | 占位 0 | false，保守地忽略整条轨迹的 STOP 分类监督 |
+
+未知轨迹的中途状态也不自动标 CONTINUE：失败或截断的轨迹可能已经经过应停止的位置，
+仅有后继帧不足以证明“应该继续”。FM 的原始有效步监督保持不变。
+中途显式 STOP、两个原始 STOP 字段不一致、成功轨迹缺少末帧 STOP，以及失败/未知
+provenance 与显式 STOP 矛盾都会报错；不会从末帧位置推断成功，也不会把缺失未来补成零动作监督。
+`sample_info.explicit_stop` 仅显示原始字段；`fm_only` 不读取该字段，返回 `None`。
+
+先生成一个新的 manifest，不重写数据或 provenance：
+
+```bash
+.venv-train/bin/python -m lightnav.training.prepare_data \
+  /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912 \
+  --output configs/betanav/data/NEW_R2R_FM_STOP.json \
+  --val-fraction 0 --with-stop-labels \
+  --normalization-from configs/betanav/data/r2r_all_train_20260913.json
+```
+
+`--val-fraction 0` 保留全量 R2R 训练政策，不新增校准/验证划分。
+`--normalization-from` 用于保留已有 FM 基线的归一化；选择与基线相同的 manifest。
+准备阶段支持 `beta_nav_lerobot_v1` 原始导出和 `source_shard` 合并导出：检查 copied
+`episode.json` / `samples.jsonl` 的 exporter 哈希、episode/scene/frame 对齐，以及 Parquet
+原始 STOP 列与 samples 一致。成功依据是 `complete=true`、`terminal_stop_supervised=true`、
+有限 `goal_distance_m < 3` 和 `max_gt_route_deviation_m <= 0.5`；必要 provenance 缺失时拒绝启用。
+这些是此 R2R/RxR 专家回放格式的审计条件，不是推理时可使用的 GT。
+
+manifest 的 `stop_supervision` 保存标签版本、各 episode 的成功状态/长度、训练与验证
+正负/无效计数、固定 `positive_weight=N_negative/N_positive` 及来源指纹，要求训练两类均非空。
+指纹覆盖小 provenance 文件和 Parquet 的身份/STOP 选列，不读取 RGB/深度。
+训练入口在 rank 0 验证指纹与 split；直接使用 Python loader 时，调用者先执行
+`lightnav.training.stop_labels.verify_stop_supervision(root, manifest["stop_supervision"])`。
+worker 仅持有紧凑 episode 审计表并检查当前行，不读取大 provenance。
+
 ## 从 batch 到 CE / FM loss
 
 读取器提供干净动作 `a = batch.fm_clean_se2_diff`，不预先固定噪声或 flow time。
@@ -123,6 +177,11 @@ FM 只读取该起点之前的主干上下文，GT 回答不会进入 FM 条件�
 所以数据集保存的是最终希望生成的连续动作，FM 训练时的噪声轨迹和速度标签由模型在线构造。
 训练中的“速度”指沿 flow time 的变化量，不是按真实秒数计算的机器人速度。
 
+`fm_stop` 不计算 CE，VLM 在 `eval/no_grad` 下只编码一次输入；同一次前向的末个有效
+prefix token 特征经 detach 后进入 StopHead。二分类使用独立 `stop_valid_mask` 和
+manifest 固定正例权重，训练器分别归一化 FM 与 STOP 的有效量。终止帧可以只更新
+StopHead；分类损失不会更新 VLM 或 FM 专家。完整损失/梯度契约见 [BETA_MODEL.md](BETA_MODEL.md)。
+
 ## Batch 与多进程
 
 返回 `TrainLerobotBatch`，它继承 `BetaTrainBatch`：
@@ -136,8 +195,10 @@ FM 只读取该起点之前的主干上下文，GT 回答不会进入 FM 条件�
 | `_original_video_grid_thw` / `_post_vit_pool_factors` | 同一视频顺序的原始 grid 与池化因子 |
 | `labels` | `[B,L]`，全局 token ID 或 -100 |
 | `answer_start` | `[B]`，在补齐后序列中的回答起点 |
-| `fm_clean_se2_diff` | `[B,30,3]`，float32，原始米/米/弧度 |
-| `fm_valid_mask` | `[B,30]`，bool |
+| `fm_clean_se2_diff` | `[B,H,3]`，H=`fm_horizon`，float32，原始米/米/弧度 |
+| `fm_valid_mask` | `[B,H]`，bool |
+| `stop_target` | `fm_stop` 时 `[B]` float32，0=CONTINUE、1=STOP；旧模式为 None |
+| `stop_valid_mask` | `fm_stop` 时 `[B]` bool，独立于 FM/RVQ mask；旧模式为 None |
 | `sample_info` | 帧身份、指令、GT token、mask、SlowFast 帧号；只供检查，不输入 VLM |
 
 视觉 patch/grid 在样本维度拼接，不能像普通图片 batch 那样直接 stack。
@@ -151,6 +212,9 @@ worker 不加载 VLM，也不携带 ModelBundle。`pin_memory=True` 时自定义
 |---|---|---|
 | `dataset_root` / `model_path` | 必填 | LeRobot 根目录、LightNav checkpoint |
 | `batch_size` / `num_workers` | 2 / 0 | 每批帧样本数、CPU worker 数 |
+| `fm_horizon` | 30 | 连续未来动作步数，1–30；新实验设为 10 |
+| `training_mode` | ce_fm | fm_only / fm_stop 使用 prompt-only 上下文，无 token/RVQ 标签；fm_stop 增加独立终止监督 |
+| `stop_supervision` | None | fm_stop 必填，传入审计 manifest 的同名字典 |
 | `shuffle` / `seed` | true / 0 | 帧样本随机顺序及种子 |
 | `episode_indices` | None | 选择原始 LeRobot episode_index；None 使用全部，不能传 source episode ID |
 | `drop_last` / `pin_memory` | false / false | 最后一批处理、CPU pinned memory |
@@ -160,7 +224,8 @@ worker 不加载 VLM，也不携带 ModelBundle。`pin_memory=True` 时自定义
 
 每轮调用 `loader.set_epoch(epoch)`。分布式 sampler 在样本数不能被 world_size 整除时，
 沿用 PyTorch 的补齐/丢弃规则；读取器不会创建分布式进程组。
-训练/验证 episode 列表由调用者提供，建议按 scene 或物理路线分组，避免同路线不同指令泄漏。
+训练/验证 episode 列表由调用者提供。当前 R2R 使用全量训练、空验证；若其他实验需划分，
+应按 scene 或物理路线分组，避免同路线不同指令泄漏。
 动作归一化尺度须从训练划分的有效动作确定，不能对类别 ID 做连续量归一化。
 
 单 worker 的 64 帧 FP32 缓存在当前分辨率下约 84 MiB，另有 row group、当前样本和预取 batch。
@@ -184,12 +249,22 @@ worker 不加载 VLM，也不携带 ModelBundle。`pin_memory=True` 时自定义
   /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912 \
   --model-path /mnt/cfs/Models/Light --episode-indices 0 1 \
   --batch-size 2 --num-workers 2
+
+# 独立 STOP 标签检查；先准备上面的新 manifest。
+.venv-train/bin/python -m lightnav.dataloader.Train_Lerobot_DataLoader \
+  /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912 \
+  --model-path /mnt/cfs/Models/Light --training-mode fm_stop \
+  --stop-manifest configs/betanav/data/NEW_R2R_FM_STOP.json \
+  --episode-indices 0 --sample-indices 34 35 --fm-horizon 10
 ```
 
 | CLI 参数 | 默认/说明 |
 |---|---|
 | `dataset` | 必填位置参数 |
 | `--model-path` | 必填 checkpoint 路径，只加载配置/tokenizer/processor |
+| `--training-mode` | ce_fm；可选 fm_only / fm_stop |
+| `--fm-horizon` | 30；可选 1–30，连续截取原始目标前 H 步 |
+| `--stop-manifest` | fm_stop 必填，经 `prepare_data --with-stop-labels` 生成的 manifest；CLI 先验证来源指纹 |
 | `--batch-size` | 2 |
 | `--num-workers` | 0；与 `--sample-indices` 不能同时启用 |
 | `--episode-indices` | 可选，一个或多个 LeRobot episode_index |

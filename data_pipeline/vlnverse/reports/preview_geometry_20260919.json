@@ -1,0 +1,1595 @@
+{
+  "report_version": 1,
+  "date_utc": "2026-09-19",
+  "purpose": "Calibrate supplied official map and select a collision-screened real official GT episode for a visual comparison; no simulation collision certificate",
+  "selection": {
+    "seed": 20260919,
+    "initial_candidate_count": 3848,
+    "initial_scene_count": 171,
+    "candidate_order": "episode_id lexicographic",
+    "rng": "Python random.Random(20260919)",
+    "draw_rule": "random.Random.choice then remove without replacement; first matches original choice; require calibrated map and entire 0.3m swept route clear",
+    "initial_episode": "kujiale_0195_4_2",
+    "accepted_episode": "kujiale_0018_2_2",
+    "accepted_draw_number_1based": 236,
+    "rejected_count": 235,
+    "rejection_summary": {
+      "swept_footprint_collision": 192,
+      "missing_map_calibration_file": 41,
+      "native_map_class_mismatch": 2
+    },
+    "initial_selection_history_untouched": "preview_selection_20260919.json"
+  },
+  "initial_episode_diagnostic": {
+    "episode_id": "kujiale_0195_4_2",
+    "source_frames": 67,
+    "segment_count": 66,
+    "formal_radius_m": 0.3,
+    "blocked_segment_indices": [
+      13,
+      14,
+      15,
+      16,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      28,
+      29,
+      30,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      44,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      64,
+      65
+    ],
+    "centerline_radius_zero_blocked_segments": 0,
+    "diagnostic_other_radii_blocked_counts": {
+      "0.1": 0,
+      "0.2": 4
+    },
+    "formal_decision": "rejected; robot radius and safety margin retained"
+  },
+  "accepted_episode": {
+    "episode_id": "kujiale_0018_2_2",
+    "official_parquet_url": "https://huggingface.co/datasets/Eyz/VLNVerse_data/resolve/main/traj_data/vlnverse/kujiale_0018/2_2/data/chunk-000/episode_000000.parquet",
+    "source_frames": 23,
+    "retimed_frames": 111,
+    "raw_reference_vs_official_xy_max_abs_error_m": 0.0,
+    "raw_reference_z_m": [
+      0.0
+    ],
+    "official_robot_z_m": [
+      0.0
+    ],
+    "instruction": "Walk forward into the main room, passing a dining table on your right. Continue straight, keeping a long white cabinet and a TV on your left, and a living room sofa and coffee table on your right. Stop between the two open doorways directly in front of you, with the bathroom entrance on your left and the bedroom entrance on your right.",
+    "quality": {
+      "valid": true,
+      "frames": 111,
+      "duration_s": 30.07812500000003,
+      "sampling_mode": "per_source_step",
+      "sample_hz": null,
+      "poses_per_source_step": 6,
+      "uniform_timestamps": false,
+      "time_basis": "synthetic_retimed_seconds",
+      "primitive_count": 1,
+      "maxima": {
+        "velocity_xyz": 0.39999999999999963,
+        "acceleration_xyz": 0.0456732590161248,
+        "jerk_xyz": 0.010611327373924732,
+        "yaw_rate_rad_s": 4.844609562000677e-17,
+        "yaw_accel_rad_s2": 5.5317276839313e-18,
+        "yaw_jerk_rad_s3": 1.2851934515308834e-18
+      },
+      "continuous_maxima": {
+        "velocity_xyz": 0.3999999999999998,
+        "acceleration_xyz": 0.04567572497873019,
+        "jerk_xyz": 0.01061132737392475,
+        "yaw_rate_rad_s": 4.8446095620006785e-17,
+        "yaw_accel_rad_s2": 5.5320263495817395e-18,
+        "yaw_jerk_rad_s3": 1.2851934515308857e-18
+      },
+      "collision_check": "continuous_segments_against_conservatively_inflated_2d_grid",
+      "footprint_radius_with_margin_m": 0.3,
+      "simulator_replayed": false,
+      "measured_physical_timing": false
+    }
+  },
+  "map_calibration": {
+    "adapter": "official_coordinate_header_freemap_v1",
+    "native_shape": [
+      314,
+      139
+    ],
+    "native_spacing_xy_m": [
+      0.05038442215224581,
+      0.050307317326195644
+    ],
+    "native_axes": "row increases world Y; column decreases world X",
+    "native_classes": {
+      "0": "occupied",
+      "1": "free",
+      "2": "unknown"
+    },
+    "pixel_coordinate_model": "nearest embedded world coordinate; midpoint cell boundaries",
+    "outside_bounds": "blocked; exterior pixel cells clipped to declared min/max",
+    "verified_room_vertices": 26,
+    "max_room_vertex_to_pixel_center_distance_m": 0.030694673807032027,
+    "declared_map_height_range_m": [
+      0.1,
+      1.0
+    ],
+    "canonical_shape": [
+      315,
+      140
+    ],
+    "canonical_resolution_m": 0.05,
+    "resampling": "any occupied/unknown rectangle overlap blocks the output square",
+    "limitation": "2-D supplied occupancy only; not a new 3-D robot collision certificate",
+    "inputs": {
+      "occupancy.json": {
+        "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/occupancy.json",
+        "sha256": "7f47d3c250fd01db9926be721d76db00d67cedf5aed5f4e22848a4527be645ea"
+      },
+      "occupancy.png": {
+        "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/occupancy.png",
+        "sha256": "baaffb10f74c49698421571e1c6b78267ad0d79a6dd3f4dd2eee593ff7251859"
+      },
+      "rooms.json": {
+        "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/rooms.json",
+        "sha256": "18ba5af32dc6adfec33b0d61a001e309b694cae5ba7c9a0b1f66ac5a2d5ae122"
+      },
+      "room_in_images.json": {
+        "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/room_in_images.json",
+        "sha256": "b3dbb3159c8be563c919f74fdfcb7842b18700da8c627c7409f394f11f2482d4"
+      },
+      "freemap.npy": {
+        "path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/room_meta/metadata_train/kujiale_0018/freemap.npy",
+        "sha256": "c4b2833df67cf329387c91164ee9954b6478352f5ddfe094d1c5bb6b0829e0bd"
+      }
+    }
+  },
+  "staging_outputs": {
+    "directory": "/tmp/lightnav-vlnverse-preview-20260919/processed/kujiale_0018",
+    "note": "These paths record the validation staging location; final published preview artifacts may be copied to the configured data root",
+    "sha256": {
+      "scene_occupancy.npz": "c4823fa80f146ef1484fa1969c11757ba857868fa9e7d8980a54b48916d39e2b",
+      "map_provenance.json": "ba2b39c6388560ff66d91e1196558e8c7541a948f4cb3e79b715d9cace47ff1e",
+      "retimed/source_poses.npz": "4bae55d5fe90fabb14492db147a01603962191120376146b7dcacd052f79ff7e",
+      "retimed/trajectory.npz": "a4fd1bb451934ad3173aff5f53c5704b905ce4fcbafdbbb14afbd56d1bd620e2",
+      "retimed/manifest.json": "58bb363c87b1c418b0caef8f3946f69450460a0cb998b7abc15f9c21fe0c647d"
+    }
+  },
+  "adapter_sha256": "7cf076b43f28a6ddd74a155dba0cdc87f5e57849dad3157cb16afbfab213d18f",
+  "validation": "38 targeted official-map/occupancy CPU tests passed; Ruff passed for added adapter and tests",
+  "limits": [
+    "Only supplied 2D occupancy and circular radius 0.3 m are checked.",
+    "Declared supplied map height interval is 0.1 to 1.0 m; no new 3D robot-height/overhang/contact verification is implied.",
+    "Conservative rasterization and square inflation can reject geometrically feasible passages.",
+    "Retimed seconds are synthetic; rendered camera views do not imply physics rollout."
+  ],
+  "rejected_candidates": [
+    {
+      "draw_number_1based": 1,
+      "episode_id": "kujiale_0195_4_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 28
+    },
+    {
+      "draw_number_1based": 2,
+      "episode_id": "kujiale_0037_26_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0037/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 3,
+      "episode_id": "kujiale_0246_21_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 4,
+      "episode_id": "kujiale_0098_55_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 5,
+      "episode_id": "kujiale_0050_19_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 21
+    },
+    {
+      "draw_number_1based": 6,
+      "episode_id": "kujiale_0236_79_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 7,
+      "episode_id": "kujiale_0199_50_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 8,
+      "episode_id": "kujiale_0223_45_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 40
+    },
+    {
+      "draw_number_1based": 9,
+      "episode_id": "kujiale_0250_13_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 35
+    },
+    {
+      "draw_number_1based": 10,
+      "episode_id": "kujiale_0228_8_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 9
+    },
+    {
+      "draw_number_1based": 11,
+      "episode_id": "kujiale_0095_26_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 12,
+      "episode_id": "kujiale_0115_78_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 30
+    },
+    {
+      "draw_number_1based": 13,
+      "episode_id": "kujiale_0215_93_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 25
+    },
+    {
+      "draw_number_1based": 14,
+      "episode_id": "kujiale_0177_7_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 12
+    },
+    {
+      "draw_number_1based": 15,
+      "episode_id": "kujiale_0083_1_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 12
+    },
+    {
+      "draw_number_1based": 16,
+      "episode_id": "kujiale_0019_4_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 15
+    },
+    {
+      "draw_number_1based": 17,
+      "episode_id": "kujiale_0268_90_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 21
+    },
+    {
+      "draw_number_1based": 18,
+      "episode_id": "kujiale_0022_15_4",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0022/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 19,
+      "episode_id": "kujiale_0120_106_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 24
+    },
+    {
+      "draw_number_1based": 20,
+      "episode_id": "kujiale_0035_6_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0035/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 21,
+      "episode_id": "kujiale_0171_46_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 16
+    },
+    {
+      "draw_number_1based": 22,
+      "episode_id": "kujiale_0013_35_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 39
+    },
+    {
+      "draw_number_1based": 23,
+      "episode_id": "kujiale_0092_16_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 24,
+      "episode_id": "kujiale_0184_75_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 19
+    },
+    {
+      "draw_number_1based": 25,
+      "episode_id": "kujiale_0206_22_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 26,
+      "episode_id": "kujiale_0013_40_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 23
+    },
+    {
+      "draw_number_1based": 27,
+      "episode_id": "kujiale_0110_56_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 34
+    },
+    {
+      "draw_number_1based": 28,
+      "episode_id": "kujiale_0005_4_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 60
+    },
+    {
+      "draw_number_1based": 29,
+      "episode_id": "kujiale_0016_25_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 31
+    },
+    {
+      "draw_number_1based": 30,
+      "episode_id": "kujiale_0203_35_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0203/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 31,
+      "episode_id": "kujiale_0200_74_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 33
+    },
+    {
+      "draw_number_1based": 32,
+      "episode_id": "kujiale_0155_5_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 19
+    },
+    {
+      "draw_number_1based": 33,
+      "episode_id": "kujiale_0264_58_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 34,
+      "episode_id": "kujiale_0193_135_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 42
+    },
+    {
+      "draw_number_1based": 35,
+      "episode_id": "kujiale_0071_28_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 36,
+      "episode_id": "kujiale_0171_1_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 16
+    },
+    {
+      "draw_number_1based": 37,
+      "episode_id": "kujiale_0013_45_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 38,
+      "episode_id": "kujiale_0081_19_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 34
+    },
+    {
+      "draw_number_1based": 39,
+      "episode_id": "kujiale_0254_22_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 15
+    },
+    {
+      "draw_number_1based": 40,
+      "episode_id": "kujiale_0176_58_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 41,
+      "episode_id": "kujiale_0171_75_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 25
+    },
+    {
+      "draw_number_1based": 42,
+      "episode_id": "kujiale_0055_57_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 8
+    },
+    {
+      "draw_number_1based": 43,
+      "episode_id": "kujiale_0213_8_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 33
+    },
+    {
+      "draw_number_1based": 44,
+      "episode_id": "kujiale_0046_0_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 45,
+      "episode_id": "kujiale_0092_84_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 46,
+      "episode_id": "kujiale_0149_42_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 40
+    },
+    {
+      "draw_number_1based": 47,
+      "episode_id": "kujiale_0038_15_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0038/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 48,
+      "episode_id": "kujiale_0244_29_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 49,
+      "episode_id": "kujiale_0038_28_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0038/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 50,
+      "episode_id": "kujiale_0034_11_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0034/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 51,
+      "episode_id": "kujiale_0268_35_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 52,
+      "episode_id": "kujiale_0005_8_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 15
+    },
+    {
+      "draw_number_1based": 53,
+      "episode_id": "kujiale_0009_35_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0009/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 54,
+      "episode_id": "kujiale_0280_26_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 55,
+      "episode_id": "kujiale_0064_40_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 12
+    },
+    {
+      "draw_number_1based": 56,
+      "episode_id": "kujiale_0261_18_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 28
+    },
+    {
+      "draw_number_1based": 57,
+      "episode_id": "kujiale_0080_11_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 58,
+      "episode_id": "kujiale_0053_8_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 59,
+      "episode_id": "kujiale_0254_1_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 60,
+      "episode_id": "kujiale_0026_56_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0026/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 61,
+      "episode_id": "kujiale_0218_84_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 31
+    },
+    {
+      "draw_number_1based": 62,
+      "episode_id": "kujiale_0155_21_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 6
+    },
+    {
+      "draw_number_1based": 63,
+      "episode_id": "kujiale_0106_39_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 36
+    },
+    {
+      "draw_number_1based": 64,
+      "episode_id": "kujiale_0079_27_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 65,
+      "episode_id": "kujiale_0009_1_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0009/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 66,
+      "episode_id": "kujiale_0227_60_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 19
+    },
+    {
+      "draw_number_1based": 67,
+      "episode_id": "kujiale_0120_121_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 68,
+      "episode_id": "kujiale_0211_18_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 69,
+      "episode_id": "kujiale_0196_44_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 11
+    },
+    {
+      "draw_number_1based": 70,
+      "episode_id": "kujiale_0120_4_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 12
+    },
+    {
+      "draw_number_1based": 71,
+      "episode_id": "kujiale_0288_58_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 4
+    },
+    {
+      "draw_number_1based": 72,
+      "episode_id": "kujiale_0182_26_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 73,
+      "episode_id": "kujiale_0162_26_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 19
+    },
+    {
+      "draw_number_1based": 74,
+      "episode_id": "kujiale_0230_66_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 26
+    },
+    {
+      "draw_number_1based": 75,
+      "episode_id": "kujiale_0214_39_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 39
+    },
+    {
+      "draw_number_1based": 76,
+      "episode_id": "kujiale_0070_4_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 16
+    },
+    {
+      "draw_number_1based": 77,
+      "episode_id": "kujiale_0038_9_2",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0038/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 78,
+      "episode_id": "kujiale_0024_43_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0024/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 79,
+      "episode_id": "kujiale_0194_29_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 19
+    },
+    {
+      "draw_number_1based": 80,
+      "episode_id": "kujiale_0034_16_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0034/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 81,
+      "episode_id": "kujiale_0265_21_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 9
+    },
+    {
+      "draw_number_1based": 82,
+      "episode_id": "kujiale_0231_80_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 25
+    },
+    {
+      "draw_number_1based": 83,
+      "episode_id": "kujiale_0070_14_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 9
+    },
+    {
+      "draw_number_1based": 84,
+      "episode_id": "kujiale_0059_18_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 37
+    },
+    {
+      "draw_number_1based": 85,
+      "episode_id": "kujiale_0018_14_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 86,
+      "episode_id": "kujiale_0133_19_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 31
+    },
+    {
+      "draw_number_1based": 87,
+      "episode_id": "kujiale_0228_23_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 16
+    },
+    {
+      "draw_number_1based": 88,
+      "episode_id": "kujiale_0271_61_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0271/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 89,
+      "episode_id": "kujiale_0236_29_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 24
+    },
+    {
+      "draw_number_1based": 90,
+      "episode_id": "kujiale_0068_48_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 29
+    },
+    {
+      "draw_number_1based": 91,
+      "episode_id": "kujiale_0211_52_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 31
+    },
+    {
+      "draw_number_1based": 92,
+      "episode_id": "kujiale_0059_27_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 26
+    },
+    {
+      "draw_number_1based": 93,
+      "episode_id": "kujiale_0179_5_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 9
+    },
+    {
+      "draw_number_1based": 94,
+      "episode_id": "kujiale_0183_5_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 95,
+      "episode_id": "kujiale_0222_75_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 31
+    },
+    {
+      "draw_number_1based": 96,
+      "episode_id": "kujiale_0152_35_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 35
+    },
+    {
+      "draw_number_1based": 97,
+      "episode_id": "kujiale_0119_52_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 19
+    },
+    {
+      "draw_number_1based": 98,
+      "episode_id": "kujiale_0268_71_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 4
+    },
+    {
+      "draw_number_1based": 99,
+      "episode_id": "kujiale_0058_88_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 8
+    },
+    {
+      "draw_number_1based": 100,
+      "episode_id": "kujiale_0178_31_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 29
+    },
+    {
+      "draw_number_1based": 101,
+      "episode_id": "kujiale_0271_14_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0271/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 102,
+      "episode_id": "kujiale_0230_13_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 103,
+      "episode_id": "kujiale_0019_10_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 15
+    },
+    {
+      "draw_number_1based": 104,
+      "episode_id": "kujiale_0287_11_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 5
+    },
+    {
+      "draw_number_1based": 105,
+      "episode_id": "kujiale_0175_59_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 24
+    },
+    {
+      "draw_number_1based": 106,
+      "episode_id": "kujiale_0184_60_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 11
+    },
+    {
+      "draw_number_1based": 107,
+      "episode_id": "kujiale_0271_47_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0271/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 108,
+      "episode_id": "kujiale_0092_27_4",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 109,
+      "episode_id": "kujiale_0058_65_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 110,
+      "episode_id": "kujiale_0252_23_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 35
+    },
+    {
+      "draw_number_1based": 111,
+      "episode_id": "kujiale_0059_5_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 16
+    },
+    {
+      "draw_number_1based": 112,
+      "episode_id": "kujiale_0132_9_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 113,
+      "episode_id": "kujiale_0016_12_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 12
+    },
+    {
+      "draw_number_1based": 114,
+      "episode_id": "kujiale_0191_6_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 39
+    },
+    {
+      "draw_number_1based": 115,
+      "episode_id": "kujiale_0220_4_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 34
+    },
+    {
+      "draw_number_1based": 116,
+      "episode_id": "kujiale_0062_0_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 117,
+      "episode_id": "kujiale_0045_3_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 118,
+      "episode_id": "kujiale_0034_17_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0034/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 119,
+      "episode_id": "kujiale_0251_17_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 31
+    },
+    {
+      "draw_number_1based": 120,
+      "episode_id": "kujiale_0203_34_2",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0203/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 121,
+      "episode_id": "kujiale_0237_57_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 24
+    },
+    {
+      "draw_number_1based": 122,
+      "episode_id": "kujiale_0183_86_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 123,
+      "episode_id": "kujiale_0193_46_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 8
+    },
+    {
+      "draw_number_1based": 124,
+      "episode_id": "kujiale_0107_30_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 125,
+      "episode_id": "kujiale_0175_11_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 126,
+      "episode_id": "kujiale_0239_44_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 27
+    },
+    {
+      "draw_number_1based": 127,
+      "episode_id": "kujiale_0176_22_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 38
+    },
+    {
+      "draw_number_1based": 128,
+      "episode_id": "kujiale_0026_57_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0026/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 129,
+      "episode_id": "kujiale_0109_18_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 130,
+      "episode_id": "kujiale_0022_41_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0022/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 131,
+      "episode_id": "kujiale_0059_25_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 1
+    },
+    {
+      "draw_number_1based": 132,
+      "episode_id": "kujiale_0118_43_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 36
+    },
+    {
+      "draw_number_1based": 133,
+      "episode_id": "kujiale_0054_11_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 134,
+      "episode_id": "kujiale_0088_4_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 135,
+      "episode_id": "kujiale_0222_33_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 28
+    },
+    {
+      "draw_number_1based": 136,
+      "episode_id": "kujiale_0182_38_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 137,
+      "episode_id": "kujiale_0262_4_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 21
+    },
+    {
+      "draw_number_1based": 138,
+      "episode_id": "kujiale_0118_21_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 139,
+      "episode_id": "kujiale_0231_13_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 140,
+      "episode_id": "kujiale_0158_4_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 141,
+      "episode_id": "kujiale_0064_12_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 142,
+      "episode_id": "kujiale_0061_38_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 54
+    },
+    {
+      "draw_number_1based": 143,
+      "episode_id": "kujiale_0026_66_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0026/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 144,
+      "episode_id": "kujiale_0179_4_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 23
+    },
+    {
+      "draw_number_1based": 145,
+      "episode_id": "kujiale_0267_8_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 146,
+      "episode_id": "kujiale_0100_32_3",
+      "reason": "freemap classes do not match occupancy.png (0/255/127)",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 147,
+      "episode_id": "kujiale_0038_10_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0038/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 148,
+      "episode_id": "kujiale_0265_2_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 149,
+      "episode_id": "kujiale_0203_12_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0203/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 150,
+      "episode_id": "kujiale_0062_37_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 2
+    },
+    {
+      "draw_number_1based": 151,
+      "episode_id": "kujiale_0092_23_4",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 152,
+      "episode_id": "kujiale_0170_41_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 23
+    },
+    {
+      "draw_number_1based": 153,
+      "episode_id": "kujiale_0092_32_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 154,
+      "episode_id": "kujiale_0215_67_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 155,
+      "episode_id": "kujiale_0072_22_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 29
+    },
+    {
+      "draw_number_1based": 156,
+      "episode_id": "kujiale_0212_50_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 157,
+      "episode_id": "kujiale_0061_3_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 20
+    },
+    {
+      "draw_number_1based": 158,
+      "episode_id": "kujiale_0086_5_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 159,
+      "episode_id": "kujiale_0252_2_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 34
+    },
+    {
+      "draw_number_1based": 160,
+      "episode_id": "kujiale_0206_37_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 36
+    },
+    {
+      "draw_number_1based": 161,
+      "episode_id": "kujiale_0215_77_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 162,
+      "episode_id": "kujiale_0271_9_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0271/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 163,
+      "episode_id": "kujiale_0112_43_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 7
+    },
+    {
+      "draw_number_1based": 164,
+      "episode_id": "kujiale_0118_14_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 21
+    },
+    {
+      "draw_number_1based": 165,
+      "episode_id": "kujiale_0149_106_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 15
+    },
+    {
+      "draw_number_1based": 166,
+      "episode_id": "kujiale_0082_53_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 9
+    },
+    {
+      "draw_number_1based": 167,
+      "episode_id": "kujiale_0026_59_2",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0026/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 168,
+      "episode_id": "kujiale_0112_15_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 169,
+      "episode_id": "kujiale_0218_35_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 170,
+      "episode_id": "kujiale_0180_30_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 35
+    },
+    {
+      "draw_number_1based": 171,
+      "episode_id": "kujiale_0012_42_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 4
+    },
+    {
+      "draw_number_1based": 172,
+      "episode_id": "kujiale_0194_5_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 39
+    },
+    {
+      "draw_number_1based": 173,
+      "episode_id": "kujiale_0146_13_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 46
+    },
+    {
+      "draw_number_1based": 174,
+      "episode_id": "kujiale_0251_40_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 38
+    },
+    {
+      "draw_number_1based": 175,
+      "episode_id": "kujiale_0009_5_4",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0009/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 176,
+      "episode_id": "kujiale_0012_34_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 35
+    },
+    {
+      "draw_number_1based": 177,
+      "episode_id": "kujiale_0227_106_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 13
+    },
+    {
+      "draw_number_1based": 178,
+      "episode_id": "kujiale_0199_57_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 179,
+      "episode_id": "kujiale_0178_45_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 180,
+      "episode_id": "kujiale_0120_81_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 181,
+      "episode_id": "kujiale_0100_46_2",
+      "reason": "freemap classes do not match occupancy.png (0/255/127)",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 182,
+      "episode_id": "kujiale_0092_87_2",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 183,
+      "episode_id": "kujiale_0018_4_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 184,
+      "episode_id": "kujiale_0225_21_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 185,
+      "episode_id": "kujiale_0022_5_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0022/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 186,
+      "episode_id": "kujiale_0267_7_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 49
+    },
+    {
+      "draw_number_1based": 187,
+      "episode_id": "kujiale_0216_94_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 8
+    },
+    {
+      "draw_number_1based": 188,
+      "episode_id": "kujiale_0110_57_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 189,
+      "episode_id": "kujiale_0112_42_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 9
+    },
+    {
+      "draw_number_1based": 190,
+      "episode_id": "kujiale_0075_6_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 31
+    },
+    {
+      "draw_number_1based": 191,
+      "episode_id": "kujiale_0074_24_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 5
+    },
+    {
+      "draw_number_1based": 192,
+      "episode_id": "kujiale_0249_19_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 27
+    },
+    {
+      "draw_number_1based": 193,
+      "episode_id": "kujiale_0019_22_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 28
+    },
+    {
+      "draw_number_1based": 194,
+      "episode_id": "kujiale_0115_19_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 32
+    },
+    {
+      "draw_number_1based": 195,
+      "episode_id": "kujiale_0060_27_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 11
+    },
+    {
+      "draw_number_1based": 196,
+      "episode_id": "kujiale_0117_40_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 16
+    },
+    {
+      "draw_number_1based": 197,
+      "episode_id": "kujiale_0261_20_4",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 29
+    },
+    {
+      "draw_number_1based": 198,
+      "episode_id": "kujiale_0075_51_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 11
+    },
+    {
+      "draw_number_1based": 199,
+      "episode_id": "kujiale_0213_27_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 38
+    },
+    {
+      "draw_number_1based": 200,
+      "episode_id": "kujiale_0179_55_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 33
+    },
+    {
+      "draw_number_1based": 201,
+      "episode_id": "kujiale_0213_18_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 202,
+      "episode_id": "kujiale_0054_7_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 5
+    },
+    {
+      "draw_number_1based": 203,
+      "episode_id": "kujiale_0203_27_4",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0203/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 204,
+      "episode_id": "kujiale_0082_44_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 21
+    },
+    {
+      "draw_number_1based": 205,
+      "episode_id": "kujiale_0227_13_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 14
+    },
+    {
+      "draw_number_1based": 206,
+      "episode_id": "kujiale_0014_21_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 19
+    },
+    {
+      "draw_number_1based": 207,
+      "episode_id": "kujiale_0271_46_4",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0271/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 208,
+      "episode_id": "kujiale_0094_34_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 2
+    },
+    {
+      "draw_number_1based": 209,
+      "episode_id": "kujiale_0182_21_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 18
+    },
+    {
+      "draw_number_1based": 210,
+      "episode_id": "kujiale_0118_17_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 12
+    },
+    {
+      "draw_number_1based": 211,
+      "episode_id": "kujiale_0046_8_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 10
+    },
+    {
+      "draw_number_1based": 212,
+      "episode_id": "kujiale_0250_17_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 24
+    },
+    {
+      "draw_number_1based": 213,
+      "episode_id": "kujiale_0055_67_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 214,
+      "episode_id": "kujiale_0263_12_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 43
+    },
+    {
+      "draw_number_1based": 215,
+      "episode_id": "kujiale_0222_10_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 22
+    },
+    {
+      "draw_number_1based": 216,
+      "episode_id": "kujiale_0071_27_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 3
+    },
+    {
+      "draw_number_1based": 217,
+      "episode_id": "kujiale_0092_102_1",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 218,
+      "episode_id": "kujiale_0175_35_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 26
+    },
+    {
+      "draw_number_1based": 219,
+      "episode_id": "kujiale_0064_46_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 6
+    },
+    {
+      "draw_number_1based": 220,
+      "episode_id": "kujiale_0092_110_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0092/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 221,
+      "episode_id": "kujiale_0058_100_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 7
+    },
+    {
+      "draw_number_1based": 222,
+      "episode_id": "kujiale_0058_5_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 12
+    },
+    {
+      "draw_number_1based": 223,
+      "episode_id": "kujiale_0164_16_1",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 5
+    },
+    {
+      "draw_number_1based": 224,
+      "episode_id": "kujiale_0024_59_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0024/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 225,
+      "episode_id": "kujiale_0077_15_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 25
+    },
+    {
+      "draw_number_1based": 226,
+      "episode_id": "kujiale_0044_28_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 11
+    },
+    {
+      "draw_number_1based": 227,
+      "episode_id": "kujiale_0189_60_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 21
+    },
+    {
+      "draw_number_1based": 228,
+      "episode_id": "kujiale_0274_19_2",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0274/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 229,
+      "episode_id": "kujiale_0199_56_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 8
+    },
+    {
+      "draw_number_1based": 230,
+      "episode_id": "kujiale_0118_2_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 25
+    },
+    {
+      "draw_number_1based": 231,
+      "episode_id": "kujiale_0077_18_3",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 73
+    },
+    {
+      "draw_number_1based": 232,
+      "episode_id": "kujiale_0042_53_0",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0042/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 233,
+      "episode_id": "kujiale_0040_36_3",
+      "reason": "[Errno 2] No such file or directory: '/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0040/occupancy.json'",
+      "blocked_segment_count": 0
+    },
+    {
+      "draw_number_1based": 234,
+      "episode_id": "kujiale_0187_100_2",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 17
+    },
+    {
+      "draw_number_1based": 235,
+      "episode_id": "kujiale_0106_26_0",
+      "reason": "swept_footprint_collision",
+      "blocked_segment_count": 7
+    }
+  ]
+}

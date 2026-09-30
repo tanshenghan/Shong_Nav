@@ -42,6 +42,10 @@ class TrackingPrediction:
     # The model's own output text for this step, e.g.
     # "<apos_500><opos_900><act_l0_1><act_l1_2><act_l2_3>".
     raw_text: str = ""
+    # Continuous Beta StopHead diagnostics (absent for legacy policies).
+    stop_score: float | None = None
+    stop_threshold: float | None = None
+    stop_source: str = ""
 
 
 def _mean(values: list[float]) -> float:

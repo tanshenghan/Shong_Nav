@@ -1,0 +1,1506 @@
+{
+  "created_at_utc": "2026-09-28T07:07:21.456194+00:00",
+  "source_results": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_eval/20260928T012647_241235Z_fm_stop_r2r_unseen/results.jsonl",
+  "source_results_sha256": "1c821e5d90ed327d26522317d3054fc34c38bf0a99e0f89bd16bd1a10cf328d2",
+  "comparison_file": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/comparison.json",
+  "all_four_replays_match": true,
+  "samples": [
+    {
+      "label": "success_1",
+      "habitat_episode_id": "938",
+      "video": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/videos/sample_01_oLBMNvg9in8_episode_938_success.mp4",
+      "video_info": {
+        "frames": 24,
+        "fps": 5.0,
+        "width": 480,
+        "height": 312,
+        "duration_seconds": 4.8
+      },
+      "replay_matches_original": true,
+      "actions_file": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/shard_1324/records/run_20260928_145503/eval/episode_000/actions.json",
+      "actions_sha256": "4d91b23041af4c3184cc21d71c8ca827bb4e4628453b00f2ad0c6311f75f07a7",
+      "instruction": "Go down the hallway and wait in the room next to the stairs. ",
+      "steps": 23,
+      "success": 1.0,
+      "oracle_success": true,
+      "final_distance": 2.6798336505889893,
+      "min_distance": 2.6798336505889893,
+      "initial_distance": 5.787616729736328,
+      "first_threshold_crossing_zero_based_step": 22,
+      "terminal_minus_initial_distance": -3.107783079147339,
+      "terminal_score_jump": 0.2897593677043915,
+      "per_step": [
+        {
+          "zero_based_step": 0,
+          "decision_number": 1,
+          "stop_score": 0.02491259016096592,
+          "distance_to_goal": 5.787616729736328,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:15.969+00:00"
+        },
+        {
+          "zero_based_step": 1,
+          "decision_number": 2,
+          "stop_score": 0.048286259174346924,
+          "distance_to_goal": 5.787616729736328,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:16.776+00:00"
+        },
+        {
+          "zero_based_step": 2,
+          "decision_number": 3,
+          "stop_score": 0.008730738423764706,
+          "distance_to_goal": 5.787616729736328,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:17.630+00:00"
+        },
+        {
+          "zero_based_step": 3,
+          "decision_number": 4,
+          "stop_score": 0.00593113387003541,
+          "distance_to_goal": 5.531781196594238,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:18.466+00:00"
+        },
+        {
+          "zero_based_step": 4,
+          "decision_number": 5,
+          "stop_score": 0.006921970751136541,
+          "distance_to_goal": 5.282281875610352,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:19.333+00:00"
+        },
+        {
+          "zero_based_step": 5,
+          "decision_number": 6,
+          "stop_score": 0.009501787833869457,
+          "distance_to_goal": 5.035092353820801,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:20.181+00:00"
+        },
+        {
+          "zero_based_step": 6,
+          "decision_number": 7,
+          "stop_score": 0.009829066693782806,
+          "distance_to_goal": 5.035092353820801,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:21.009+00:00"
+        },
+        {
+          "zero_based_step": 7,
+          "decision_number": 8,
+          "stop_score": 0.0157708041369915,
+          "distance_to_goal": 4.806881904602051,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:21.811+00:00"
+        },
+        {
+          "zero_based_step": 8,
+          "decision_number": 9,
+          "stop_score": 0.02572142519056797,
+          "distance_to_goal": 4.585518836975098,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:22.670+00:00"
+        },
+        {
+          "zero_based_step": 9,
+          "decision_number": 10,
+          "stop_score": 0.014833898283541203,
+          "distance_to_goal": 4.5752058029174805,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:23.402+00:00"
+        },
+        {
+          "zero_based_step": 10,
+          "decision_number": 11,
+          "stop_score": 0.011932779103517532,
+          "distance_to_goal": 4.334242820739746,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:24.203+00:00"
+        },
+        {
+          "zero_based_step": 11,
+          "decision_number": 12,
+          "stop_score": 0.04640435054898262,
+          "distance_to_goal": 4.094935894012451,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:25.058+00:00"
+        },
+        {
+          "zero_based_step": 12,
+          "decision_number": 13,
+          "stop_score": 0.035061489790678024,
+          "distance_to_goal": 4.094935894012451,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:25.946+00:00"
+        },
+        {
+          "zero_based_step": 13,
+          "decision_number": 14,
+          "stop_score": 0.0658654123544693,
+          "distance_to_goal": 3.844923973083496,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:26.836+00:00"
+        },
+        {
+          "zero_based_step": 14,
+          "decision_number": 15,
+          "stop_score": 0.03418958932161331,
+          "distance_to_goal": 3.60237455368042,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:27.715+00:00"
+        },
+        {
+          "zero_based_step": 15,
+          "decision_number": 16,
+          "stop_score": 0.05844607576727867,
+          "distance_to_goal": 3.60237455368042,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:28.539+00:00"
+        },
+        {
+          "zero_based_step": 16,
+          "decision_number": 17,
+          "stop_score": 0.20741520822048187,
+          "distance_to_goal": 3.3606367111206055,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:29.423+00:00"
+        },
+        {
+          "zero_based_step": 17,
+          "decision_number": 18,
+          "stop_score": 0.20607978105545044,
+          "distance_to_goal": 3.125617504119873,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:30.316+00:00"
+        },
+        {
+          "zero_based_step": 18,
+          "decision_number": 19,
+          "stop_score": 0.23408567905426025,
+          "distance_to_goal": 2.8985419273376465,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:31.153+00:00"
+        },
+        {
+          "zero_based_step": 19,
+          "decision_number": 20,
+          "stop_score": 0.3640468716621399,
+          "distance_to_goal": 2.6800127029418945,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:32.073+00:00"
+        },
+        {
+          "zero_based_step": 20,
+          "decision_number": 21,
+          "stop_score": 0.21791309118270874,
+          "distance_to_goal": 2.6798336505889893,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:32.995+00:00"
+        },
+        {
+          "zero_based_step": 21,
+          "decision_number": 22,
+          "stop_score": 0.2747969925403595,
+          "distance_to_goal": 2.6798336505889893,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:33.917+00:00"
+        },
+        {
+          "zero_based_step": 22,
+          "decision_number": 23,
+          "stop_score": 0.564556360244751,
+          "distance_to_goal": 2.6798336505889893,
+          "stop": true,
+          "stop_source": "learned_head",
+          "received_at": "2026-09-28T06:55:34.300+00:00"
+        }
+      ]
+    },
+    {
+      "label": "success_2",
+      "habitat_episode_id": "1091",
+      "video": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/videos/sample_02_X7HyMhZNoso_episode_1091_success.mp4",
+      "video_info": {
+        "frames": 29,
+        "fps": 5.0,
+        "width": 480,
+        "height": 328,
+        "duration_seconds": 5.8
+      },
+      "replay_matches_original": true,
+      "actions_file": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/shard_1027/records/run_20260928_145541/eval/episode_000/actions.json",
+      "actions_sha256": "c7e4e229c519292687b658ac4204b732d590aaf0256af4241f62f9f8757de26c",
+      "instruction": "Turn around and go up the stairs. Turn right and stop just passed the bottom of the stairs with carpet. ",
+      "steps": 28,
+      "success": 1.0,
+      "oracle_success": true,
+      "final_distance": 1.8301504850387573,
+      "min_distance": 1.8301504850387573,
+      "initial_distance": 4.975384712219238,
+      "first_threshold_crossing_zero_based_step": 27,
+      "terminal_minus_initial_distance": -3.145234227180481,
+      "terminal_score_jump": 0.20408886671066284,
+      "per_step": [
+        {
+          "zero_based_step": 0,
+          "decision_number": 1,
+          "stop_score": 0.04169376939535141,
+          "distance_to_goal": 4.975384712219238,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:49.422+00:00"
+        },
+        {
+          "zero_based_step": 1,
+          "decision_number": 2,
+          "stop_score": 0.007548219989985228,
+          "distance_to_goal": 4.975531578063965,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:50.220+00:00"
+        },
+        {
+          "zero_based_step": 2,
+          "decision_number": 3,
+          "stop_score": 0.003762476146221161,
+          "distance_to_goal": 4.975531578063965,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:50.993+00:00"
+        },
+        {
+          "zero_based_step": 3,
+          "decision_number": 4,
+          "stop_score": 0.0020400865469127893,
+          "distance_to_goal": 4.97562313079834,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:51.814+00:00"
+        },
+        {
+          "zero_based_step": 4,
+          "decision_number": 5,
+          "stop_score": 0.0008009636076167226,
+          "distance_to_goal": 4.97562313079834,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:52.633+00:00"
+        },
+        {
+          "zero_based_step": 5,
+          "decision_number": 6,
+          "stop_score": 0.007147493772208691,
+          "distance_to_goal": 4.97562313079834,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:53.484+00:00"
+        },
+        {
+          "zero_based_step": 6,
+          "decision_number": 7,
+          "stop_score": 0.04474443942308426,
+          "distance_to_goal": 4.9754133224487305,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:54.323+00:00"
+        },
+        {
+          "zero_based_step": 7,
+          "decision_number": 8,
+          "stop_score": 0.07628300040960312,
+          "distance_to_goal": 4.9752655029296875,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:55.174+00:00"
+        },
+        {
+          "zero_based_step": 8,
+          "decision_number": 9,
+          "stop_score": 0.02427113801240921,
+          "distance_to_goal": 4.9752655029296875,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:55.998+00:00"
+        },
+        {
+          "zero_based_step": 9,
+          "decision_number": 10,
+          "stop_score": 0.008388854563236237,
+          "distance_to_goal": 4.9752655029296875,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:56.760+00:00"
+        },
+        {
+          "zero_based_step": 10,
+          "decision_number": 11,
+          "stop_score": 0.010347477160394192,
+          "distance_to_goal": 4.9752655029296875,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:57.394+00:00"
+        },
+        {
+          "zero_based_step": 11,
+          "decision_number": 12,
+          "stop_score": 0.010890702717006207,
+          "distance_to_goal": 4.696924209594727,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:58.208+00:00"
+        },
+        {
+          "zero_based_step": 12,
+          "decision_number": 13,
+          "stop_score": 0.004969353787600994,
+          "distance_to_goal": 4.423691749572754,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:58.967+00:00"
+        },
+        {
+          "zero_based_step": 13,
+          "decision_number": 14,
+          "stop_score": 0.010944877751171589,
+          "distance_to_goal": 4.159847736358643,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:55:59.865+00:00"
+        },
+        {
+          "zero_based_step": 14,
+          "decision_number": 15,
+          "stop_score": 0.006044352892786264,
+          "distance_to_goal": 3.9101052284240723,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:00.760+00:00"
+        },
+        {
+          "zero_based_step": 15,
+          "decision_number": 16,
+          "stop_score": 0.00988796167075634,
+          "distance_to_goal": 3.672060489654541,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:01.690+00:00"
+        },
+        {
+          "zero_based_step": 16,
+          "decision_number": 17,
+          "stop_score": 0.02704733982682228,
+          "distance_to_goal": 3.439587116241455,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:02.632+00:00"
+        },
+        {
+          "zero_based_step": 17,
+          "decision_number": 18,
+          "stop_score": 0.0037458615843206644,
+          "distance_to_goal": 3.439587116241455,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:03.508+00:00"
+        },
+        {
+          "zero_based_step": 18,
+          "decision_number": 19,
+          "stop_score": 0.009397600777447224,
+          "distance_to_goal": 3.192991256713867,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:04.421+00:00"
+        },
+        {
+          "zero_based_step": 19,
+          "decision_number": 20,
+          "stop_score": 0.034501221030950546,
+          "distance_to_goal": 2.9485552310943604,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:04.966+00:00"
+        },
+        {
+          "zero_based_step": 20,
+          "decision_number": 21,
+          "stop_score": 0.03697977215051651,
+          "distance_to_goal": 2.7041971683502197,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:05.825+00:00"
+        },
+        {
+          "zero_based_step": 21,
+          "decision_number": 22,
+          "stop_score": 0.06043834239244461,
+          "distance_to_goal": 2.7041971683502197,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:06.696+00:00"
+        },
+        {
+          "zero_based_step": 22,
+          "decision_number": 23,
+          "stop_score": 0.03901752829551697,
+          "distance_to_goal": 2.45278000831604,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:07.642+00:00"
+        },
+        {
+          "zero_based_step": 23,
+          "decision_number": 24,
+          "stop_score": 0.029704991728067398,
+          "distance_to_goal": 2.4519283771514893,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:08.585+00:00"
+        },
+        {
+          "zero_based_step": 24,
+          "decision_number": 25,
+          "stop_score": 0.04947495833039284,
+          "distance_to_goal": 2.4519283771514893,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:09.529+00:00"
+        },
+        {
+          "zero_based_step": 25,
+          "decision_number": 26,
+          "stop_score": 0.23734290897846222,
+          "distance_to_goal": 2.2018113136291504,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:10.465+00:00"
+        },
+        {
+          "zero_based_step": 26,
+          "decision_number": 27,
+          "stop_score": 0.37630635499954224,
+          "distance_to_goal": 1.9929054975509644,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:11.390+00:00"
+        },
+        {
+          "zero_based_step": 27,
+          "decision_number": 28,
+          "stop_score": 0.5803952217102051,
+          "distance_to_goal": 1.8301504850387573,
+          "stop": true,
+          "stop_source": "learned_head",
+          "received_at": "2026-09-28T06:56:11.774+00:00"
+        }
+      ]
+    },
+    {
+      "label": "failure_1",
+      "habitat_episode_id": "1060",
+      "video": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/videos/sample_03_QUCTc6BB5sX_episode_1060_failure.mp4",
+      "video_info": {
+        "frames": 30,
+        "fps": 5.0,
+        "width": 480,
+        "height": 328,
+        "duration_seconds": 6.0
+      },
+      "replay_matches_original": true,
+      "actions_file": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/shard_0567/records/run_20260928_145619/eval/episode_000/actions.json",
+      "actions_sha256": "87fbeb01f9668fc0557263af847bbd1dec85726897e61f0fb50b28e451b515ad",
+      "instruction": "Turn right and continue passed the piano. Turn left and stop in the archway. ",
+      "steps": 29,
+      "success": 0.0,
+      "oracle_success": false,
+      "final_distance": 13.107532501220703,
+      "min_distance": 8.661920547485352,
+      "initial_distance": 8.661920547485352,
+      "first_threshold_crossing_zero_based_step": 28,
+      "terminal_minus_initial_distance": 4.445611953735352,
+      "terminal_score_jump": 0.12501871585845947,
+      "per_step": [
+        {
+          "zero_based_step": 0,
+          "decision_number": 1,
+          "stop_score": 0.017597397789359093,
+          "distance_to_goal": 8.661920547485352,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:32.065+00:00"
+        },
+        {
+          "zero_based_step": 1,
+          "decision_number": 2,
+          "stop_score": 0.010993095114827156,
+          "distance_to_goal": 8.661920547485352,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:32.785+00:00"
+        },
+        {
+          "zero_based_step": 2,
+          "decision_number": 3,
+          "stop_score": 0.02008572593331337,
+          "distance_to_goal": 8.661920547485352,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:33.599+00:00"
+        },
+        {
+          "zero_based_step": 3,
+          "decision_number": 4,
+          "stop_score": 0.049276091158390045,
+          "distance_to_goal": 8.661920547485352,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:34.346+00:00"
+        },
+        {
+          "zero_based_step": 4,
+          "decision_number": 5,
+          "stop_score": 0.013787582516670227,
+          "distance_to_goal": 8.661920547485352,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:35.148+00:00"
+        },
+        {
+          "zero_based_step": 5,
+          "decision_number": 6,
+          "stop_score": 0.013116239570081234,
+          "distance_to_goal": 8.661920547485352,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:35.981+00:00"
+        },
+        {
+          "zero_based_step": 6,
+          "decision_number": 7,
+          "stop_score": 0.151725172996521,
+          "distance_to_goal": 8.90103530883789,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:36.820+00:00"
+        },
+        {
+          "zero_based_step": 7,
+          "decision_number": 8,
+          "stop_score": 0.16906727850437164,
+          "distance_to_goal": 9.141000747680664,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:37.660+00:00"
+        },
+        {
+          "zero_based_step": 8,
+          "decision_number": 9,
+          "stop_score": 0.13007719814777374,
+          "distance_to_goal": 9.14112663269043,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:38.514+00:00"
+        },
+        {
+          "zero_based_step": 9,
+          "decision_number": 10,
+          "stop_score": 0.07290992140769958,
+          "distance_to_goal": 9.391090393066406,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:39.360+00:00"
+        },
+        {
+          "zero_based_step": 10,
+          "decision_number": 11,
+          "stop_score": 0.02528819441795349,
+          "distance_to_goal": 9.641050338745117,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:40.225+00:00"
+        },
+        {
+          "zero_based_step": 11,
+          "decision_number": 12,
+          "stop_score": 0.03904658183455467,
+          "distance_to_goal": 9.641622543334961,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:41.046+00:00"
+        },
+        {
+          "zero_based_step": 12,
+          "decision_number": 13,
+          "stop_score": 0.0155470110476017,
+          "distance_to_goal": 9.884593963623047,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:41.917+00:00"
+        },
+        {
+          "zero_based_step": 13,
+          "decision_number": 14,
+          "stop_score": 0.007275336887687445,
+          "distance_to_goal": 10.128166198730469,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:42.761+00:00"
+        },
+        {
+          "zero_based_step": 14,
+          "decision_number": 15,
+          "stop_score": 0.007831845432519913,
+          "distance_to_goal": 10.37226676940918,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:43.353+00:00"
+        },
+        {
+          "zero_based_step": 15,
+          "decision_number": 16,
+          "stop_score": 0.011395243927836418,
+          "distance_to_goal": 10.616832733154297,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:44.176+00:00"
+        },
+        {
+          "zero_based_step": 16,
+          "decision_number": 17,
+          "stop_score": 0.023342587053775787,
+          "distance_to_goal": 10.861812591552734,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:44.946+00:00"
+        },
+        {
+          "zero_based_step": 17,
+          "decision_number": 18,
+          "stop_score": 0.031203901395201683,
+          "distance_to_goal": 10.861967086791992,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:45.844+00:00"
+        },
+        {
+          "zero_based_step": 18,
+          "decision_number": 19,
+          "stop_score": 0.030233334749937057,
+          "distance_to_goal": 11.111446380615234,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:46.750+00:00"
+        },
+        {
+          "zero_based_step": 19,
+          "decision_number": 20,
+          "stop_score": 0.03893081843852997,
+          "distance_to_goal": 11.111446380615234,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:47.648+00:00"
+        },
+        {
+          "zero_based_step": 20,
+          "decision_number": 21,
+          "stop_score": 0.11017125099897385,
+          "distance_to_goal": 11.1116304397583,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:48.567+00:00"
+        },
+        {
+          "zero_based_step": 21,
+          "decision_number": 22,
+          "stop_score": 0.09777824580669403,
+          "distance_to_goal": 11.361130714416504,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:49.480+00:00"
+        },
+        {
+          "zero_based_step": 22,
+          "decision_number": 23,
+          "stop_score": 0.06063031032681465,
+          "distance_to_goal": 11.610650062561035,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:50.387+00:00"
+        },
+        {
+          "zero_based_step": 23,
+          "decision_number": 24,
+          "stop_score": 0.12782007455825806,
+          "distance_to_goal": 11.859975814819336,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:51.299+00:00"
+        },
+        {
+          "zero_based_step": 24,
+          "decision_number": 25,
+          "stop_score": 0.3997373878955841,
+          "distance_to_goal": 12.10952377319336,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:52.203+00:00"
+        },
+        {
+          "zero_based_step": 25,
+          "decision_number": 26,
+          "stop_score": 0.42444273829460144,
+          "distance_to_goal": 12.359031677246094,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:52.870+00:00"
+        },
+        {
+          "zero_based_step": 26,
+          "decision_number": 27,
+          "stop_score": 0.3977380692958832,
+          "distance_to_goal": 12.60835075378418,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:53.744+00:00"
+        },
+        {
+          "zero_based_step": 27,
+          "decision_number": 28,
+          "stop_score": 0.40120917558670044,
+          "distance_to_goal": 12.857934951782227,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:56:54.695+00:00"
+        },
+        {
+          "zero_based_step": 28,
+          "decision_number": 29,
+          "stop_score": 0.5262278914451599,
+          "distance_to_goal": 13.107532501220703,
+          "stop": true,
+          "stop_source": "learned_head",
+          "received_at": "2026-09-28T06:56:55.096+00:00"
+        }
+      ]
+    },
+    {
+      "label": "failure_2",
+      "habitat_episode_id": "522",
+      "video": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/videos/sample_04_x8F5xyUWy9e_episode_522_failure.mp4",
+      "video_info": {
+        "frames": 40,
+        "fps": 5.0,
+        "width": 480,
+        "height": 346,
+        "duration_seconds": 8.0
+      },
+      "replay_matches_original": true,
+      "actions_file": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_videos/20260928T065330_353155Z_four_samples/shard_1466/records/run_20260928_145702/eval/episode_000/actions.json",
+      "actions_sha256": "53d8cd1a22d4c2d3015d8654f27e6e8af19c4b606dc01394b2b5c179f1e8edd6",
+      "instruction": "From the sunken tub, head towards the exit, climbing three steps. Continue forward to another short staircase of three steps and climb them. Stop at the entrance to the room on your right. ",
+      "steps": 39,
+      "success": 0.0,
+      "oracle_success": false,
+      "final_distance": 11.642537117004395,
+      "min_distance": 7.478219032287598,
+      "initial_distance": 7.478219032287598,
+      "first_threshold_crossing_zero_based_step": 38,
+      "terminal_minus_initial_distance": 4.164318084716797,
+      "terminal_score_jump": 0.3018155097961426,
+      "per_step": [
+        {
+          "zero_based_step": 0,
+          "decision_number": 1,
+          "stop_score": 0.009718204848468304,
+          "distance_to_goal": 7.478219032287598,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:06.444+00:00"
+        },
+        {
+          "zero_based_step": 1,
+          "decision_number": 2,
+          "stop_score": 0.003798172576352954,
+          "distance_to_goal": 7.478219032287598,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:07.342+00:00"
+        },
+        {
+          "zero_based_step": 2,
+          "decision_number": 3,
+          "stop_score": 0.003539231140166521,
+          "distance_to_goal": 7.522414684295654,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:08.229+00:00"
+        },
+        {
+          "zero_based_step": 3,
+          "decision_number": 4,
+          "stop_score": 0.002155141206458211,
+          "distance_to_goal": 7.522414684295654,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:09.095+00:00"
+        },
+        {
+          "zero_based_step": 4,
+          "decision_number": 5,
+          "stop_score": 0.0033089497592300177,
+          "distance_to_goal": 7.531720161437988,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:09.987+00:00"
+        },
+        {
+          "zero_based_step": 5,
+          "decision_number": 6,
+          "stop_score": 0.002486591460183263,
+          "distance_to_goal": 7.569468975067139,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:10.891+00:00"
+        },
+        {
+          "zero_based_step": 6,
+          "decision_number": 7,
+          "stop_score": 0.003523356281220913,
+          "distance_to_goal": 7.655478000640869,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:11.611+00:00"
+        },
+        {
+          "zero_based_step": 7,
+          "decision_number": 8,
+          "stop_score": 0.003061415161937475,
+          "distance_to_goal": 7.780818462371826,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:12.527+00:00"
+        },
+        {
+          "zero_based_step": 8,
+          "decision_number": 9,
+          "stop_score": 0.008933017961680889,
+          "distance_to_goal": 7.7809977531433105,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:13.456+00:00"
+        },
+        {
+          "zero_based_step": 9,
+          "decision_number": 10,
+          "stop_score": 0.013487175107002258,
+          "distance_to_goal": 7.979365825653076,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:14.377+00:00"
+        },
+        {
+          "zero_based_step": 10,
+          "decision_number": 11,
+          "stop_score": 0.0032186375465244055,
+          "distance_to_goal": 7.979365825653076,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:15.371+00:00"
+        },
+        {
+          "zero_based_step": 11,
+          "decision_number": 12,
+          "stop_score": 0.0060087284073233604,
+          "distance_to_goal": 8.180074691772461,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:16.309+00:00"
+        },
+        {
+          "zero_based_step": 12,
+          "decision_number": 13,
+          "stop_score": 0.0040430109947919846,
+          "distance_to_goal": 8.433765411376953,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:17.250+00:00"
+        },
+        {
+          "zero_based_step": 13,
+          "decision_number": 14,
+          "stop_score": 0.002839748514816165,
+          "distance_to_goal": 8.433765411376953,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:18.195+00:00"
+        },
+        {
+          "zero_based_step": 14,
+          "decision_number": 15,
+          "stop_score": 0.002260220469906926,
+          "distance_to_goal": 8.683168411254883,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:19.147+00:00"
+        },
+        {
+          "zero_based_step": 15,
+          "decision_number": 16,
+          "stop_score": 0.002225023927167058,
+          "distance_to_goal": 8.932340621948242,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:20.101+00:00"
+        },
+        {
+          "zero_based_step": 16,
+          "decision_number": 17,
+          "stop_score": 0.002072269795462489,
+          "distance_to_goal": 9.18181324005127,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:20.996+00:00"
+        },
+        {
+          "zero_based_step": 17,
+          "decision_number": 18,
+          "stop_score": 0.0026420007925480604,
+          "distance_to_goal": 9.232767105102539,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:21.771+00:00"
+        },
+        {
+          "zero_based_step": 18,
+          "decision_number": 19,
+          "stop_score": 0.0028574562165886164,
+          "distance_to_goal": 9.232767105102539,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:22.772+00:00"
+        },
+        {
+          "zero_based_step": 19,
+          "decision_number": 20,
+          "stop_score": 0.004874420817941427,
+          "distance_to_goal": 9.333377838134766,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:23.756+00:00"
+        },
+        {
+          "zero_based_step": 20,
+          "decision_number": 21,
+          "stop_score": 0.006582253146916628,
+          "distance_to_goal": 9.157715797424316,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:24.765+00:00"
+        },
+        {
+          "zero_based_step": 21,
+          "decision_number": 22,
+          "stop_score": 0.005056240130215883,
+          "distance_to_goal": 9.067537307739258,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:25.762+00:00"
+        },
+        {
+          "zero_based_step": 22,
+          "decision_number": 23,
+          "stop_score": 0.004156969953328371,
+          "distance_to_goal": 9.036039352416992,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:26.772+00:00"
+        },
+        {
+          "zero_based_step": 23,
+          "decision_number": 24,
+          "stop_score": 0.0018129254458472133,
+          "distance_to_goal": 9.068729400634766,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:27.754+00:00"
+        },
+        {
+          "zero_based_step": 24,
+          "decision_number": 25,
+          "stop_score": 0.0012371204793453217,
+          "distance_to_goal": 9.153879165649414,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:28.701+00:00"
+        },
+        {
+          "zero_based_step": 25,
+          "decision_number": 26,
+          "stop_score": 0.0011984582524746656,
+          "distance_to_goal": 9.275028228759766,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:29.380+00:00"
+        },
+        {
+          "zero_based_step": 26,
+          "decision_number": 27,
+          "stop_score": 0.001617668429389596,
+          "distance_to_goal": 9.424434661865234,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:30.315+00:00"
+        },
+        {
+          "zero_based_step": 27,
+          "decision_number": 28,
+          "stop_score": 0.002012478420510888,
+          "distance_to_goal": 9.595304489135742,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:31.347+00:00"
+        },
+        {
+          "zero_based_step": 28,
+          "decision_number": 29,
+          "stop_score": 0.0033459998667240143,
+          "distance_to_goal": 9.780782699584961,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:32.408+00:00"
+        },
+        {
+          "zero_based_step": 29,
+          "decision_number": 30,
+          "stop_score": 0.003335197689011693,
+          "distance_to_goal": 9.972532272338867,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:33.440+00:00"
+        },
+        {
+          "zero_based_step": 30,
+          "decision_number": 31,
+          "stop_score": 0.002226482145488262,
+          "distance_to_goal": 10.17009162902832,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:34.496+00:00"
+        },
+        {
+          "zero_based_step": 31,
+          "decision_number": 32,
+          "stop_score": 0.017847852781414986,
+          "distance_to_goal": 10.170403480529785,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:35.529+00:00"
+        },
+        {
+          "zero_based_step": 32,
+          "decision_number": 33,
+          "stop_score": 0.03101440705358982,
+          "distance_to_goal": 10.405197143554688,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:36.372+00:00"
+        },
+        {
+          "zero_based_step": 33,
+          "decision_number": 34,
+          "stop_score": 0.14375600218772888,
+          "distance_to_goal": 10.6539306640625,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:37.344+00:00"
+        },
+        {
+          "zero_based_step": 34,
+          "decision_number": 35,
+          "stop_score": 0.026769112795591354,
+          "distance_to_goal": 10.6539306640625,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:38.403+00:00"
+        },
+        {
+          "zero_based_step": 35,
+          "decision_number": 36,
+          "stop_score": 0.14680668711662292,
+          "distance_to_goal": 10.897910118103027,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:39.461+00:00"
+        },
+        {
+          "zero_based_step": 36,
+          "decision_number": 37,
+          "stop_score": 0.224916011095047,
+          "distance_to_goal": 11.145149230957031,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:40.547+00:00"
+        },
+        {
+          "zero_based_step": 37,
+          "decision_number": 38,
+          "stop_score": 0.47276318073272705,
+          "distance_to_goal": 11.393733024597168,
+          "stop": false,
+          "stop_source": "",
+          "received_at": "2026-09-28T06:57:41.617+00:00"
+        },
+        {
+          "zero_based_step": 38,
+          "decision_number": 39,
+          "stop_score": 0.7745786905288696,
+          "distance_to_goal": 11.642537117004395,
+          "stop": true,
+          "stop_source": "learned_head",
+          "received_at": "2026-09-28T06:57:42.138+00:00"
+        }
+      ]
+    }
+  ],
+  "full_run": {
+    "all_episodes": {
+      "n": 1839,
+      "termination_sources": {
+        "learned_head": 1829,
+        "max_steps": 10
+      },
+      "distributions": {
+        "stop_score": {
+          "n": 1829,
+          "mean": 0.6425796510288141,
+          "min": 0.5002706050872803,
+          "p10": 0.5185032606124877,
+          "p25": 0.5475300550460815,
+          "median": 0.6152002811431885,
+          "p75": 0.7177343964576721,
+          "p90": 0.8131648182868958,
+          "max": 0.9827871322631836
+        },
+        "steps": {
+          "n": 1839,
+          "mean": 56.06307775965198,
+          "min": 3,
+          "p10": 28.0,
+          "p25": 38.0,
+          "median": 48,
+          "p75": 61.5,
+          "p90": 81.0,
+          "max": 500
+        },
+        "final_distance": {
+          "n": 1839,
+          "mean": 5.30347106557151,
+          "min": 0.023407816886901855,
+          "p10": 0.7771504878997804,
+          "p25": 1.3874760866165161,
+          "median": 2.7793262004852295,
+          "p75": 7.834770679473877,
+          "p90": 13.22850399017334,
+          "max": 35.131412506103516
+        },
+        "min_distance": {
+          "n": 1839,
+          "mean": 4.021861068608645,
+          "min": 0.023407816886901855,
+          "p10": 0.7303032517433167,
+          "p25": 1.3377882838249207,
+          "median": 2.6527884006500244,
+          "p75": 6.169046401977539,
+          "p90": 9.380803108215332,
+          "max": 20.465778350830078
+        }
+      }
+    },
+    "learned_head_success": {
+      "n": 961,
+      "termination_sources": {
+        "learned_head": 961
+      },
+      "distributions": {
+        "stop_score": {
+          "n": 961,
+          "mean": 0.6530905775299429,
+          "min": 0.5002961754798889,
+          "p10": 0.5211662650108337,
+          "p25": 0.5576161742210388,
+          "median": 0.6297538876533508,
+          "p75": 0.7327914237976074,
+          "p90": 0.8178719878196716,
+          "max": 0.9817422032356262
+        },
+        "steps": {
+          "n": 961,
+          "mean": 52.21644120707596,
+          "min": 14,
+          "p10": 33,
+          "p25": 41,
+          "median": 49,
+          "p75": 61,
+          "p90": 71,
+          "max": 396
+        },
+        "final_distance": {
+          "n": 961,
+          "mean": 1.4916782912165392,
+          "min": 0.023407816886901855,
+          "p10": 0.5263823866844177,
+          "p25": 0.9256845116615295,
+          "median": 1.4467300176620483,
+          "p75": 2.028583526611328,
+          "p90": 2.5268232822418213,
+          "max": 2.9922914505004883
+        },
+        "min_distance": {
+          "n": 961,
+          "mean": 1.446909491821705,
+          "min": 0.023407816886901855,
+          "p10": 0.4798780083656311,
+          "p25": 0.8869764804840088,
+          "median": 1.3844388723373413,
+          "p75": 1.9753390550613403,
+          "p90": 2.49928879737854,
+          "max": 2.9922914505004883
+        }
+      }
+    },
+    "learned_head_failure": {
+      "n": 868,
+      "termination_sources": {
+        "learned_head": 868
+      },
+      "distributions": {
+        "stop_score": {
+          "n": 868,
+          "mean": 0.6309425538311356,
+          "min": 0.5002706050872803,
+          "p10": 0.5167469263076783,
+          "p25": 0.5418494194746017,
+          "median": 0.5971570611000061,
+          "p75": 0.6965984553098679,
+          "p90": 0.7997625708580017,
+          "max": 0.9827871322631836
+        },
+        "steps": {
+          "n": 868,
+          "mean": 55.2073732718894,
+          "min": 3,
+          "p10": 23.0,
+          "p25": 33.0,
+          "median": 46.0,
+          "p75": 65.0,
+          "p90": 92.30000000000007,
+          "max": 497
+        },
+        "final_distance": {
+          "n": 868,
+          "mean": 9.495424907053671,
+          "min": 3.0008044242858887,
+          "p10": 3.6212313413619994,
+          "p25": 4.7335041761398315,
+          "median": 8.302924633026123,
+          "p75": 12.26865816116333,
+          "p90": 17.373924064636235,
+          "max": 35.131412506103516
+        },
+        "min_distance": {
+          "n": 868,
+          "mean": 6.8323535588376805,
+          "min": 0.14865918457508087,
+          "p10": 3.291749143600464,
+          "p25": 4.311587333679199,
+          "median": 6.31572151184082,
+          "p75": 8.842410564422607,
+          "p90": 10.839431476593024,
+          "max": 20.465778350830078
+        }
+      }
+    },
+    "learned_failure_never_reached": {
+      "n": 827,
+      "termination_sources": {
+        "learned_head": 827
+      },
+      "distributions": {
+        "stop_score": {
+          "n": 827,
+          "mean": 0.630567634984977,
+          "min": 0.5002706050872803,
+          "p10": 0.5162434935569763,
+          "p25": 0.5409229099750519,
+          "median": 0.5957927107810974,
+          "p75": 0.6966445744037628,
+          "p90": 0.7997896194458007,
+          "max": 0.9827871322631836
+        },
+        "steps": {
+          "n": 827,
+          "mean": 54.75574365175333,
+          "min": 3,
+          "p10": 22.0,
+          "p25": 32.0,
+          "median": 45,
+          "p75": 63.0,
+          "p90": 93.0,
+          "max": 497
+        },
+        "final_distance": {
+          "n": 827,
+          "mean": 9.724701659711124,
+          "min": 3.0008044242858887,
+          "p10": 3.6727208137512206,
+          "p25": 5.074099779129028,
+          "median": 8.602648735046387,
+          "p75": 12.53096342086792,
+          "p90": 17.457926940917968,
+          "max": 35.131412506103516
+        },
+        "min_distance": {
+          "n": 827,
+          "mean": 7.062741224826319,
+          "min": 3.0008044242858887,
+          "p10": 3.527547836303711,
+          "p25": 4.531383275985718,
+          "median": 6.521804332733154,
+          "p75": 8.90644121170044,
+          "p90": 11.058734893798828,
+          "max": 20.465778350830078
+        }
+      }
+    },
+    "learned_failure_reached_then_left": {
+      "n": 41,
+      "termination_sources": {
+        "learned_head": 41
+      },
+      "distributions": {
+        "stop_score": {
+          "n": 41,
+          "mean": 0.6385049412890178,
+          "min": 0.5058006644248962,
+          "p10": 0.5242623686790466,
+          "p25": 0.5426709651947021,
+          "median": 0.6172575354576111,
+          "p75": 0.6910163760185242,
+          "p90": 0.7943586111068726,
+          "max": 0.961230993270874
+        },
+        "steps": {
+          "n": 41,
+          "mean": 64.3170731707317,
+          "min": 26,
+          "p10": 40,
+          "p25": 48,
+          "median": 60,
+          "p75": 73,
+          "p90": 88,
+          "max": 144
+        },
+        "final_distance": {
+          "n": 41,
+          "mean": 4.870745042475258,
+          "min": 3.0101964473724365,
+          "p10": 3.0985515117645264,
+          "p25": 3.5823426246643066,
+          "median": 4.149840354919434,
+          "p75": 5.538191318511963,
+          "p90": 6.131032943725586,
+          "max": 17.48076629638672
+        },
+        "min_distance": {
+          "n": 41,
+          "mean": 2.1852657595058766,
+          "min": 0.14865918457508087,
+          "p10": 1.2844823598861694,
+          "p25": 1.8410975933074951,
+          "median": 2.4499263763427734,
+          "p75": 2.7639951705932617,
+          "p90": 2.8701136112213135,
+          "max": 2.9694714546203613
+        }
+      }
+    }
+  },
+  "threshold_screening": [
+    {
+      "threshold": 0.55,
+      "failed_current_stop_below_threshold": 252,
+      "successful_current_stop_below_threshold": 219
+    },
+    {
+      "threshold": 0.6,
+      "failed_current_stop_below_threshold": 444,
+      "successful_current_stop_below_threshold": 387
+    },
+    {
+      "threshold": 0.65,
+      "failed_current_stop_below_threshold": 556,
+      "successful_current_stop_below_threshold": 532
+    },
+    {
+      "threshold": 0.7,
+      "failed_current_stop_below_threshold": 654,
+      "successful_current_stop_below_threshold": 653
+    },
+    {
+      "threshold": 0.75,
+      "failed_current_stop_below_threshold": 720,
+      "successful_current_stop_below_threshold": 760
+    },
+    {
+      "threshold": 0.8,
+      "failed_current_stop_below_threshold": 782,
+      "successful_current_stop_below_threshold": 834
+    },
+    {
+      "threshold": 0.85,
+      "failed_current_stop_below_threshold": 826,
+      "successful_current_stop_below_threshold": 897
+    },
+    {
+      "threshold": 0.9,
+      "failed_current_stop_below_threshold": 853,
+      "successful_current_stop_below_threshold": 933
+    },
+    {
+      "threshold": 0.95,
+      "failed_current_stop_below_threshold": 863,
+      "successful_current_stop_below_threshold": 954
+    }
+  ],
+  "limitations": [
+    "Only recorded first-stop scores are available for all 1,839 episodes; raw per-step scores are available for these four replays.",
+    "A threshold screen describes which currently recorded stop decisions would be rejected; it is not a prediction of closed-loop success rate.",
+    "No frames or decisions exist after each actual STOP; score persistence after crossing the threshold is unknown.",
+    "Failure episodes 1060 and 522 both finish farther from the goal than at their initial position; navigation errors and wrong termination coexist.",
+    "Displayed video uses one recorded decision per frame at 5 fps, not simulator real time or elapsed inference wall time.",
+    "Action-record steps are zero based while result steps count decisions, including the terminal STOP."
+  ]
+}

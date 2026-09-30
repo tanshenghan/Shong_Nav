@@ -1,0 +1,53 @@
+# All 36 native VLM KV pairs feed 36 distinct action blocks, one-to-one.
+# Fresh expert (359,802,371 parameters), initialized with the frozen original LightNav.
+training_mode: fm_only
+expert_architecture: prefix_kv_v1
+prefix_layers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+                13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+                25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+fm_horizon: 30
+num_epochs: 3
+dataset_root: /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912
+model_path: /mnt/cfs/Models/Light
+data_manifest: configs/betanav/data/r2r_all_train_20260913.json
+output_dir: /mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_all36_beta1_1p5
+seed: 42
+batch_size: 8  # conservative initial value; finalize from a real GPU profile before training
+gradient_accumulation_steps: 8  # preserve 8 GPUs * 64 samples/rank = global batch 512
+max_steps: 3699  # runtime derives three epochs from the actual distributed loader
+warmup_steps: 1000
+lr_vlm: 1.0e-5  # unused: VLM is frozen
+lr_fm: 1.0e-4
+min_lr_ratio: 0.1
+weight_decay: 0.01
+adam_betas: [0.9, 0.95]
+adam_eps: 1.0e-8
+clip_vlm: 1.0
+clip_fm: 1.0
+lambda_fm: 1.0
+flow_time_distribution: beta
+flow_time_alpha: 1.0
+flow_time_beta: 1.5
+freeze_vision: true
+gradient_checkpointing: false
+mixed_precision: bf16
+optimizer: zero1
+attention: sdpa
+expert_hidden_size: 512
+expert_num_layers: 36
+expert_num_heads: 32
+expert_intermediate_size: 2048
+expert_dropout: 0.0
+num_flow_steps: 10
+num_workers: 4
+prefetch_factor: 1
+log_every: 10
+eval_every: 0
+eval_max_batches: 64
+eval_sample_batches: 4
+save_every: 1000
+model_save_every: 3000
+checkpoint_mode: dual
+keep_last: 3
+save_best: false
+tracker: none

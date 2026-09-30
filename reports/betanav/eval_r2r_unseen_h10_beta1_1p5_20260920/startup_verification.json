@@ -1,0 +1,84 @@
+{
+  "checked_at_utc": "2026-09-20T01:19:26.624172+00:00",
+  "status": "running",
+  "supervisor_pid": 1462096,
+  "launcher_pid": 1462099,
+  "client_pids": [
+    1462433,
+    1462434,
+    1462435,
+    1462436,
+    1462437,
+    1462438,
+    1462439,
+    1462440
+  ],
+  "server_pids": [
+    1462130,
+    1462131,
+    1462132,
+    1462133,
+    1462134,
+    1462135,
+    1462136,
+    1462137
+  ],
+  "stop_protocol": "rvq",
+  "fm_horizon": 10,
+  "expected_episodes": 1839,
+  "episodes_completed": 24,
+  "shards": [
+    {
+      "shard": 0,
+      "loaded": true,
+      "episodes_completed": 5,
+      "errors": []
+    },
+    {
+      "shard": 1,
+      "loaded": true,
+      "episodes_completed": 5,
+      "errors": []
+    },
+    {
+      "shard": 2,
+      "loaded": true,
+      "episodes_completed": 2,
+      "errors": []
+    },
+    {
+      "shard": 3,
+      "loaded": true,
+      "episodes_completed": 2,
+      "errors": []
+    },
+    {
+      "shard": 4,
+      "loaded": true,
+      "episodes_completed": 3,
+      "errors": []
+    },
+    {
+      "shard": 5,
+      "loaded": true,
+      "episodes_completed": 0,
+      "errors": []
+    },
+    {
+      "shard": 6,
+      "loaded": true,
+      "episodes_completed": 4,
+      "errors": []
+    },
+    {
+      "shard": 7,
+      "loaded": true,
+      "episodes_completed": 3,
+      "errors": []
+    }
+  ],
+  "observed_stop_sources": [
+    "explicit_token_stop"
+  ],
+  "gpu_snapshot": "index, memory.used [MiB], utilization.gpu [%]\n0, 12071 MiB, 50 %\n1, 12217 MiB, 40 %\n2, 14889 MiB, 37 %\n3, 16245 MiB, 29 %\n4, 12303 MiB, 73 %\n5, 16739 MiB, 44 %\n6, 12987 MiB, 42 %\n7, 12095 MiB, 52 %\n"
+}

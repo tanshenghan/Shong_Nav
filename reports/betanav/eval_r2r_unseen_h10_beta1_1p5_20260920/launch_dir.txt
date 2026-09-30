@@ -1,0 +1,1 @@
+/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/habitat_eval_launch/20260920T011359Z_h10_beta1_1p5_r2r_unseen

@@ -1,0 +1,32 @@
+{
+  "episode_id": "kujiale_0055_10_3",
+  "source_sha256": "57bbba3802a0df65342f56affd4ac15960b27c0cd562c4f5ef7a396398c23412",
+  "waypoint_indices": [0, 8, 29, 49, 60, 66],
+  "checkpoint_notes": [
+    "Original start pose",
+    "After the doorway, beside the dining table",
+    "Living-room passage",
+    "Approaching the large window, before the utility turn",
+    "Utility-area approach",
+    "Original goal in front of the sink and washing machine"
+  ],
+  "checkpoint_selection": "Manually selected using official RGB and source poses; route constraints, not automated semantic ground truth",
+  "planning": {
+    "footprint_radius_m": 0.3,
+    "corridor_half_width_m": 0.5,
+    "clearance_cost_weight": 2.0,
+    "clearance_cost_range_m": 0.8,
+    "max_guide_spacing_m": 2.0
+  },
+  "motion": {
+    "time_law": "ramp_cruise",
+    "ramp_fraction": 0.1,
+    "sample_hz": 15.0,
+    "max_speed_m_s": 0.4,
+    "max_accel_m_s2": 0.5,
+    "max_jerk_m_s3": 1.0,
+    "max_yaw_rate_rad_s": 0.8,
+    "max_yaw_accel_rad_s2": 1.0,
+    "max_yaw_jerk_rad_s3": 2.0
+  }
+}

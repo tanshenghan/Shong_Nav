@@ -1,0 +1,235 @@
+{
+  "scope": "Local R2R-VLNCE v1-3 preprocessed train; not original graph-based complete R2R benchmark and not regenerated LightNav executions",
+  "source_files": {
+    "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz": {
+      "bytes": 1878590,
+      "sha256": "340a80133b2157520354ab055a91d98feb2f42e4bbda17b200c911f8788492ea"
+    },
+    "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train_gt.json.gz": {
+      "bytes": 5710918,
+      "sha256": "b63fa10e5c57d1b80b241c49bdeddc3d481bbe54b41ca0d59f9584c10da7bd5d"
+    }
+  },
+  "coordinates": {
+    "world_up": "+Y",
+    "horizontal_axes": [
+      "X",
+      "Z"
+    ],
+    "unit": "metres"
+  },
+  "distance_definitions": {
+    "reference_xyz_m": "Sum of XYZ Euclidean distances between adjacent episode.reference_path points (sparse annotation route)",
+    "reference_xz_m": "Same reference path with vertical Y excluded",
+    "expert_locations_xyz_m": "Sum of XYZ distances between adjacent train_gt.locations points (source expert moving locations, not RGB frame count)",
+    "expert_locations_xz_m": "Same expert locations with vertical Y excluded",
+    "start_goal_geodesic_m": "Stored episode.info.geodesic_distance (start-to-goal shortest navigable distance, not necessarily route length)"
+  },
+  "episode_count": 10819,
+  "unique_episode_id_count": 10819,
+  "scene_count": 61,
+  "path_id_field_present_count": 0,
+  "dedup_key": [
+    "scene_id",
+    "trajectory_id"
+  ],
+  "deduplicated_route_count": 3603,
+  "instructions_per_route_histogram": {
+    "3": 3593,
+    "4": 10
+  },
+  "routes_with_inconsistent_reference_path": [],
+  "routes_with_inconsistent_expert_gt": [],
+  "episode_weighted": {
+    "reference_xyz_m": {
+      "count": 10819,
+      "mean": 9.876795636306898,
+      "median": 9.329201001249656,
+      "min": 4.708853969695215,
+      "p10": 6.064470984605315,
+      "p90": 14.384639940715427,
+      "max": 25.223370225228226
+    },
+    "reference_xz_m": {
+      "count": 10819,
+      "mean": 9.820789709530022,
+      "median": 9.27215477155439,
+      "min": 4.45751394055969,
+      "p10": 6.01959163179086,
+      "p90": 14.306404925144935,
+      "max": 25.214807745252617
+    },
+    "expert_locations_xyz_m": {
+      "count": 10819,
+      "mean": 9.452339310384112,
+      "median": 8.806306311062176,
+      "min": 3.773160240655129,
+      "p10": 5.5011411308827185,
+      "p90": 14.041343248479304,
+      "max": 29.51448714244314
+    },
+    "expert_locations_xz_m": {
+      "count": 10819,
+      "mean": 9.364741915627237,
+      "median": 8.752236511057696,
+      "min": 3.7731411032549946,
+      "p10": 5.499999995136669,
+      "p90": 14.000581536176453,
+      "max": 29.28278269821762
+    },
+    "start_goal_geodesic_m": {
+      "count": 10819,
+      "mean": 9.274477489510925,
+      "median": 8.749187469482422,
+      "min": 3.23598051071167,
+      "p10": 5.58254337310791,
+      "p90": 13.644196510314941,
+      "max": 25.16107940673828
+    },
+    "forward_steps": {
+      "count": 10819,
+      "mean": 37.42600979757833,
+      "median": 35.0,
+      "min": 15.0,
+      "p10": 22.0,
+      "p90": 56.0,
+      "max": 117.0
+    },
+    "actions_count": {
+      "count": 10819,
+      "mean": 58.34587300120159,
+      "median": 56.0,
+      "min": 21.0,
+      "p10": 37.0,
+      "p90": 83.0,
+      "max": 183.0
+    },
+    "expert_locations_count": {
+      "count": 10819,
+      "mean": 38.42600979757833,
+      "median": 36.0,
+      "min": 16.0,
+      "p10": 23.0,
+      "p90": 57.0,
+      "max": 118.0
+    },
+    "reference_points_count": {
+      "count": 10819,
+      "mean": 5.950549958406507,
+      "median": 6.0,
+      "min": 4.0,
+      "p10": 5.0,
+      "p90": 7.0,
+      "max": 7.0
+    }
+  },
+  "route_weighted": {
+    "reference_xyz_m": {
+      "count": 3603,
+      "mean": 9.87474690198228,
+      "median": 9.328697474090609,
+      "min": 4.708853969695215,
+      "p10": 6.064666611828888,
+      "p90": 14.37193300679021,
+      "max": 25.223370225228226
+    },
+    "reference_xz_m": {
+      "count": 3603,
+      "mean": 9.818718414680701,
+      "median": 9.268891125530995,
+      "min": 4.45751394055969,
+      "p10": 6.01981071020241,
+      "p90": 14.299163429494607,
+      "max": 25.214807745252617
+    },
+    "expert_locations_xyz_m": {
+      "count": 3603,
+      "mean": 9.450418008947842,
+      "median": 8.801915709287305,
+      "min": 3.773160240655129,
+      "p10": 5.501146044183059,
+      "p90": 14.038315483887516,
+      "max": 29.51448714244314
+    },
+    "expert_locations_xz_m": {
+      "count": 3603,
+      "mean": 9.362809645577235,
+      "median": 8.752112689517613,
+      "min": 3.7731411032549946,
+      "p10": 5.499999996109335,
+      "p90": 14.000149384733348,
+      "max": 29.28278269821762
+    },
+    "start_goal_geodesic_m": {
+      "count": 3603,
+      "mean": 9.272755610291044,
+      "median": 8.749187469482422,
+      "min": 3.23598051071167,
+      "p10": 5.582931613922119,
+      "p90": 13.64258441925049,
+      "max": 25.16107940673828
+    },
+    "forward_steps": {
+      "count": 3603,
+      "mean": 37.418262558978626,
+      "median": 35.0,
+      "min": 15.0,
+      "p10": 22.0,
+      "p90": 56.0,
+      "max": 117.0
+    },
+    "actions_count": {
+      "count": 3603,
+      "mean": 58.33860671662504,
+      "median": 56.0,
+      "min": 21.0,
+      "p10": 37.0,
+      "p90": 83.0,
+      "max": 183.0
+    },
+    "expert_locations_count": {
+      "count": 3603,
+      "mean": 38.418262558978626,
+      "median": 36.0,
+      "min": 16.0,
+      "p10": 23.0,
+      "p90": 57.0,
+      "max": 118.0
+    },
+    "reference_points_count": {
+      "count": 3603,
+      "mean": 5.9505967249514296,
+      "median": 6.0,
+      "min": 4.0,
+      "p10": 5.0,
+      "p90": 7.0,
+      "max": 7.0
+    }
+  },
+  "vertical_effect": {
+    "reference_mean_xyz_minus_xz_m": 0.05600592677687707,
+    "reference_episode_count_with_vertical_change": 4848,
+    "expert_mean_xyz_minus_xz_m": 0.0875973947568751
+  },
+  "forward_steps_times_025_minus_expert_xyz": {
+    "count": 10819,
+    "mean": -0.09583686098952905,
+    "median": -0.01873239391674364,
+    "min": -2.1762926386701054,
+    "p10": -0.2931010242293901,
+    "p90": -5.208284807878272e-07,
+    "max": 3.656067607238356e-05
+  },
+  "derived_training_inventory": {
+    "manifest": "configs/betanav/data/r2r_all_train_20260913.json",
+    "dataset_root": "/mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912",
+    "episodes": 10819,
+    "frames": 631244,
+    "remark": "Frame counts are not distance; exact regenerated execution distances not scanned during this read-only source audit."
+  },
+  "notes": [
+    "trajectory_id is the local route identifier; path_id is absent. Dedup keyed by both scene and trajectory ID.",
+    "All reference and expert paths finite and Nx3; all episode IDs matched source GT.",
+    "Deduplicated aggregates use first instruction episode per physical-route key; variant audits are listed explicitly."
+  ]
+}

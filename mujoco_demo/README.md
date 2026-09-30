@@ -49,7 +49,78 @@ address can also be set at startup:
 Pressing space or clicking `STOP` on the page zeroes the velocity immediately.
 Manual commands also auto-zero when not refreshed for 350 ms.
 
+## Driving it with your trained Beta model
+
+From the repository root:
+
+```bash
+bash mujoco_demo/run_beta.sh --host 0.0.0.0
+```
+
+This starts the HF Beta server, waits for a successful warm-up, and starts the
+demo at port 8088. The default checkpoint is the latest committed checkpoint in
+`/mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_all36_beta1_1p5`
+(step 3699 when configured). The server loads the trained expert and uses the
+checkpoint's 30-waypoint horizon and continuous training prompt. It logs the
+resolved checkpoint to `logs/beta-demo-server.log`.
+For the base VLM, the launcher prefers the readable project-local copy at
+`checkpoints/Light-demo`, then `/mnt/cfs/Models/Light`; `MODEL_PATH` overrides it.
+
+Open the page, enter an instruction and press **Start VLN**. Check that LATENCY
+is nonzero, WAYPOINTS increases, and the blue trajectory updates.
+The FM-only model has no trained semantic STOP head. The Beta launcher now uses
+the frozen original LightNav RVQ branch to decide STOP, while Beta FM supplies
+the motion trajectory. Set `BETA_STOP_MODE=manual` to disable this extra inference.
+The STOP decision is a model prediction, not a guarantee that the goal is reached.
+You can always press **STOP** to end navigation. The client accepts replies without pointing and allows up to
+30 seconds for each inference while the control loop runs independently.
+Motion in this new scene is a deployment check, not proof of
+navigation accuracy.
+
+Overrides (environment variables): `BETA_CHECKPOINT`, `MODEL_PATH`,
+`BETA_STOP_MODE` (`rvq` by default, or `manual`), `BETA_GPU`
+(default `0`), `BETA_PORT` (default `8050`), `BETA_PYTHON` (default
+`../.venv-beta-demo/bin/python`) and `DEMO_PYTHON` (default `BETA_PYTHON`). The
+server environment needs the LightNav dependencies; the demo interpreter needs
+the dependencies in this directory's `pyproject.toml`. Exiting the demo stops
+the server launched by this script. For example:
+
+```bash
+BETA_GPU=1 BETA_CHECKPOINT=/path/to/step-00003699 bash mujoco_demo/run_beta.sh
+```
+
+To run the processes on different machines, start the server separately:
+
+```bash
+python -m lightnav.serving.ws_server --task vln --backend hf \
+  --model_path /mnt/cfs/Models/Light --beta_checkpoint /path/to/beta-run
+./run.sh --vln-server ws://GPU_HOST:8050
+```
+
+GPU monitoring in the local demo environment:
+
+```bash
+source .venv-beta-demo/bin/activate  # from repository root
+nvitop
+```
+
 ## Driving it with LightNav-0
+
+For the configured local runtime and readable original checkpoint, start both
+processes from the repository root:
+
+```bash
+bash mujoco_demo/run_lightnav.sh --host 0.0.0.0 --port 8088
+```
+
+This uses the original LightNav HF backend, RVQ actions and STOP prediction.
+It does not load a Beta checkpoint. The environment directory is shared with
+the Beta demo only for installed dependencies. Logs are in
+`logs/lightnav-demo-server.log`. Overrides: `MODEL_PATH` (default
+`checkpoints/Light-demo`), `LIGHTNAV_PYTHON` (default
+`.venv-beta-demo/bin/python`), `LIGHTNAV_GPU` (default `0`), `LIGHTNAV_PORT`
+(default `8050`) and `DEMO_PYTHON` (default `LIGHTNAV_PYTHON`).
+Exiting the launcher stops both processes.
 
 Start `lightnav-serve` on a GPU host (see
 [docs/DEPLOYMENT.md](../docs/DEPLOYMENT.md)):
@@ -66,6 +137,21 @@ with the MPC — the same client protocol and controller the real robots use in
 [`robot_deploy/`](../robot_deploy/README.md).
 
 ## Layout
+
+The browser receives a continuous 20 FPS JPEG WebSocket stream on `/camera/ws`.
+At most 12 frames are in flight; slow viewers skip to the newest frame instead of
+accumulating an unbounded video delay. CAMERA shows the browser's received FPS
+(hover for server render FPS). Runtime telemetry is limited to 10 Hz and uses a
+separate control connection. `/api/camera.jpg` and `/api/third-person.jpg` remain
+available as single annotated frames.
+
+The trajectory is rendered as small ground markers and thin connectors in the
+MuJoCo scene, with real perspective and object occlusion in both camera views.
+Coordinates are in meters and anchored at image-capture pose; 30 predictions at
+0.25 m each can legitimately span 7.5 m. Display rendering never feeds annotated
+frames back into Beta. STOP clears both the path and controller state, rejects
+late inference/MPC results, and has a POST `/api/stop` fallback. If predictions
+stop arriving for five seconds, the robot pauses until a fresh path arrives.
 
 ```text
 mujoco_demo/

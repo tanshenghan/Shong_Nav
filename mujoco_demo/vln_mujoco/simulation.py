@@ -10,7 +10,6 @@ import mujoco
 import numpy as np
 from PIL import Image
 
-from .mpc import TRACK_V_MAX, W_MAX
 from .model import (
     CAMERA_HEIGHT,
     CAMERA_NAME,
@@ -21,6 +20,8 @@ from .model import (
     WHEEL_TRACK,
     build_model,
 )
+from .mpc import TRACK_V_MAX, W_MAX
+from .trajectory import add_ground_path, ground_path
 
 
 @dataclass(frozen=True)
@@ -51,6 +52,8 @@ class Simulation:
         self._command = (0.0, 0.0)
         self._command_at = 0.0
         self._frame: CameraFrame | None = None
+        self._display_frame: CameraFrame | None = None
+        self._ground_path = np.empty((0, 3))
         self._third_person_frame: CameraFrame | None = None
         self._frame_count = 0
         self._started_at = time.monotonic()
@@ -76,6 +79,7 @@ class Simulation:
             self._command = (0.0, 0.0)
             self._command_at = 0.0
             self._yaw = 0.0
+            self._ground_path = np.empty((0, 3))
             mujoco.mj_forward(self.model, self.data)
 
     def set_velocity(self, linear: float, angular: float) -> None:
@@ -85,6 +89,17 @@ class Simulation:
         with self._lock:
             self._command = (linear, angular)
             self._command_at = time.monotonic()
+            if linear == 0.0 and angular == 0.0:
+                self.data.qvel.fill(0.0)
+
+    def set_path(self, waypoints=(), capture_pose=(0, 0, 0)) -> None:
+        points = ground_path(waypoints, capture_pose)
+        with self._lock:
+            self._ground_path = points
+
+    def display_frame(self) -> CameraFrame | None:
+        with self._lock:
+            return self._display_frame
 
     def frame(self) -> CameraFrame | None:
         with self._lock:
@@ -188,7 +203,15 @@ class Simulation:
                     with self._lock:
                         renderer.update_scene(self.data, camera=CAMERA_NAME)
                         rgb = np.asarray(renderer.render(), dtype=np.uint8).copy()
+                        # The inference camera stays clean. Only human views get
+                        # the path; training never included painted model outputs.
+                        if len(self._ground_path):
+                            add_ground_path(renderer.scene, self._ground_path)
+                            display_rgb = np.asarray(renderer.render(), dtype=np.uint8).copy()
+                        else:
+                            display_rgb = rgb
                         renderer.update_scene(self.data, camera=THIRD_PERSON_CAMERA_NAME)
+                        add_ground_path(renderer.scene, self._ground_path)
                         third_person_rgb = np.asarray(
                             renderer.render(), dtype=np.uint8
                         ).copy()
@@ -199,11 +222,16 @@ class Simulation:
                         )
                     stamp_ns = time.time_ns()
                     frame = self._encode_frame(stamp_ns, rgb, capture_pose)
+                    display_frame = (
+                        self._encode_frame(stamp_ns, display_rgb, capture_pose)
+                        if display_rgb is not rgb else frame
+                    )
                     third_person_frame = self._encode_frame(
                         stamp_ns, third_person_rgb, capture_pose
                     )
                     with self._lock:
                         self._frame = frame
+                        self._display_frame = display_frame
                         self._third_person_frame = third_person_frame
                         self._frame_count += 1
                     next_frame = now + 0.05

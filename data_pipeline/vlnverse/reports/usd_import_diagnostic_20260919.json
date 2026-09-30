@@ -1,0 +1,107 @@
+{
+  "importer": "composed_usd_static_meshes_explicit_world_matrices",
+  "scene_usd": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/kujiale_0018.usda",
+  "meters_per_unit": 1.0,
+  "up_axis": "Z",
+  "mesh_objects": 1658,
+  "vertex_count": 1404327,
+  "polygon_count": 2723853,
+  "uv_layers": 3878,
+  "uv_interpolations": {
+    "faceVarying": 3878
+  },
+  "meshes_with_authored_normals": 1658,
+  "usd_world_bounds": [
+    [
+      -2.3919883169646567,
+      -8.483908329839666,
+      -0.5500050037255279
+    ],
+    [
+      4.565230255717158,
+      7.266500308965631,
+      3.3500000237487257
+    ]
+  ],
+  "blender_world_bounds": [
+    [
+      -2.3919882774353027,
+      -8.483908653259277,
+      -0.5500050187110901
+    ],
+    [
+      4.565230369567871,
+      7.266500473022461,
+      3.3500001430511475
+    ]
+  ],
+  "bounds_max_error_m": 3.2341961109239037e-07,
+  "ignored_scene_primitives": {
+    "RectLight": 2,
+    "SphereLight": 6,
+    "DistantLight": 1,
+    "DomeLight": 1
+  },
+  "unsupported_features": {},
+  "materials": {
+    "source_scene": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0018/kujiale_0018.usda",
+    "material_prim_count": 2092,
+    "mdl_material_prim_count": 2092,
+    "unsupported_diffuse_prim_count": 1563,
+    "unsupported_diffuse_prim_fraction": 0.747131931166348,
+    "shader_counts": {
+      "WorldGridMaterial": 1560,
+      "M_BaseMaterial": 433,
+      "M_TranslucentMaterial": 84,
+      "M_BaseMaterial_twosided": 9,
+      "MI_5e1427225974ed0001417a72": 1,
+      "BasicShapeMaterial": 2,
+      "OmniGlass": 1,
+      "OmniSurface": 1,
+      "OmniPBR": 1
+    },
+    "approximation": true,
+    "isaac_rtx_equivalent": false,
+    "binding_policy": "full USD material path",
+    "applied_material_count": 455,
+    "textured_applied_material_count": 171,
+    "unsupported_diffuse_applied_count": 2,
+    "unsupported_diffuse_applied_fraction": 0.004395604395604396,
+    "ambiguous_imported_names": [],
+    "unmatched_imported_names": []
+  },
+  "physics_replayed": false,
+  "source_assets_modified": false,
+  "elapsed_s": 13.164328422397375,
+  "diagnosis": {
+    "date": "2026-09-19",
+    "observed_problem": "Blender 4.2 builtin USD import lost scene ancestor transforms; geometry clustered around origin, making the first-person camera appear outside a miniature scene.",
+    "builtin_import_flags": {
+      "import_cameras": false,
+      "import_lights": false,
+      "import_materials": false,
+      "import_visible_only": true,
+      "support_scene_instancing": true
+    },
+    "builtin_import_world_bounds": [
+      [
+        -2.000000238418579,
+        -2.000000238418579,
+        -1.4762223958969116
+      ],
+      [
+        2.0,
+        2.0,
+        1.4762225151062012
+      ]
+    ],
+    "builtin_import_mesh_count": 1658,
+    "usd_units_verified": "metersPerUnit=1; upAxis=Z; root transform identity",
+    "representative_parent_loss": "USD bed_0000 outer translation (-0.16,-4.59999999,0.4099994968) was absent from the imported asset-root hierarchy; USD ancestors were not instances and did not reset their transform stacks.",
+    "fix": "Import composed static USD meshes with XformCache world matrices transposed into Blender column-vector matrices, and bind each material by complete USD prim path.",
+    "runtime_scene_verified": "kujiale_0018 only",
+    "rendering_performed_by_this_diagnostic": false,
+    "original_assets_modified": false,
+    "cpu_tests": "9 passed across test_usd_scene.py and test_usd_materials.py; Ruff passed."
+  }
+}

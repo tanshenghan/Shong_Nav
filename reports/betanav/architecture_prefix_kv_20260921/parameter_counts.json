@@ -1,0 +1,26 @@
+{
+  "total_parameters": 60858371,
+  "trainable_parameters": 60858371,
+  "top_level": {
+    "action_in": 2048,
+    "time_mlp": 525312,
+    "blocks": 59788800,
+    "out_norm": 525312,
+    "action_out": 1539,
+    "step_embedding": 15360
+  },
+  "one_block": {
+    "attention_norm": 787968,
+    "ffn_norm": 787968,
+    "attention": 5243136,
+    "ffn": 3145728,
+    "dropout": 0
+  },
+  "block_count": 6,
+  "full_model_parameters": 4509200899,
+  "weight_only_mib": {
+    "fp32": 232.1562614440918,
+    "bf16": 116.0781307220459
+  },
+  "method": "Instantiate PiFlowActionExpert on meta device using final step 3699 beta_config; no weights loaded."
+}

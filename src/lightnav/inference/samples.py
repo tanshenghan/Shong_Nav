@@ -7,7 +7,7 @@ for the consumer.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import torch
 
@@ -194,3 +194,44 @@ def build_tracking_sample(
         TRACKING_PROMPT_TEMPLATE,
         TRACKING_PROMPT_TEMPLATE_POOLED,
     )
+
+
+def prompt_only_inputs(processed: dict[str, Any]) -> dict[str, Any]:
+    """Trim the placeholder answer and batch one processed inference sample."""
+    result = dict(processed)
+    labels = result.pop("labels", None)
+    answer_start: int | None = None
+    if labels is not None:
+        answer_tokens = (labels != -100).nonzero(as_tuple=False)
+        if answer_tokens.numel():
+            answer_start = int(answer_tokens[0].item())
+
+    sequence_keys = ("input_ids", "attention_mask", "image_mask", "video_mask")
+    for key in sequence_keys:
+        value = result.get(key)
+        if not isinstance(value, torch.Tensor):
+            continue
+        if answer_start is not None:
+            value = value[:answer_start]
+        if key in {"input_ids", "attention_mask"} and value.ndim == 1:
+            value = value.unsqueeze(0)
+        result[key] = value
+
+    # BetaModel reconstructs native multimodal RoPE and deliberately ignores the
+    # processor's position ids. Keep only its documented tensor/metadata contract.
+    keep = {
+        "input_ids",
+        "attention_mask",
+        "pixel_values",
+        "pixel_values_videos",
+        "image_grid_thw",
+        "video_grid_thw",
+        "position_ids",
+        "mm_token_type_ids",
+        "image_mask",
+        "video_mask",
+        "_original_video_grid_thw",
+        "_post_vit_pool_factors",
+        "_post_vit_pool_spatial",
+    }
+    return {key: value for key, value in result.items() if key in keep}

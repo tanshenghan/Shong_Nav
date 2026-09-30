@@ -1,0 +1,4 @@
+{
+  "status": "failed",
+  "error": "PermissionError(13, 'Permission denied')"
+}

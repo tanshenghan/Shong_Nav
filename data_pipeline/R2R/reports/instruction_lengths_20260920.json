@@ -1,0 +1,77 @@
+{
+  "scope": "All local R2R-VLNCE v1-3 preprocessed train instruction episodes; instruction-weighted, not route-deduplicated",
+  "source": {
+    "path": "/mnt/cfs/data/habitat/datasets/R2R_VLNCE_v1-3_preprocessed/train/train.json.gz",
+    "size_bytes": 1878590,
+    "sha256": "340a80133b2157520354ab055a91d98feb2f42e4bbda17b200c911f8788492ea"
+  },
+  "episode_count": 10819,
+  "unique_episode_id_count": 10819,
+  "instruction_schema": [
+    {
+      "fields": [
+        "instruction_text",
+        "instruction_tokens"
+      ],
+      "episode_count": 10819
+    }
+  ],
+  "text_field": "episode.instruction.instruction_text",
+  "word_count_definition": {
+    "regex": "[A-Za-z0-9]+(?:['’\\-][A-Za-z0-9]+)*",
+    "formula": "len(re.findall(pattern, instruction_text))",
+    "hyphen_and_apostrophe_compounds": "one word",
+    "case_sensitive_matching": false,
+    "model_tokenizer_used": false,
+    "percentile_method": "numpy.percentile default linear"
+  },
+  "word_counts": {
+    "count": 10819,
+    "mean": 26.65884092799704,
+    "median": 25.0,
+    "min": 2,
+    "max": 143,
+    "p10": 14.0,
+    "p25": 19.0,
+    "p75": 32.0,
+    "p90": 41.0
+  },
+  "whitespace_sensitivity": {
+    "formula": "len(instruction_text.split())",
+    "counts": {
+      "count": 10819,
+      "mean": 26.64525372030687,
+      "median": 25.0,
+      "min": 2,
+      "max": 144,
+      "p10": 14.0,
+      "p25": 19.0,
+      "p75": 32.0,
+      "p90": 41.0
+    },
+    "episodes_differing_from_regex_count": 232
+  },
+  "unique_instruction_texts_exact": 10815,
+  "unique_instruction_texts_stripped": 10815,
+  "empty_instruction_texts_exact": 0,
+  "empty_or_whitespace_instruction_texts": 0,
+  "zero_regex_word_count": 0,
+  "stored_instruction_tokens": {
+    "present_list_count": 10819,
+    "length_histogram": {
+      "200": 10819
+    },
+    "nonzero_id_count_statistics": {
+      "count": 10819,
+      "mean": 29.204362695258343,
+      "median": 27.0,
+      "min": 3,
+      "max": 153,
+      "p10": 16.0,
+      "p25": 21.0,
+      "p75": 35.0,
+      "p90": 44.0
+    },
+    "note": "Stored padded dataset token IDs; separate from English word counts. No model tokenizer was called; nonzero counts are descriptive and do not establish tokenizer semantics."
+  }
+}

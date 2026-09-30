@@ -1,0 +1,5841 @@
+{
+  "schema_version": "lightnav_stop_diagnostics_v1",
+  "num_episodes": 638,
+  "success_distance_m": 3.0,
+  "goal_range_rule": "final_distance < success_distance_m",
+  "rate_unit": "percent",
+  "source_rate_denominator": 638,
+  "metrics": {
+    "success_count": 318,
+    "oracle_success_count": 330,
+    "SR_success_rate_pct": 49.843260188087775,
+    "OS_oracle_success_pct": 51.724137931034484,
+    "SPL_pct": 48.132888188465195,
+    "OS_minus_SR_percentage_points": 1.8808777429467085
+  },
+  "oracle_success_without_success": {
+    "count": 12,
+    "rate_pct_of_all_episodes": 1.8808777429467085,
+    "conditional_rate_pct_of_oracle_success": 3.6363636363636362,
+    "conditional_denominator": 330
+  },
+  "forced_stop": {
+    "count": 2,
+    "rate_pct_of_all_episodes": 0.31347962382445144,
+    "denominator": 638
+  },
+  "by_stop_source": {
+    "fm_zero_command": {
+      "count": 0,
+      "rate_pct_of_all_episodes": 0.0,
+      "success_count": 0,
+      "success_rate_pct": null,
+      "success_rate_denominator": 0,
+      "goal_range_count": 0,
+      "goal_range_rate_pct": null,
+      "goal_range_rate_denominator": 0,
+      "final_distance_m": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "steps": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "max": null
+      }
+    },
+    "learned_head": {
+      "count": 636,
+      "rate_pct_of_all_episodes": 99.68652037617555,
+      "success_count": 318,
+      "success_rate_pct": 50.0,
+      "success_rate_denominator": 636,
+      "goal_range_count": 318,
+      "goal_range_rate_pct": 50.0,
+      "goal_range_rate_denominator": 636,
+      "final_distance_m": {
+        "count": 636,
+        "mean": 5.7679175287719415,
+        "median": 3.0051056146621704,
+        "min": 0.024835705757141113,
+        "max": 34.63579177856445
+      },
+      "steps": {
+        "count": 636,
+        "mean": 53.033018867924525,
+        "median": 48.0,
+        "min": 6.0,
+        "max": 292.0
+      }
+    },
+    "max_steps": {
+      "count": 2,
+      "rate_pct_of_all_episodes": 0.31347962382445144,
+      "success_count": 0,
+      "success_rate_pct": 0.0,
+      "success_rate_denominator": 2,
+      "goal_range_count": 0,
+      "goal_range_rate_pct": 0.0,
+      "goal_range_rate_denominator": 2,
+      "final_distance_m": {
+        "count": 2,
+        "mean": 8.554903984069824,
+        "median": 8.554903984069824,
+        "min": 5.841691970825195,
+        "max": 11.268115997314453
+      },
+      "steps": {
+        "count": 2,
+        "mean": 500.0,
+        "median": 500.0,
+        "min": 500.0,
+        "max": 500.0
+      }
+    },
+    "unknown": {
+      "count": 0,
+      "rate_pct_of_all_episodes": 0.0,
+      "success_count": 0,
+      "success_rate_pct": null,
+      "success_rate_denominator": 0,
+      "goal_range_count": 0,
+      "goal_range_rate_pct": null,
+      "goal_range_rate_denominator": 0,
+      "final_distance_m": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "max": null
+      },
+      "steps": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "max": null
+      }
+    }
+  },
+  "interpretation": {
+    "learned_head": "The learned head requested STOP; excludes FM zero commands and budget stops.",
+    "goal_range": "Final pose within goal radius; distinct from environment-measured success.",
+    "oracle_success_without_success": "Reached the goal radius during rollout but finished unsuccessfully; does not alone identify the cause.",
+    "null_rates": "A null rate has a zero denominator."
+  },
+  "snapshot_start_utc": "2026-09-28T03:01:53.500713+00:00",
+  "snapshot_end_utc": "2026-09-28T03:01:53.533521+00:00",
+  "partial_not_final": true,
+  "run": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/outputs/betanav_eval/20260928T012647_241235Z_fm_stop_r2r_unseen",
+  "results_snapshot": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/reports/betanav/eval_live_20260928/results_snapshot_030153Z.jsonl",
+  "coverage": {
+    "expected": 1839,
+    "records": 638,
+    "unique": 638,
+    "missing": [
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1003"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1004"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "103"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "104"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "105"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1095"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1096"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1097"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1098"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1105"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1106"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1107"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1114"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1115"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1116"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1129"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1130"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1131"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1138"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1139"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1140"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1203"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1207"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1208"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1209"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1228"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1229"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1230"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1327"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1328"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1329"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1345"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1346"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1347"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1351"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "142"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1422"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1426"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1427"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1428"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "143"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "144"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1462"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1463"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1464"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1465"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1466"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1467"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "148"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1504"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1505"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1506"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1513"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1514"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1515"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1537"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1538"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1705"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1706"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1707"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1717"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1718"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1719"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1723"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1724"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1725"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1741"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1742"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1743"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1750"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1751"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "1752"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "240"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "334"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "335"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "336"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "379"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "380"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "381"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "421"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "422"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "423"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "427"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "428"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "51"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "540"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "568"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "569"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "570"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "577"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "578"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "579"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "607"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "608"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "609"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "67"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "68"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "69"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "752"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "753"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "784"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "785"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "786"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "793"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "794"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "795"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "796"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "797"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "798"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "82"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "83"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "84"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "841"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "94"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "945"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "95"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "952"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "953"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "954"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "96"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "97"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "976"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "977"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "978"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "98"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "988"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "989"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "99"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "990"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "994"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "995"
+      },
+      {
+        "scene_id": "QUCTc6BB5sX",
+        "episode_id": "996"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1009"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1010"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1011"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1012"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1013"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1014"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1018"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1019"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1020"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1036"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1037"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1038"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "106"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1063"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1064"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1065"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "107"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1075"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1076"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1077"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "108"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1081"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1082"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1083"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1111"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1112"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1113"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1120"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1121"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1122"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1123"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1124"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1125"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1126"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1127"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1128"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1150"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1151"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1152"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1171"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1172"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1173"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1174"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1175"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1176"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1219"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1220"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1221"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1246"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1247"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1248"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1270"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1271"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1272"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1276"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1277"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1278"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1279"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1280"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1281"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1282"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1283"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1284"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1306"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1307"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1308"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1312"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1313"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1314"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "133"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1330"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1331"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1332"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "134"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "135"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1363"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1364"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1365"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1366"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1367"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1368"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1369"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1370"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1371"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1405"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1406"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1407"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1408"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1409"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1410"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1417"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1418"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1419"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1423"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1424"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1425"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1447"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1448"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1449"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1486"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1487"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1488"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1597"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1598"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1599"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1600"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1601"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1602"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1639"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1640"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1641"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1642"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1643"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1644"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1648"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1649"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1650"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1654"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1655"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1656"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1660"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1661"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1662"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "169"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1708"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1709"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1710"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1711"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1712"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1713"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1762"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1763"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1764"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1789"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1790"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1791"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1822"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1823"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1824"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1828"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1829"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "1830"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "256"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "257"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "258"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "259"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "260"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "261"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "274"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "275"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "276"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "298"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "299"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "300"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "307"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "308"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "309"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "331"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "332"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "333"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "337"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "338"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "407"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "408"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "409"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "410"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "411"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "451"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "452"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "453"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "472"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "473"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "474"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "517"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "518"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "519"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "523"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "524"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "525"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "58"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "59"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "591"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "595"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "596"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "597"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "60"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "658"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "659"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "660"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "697"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "698"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "699"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "709"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "710"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "711"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "760"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "761"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "762"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "766"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "767"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "768"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "790"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "791"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "792"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "814"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "815"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "816"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "829"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "830"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "831"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "835"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "836"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "837"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "895"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "896"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "897"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "91"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "92"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "928"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "929"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "93"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "930"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "991"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "992"
+      },
+      {
+        "scene_id": "TbHJrupSAjP",
+        "episode_id": "993"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1090"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1091"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1092"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "112"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "113"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "114"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1153"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1154"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1155"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1168"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1169"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1170"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1177"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1178"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1179"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "118"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1186"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1187"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1188"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "119"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "120"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1222"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1223"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1224"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1252"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1253"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1254"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1318"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1319"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1320"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1336"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1337"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1338"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1444"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1445"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1446"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1528"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1529"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1530"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1567"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1568"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1569"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1570"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1571"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1572"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1627"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1628"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1629"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1675"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1676"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1677"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1738"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1739"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1740"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1759"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1760"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1761"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1795"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1796"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1797"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1813"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1814"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "1815"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "217"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "218"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "219"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "226"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "227"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "228"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "241"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "242"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "243"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "244"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "245"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "246"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "304"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "305"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "306"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "370"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "371"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "372"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "373"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "374"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "375"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "382"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "383"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "384"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "46"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "463"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "464"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "465"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "47"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "48"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "562"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "563"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "564"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "598"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "599"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "600"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "601"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "602"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "603"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "604"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "605"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "606"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "613"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "614"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "615"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "616"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "617"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "618"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "634"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "635"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "636"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "652"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "653"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "654"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "685"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "686"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "687"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "688"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "689"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "690"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "748"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "749"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "750"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "853"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "854"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "855"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "856"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "857"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "858"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "901"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "902"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "903"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "925"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "926"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "927"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "985"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "986"
+      },
+      {
+        "scene_id": "X7HyMhZNoso",
+        "episode_id": "987"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1000"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1001"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1002"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1027"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1028"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1029"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1057"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1058"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1059"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1102"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1103"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1104"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1132"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1133"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1134"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1162"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1163"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1164"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1192"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1193"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1194"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1216"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1217"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1218"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1225"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1226"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1227"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1237"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1238"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1239"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1249"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1250"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1251"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1297"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1298"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1299"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1300"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1301"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1302"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1309"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1310"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1311"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1390"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1391"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1392"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1399"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1400"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1401"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1492"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1493"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1494"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1495"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1496"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1497"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1555"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1556"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1557"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1558"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1559"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1560"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1585"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1586"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1587"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1588"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1589"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1590"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1618"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1619"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1620"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1651"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1652"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1653"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1657"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1658"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1659"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1696"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1697"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1698"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1786"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1787"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1788"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1819"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1820"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1821"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1837"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1838"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "1839"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "205"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "206"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "207"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "322"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "323"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "324"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "343"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "344"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "345"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "391"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "392"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "393"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "397"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "398"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "399"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "430"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "431"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "432"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "457"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "458"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "459"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "469"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "470"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "471"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "547"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "548"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "549"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "550"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "551"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "552"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "559"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "560"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "561"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "574"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "575"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "576"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "586"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "587"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "588"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "592"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "593"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "594"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "610"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "611"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "612"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "625"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "626"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "627"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "667"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "668"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "669"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "703"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "704"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "705"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "823"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "824"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "825"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "847"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "848"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "849"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "871"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "872"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "873"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "904"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "905"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "906"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "916"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "917"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "918"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "964"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "965"
+      },
+      {
+        "scene_id": "Z6MFQCViBuw",
+        "episode_id": "966"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1045"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1046"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1047"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1066"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1067"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1068"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1072"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1073"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1074"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "109"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "110"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "111"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1258"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1259"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1260"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "130"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "131"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "132"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1324"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1325"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1326"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1342"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1343"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1344"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1402"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1403"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1404"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1411"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1412"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1413"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1429"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1430"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1431"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1450"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1451"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1452"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1456"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1457"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1458"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1468"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1469"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1470"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1510"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1511"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1512"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1531"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1532"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1533"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1540"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1541"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1542"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1546"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1547"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1548"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1576"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1577"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1578"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1609"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1610"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1611"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1666"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1667"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1668"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1672"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1673"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1674"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1687"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1688"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1689"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1702"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1703"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1704"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1735"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1736"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1737"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1747"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1748"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1749"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1792"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1793"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1794"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1825"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1826"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1827"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1831"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1832"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1833"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1834"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1835"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "1836"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "184"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "185"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "186"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "232"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "233"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "234"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "268"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "269"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "270"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "28"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "29"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "30"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "436"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "437"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "438"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "466"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "467"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "468"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "478"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "479"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "480"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "508"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "509"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "510"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "532"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "533"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "534"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "64"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "65"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "66"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "661"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "662"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "663"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "682"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "683"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "684"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "691"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "692"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "693"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "706"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "707"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "708"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "724"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "725"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "726"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "727"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "728"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "729"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "733"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "734"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "735"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "736"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "737"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "738"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "769"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "770"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "771"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "787"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "788"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "789"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "811"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "812"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "813"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "838"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "839"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "840"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "844"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "845"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "846"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "850"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "851"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "852"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "907"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "908"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "909"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "937"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "938"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "939"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "940"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "941"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "942"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "946"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "947"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "948"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "997"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "998"
+      },
+      {
+        "scene_id": "oLBMNvg9in8",
+        "episode_id": "999"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1483"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1484"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1485"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1582"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1583"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1584"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1624"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1625"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1626"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1777"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1778"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "1779"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "412"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "413"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "414"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "649"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "650"
+      },
+      {
+        "scene_id": "pLe4wQe7qrG",
+        "episode_id": "651"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "100"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "101"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "102"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1051"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1052"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1053"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1054"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1055"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1056"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1117"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1118"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1119"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1144"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1145"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1146"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1267"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1268"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1269"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1291"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1292"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1293"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1348"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1349"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1350"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1378"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1379"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1380"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1594"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1595"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1596"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1603"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1604"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1605"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1633"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1634"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1635"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1663"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1664"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1665"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1669"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1670"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1671"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1726"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1727"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1728"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1780"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1781"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1782"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1798"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1799"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "1800"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "187"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "188"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "189"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "199"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "200"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "201"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "223"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "224"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "225"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "229"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "230"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "231"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "283"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "284"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "285"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "31"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "310"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "311"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "312"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "32"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "33"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "520"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "521"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "522"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "553"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "554"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "555"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "583"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "584"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "585"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "631"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "632"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "633"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "640"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "641"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "642"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "7"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "8"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "817"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "818"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "819"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "9"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "949"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "950"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "951"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "973"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "974"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "975"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "982"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "983"
+      },
+      {
+        "scene_id": "x8F5xyUWy9e",
+        "episode_id": "984"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1015"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1016"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1017"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1024"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1025"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1026"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1033"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1034"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1035"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1039"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1040"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1041"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1069"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1070"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1071"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1084"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1085"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1086"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1099"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1100"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1101"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1108"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1109"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1110"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1135"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1136"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1137"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1165"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1166"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1167"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1195"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1196"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1197"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1198"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1199"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1200"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "124"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1240"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1241"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1242"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "125"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "126"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1261"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1262"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1263"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1285"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1286"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1287"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "13"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1321"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1322"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1323"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1333"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1334"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1335"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1354"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1355"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1356"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "136"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1360"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1361"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1362"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "137"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1375"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1376"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1377"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "138"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "14"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "145"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "146"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "147"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "15"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "154"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "155"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "156"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "163"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "164"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "165"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1692"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1720"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1721"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1722"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1732"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1733"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1734"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1753"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1754"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1755"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1765"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1766"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1767"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1771"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1772"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1773"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1774"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1775"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1776"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1807"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1808"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "1809"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "2"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "235"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "236"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "237"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "247"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "248"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "249"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "25"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "250"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "251"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "252"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "253"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "254"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "255"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "26"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "27"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "292"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "293"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "294"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "3"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "301"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "302"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "303"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "352"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "353"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "354"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "361"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "362"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "363"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "367"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "368"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "369"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "37"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "38"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "385"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "386"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "387"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "39"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "40"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "41"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "415"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "416"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "417"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "418"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "419"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "42"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "420"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "439"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "440"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "441"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "445"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "446"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "447"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "475"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "476"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "477"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "505"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "506"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "507"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "514"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "515"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "516"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "52"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "53"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "54"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "544"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "545"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "546"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "55"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "56"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "57"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "571"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "572"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "573"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "628"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "629"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "630"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "655"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "656"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "657"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "670"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "671"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "672"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "673"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "674"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "675"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "712"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "713"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "714"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "715"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "716"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "717"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "73"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "74"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "742"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "743"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "744"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "745"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "746"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "747"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "75"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "820"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "821"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "822"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "826"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "827"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "828"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "85"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "86"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "862"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "863"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "864"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "865"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "866"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "867"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "868"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "869"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "87"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "870"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "892"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "893"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "894"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "898"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "899"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "900"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "910"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "911"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "912"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "913"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "914"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "915"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "922"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "923"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "924"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "934"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "935"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "936"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "955"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "956"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "957"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "961"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "962"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "963"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "967"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "968"
+      },
+      {
+        "scene_id": "zsNo4HB9uLZ",
+        "episode_id": "969"
+      }
+    ],
+    "unexpected": [],
+    "duplicates": [],
+    "duplicate_records": 0,
+    "complete": false
+  },
+  "partial_lines_skipped": [],
+  "shards": [
+    {
+      "shard": 0,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:24:17.277022+00:00",
+      "sha256": "d853d7b541e2d6097f4bef7301aa6284648bf0f7d86377321e7645a5877964c8"
+    },
+    {
+      "shard": 1,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:18:18.279817+00:00",
+      "sha256": "c229f792f4d61dc8c2460c30ada34c37da41a31eb83cfb6ce8364bb3983cf5ac"
+    },
+    {
+      "shard": 2,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:24:15.280746+00:00",
+      "sha256": "9d096110f82fa2af6a1186bfd3bb42043dd423db1b17bc2f8afe83988baad506"
+    },
+    {
+      "shard": 3,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:29:51.281095+00:00",
+      "sha256": "984e3798ff06967614e7937471a41f2e605a6cb540ec88cc4dad2c00b8916c9e"
+    },
+    {
+      "shard": 4,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:37:11.995039+00:00",
+      "sha256": "894bef859237bfbf6e1507def529e51463bfa8e805a4cc990d23411afc6dfcb6"
+    },
+    {
+      "shard": 5,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:24:47.894223+00:00",
+      "sha256": "590ae5bed51a57be9b44b8d5bfdef6b54b13a2ef89db18defd48e2bf53a14524"
+    },
+    {
+      "shard": 6,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:38:16.982492+00:00",
+      "sha256": "e52c1a560977c632f0c7ac929b9e7c81202f6627faba80d8b1c76cb6636f3358"
+    },
+    {
+      "shard": 7,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:00:19.380632+00:00",
+      "sha256": "229f0b3a2d74d49741b3d0b5368a282cef83c3f78a1e5d58ab7f8c734f03b119"
+    },
+    {
+      "shard": 8,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:22:57.398816+00:00",
+      "sha256": "4f0a9fd5153b37c6a2c2e47d1052013c01a05562afe4afa1424883a42d25b3e1"
+    },
+    {
+      "shard": 9,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:00:22.793251+00:00",
+      "sha256": "130286b80e3740cc0826e8960c00de16c0b3232a11d373d0426159243c478461"
+    },
+    {
+      "shard": 10,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:27:44.182657+00:00",
+      "sha256": "281635f35c77d3370fc79c62b99327428d0944579ea45f21dbe57b3afd0aab01"
+    },
+    {
+      "shard": 11,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:28:08.080761+00:00",
+      "sha256": "b6e5034e53540b95538a7dd89bcfd5ae5cd72ccca861f2e0a664cce6daf100a7"
+    },
+    {
+      "shard": 12,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:30:37.376542+00:00",
+      "sha256": "d660c752e6f72ed4061096e13aee7798ada34c7fcb1ab5d53aafe609b74893a4"
+    },
+    {
+      "shard": 13,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:28:33.080706+00:00",
+      "sha256": "b3b8095474e33d8f0fae53b7deb6567b5c8f524075d1dc54193fbba60b5737c2"
+    },
+    {
+      "shard": 14,
+      "records": 28,
+      "expected": 28,
+      "summary_exists": true,
+      "coverage_complete": true,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:34:04.579877+00:00",
+      "sha256": "bb5557e50190a35d4325a37b9ceede5b82d1ffb97f60256bda72fc118516d55f"
+    },
+    {
+      "shard": 15,
+      "records": 8,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:58:21.480101+00:00",
+      "sha256": "a96313099675c9c643b85e8e15067e15291dcdc028b700be8aa656c216f62530"
+    },
+    {
+      "shard": 16,
+      "records": 16,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:59:48.180129+00:00",
+      "sha256": "1373bd930aa93b697124b8d4f05ff58434e39863f9c591b8959d027aef713541"
+    },
+    {
+      "shard": 17,
+      "records": 18,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:01:06.686581+00:00",
+      "sha256": "8bcc05f63830b0a2df0fcaf872bdc1332ed84ee78f3e3091166fcd048764292b"
+    },
+    {
+      "shard": 18,
+      "records": 16,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:00:19.679773+00:00",
+      "sha256": "7b69c69ac5921af82a2cdf751547ecc5801c186ddfb2b148abf1a0a92d679183"
+    },
+    {
+      "shard": 19,
+      "records": 13,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:00:46.992935+00:00",
+      "sha256": "60b717b0cf06a7351bdb12241490673ee362de1fb8ea082195604fa9688ec81d"
+    },
+    {
+      "shard": 20,
+      "records": 12,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:01:49.096126+00:00",
+      "sha256": "001f7ded1bfa14f0bca3f7f5d4ea7111893ceab5992920e1d3f088890e27c41a"
+    },
+    {
+      "shard": 21,
+      "records": 14,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:00:42.079321+00:00",
+      "sha256": "b02f9377299f121543adac33a1fbfb787f48a09c8a69b3fb551dd5d7ca58c414"
+    },
+    {
+      "shard": 22,
+      "records": 10,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:57:40.180058+00:00",
+      "sha256": "c174dd0ce7382a4e00c74d130fa145eb00a5590ed974e25d278b412b04107779"
+    },
+    {
+      "shard": 23,
+      "records": 13,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:58:49.276618+00:00",
+      "sha256": "2cac2610320ce25ff8ff442d20a4055139f5a13fc98428c2da053066d3d39c4f"
+    },
+    {
+      "shard": 24,
+      "records": 15,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:00:41.480166+00:00",
+      "sha256": "7cb2fa65a2bdd02c43708247d4b96f761ceb420f241bc9d32580d71208d08e44"
+    },
+    {
+      "shard": 25,
+      "records": 8,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:01:37.097306+00:00",
+      "sha256": "bd0eccaaf9d80a7b2a2914171fdbc91c61256f0c96c3e3a88f292b2d9fe278c1"
+    },
+    {
+      "shard": 26,
+      "records": 11,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T02:59:40.391793+00:00",
+      "sha256": "c2752908fea2b94bca52cb8bd359232f72e5df313a6b85fb1ffaea50bc60a6c2"
+    },
+    {
+      "shard": 27,
+      "records": 11,
+      "expected": 28,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:00:31.991676+00:00",
+      "sha256": "413b065bff406c1ab096cfa238aa6ec44cee974c23f752f43e85c66684bd6d03"
+    },
+    {
+      "shard": 63,
+      "records": 53,
+      "expected": 75,
+      "summary_exists": false,
+      "coverage_complete": false,
+      "duplicates": [],
+      "unexpected": [],
+      "mtime_utc": "2026-09-28T03:01:17.287111+00:00",
+      "sha256": "8024bd79cdd60ecc6244f18f854acc7818abfadad92127e3e6dd69d4408d0efe"
+    }
+  ],
+  "workers": [
+    {
+      "status": "running",
+      "worker_id": 0,
+      "shard": 63,
+      "finished_count": 0,
+      "updated_at": 1790558984.4123335,
+      "pid": 2335
+    },
+    {
+      "status": "running",
+      "worker_id": 1,
+      "shard": 18,
+      "finished_count": 1,
+      "updated_at": 1790562258.186834,
+      "pid": 2336
+    },
+    {
+      "status": "running",
+      "worker_id": 10,
+      "shard": 29,
+      "finished_count": 1,
+      "updated_at": 1790564424.4908748,
+      "pid": 5180
+    },
+    {
+      "status": "running",
+      "worker_id": 11,
+      "shard": 20,
+      "finished_count": 1,
+      "updated_at": 1790562474.9798539,
+      "pid": 5250
+    },
+    {
+      "status": "running",
+      "worker_id": 12,
+      "shard": 21,
+      "finished_count": 1,
+      "updated_at": 1790562489.0788095,
+      "pid": 5861
+    },
+    {
+      "status": "running",
+      "worker_id": 13,
+      "shard": 24,
+      "finished_count": 1,
+      "updated_at": 1790562639.0840235,
+      "pid": 5936
+    },
+    {
+      "status": "running",
+      "worker_id": 14,
+      "shard": 22,
+      "finished_count": 1,
+      "updated_at": 1790562514.2778175,
+      "pid": 6638
+    },
+    {
+      "status": "running",
+      "worker_id": 15,
+      "shard": 25,
+      "finished_count": 1,
+      "updated_at": 1790562845.4807317,
+      "pid": 6742
+    },
+    {
+      "status": "running",
+      "worker_id": 2,
+      "shard": 15,
+      "finished_count": 1,
+      "updated_at": 1790561899.6737854,
+      "pid": 3605
+    },
+    {
+      "status": "running",
+      "worker_id": 3,
+      "shard": 17,
+      "finished_count": 1,
+      "updated_at": 1790562256.1841474,
+      "pid": 3606
+    },
+    {
+      "status": "running",
+      "worker_id": 4,
+      "shard": 23,
+      "finished_count": 1,
+      "updated_at": 1790562592.7832086,
+      "pid": 3853
+    },
+    {
+      "status": "running",
+      "worker_id": 5,
+      "shard": 26,
+      "finished_count": 1,
+      "updated_at": 1790563033.7906024,
+      "pid": 3880
+    },
+    {
+      "status": "running",
+      "worker_id": 6,
+      "shard": 19,
+      "finished_count": 1,
+      "updated_at": 1790562289.4799185,
+      "pid": 4201
+    },
+    {
+      "status": "running",
+      "worker_id": 7,
+      "shard": 27,
+      "finished_count": 1,
+      "updated_at": 1790563098.2760375,
+      "pid": 4242
+    },
+    {
+      "status": "running",
+      "worker_id": 8,
+      "shard": 28,
+      "finished_count": 1,
+      "updated_at": 1790564420.4854605,
+      "pid": 4635
+    },
+    {
+      "status": "running",
+      "worker_id": 9,
+      "shard": 16,
+      "finished_count": 1,
+      "updated_at": 1790562178.6757007,
+      "pid": 4690
+    }
+  ],
+  "worker_status_counts": {
+    "running": 16
+  },
+  "progress": {
+    "completed_shards": 15,
+    "total_shards": 64,
+    "active_workers": 16,
+    "starting_workers": 0,
+    "pending_shards": 33
+  },
+  "by_scene": {
+    "2azQ1b91cZZ": {
+      "completed": 252,
+      "expected": 252,
+      "metrics": {
+        "success_count": 133,
+        "oracle_success_count": 136,
+        "SR_success_rate_pct": 52.77777777777778,
+        "OS_oracle_success_pct": 53.96825396825397,
+        "SPL_pct": 50.671701422983325,
+        "OS_minus_SR_percentage_points": 1.1904761904761905
+      }
+    },
+    "8194nk5LbLH": {
+      "completed": 39,
+      "expected": 39,
+      "metrics": {
+        "success_count": 23,
+        "oracle_success_count": 23,
+        "SR_success_rate_pct": 58.97435897435897,
+        "OS_oracle_success_pct": 58.97435897435897,
+        "SPL_pct": 58.77799227968057,
+        "OS_minus_SR_percentage_points": 0.0
+      }
+    },
+    "EU6Fwq7SyZv": {
+      "completed": 132,
+      "expected": 132,
+      "metrics": {
+        "success_count": 62,
+        "oracle_success_count": 66,
+        "SR_success_rate_pct": 46.96969696969697,
+        "OS_oracle_success_pct": 50.0,
+        "SPL_pct": 44.734943080504166,
+        "OS_minus_SR_percentage_points": 3.0303030303030303
+      }
+    },
+    "QUCTc6BB5sX": {
+      "completed": 123,
+      "expected": 255,
+      "metrics": {
+        "success_count": 54,
+        "oracle_success_count": 54,
+        "SR_success_rate_pct": 43.90243902439025,
+        "OS_oracle_success_pct": 43.90243902439025,
+        "SPL_pct": 42.66839293926452,
+        "OS_minus_SR_percentage_points": 0.0
+      }
+    },
+    "TbHJrupSAjP": {
+      "completed": 39,
+      "expected": 264,
+      "metrics": {
+        "success_count": 20,
+        "oracle_success_count": 24,
+        "SR_success_rate_pct": 51.282051282051285,
+        "OS_oracle_success_pct": 61.53846153846154,
+        "SPL_pct": 49.16121471422172,
+        "OS_minus_SR_percentage_points": 10.256410256410257
+      }
+    },
+    "X7HyMhZNoso": {
+      "completed": 0,
+      "expected": 141,
+      "metrics": {
+        "success_count": 0,
+        "oracle_success_count": 0,
+        "SR_success_rate_pct": null,
+        "OS_oracle_success_pct": null,
+        "SPL_pct": null,
+        "OS_minus_SR_percentage_points": null
+      }
+    },
+    "Z6MFQCViBuw": {
+      "completed": 0,
+      "expected": 159,
+      "metrics": {
+        "success_count": 0,
+        "oracle_success_count": 0,
+        "SR_success_rate_pct": null,
+        "OS_oracle_success_pct": null,
+        "SPL_pct": null,
+        "OS_minus_SR_percentage_points": null
+      }
+    },
+    "oLBMNvg9in8": {
+      "completed": 0,
+      "expected": 177,
+      "metrics": {
+        "success_count": 0,
+        "oracle_success_count": 0,
+        "SR_success_rate_pct": null,
+        "OS_oracle_success_pct": null,
+        "SPL_pct": null,
+        "OS_minus_SR_percentage_points": null
+      }
+    },
+    "pLe4wQe7qrG": {
+      "completed": 0,
+      "expected": 18,
+      "metrics": {
+        "success_count": 0,
+        "oracle_success_count": 0,
+        "SR_success_rate_pct": null,
+        "OS_oracle_success_pct": null,
+        "SPL_pct": null,
+        "OS_minus_SR_percentage_points": null
+      }
+    },
+    "x8F5xyUWy9e": {
+      "completed": 0,
+      "expected": 102,
+      "metrics": {
+        "success_count": 0,
+        "oracle_success_count": 0,
+        "SR_success_rate_pct": null,
+        "OS_oracle_success_pct": null,
+        "SPL_pct": null,
+        "OS_minus_SR_percentage_points": null
+      }
+    },
+    "zsNo4HB9uLZ": {
+      "completed": 53,
+      "expected": 300,
+      "metrics": {
+        "success_count": 26,
+        "oracle_success_count": 27,
+        "SR_success_rate_pct": 49.056603773584904,
+        "OS_oracle_success_pct": 50.943396226415096,
+        "SPL_pct": 48.61622669303249,
+        "OS_minus_SR_percentage_points": 1.8867924528301887
+      }
+    }
+  },
+  "steps_all": {
+    "count": 638,
+    "mean": 54.43416927899686,
+    "min": 6,
+    "p25": 38,
+    "median": 48.5,
+    "p75": 62,
+    "p90": 84,
+    "p95": 101,
+    "max": 500
+  },
+  "steps_learned_failure": {
+    "count": 318,
+    "mean": 54.003144654088054,
+    "min": 6,
+    "p25": 34,
+    "median": 48.5,
+    "p75": 66,
+    "p90": 91,
+    "p95": 110,
+    "max": 292
+  },
+  "stop_score_learned": {
+    "count": 636,
+    "mean": 0.646909273270541,
+    "min": 0.5011295676231384,
+    "p25": 0.5548843145370483,
+    "median": 0.6232635378837585,
+    "p75": 0.7224528193473816,
+    "p90": 0.8110994100570679,
+    "p95": 0.85507732629776,
+    "max": 0.9818251729011536
+  },
+  "learned_failure_breakdown": {
+    "count": 318,
+    "never_goal_range": 306,
+    "passed_goal_then_stopped_outside": 12,
+    "steps_le_5": 0,
+    "steps_le_10": 7,
+    "steps_le_20": 30,
+    "distance_ge_5": 244,
+    "distance_ge_10": 126
+  },
+  "log_errors": [],
+  "mean_final_distance": 5.776654163428048,
+  "mean_ndtw_pct": 60.44816390137544,
+  "missed_goal_examples": [
+    {
+      "habitat_episode_id": "168",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/2azQ1b91cZZ/2azQ1b91cZZ.glb",
+      "steps": 83,
+      "min_distance": 1.3053548336029053,
+      "final_distance": 9.851723670959473,
+      "stop_source": "learned_head",
+      "stop_score": 0.5597286820411682
+    },
+    {
+      "habitat_episode_id": "214",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/2azQ1b91cZZ/2azQ1b91cZZ.glb",
+      "steps": 48,
+      "min_distance": 2.4270436763763428,
+      "final_distance": 4.109529495239258,
+      "stop_source": "learned_head",
+      "stop_score": 0.5078145861625671
+    },
+    {
+      "habitat_episode_id": "215",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/2azQ1b91cZZ/2azQ1b91cZZ.glb",
+      "steps": 48,
+      "min_distance": 2.320267915725708,
+      "final_distance": 3.6589560508728027,
+      "stop_source": "learned_head",
+      "stop_score": 0.6655468344688416
+    },
+    {
+      "habitat_episode_id": "296",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/EU6Fwq7SyZv/EU6Fwq7SyZv.glb",
+      "steps": 71,
+      "min_distance": 1.2844823598861694,
+      "final_distance": 5.538191318511963,
+      "stop_source": "learned_head",
+      "stop_score": 0.5994769930839539
+    },
+    {
+      "habitat_episode_id": "319",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/EU6Fwq7SyZv/EU6Fwq7SyZv.glb",
+      "steps": 26,
+      "min_distance": 2.737335681915283,
+      "final_distance": 4.191572189331055,
+      "stop_source": "learned_head",
+      "stop_score": 0.524154543876648
+    },
+    {
+      "habitat_episode_id": "320",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/EU6Fwq7SyZv/EU6Fwq7SyZv.glb",
+      "steps": 52,
+      "min_distance": 2.7159781455993652,
+      "final_distance": 3.493302822113037,
+      "stop_source": "learned_head",
+      "stop_score": 0.7943586111068726
+    },
+    {
+      "habitat_episode_id": "1744",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/EU6Fwq7SyZv/EU6Fwq7SyZv.glb",
+      "steps": 88,
+      "min_distance": 1.413199782371521,
+      "final_distance": 7.621440410614014,
+      "stop_source": "learned_head",
+      "stop_score": 0.8072636723518372
+    },
+    {
+      "habitat_episode_id": "174",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/TbHJrupSAjP/TbHJrupSAjP.glb",
+      "steps": 70,
+      "min_distance": 1.5821669101715088,
+      "final_distance": 4.171207904815674,
+      "stop_source": "learned_head",
+      "stop_score": 0.961230993270874
+    },
+    {
+      "habitat_episode_id": "376",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/TbHJrupSAjP/TbHJrupSAjP.glb",
+      "steps": 60,
+      "min_distance": 2.754323959350586,
+      "final_distance": 4.1226911544799805,
+      "stop_source": "learned_head",
+      "stop_score": 0.6748988628387451
+    },
+    {
+      "habitat_episode_id": "530",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/TbHJrupSAjP/TbHJrupSAjP.glb",
+      "steps": 31,
+      "min_distance": 2.7732815742492676,
+      "final_distance": 3.6178228855133057,
+      "stop_source": "learned_head",
+      "stop_score": 0.5924645066261292
+    },
+    {
+      "habitat_episode_id": "531",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/TbHJrupSAjP/TbHJrupSAjP.glb",
+      "steps": 39,
+      "min_distance": 2.7639951705932617,
+      "final_distance": 3.719252109527588,
+      "stop_source": "learned_head",
+      "stop_score": 0.5532188415527344
+    },
+    {
+      "habitat_episode_id": "1474",
+      "scene_id": "/mnt/cfs/data/habitat/scene_datasets/mp3d/zsNo4HB9uLZ/zsNo4HB9uLZ.glb",
+      "steps": 56,
+      "min_distance": 2.3931567668914795,
+      "final_distance": 5.631426811218262,
+      "stop_source": "learned_head",
+      "stop_score": 0.5421301126480103
+    }
+  ],
+  "learned_failure_final_distance_m": {
+    "count": 318,
+    "min": 3.0179197788238525,
+    "p25": 5.27365255355835,
+    "median": 8.478269100189209,
+    "mean": 10.037017868000007,
+    "p75": 13.442536354064941,
+    "p90": 18.465652465820312,
+    "max": 34.63579177856445
+  },
+  "learned_failure_distance_bins_m": {
+    "[3,5)": 74,
+    "[5,10)": 118,
+    "[10,20)": 105,
+    "[20,inf)": 21
+  },
+  "oracle_success_without_success_cases": [
+    {
+      "scene": "2azQ1b91cZZ",
+      "episode": "168",
+      "steps": 83,
+      "min_distance_m": 1.3053548336029053,
+      "min_distance_at_step": 31,
+      "final_distance_m": 9.851723670959473,
+      "stop_score": 0.5597286820411682,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "2azQ1b91cZZ",
+      "episode": "214",
+      "steps": 48,
+      "min_distance_m": 2.4270436763763428,
+      "min_distance_at_step": 28,
+      "final_distance_m": 4.109529495239258,
+      "stop_score": 0.5078145861625671,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "2azQ1b91cZZ",
+      "episode": "215",
+      "steps": 48,
+      "min_distance_m": 2.320267915725708,
+      "min_distance_at_step": 30,
+      "final_distance_m": 3.6589560508728027,
+      "stop_score": 0.6655468344688416,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "EU6Fwq7SyZv",
+      "episode": "296",
+      "steps": 71,
+      "min_distance_m": 1.2844823598861694,
+      "min_distance_at_step": 47,
+      "final_distance_m": 5.538191318511963,
+      "stop_score": 0.5994769930839539,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "EU6Fwq7SyZv",
+      "episode": "319",
+      "steps": 26,
+      "min_distance_m": 2.737335681915283,
+      "min_distance_at_step": 11,
+      "final_distance_m": 4.191572189331055,
+      "stop_score": 0.524154543876648,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "EU6Fwq7SyZv",
+      "episode": "320",
+      "steps": 52,
+      "min_distance_m": 2.7159781455993652,
+      "min_distance_at_step": 19,
+      "final_distance_m": 3.493302822113037,
+      "stop_score": 0.7943586111068726,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "EU6Fwq7SyZv",
+      "episode": "1744",
+      "steps": 88,
+      "min_distance_m": 1.413199782371521,
+      "min_distance_at_step": 49,
+      "final_distance_m": 7.621440410614014,
+      "stop_score": 0.8072636723518372,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "TbHJrupSAjP",
+      "episode": "174",
+      "steps": 70,
+      "min_distance_m": 1.5821669101715088,
+      "min_distance_at_step": 48,
+      "final_distance_m": 4.171207904815674,
+      "stop_score": 0.961230993270874,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "TbHJrupSAjP",
+      "episode": "376",
+      "steps": 60,
+      "min_distance_m": 2.754323959350586,
+      "min_distance_at_step": 44,
+      "final_distance_m": 4.1226911544799805,
+      "stop_score": 0.6748988628387451,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "TbHJrupSAjP",
+      "episode": "530",
+      "steps": 31,
+      "min_distance_m": 2.7732815742492676,
+      "min_distance_at_step": 22,
+      "final_distance_m": 3.6178228855133057,
+      "stop_score": 0.5924645066261292,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "TbHJrupSAjP",
+      "episode": "531",
+      "steps": 39,
+      "min_distance_m": 2.7639951705932617,
+      "min_distance_at_step": 29,
+      "final_distance_m": 3.719252109527588,
+      "stop_score": 0.5532188415527344,
+      "stop_source": "learned_head"
+    },
+    {
+      "scene": "zsNo4HB9uLZ",
+      "episode": "1474",
+      "steps": 56,
+      "min_distance_m": 2.3931567668914795,
+      "min_distance_at_step": 31,
+      "final_distance_m": 5.631426811218262,
+      "stop_score": 0.5421301126480103,
+      "stop_source": "learned_head"
+    }
+  ]
+}

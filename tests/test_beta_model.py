@@ -264,6 +264,73 @@ def test_zero_fm_weight_keeps_expert_gradients_none(model, batch):
     assert all(p.grad is None for p in model.expert.parameters())
 
 
+@pytest.mark.parametrize("distribution,beta,expected_mean,expected_noisy_fraction", [
+    ("uniform", 2., .5, .3), ("beta", 1.5, .4, 1 - .7**1.5),
+    ("beta", 2., 1 / 3, .51), ("beta", 3., .25, .657),
+])
+def test_flow_time_sampling_distribution_and_rng_replay(model, distribution, beta, expected_mean, expected_noisy_fraction):
+    model.config = replace(model.config, flow_time_distribution=distribution, flow_time_beta=beta)
+    torch.manual_seed(1234)
+    state = torch.get_rng_state()
+    times = model._sample_flow_time(50000, torch.device("cpu"))
+    assert times.shape == (50000,) and times.dtype == torch.float32
+    assert not times.requires_grad and ((times >= 0) & (times <= 1)).all()
+    assert abs(float(times.mean()) - expected_mean) < .006
+    # Under X_tau = (1-tau)*noise + tau*GT this means at least 70% noise coefficient.
+    assert abs(float((times <= .3).float().mean()) - expected_noisy_fraction) < .012
+    torch.set_rng_state(state)
+    torch.testing.assert_close(model._sample_flow_time(50000, torch.device("cpu")), times, rtol=0, atol=0)
+
+
+@pytest.mark.parametrize("beta", [1.5, 2., 3.])
+def test_ten_step_fm_only_trains_and_samples_with_frozen_vlm(model, batch, beta):
+    model = BetaModel(model.vlm, replace(model.config, training_mode="fm_only", horizon=10,
+                                        num_flow_steps=3, flow_time_distribution="beta", flow_time_beta=beta))
+    batch = replace(batch, model_inputs={k: v[:, :3] for k, v in batch.model_inputs.items()},
+                    labels=torch.full_like(batch.labels[:, :3], -100),
+                    fm_clean_se2_diff=torch.randn(2, 10, 3) * .1,
+                    fm_valid_mask=torch.tensor([[True] * 10, [True] * 5 + [False] * 5]))
+    out = model(batch, lambda_fm=1.)
+    assert torch.isfinite(out.loss) and out.fm_step_count == 15
+    torch.testing.assert_close(out.loss, out.fm_loss)
+    out.loss.backward()
+    assert model.expert.step_embedding.grad.shape == (10, model.config.hidden_size)
+    assert model.expert.context_proj.weight.grad.abs().sum() > 0
+    assert all(p.grad is None for p in model.vlm.parameters())
+    model.eval()
+    context = model.encode_context(batch.model_inputs)
+    actions, waypoints = model.sample_actions(context)
+    assert actions.shape == (2, 10, 3) and torch.isfinite(actions).all()
+    assert waypoints.shape == (2, 10, 3) and torch.isfinite(waypoints).all()
+
+
+def test_beta_flow_time_conditions_the_whole_chunk_and_allows_fixed_time(model, batch, monkeypatch):
+    model.config = replace(model.config, flow_time_distribution="beta", flow_time_beta=2.)
+    model.eval()
+    noise = torch.randn_like(batch.fm_clean_se2_diff)
+    seen = []
+
+    def capture(_module, args):
+        seen.append((args[0].detach().clone(), args[1].detach().clone()))
+
+    hook = model.expert.register_forward_pre_hook(capture)
+    out = model(batch, noise=noise)
+    hook.remove()
+    noisy, tau = seen[0]
+    assert tau.shape == (len(batch.labels),)
+    mask = batch.fm_valid_mask[..., None]
+    clean = model.normalizer.normalize(torch.where(mask, batch.fm_clean_se2_diff, 0.))
+    t = tau[:, None, None]
+    torch.testing.assert_close(noisy, torch.where(mask, (1 - t) * noise + t * clean, noise))
+
+    def forbidden_sampling(*_args):
+        raise AssertionError("explicit times must bypass the configured sampler")
+
+    monkeypatch.setattr(model, "_sample_flow_time", forbidden_sampling)
+    fixed = model(batch, noise=noise, flow_time=tau)
+    torch.testing.assert_close(fixed.velocity, out.velocity, rtol=0, atol=0)
+
+
 def test_sampling_uses_noise_to_data_direction_and_denormalizes(model, monkeypatch):
     model.eval()
     context = BetaContext(torch.zeros(2, 1, 16), torch.ones(2, 1, dtype=torch.bool))
@@ -419,6 +486,8 @@ def test_bad_token_generation_raises_and_removes_capture_hook(model, rvq_bundle_
 @pytest.mark.parametrize("change", [
     {"action_scale": (1., 0., 1.)}, {"action_scale": (1., float("nan"), 1.)},
     {"hidden_size": 17}, {"num_flow_steps": 0}, {"horizon": 0},
+    {"flow_time_distribution": "unknown"}, {"flow_time_alpha": 0},
+    {"flow_time_beta": -1}, {"flow_time_alpha": float("nan")}, {"flow_time_beta": float("inf")},
 ])
 def test_invalid_config_rejected(change):
     with pytest.raises(ValueError):

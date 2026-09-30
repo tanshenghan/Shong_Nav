@@ -1,0 +1,73 @@
+{
+  "date": "2026-09-19",
+  "episode_id": "kujiale_0055_10_3",
+  "output_root": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3_200poses",
+  "previous_dense_poses": 664,
+  "compact_poses": 200,
+  "sample_hz": 4.5,
+  "sample_interval_s": 0.2222222222222222,
+  "reference_duration_s": 44.22222222222222,
+  "video_fps": 15,
+  "video_duration_s": 13.333333333333334,
+  "playback_speed_multiplier": 3.3333333333333335,
+  "continuous_curve_unchanged": true,
+  "instruction_unchanged": true,
+  "mean_step_m": 0.0731188125339778,
+  "max_step_m": 0.08852177259414193,
+  "max_yaw_step_deg": 3.626528310539909,
+  "motion_bounds": {
+    "speed_m_s": 0.3995253568850602,
+    "accel_m_s2": 0.1577518177565538,
+    "jerk_m_s3": 0.14472474395920656,
+    "yaw_rate_rad_s": 0.30505958395123994,
+    "yaw_accel_rad_s2": 0.2888108442626759,
+    "yaw_jerk_rad_s3": 0.5534954473720358
+  },
+  "continuous_footprint_certificate": {
+    "certified": true,
+    "method": "recursive_bezier_hull_capsules",
+    "footprint_radius_m": 0.3,
+    "corridor_half_width_m": 0.5,
+    "leaves": 17,
+    "max_depth": 1,
+    "max_leaf_enclosure_radius_m": 0.10176380902050282,
+    "min_parameter_speed_lower_bound": 0.9482561417674945,
+    "planar_raster_only": true
+  },
+  "all_199_saved_chords_collision_free": true,
+  "freshly_rendered_views": 200,
+  "future_window_count_verified": 200,
+  "full_future_reference_horizon_s": 6.666666666666667,
+  "videos": {
+    "planned.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3_200poses/review/planned.mp4",
+      "sha256": "9f76b8ac4d36dbab662b78fd6cd2e57a19ec375eb6245c0b86da415b40dc4b15",
+      "frames": 200,
+      "fps": 15,
+      "duration_s": 13.333333333333334,
+      "width": 480,
+      "height": 680,
+      "fully_decoded": true
+    },
+    "before_after.mp4": {
+      "path": "/mnt/cfs/data/beta_nav/vlnverse/planned_20260919_kujiale_0055_10_3_200poses/review/before_after.mp4",
+      "sha256": "da76e817f1987420b2ed6a9e3176b2499d2236db1ed9cd26cb04309ffa8d1c77",
+      "frames": 200,
+      "fps": 15,
+      "duration_s": 13.333333333333334,
+      "width": 960,
+      "height": 646,
+      "fully_decoded": true
+    }
+  },
+  "tests": {
+    "passed": 443,
+    "command": "PYTHONPATH=src data_pipeline/.venv/lerobot/bin/python -m pytest data_pipeline/vlnverse/tests tests/viz -q",
+    "ruff_passed": true
+  },
+  "limitations": [
+    "15 FPS is accelerated review playback; reference timestamps remain independent.",
+    "CPU camera preview and planar circular-footprint validation, not physical robot execution.",
+    "Sparse source views in the left panel are held on the normalized previous reference clock."
+  ]
+}

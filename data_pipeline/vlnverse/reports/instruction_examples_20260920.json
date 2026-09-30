@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-20",
+  "dataset": "VLNVerse fine/train",
+  "source": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/vlnverse_r2r/fine/train/train.json.gz",
+  "sha256": "2c04948d8284191a332e2919f2476cd734170c0c8f066442d2db604eed496bff",
+  "selection": "Illustrative examples at reference lengths near 5.5, 8 and 12 metres, with word counts near the dataset median 65; intentionally selected, not random. Different scenes from the R2R examples. Text/geometry alignment has not been independently reviewed for these examples.",
+  "word_count_regex": "[A-Za-z0-9]+(?:['’\\-][A-Za-z0-9]+)*",
+  "examples": [
+    {
+      "episode_id": "kujiale_0042_48_4",
+      "scene_id": "vlnverse/kujiale_0042",
+      "trajectory_id": "kujiale_0042_48_4",
+      "reference_length_m": 5.5,
+      "words": 65,
+      "text": "Walk straight through the doorway, passing the TV and cabinet on your left. Continue into the room, with the couch and coffee table on your left and a large plant on your right. Turn slightly left and stop in front of the large window with the outdoor view, having the couch to your left and a TV and console table on the far left wall."
+    },
+    {
+      "episode_id": "kujiale_0056_21_2",
+      "scene_id": "vlnverse/kujiale_0056",
+      "trajectory_id": "kujiale_0056_21_2",
+      "reference_length_m": 7.999999999999983,
+      "words": 65,
+      "text": "Turn right to enter the dining room. Walk straight, passing a dining table and a wooden cabinet on your left, and a living room area with a TV and shelves on your right. Go through the doorway ahead into the kitchen. Continue straight into the kitchen, with a refrigerator on your right, and stop in front of the kitchen counter with the sink and window."
+    },
+    {
+      "episode_id": "kujiale_0191_35_1",
+      "scene_id": "vlnverse/kujiale_0191",
+      "trajectory_id": "kujiale_0191_35_1",
+      "reference_length_m": 12.0,
+      "words": 65,
+      "text": "Walk straight through the doorway to enter the kitchen. Turn right, then walk straight past the kitchen island on your right and the dining table on your left. Continue straight into the living room, keeping the wall decoration on your right. Pass the brown armchair on your left and the sofa on your right, then stop in front of the large window overlooking the lake."
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "checked_at_utc": "2026-09-17T08:50:18.805788+00:00",
+  "torch_version": "2.10.0+cu129",
+  "sampling": "Beta(1, 2)",
+  "samples_per_gpu": 100000,
+  "results": [
+    {
+      "gpu": 0,
+      "tau_mean": 0.33283060789108276,
+      "noise_coefficient_at_least_0_7_fraction": 0.510949969291687,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    },
+    {
+      "gpu": 1,
+      "tau_mean": 0.3334085941314697,
+      "noise_coefficient_at_least_0_7_fraction": 0.5098099708557129,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    },
+    {
+      "gpu": 2,
+      "tau_mean": 0.3326762020587921,
+      "noise_coefficient_at_least_0_7_fraction": 0.5115100145339966,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    },
+    {
+      "gpu": 3,
+      "tau_mean": 0.33392518758773804,
+      "noise_coefficient_at_least_0_7_fraction": 0.5095999836921692,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    },
+    {
+      "gpu": 4,
+      "tau_mean": 0.33384236693382263,
+      "noise_coefficient_at_least_0_7_fraction": 0.5092399716377258,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    },
+    {
+      "gpu": 5,
+      "tau_mean": 0.33386433124542236,
+      "noise_coefficient_at_least_0_7_fraction": 0.5096299648284912,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    },
+    {
+      "gpu": 6,
+      "tau_mean": 0.3341778814792633,
+      "noise_coefficient_at_least_0_7_fraction": 0.5081799626350403,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    },
+    {
+      "gpu": 7,
+      "tau_mean": 0.334468275308609,
+      "noise_coefficient_at_least_0_7_fraction": 0.508139967918396,
+      "rng_replay_exact": true,
+      "dtype": "torch.float32"
+    }
+  ]
+}

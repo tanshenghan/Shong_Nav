@@ -41,33 +41,37 @@ from lightnav.training.runtime import (
 
 
 def select_frame(dataset, history_frame=None):
-    """Select the longest episode with a complete FM-30 target, in dataset-local indices."""
+    """Select the longest episode with a complete FM target, in dataset-local indices."""
+    horizon = dataset.fm_horizon
     offset, candidates = 0, []
     for episode in dataset.episodes:
-        frame = episode.length - 31 if history_frame is None else history_frame
-        if 0 <= frame < episode.length - 30:
+        frame = episode.length - horizon - 1 if history_frame is None else history_frame
+        if 0 <= frame < episode.length - horizon:
             candidates.append((episode.length, -episode.index, offset + frame))
         offset += episode.length
     if not candidates:
-        raise ValueError("no training episode has the requested history and 30 future actions")
+        raise ValueError(f"no training episode has the requested history and {horizon} future actions")
     return max(candidates)[2]
 
 
 def run_update(model, cpu_batch, accelerator, config, accumulation, groups, optimizers, *,
                update_weights=True):
     """One update, with trace ranges; FLOP probes discard gradients instead of updating Adam."""
-    counts = torch.zeros(2, dtype=torch.int64, device=accelerator.device)
+    counts = torch.zeros(len(groups), dtype=torch.float64, device=accelerator.device)
     for micro in range(accumulation):
         with torch.profiler.record_function("betanav/host_to_device"):
             batch = move_batch(cpu_batch, accelerator.device)
         with accelerator.no_sync(model) if micro < accumulation - 1 else nullcontext():
             with torch.profiler.record_function("betanav/forward_ce_fm"):
-                out = model(batch, lambda_fm=config.lambda_fm)
+                out = model(batch, lambda_fm=config.lambda_fm, lambda_stop=config.lambda_stop)
             if not torch.isfinite(out.loss):
                 raise FloatingPointError("nonfinite profile loss")
             with torch.profiler.record_function("betanav/backward_and_ddp"):
-                backward_sums(out, accelerator, config.lambda_fm)
-        counts += counts.new_tensor([out.ce_token_count, out.fm_step_count if config.lambda_fm > 0 else 0])
+                backward_sums(out, accelerator, config.lambda_fm, config.lambda_stop)
+        local_counts = [out.ce_token_count, out.fm_step_count if config.lambda_fm > 0 else 0]
+        if "stop" in groups:
+            local_counts.append(out.stop_weight_sum)
+        counts += counts.new_tensor(local_counts)
         loss = float(out.loss.detach())
         del out, batch
     with torch.profiler.record_function("betanav/gradient_norm_and_adam"):
@@ -140,7 +144,9 @@ def main():
         on_main(accelerator, lambda: args.trace_dir.mkdir(parents=True, exist_ok=False))
     manifest = on_main(accelerator, lambda: read_data_manifest(config))
     loader = Train_Lerobot_DataLoader(config.dataset_root, config.model_path, num_workers=0,
-                                      training_mode=config.training_mode,
+                                      training_mode=config.training_mode, fm_horizon=config.fm_horizon,
+                                      stop_supervision=manifest.get("stop_supervision")
+                                      if config.training_mode == "fm_stop" else None,
                                       episode_indices=manifest["train_episodes"], shuffle=False)
     item = loader.dataset[select_frame(loader.dataset, args.history_frame)]
     one = loader.collate_fn([item])
@@ -159,7 +165,9 @@ def main():
     on_main(accelerator, lambda: atomic_json(args.report, report))
     accelerator.print("Loading full pretrained weights; sample:",
                       {k: report[k] for k in ("sequence_length", "history_frames", "world_size")}, flush=True)
-    model = accelerator.prepare_model(build_model(config, manifest["normalization"]["action_scale"]))
+    model = accelerator.prepare_model(build_model(config, manifest["normalization"]["action_scale"],
+        stop_positive_weight=manifest["stop_supervision"]["positive_weight"]
+        if config.training_mode == "fm_stop" else 1.0))
     bare = accelerator.unwrap_model(model)
     groups = bare.optimizer_parameters()
     optimizers = make_optimizers(bare, config, accelerator.num_processes)

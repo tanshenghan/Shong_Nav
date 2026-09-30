@@ -1,0 +1,26 @@
+[
+  {
+    "beta": [
+      1,
+      1.5
+    ],
+    "queue_pid": 980355,
+    "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta1_1p5_8gpu"
+  },
+  {
+    "beta": [
+      1,
+      2.0
+    ],
+    "queue_pid": 980356,
+    "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta12_8gpu"
+  },
+  {
+    "beta": [
+      1,
+      3.0
+    ],
+    "queue_pid": 980357,
+    "launch_dir": "/mnt/pfs/tanshenghan/vln4project/LightNav-0/runs/betanav_launch/20260918T072810Z_fm_only_h10_beta13_8gpu"
+  }
+]

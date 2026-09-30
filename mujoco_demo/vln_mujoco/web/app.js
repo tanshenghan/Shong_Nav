@@ -9,7 +9,7 @@
     vlnState: $("vln-state"), vlnDetail: $("vln-detail"), controlToggle: $("control-toggle"), stop: $("stop-button"), reset: $("reset-button"),
     toast: $("toast")
   };
-  const state = {socket:null, connected:false, reconnect:null, data:null, keys:new Set(), toastTimer:null, cameraBusy:false, cameraUrl:null, cameraView:"first", serverUrlDirty:false};
+  const state = {socket:null, connected:false, reconnect:null, data:null, keys:new Set(), toastTimer:null, cameraSocket:null, cameraReconnect:null, pendingFrame:null, decoding:false, displayedFrames:[], stopping:false, cameraView:"first", serverUrlDirty:false};
 
   function send(payload) {
     if (state.socket?.readyState !== WebSocket.OPEN) { toast("Web connection not ready", true); return false; }
@@ -32,6 +32,7 @@
       try { message = JSON.parse(event.data); } catch (_) { return; }
       if (["snapshot", "runtime"].includes(message.type)) {
         state.data = message.data;
+        if (message.data?.control?.source === "idle") state.stopping = false;
         if (message.type === "snapshot" && !state.serverUrlDirty && typeof message.data?.vln?.server_url === "string") {
           ui.serverUrl.value = message.data.vln.server_url;
         }
@@ -46,35 +47,69 @@
       render();
     };
   }
-  async function refreshCamera() {
-    if (state.cameraBusy) return;
-    state.cameraBusy = true;
-    const cameraView = state.cameraView;
-    let nextUrl = null;
+  function connectCamera() {
+    clearTimeout(state.cameraReconnect);
+    const old = state.cameraSocket;
+    state.cameraSocket = null;
+    if (old) old.close();
+    state.pendingFrame = null;
+    const protocol = location.protocol === "https:" ? "wss:" : "ws:";
+    const socket = new WebSocket(`${protocol}//${location.host}/camera/ws?view=${state.cameraView}`);
+    socket.binaryType = "arraybuffer";
+    state.cameraSocket = socket;
+    socket.onmessage = (event) => {
+      if (socket !== state.cameraSocket || !(event.data instanceof ArrayBuffer)) return;
+      const seq = new DataView(event.data).getUint32(0);
+      state.pendingFrame = {socket, seq, jpeg:event.data.slice(4)};
+      displayLatestFrame();
+    };
+    socket.onclose = () => {
+      if (socket === state.cameraSocket) state.cameraReconnect = setTimeout(connectCamera, 1000);
+    };
+    socket.onerror = () => socket.close();
+  }
+  async function displayLatestFrame() {
+    if (state.decoding) return;
+    state.decoding = true;
     try {
-      const endpoint = cameraView === "third" ? "/api/third-person.jpg" : "/api/camera.jpg";
-      const response = await fetch(`${endpoint}?t=${Date.now()}`, {cache:"no-store"});
-      if (!response.ok) throw new Error("camera unavailable");
-      nextUrl = URL.createObjectURL(await response.blob());
-      if (cameraView !== state.cameraView) {
-        URL.revokeObjectURL(nextUrl);
-        nextUrl = null;
-        return;
+      while (state.pendingFrame) {
+        const frame = state.pendingFrame;
+        state.pendingFrame = null;
+        try {
+          const bitmap = await createImageBitmap(new Blob([frame.jpeg], {type:"image/jpeg"}));
+          if (frame.socket === state.cameraSocket) {
+            ui.cameraImage.getContext("2d").drawImage(bitmap, 0, 0, 480, 270);
+            const now = performance.now();
+            state.displayedFrames.push(now);
+            state.displayedFrames = state.displayedFrames.filter(t => now - t < 2000);
+          }
+          bitmap.close();
+        } finally {
+          if (frame.socket.readyState === WebSocket.OPEN) frame.socket.send(JSON.stringify({ack:frame.seq}));
+        }
       }
-      await new Promise((resolve, reject) => {
-        ui.cameraImage.onload = resolve; ui.cameraImage.onerror = reject; ui.cameraImage.src = nextUrl;
-      });
-      const oldUrl = state.cameraUrl; state.cameraUrl = nextUrl; nextUrl = null;
-      if (oldUrl) URL.revokeObjectURL(oldUrl);
     } catch (_) {
-      if (nextUrl) URL.revokeObjectURL(nextUrl);
-    } finally { state.cameraBusy = false; }
+      // Reconnect if a corrupt frame interrupted this stream.
+      state.cameraSocket?.close();
+    } finally { state.decoding = false; }
+  }
+  function stopRobot() {
+    state.keys.clear();
+    state.stopping = true;
+    render();
+    send({type:"stop"});
+    // Separate HTTP path also works when the control WebSocket is reconnecting.
+    fetch("/api/stop", {method:"POST"}).catch(() => toast("Stop not acknowledged; reconnecting…", true));
   }
   function render() {
     const data = state.data || {};
     const sim = data.simulation || {}, camera = sim.camera || {}, vln = data.vln || {}, mpc = data.mpc || {}, control = data.control || {};
     ui.simTime.textContent = `${Number(sim.sim_time || 0).toFixed(1)} s`;
-    ui.cameraFps.textContent = camera.ready ? `${Number(camera.fps || 0).toFixed(1)} Hz` : "—";
+    const now = performance.now();
+    state.displayedFrames = state.displayedFrames.filter(t => now - t < 2000);
+    const receivedFps = state.displayedFrames.length / 2;
+    ui.cameraFps.textContent = camera.ready ? `${receivedFps.toFixed(1)} FPS` : "—";
+    ui.cameraFps.title = `Server rendering: ${Number(camera.fps || 0).toFixed(1)} FPS`;
     ui.firstPersonView.classList.toggle("active", state.cameraView === "first");
     ui.thirdPersonView.classList.toggle("active", state.cameraView === "third");
     ui.latency.textContent = Number.isFinite(Number(vln.latency_ms)) ? `${Number(vln.latency_ms).toFixed(0)} ms` : "—";
@@ -83,8 +118,8 @@
     ui.vlnState.textContent = vln.state || "IDLE";
     ui.vlnToggle.textContent = control.auto ? "Stop VLN" : "Start VLN";
     ui.vlnToggle.classList.toggle("active", Boolean(control.auto));
-    ui.vlnDetail.textContent = mpc.error || vln.error || (vln.stop === true
-      ? "VLN reached the goal and stopped automatically."
+    ui.vlnDetail.textContent = (state.stopping ? "Stopping…" : "") || mpc.error || vln.error || (vln.stop === true
+      ? "Model requested STOP."
       : (control.auto
         ? (vln.connected ? (vln.visible === false ? "Target is currently not visible." : `MPC tracking the VLN path${Number.isFinite(Number(mpc.solve_ms)) ? ` · ${Number(mpc.solve_ms).toFixed(1)} ms` : ""}`) : "Connecting to the VLN server…")
         : "Set the server URL to get started."));
@@ -101,14 +136,7 @@
     const context = ui.path.getContext("2d");
     context.clearRect(0, 0, ui.path.width, ui.path.height);
     if (!firstPerson) return;
-    if (enabled && points.length) {
-      const project = (point) => [240 - Number(point[1]) * 75, 258 - Number(point[0]) * 75];
-      context.lineWidth = 3; context.strokeStyle = "#60a5fa"; context.fillStyle = "#60a5fa";
-      context.beginPath(); context.moveTo(240, 258);
-      points.forEach((point) => { const [x,y] = project(point); context.lineTo(x,y); });
-      context.stroke();
-      points.forEach((point, index) => { const [x,y] = project(point); context.beginPath(); context.arc(x,y,index === points.length-1 ? 5 : 3,0,Math.PI*2); context.fill(); });
-    }
+    // Metric trajectories are depth-tested directly in the MuJoCo camera render.
     const drawMarker = (pixel, channel, semanticState, color) => {
       if (!Array.isArray(pixel) || pixel.length !== 2) return;
       const x = Number(pixel[0]), y = Number(pixel[1]);
@@ -153,8 +181,8 @@
 
   ui.serverUrl.addEventListener("input", () => { state.serverUrlDirty = true; });
   ui.saveServer.addEventListener("click", () => send({type:"set_server_url", server_url:ui.serverUrl.value.trim()}));
-  ui.firstPersonView.addEventListener("click", () => { state.cameraView = "first"; render(); refreshCamera(); });
-  ui.thirdPersonView.addEventListener("click", () => { state.cameraView = "third"; render(); refreshCamera(); });
+  ui.firstPersonView.addEventListener("click", () => { state.cameraView = "first"; render(); connectCamera(); });
+  ui.thirdPersonView.addEventListener("click", () => { state.cameraView = "third"; render(); connectCamera(); });
   ui.vlnToggle.addEventListener("click", () => {
     const enabled = !state.data?.control?.auto;
     const instruction = ui.instruction.value.trim();
@@ -162,7 +190,7 @@
     send({type:"set_vln", enabled, instruction});
   });
   ui.controlToggle.addEventListener("click", () => send({type:state.data?.control?.manual ? "release_control" : "acquire_control"}));
-  ui.stop.addEventListener("click", () => { state.keys.clear(); send({type:"stop"}); });
+  ui.stop.addEventListener("click", stopRobot);
   ui.reset.addEventListener("click", () => { state.keys.clear(); send({type:"reset"}); });
   document.querySelectorAll(".drive-key").forEach((button) => {
     const key = button.dataset.key;
@@ -173,11 +201,11 @@
   window.addEventListener("keydown", (event) => {
     if (event.repeat || ["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) return;
     if ("wasd".includes(event.key.toLowerCase())) { event.preventDefault(); setKey(event.key.toLowerCase(), true); }
-    if (event.key === " ") { event.preventDefault(); state.keys.clear(); send({type:"stop"}); }
+    if (event.key === " ") { event.preventDefault(); stopRobot(); }
   });
   window.addEventListener("keyup", (event) => setKey(event.key.toLowerCase(), false));
   window.addEventListener("blur", () => { state.keys.clear(); publishManual(); render(); });
   setInterval(publishManual, 100);
-  setInterval(refreshCamera, 90);
-  connect(); render();
+  setInterval(render, 500);
+  connect(); connectCamera(); render();
 })();

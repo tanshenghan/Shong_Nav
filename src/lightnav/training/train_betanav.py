@@ -41,6 +41,7 @@ from lightnav.training.runtime import (
     move_batch,
     normalize_gradients,
     read_data_manifest,
+    validate_stop_warm_start_contract,
 )
 
 
@@ -95,8 +96,10 @@ def build_loaders(config, manifest, accelerator):
     common = dict(dataset_root=config.dataset_root, model_path=config.model_path, batch_size=config.batch_size,
                   num_workers=config.num_workers, prefetch_factor=config.prefetch_factor,
                   cache_row_groups=config.cache_row_groups, cache_frames=config.cache_frames,
-                  training_mode=config.training_mode,
+                  training_mode=config.training_mode, fm_horizon=config.fm_horizon,
                   pin_memory=accelerator.device.type == "cuda", seed=config.seed)
+    if config.training_mode == "fm_stop":
+        common["stop_supervision"] = manifest["stop_supervision"]
     train = Train_Lerobot_DataLoader(**common, episode_indices=manifest["train_episodes"],
                                      rank=accelerator.process_index, world_size=accelerator.num_processes)
     if len(train) < 1:
@@ -132,6 +135,15 @@ def validate_training_data_expansion(saved, current, manifest):
         raise ValueError("expansion must use the unchanged dataset's full union and preserve normalization")
 
 
+def _training_source_hashes():
+    source = Path(__file__).parent
+    files = [*source.glob("*.py"), source.parent / "inference/beta_model.py",
+             source.parent / "inference/prefix_kv.py", source.parent / "inference/pi_action_expert.py",
+             source.parent / "dataloader/Train_Lerobot_DataLoader.py"]
+    files.extend((source.parent / "inference").glob("stop_head.py"))
+    return {str(p.relative_to(source.parent)): file_hash(p) for p in files}
+
+
 def _initialize_run(config, manifest, contract, resume_path, *, expand_training_data=False, override_max_steps=False):
     output = Path(config.output_dir)
     if resume_path is not None:
@@ -148,14 +160,13 @@ def _initialize_run(config, manifest, contract, resume_path, *, expand_training_
             if not expand_training_data:
                 raise ValueError("resume contract differs; do not overwrite this experiment")
             validate_training_data_expansion(checked, contract, manifest)
-        source = Path(__file__).parent
         resume_dir = output / "resumes"
         resume_dir.mkdir(exist_ok=True)
         atomic_json(resume_dir / f"{time.time_ns()}-{uuid.uuid4().hex[:8]}.json", dict(
             resume_from=str(resume_path), run_id=meta["run_id"], config=asdict(config), contract=contract,
             training_data_expanded=expanded, data_cursor_reset=expanded,
             max_steps_override=override_max_steps and max_steps_changed, previous_max_steps=old_max_steps,
-            source_sha256={p.name: file_hash(p) for p in source.glob("*.py")}))
+            source_sha256=_training_source_hashes()))
         atomic_json(output / "active_config.json", asdict(config))
         atomic_json(output / "active_data_manifest.json", manifest)
         return meta["run_id"]
@@ -167,16 +178,14 @@ def _initialize_run(config, manifest, contract, resume_path, *, expand_training_
     atomic_json(output / "active_config.json", asdict(config))
     atomic_json(output / "data_manifest.json", manifest)
     atomic_json(output / "active_data_manifest.json", manifest)
-    source = Path(__file__).parent
-    files = [*source.glob("*.py"), source.parent / "inference/beta_model.py",
-             source.parent / "dataloader/Train_Lerobot_DataLoader.py"]
     atomic_json(output / "run.json", dict(run_id=run_id, contract=contract,
                 python=platform.python_version(), packages={k: version(k) for k in ("torch", "transformers", "accelerate", "pyarrow")},
-                source_sha256={str(p.relative_to(source.parent)): file_hash(p) for p in files}))
+                source_sha256=_training_source_hashes()))
     return run_id
 
 
-def train(config, *, resume=None, dry_run=False, stop_after=None, expand_training_data=False, override_max_steps=False):
+def train(config, *, resume=None, dry_run=False, stop_after=None, expand_training_data=False,
+          override_max_steps=False, warm_start=None):
     from accelerate import Accelerator
     from accelerate.utils import (
         DistributedDataParallelKwargs,
@@ -191,6 +200,8 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
         raise ValueError("--expand-training-data requires an explicit resume checkpoint")
     if override_max_steps and not resume:
         raise ValueError("--override-max-steps requires an explicit resume checkpoint")
+    if warm_start is not None and (resume or config.training_mode != "fm_stop"):
+        raise ValueError("--warm-start requires a new fm_stop run and cannot be combined with --resume")
     torch.set_num_threads(config.cpu_threads)
     os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
     os.environ.setdefault("OMP_NUM_THREADS", str(config.cpu_threads))
@@ -221,7 +232,10 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
             raise ValueError("num_epochs cannot be combined with --override-max-steps")
     contract = on_main(accelerator, lambda: model_contract(config, loader.spec))
     plan = dict(world_size=accelerator.num_processes, device=str(accelerator.device),
-                training_mode=config.training_mode, num_epochs=config.num_epochs,
+                training_mode=config.training_mode, num_epochs=config.num_epochs, fm_horizon=config.fm_horizon,
+                expert_architecture=config.expert_architecture, prefix_layers=list(config.prefix_layers),
+                flow_time_distribution=config.flow_time_distribution,
+                flow_time_alpha=config.flow_time_alpha, flow_time_beta=config.flow_time_beta,
                 max_steps=config.max_steps, checkpoint_mode=config.checkpoint_mode,
                 save_every=config.save_every, model_save_every=config.model_save_every,
                 train_frames=len(loader.dataset), val_frames=manifest["val_frames"],
@@ -232,6 +246,9 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
                 optimizer=config.optimizer if accelerator.num_processes > 1 else "adamw",
                 validation_enabled=bool(config.eval_every),
                 pretrained_weights_loaded=not config.tiny_model, config=asdict(config))
+    if config.training_mode == "fm_stop":
+        plan["stop_supervision"] = {k: manifest["stop_supervision"][k] for k in ("version", "counts", "positive_weight")}
+        plan["warm_start"] = str(warm_start) if warm_start is not None else None
     if dry_run:
         # No model weights/optimizer/run directory are created in a dry run.
         on_main(accelerator, lambda: print(json.dumps({**plan, "pretrained_weights_loaded": False}, indent=2)))
@@ -242,7 +259,19 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
     run_id = on_main(accelerator, lambda: _initialize_run(config, manifest, contract, checkpoint,
                                                         expand_training_data=expand_training_data,
                                                         override_max_steps=override_max_steps))
-    model = build_model(config, manifest["normalization"]["action_scale"])
+    model = build_model(config, manifest["normalization"]["action_scale"],
+                        stop_positive_weight=manifest.get("stop_supervision", {}).get("positive_weight", 1.0)
+                        if config.training_mode == "fm_stop" else 1.0)
+    if warm_start is not None:
+        from lightnav.inference.beta_model import warm_start_fm_stop
+
+        source_path, metadata = warm_start_fm_stop(model, warm_start)
+        validate_stop_warm_start_contract(metadata, contract)
+        on_main(accelerator, lambda: atomic_json(Path(config.output_dir) / "warm_start.json", dict(
+            source=str(source_path), source_metadata_sha256=file_hash(source_path / "metadata.json"),
+            source_run_id=metadata.get("run_id"), target_run_id=run_id,
+            exact_resume=False, optimizer_reset=True, data_cursor_reset=True,
+        )))
     model = accelerator.prepare_model(model)
     bare = accelerator.unwrap_model(model)
     groups = bare.optimizer_parameters()
@@ -300,13 +329,13 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
                     start_time = time.perf_counter()
                     data_wait = 0.
                     factor = learning_rate_factor(state.step, config.warmup_steps, config.max_steps, config.min_lr_ratio)
-                    for name, base_lr in (("vlm", config.lr_vlm), ("fm", config.lr_fm)):
+                    for name, base_lr in (("vlm", config.lr_vlm), ("fm", config.lr_fm), ("stop", config.lr_stop)):
                         if name not in optimizers:
                             continue
                         for group in optimizers[name].param_groups:
                             group["lr"] = base_lr * factor
                     n_micro = min(config.gradient_accumulation_steps, len(loader) - state.batch_offset)
-                    totals = torch.zeros(8, dtype=torch.float64, device=accelerator.device)
+                    totals = torch.zeros(12, dtype=torch.float64, device=accelerator.device)
                     for micro in range(n_micro):
                         wait_start = time.perf_counter()
                         cpu_batch = next(iterator)
@@ -316,11 +345,11 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
                         # A final synchronized backward also reduces preceding no_sync gradients.
                         sync_context = accelerator.no_sync(model) if micro < n_micro - 1 else nullcontext()
                         with sync_context:
-                            out = model(batch, lambda_fm=config.lambda_fm)
+                            out = model(batch, lambda_fm=config.lambda_fm, lambda_stop=config.lambda_stop)
                             finite = accelerator.reduce(torch.isfinite(out.loss).to(torch.int64), reduction="sum")
                             if int(finite) != accelerator.num_processes:
                                 raise FloatingPointError("nonfinite loss; aborting before optimizer update on every rank")
-                            backward_sums(out, accelerator, config.lambda_fm)
+                            backward_sums(out, accelerator, config.lambda_fm, config.lambda_stop)
                         nc, nf = out.ce_token_count, out.fm_step_count if config.lambda_fm > 0 else 0
                         totals[0] += out.ce_loss.detach().double() * nc
                         totals[1] += nc
@@ -330,16 +359,24 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
                         totals[5] += batch.model_inputs["attention_mask"].sum()
                         totals[6] += batch.labels.numel()
                         totals[7] += (~batch.fm_valid_mask.any(dim=1)).sum()
+                        if out.stop_loss is not None:
+                            totals[8] += out.stop_loss.detach().double() * out.stop_weight_sum
+                            totals[9] += out.stop_weight_sum
+                            totals[10] += out.stop_valid_count
+                            totals[11] += out.stop_positive_count
                         state.batch_offset += 1
                         del out, batch
                     sums = accelerator.reduce(totals, reduction="sum").tolist()
                     counts = [int(sums[1]), int(sums[3])]
+                    if "stop" in groups:
+                        counts.append(sums[9])
                     normalize_gradients(groups, counts, accelerator.num_processes)
                     norms = clip_and_step(groups, optimizers, counts, config)
                     state.step += 1
                     state.samples_seen += int(sums[4])
                     state.vlm_updates += bool(counts[0])
                     state.fm_updates += bool(counts[1])
+                    state.stop_updates += bool(sums[9])
                     epoch_end = state.batch_offset == len(loader)
                     if epoch_end:
                         state.epoch += 1
@@ -356,7 +393,12 @@ def train(config, *, resume=None, dry_run=False, stop_after=None, expand_trainin
                         per_rank = accelerator.gather(perf)
                         slowest, max_wait, max_allocated, max_reserved = per_rank.max(dim=0).values.tolist()
                         ce, fm = sums[0] / max(counts[0], 1), sums[2] / max(counts[1], 1)
-                        logger.write(dict(train_loss=ce + config.lambda_fm * fm, train_ce=ce, train_fm=fm,
+                        stop_loss = sums[8] / sums[9] if sums[9] else 0.
+                        stop_metrics = dict(train_stop=stop_loss, stop_weight_sum=sums[9], stop_samples=int(sums[10]),
+                                            stop_positives=int(sums[11]), stop_updates=state.stop_updates,
+                                            lr_stop=config.lr_stop * factor, grad_norm_stop=norms["stop"]) if "stop" in groups else {}
+                        logger.write(dict(train_loss=ce + config.lambda_fm * fm + config.lambda_stop * stop_loss,
+                                     train_ce=ce, train_fm=fm, **stop_metrics,
                                      lr_vlm=config.lr_vlm * factor if "vlm" in optimizers else 0.,
                                      lr_fm=config.lr_fm * factor,
                                      grad_norm_vlm=norms["vlm"], grad_norm_fm=norms["fm"],
@@ -414,6 +456,8 @@ def main():
     parser.add_argument("--output-dir")
     parser.add_argument("--data-manifest")
     parser.add_argument("--resume", nargs="?", const="auto", help="auto or a committed checkpoint path")
+    parser.add_argument("--warm-start", type=Path,
+                        help="initialize a NEW fm_stop run from complete fm_only weights; reset Adam/RNG/cursor")
     parser.add_argument("--expand-training-data", action="store_true",
                         help="explicitly resume on the original train+validation union; preserve Adam/step, reset data cursor")
     parser.add_argument("--override-max-steps", action="store_true",
@@ -426,7 +470,8 @@ def main():
     config = load_config(args.config, dict(output_dir=args.output_dir, data_manifest=args.data_manifest,
                                           cpu=args.cpu, tiny_model=args.tiny_model))
     train(config, resume=args.resume, dry_run=args.dry_run, stop_after=args.stop_after,
-          expand_training_data=args.expand_training_data, override_max_steps=args.override_max_steps)
+          expand_training_data=args.expand_training_data, override_max_steps=args.override_max_steps,
+          warm_start=args.warm_start)
 
 
 if __name__ == "__main__":

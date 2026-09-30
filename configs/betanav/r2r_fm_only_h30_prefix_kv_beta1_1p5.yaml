@@ -1,0 +1,51 @@
+# Thirty future actions; selected native Qwen3-VL KV + joint attention + time AdaRMSNorm.
+# New architecture and experiment: initialize from original LightNav, not an old FM checkpoint.
+training_mode: fm_only
+expert_architecture: prefix_kv_v1
+prefix_layers: [6, 12, 18, 24, 30, 36]  # 1-based; one frozen prefix layer per expert layer
+fm_horizon: 30  # all 30 consecutive future local SE(2) increments, output [B,30,3]
+num_epochs: 3
+dataset_root: /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912
+model_path: /mnt/cfs/Models/Light
+data_manifest: configs/betanav/data/r2r_all_train_20260913.json
+output_dir: /mnt/cfs/Models/beta_nav/r2r_fm_only_h30_prefix_kv_beta1_1p5
+seed: 42
+batch_size: 8  # conservative starting point; native KV memory/throughput must be profiled
+gradient_accumulation_steps: 8  # effective batch = 8 * 8 accumulated microbatches * 8 GPUs = 512
+max_steps: 3699  # recomputed: 3 * ceil(ceil(ceil(631244 / 8) / 8) / 8)
+warmup_steps: 1000
+lr_vlm: 1.0e-5  # unused with the fully frozen VLM
+lr_fm: 1.0e-4
+min_lr_ratio: 0.1
+weight_decay: 0.01
+adam_betas: [0.9, 0.95]
+adam_eps: 1.0e-8
+clip_vlm: 1.0
+clip_fm: 1.0
+lambda_fm: 1.0
+flow_time_distribution: beta
+flow_time_alpha: 1.0
+flow_time_beta: 1.5  # tau=0 is noise; unchanged baseline time distribution
+freeze_vision: true
+gradient_checkpointing: false  # frozen VLM remains eval/no_grad
+mixed_precision: bf16
+optimizer: zero1
+attention: sdpa
+expert_hidden_size: 512  # residual width; native attention head dimensions come from Qwen
+expert_num_layers: 6
+expert_num_heads: 32  # must match the original LightNav Qwen attention query heads
+expert_intermediate_size: 2048
+expert_dropout: 0.0
+num_flow_steps: 10  # Euler integration steps; independent of the 30-action horizon
+num_workers: 4
+prefetch_factor: 1
+log_every: 10
+eval_every: 0
+eval_max_batches: 64
+eval_sample_batches: 4
+save_every: 1000
+model_save_every: 3000
+checkpoint_mode: dual
+keep_last: 3
+save_best: false
+tracker: none

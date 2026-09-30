@@ -1,0 +1,181 @@
+{
+  "report_version": 1,
+  "date": "2026-09-19",
+  "purpose": "Reproducible official VLNVerse episode selection and input audit for a paired raw/smoothed video preview.",
+  "selection": {
+    "seed": 20260919,
+    "algorithm": "random.Random(seed).choice(sorted(eligible_episodes, key=lambda e: e[\"episode_id\"]))",
+    "split": "fine/train",
+    "raw_split_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/raw_data/vlnverse_r2r/fine/train/train.json.gz",
+    "raw_split_sha256": "2c04948d8284191a332e2919f2476cd734170c0c8f066442d2db604eed496bff",
+    "raw_episode_count": 3963,
+    "raw_scene_count": 176,
+    "candidate_count": 3848,
+    "candidate_scene_count": 171,
+    "sorted_candidate_ids_sha256": "e964cc6718cf4173b676c9393bcb7cf729e02a48e02a06b8d77131fb2c9aa14b",
+    "selected_candidate_index_zero_based": 2594,
+    "episode_id": "kujiale_0195_4_2",
+    "scene_id": "kujiale_0195",
+    "official_trajectory_id": "4_2",
+    "eligibility": [
+      "Present in official raw fine/train JSON.",
+      "Local scene contains <scene>.usda, Meshes/, Materials/, and .vlnverse_download_manifest.json.",
+      "Local room_meta/metadata_train/<scene>/ contains freemap.npy and room_region.json."
+    ],
+    "eligibility_limit": "Filesystem presence and download manifests are checked; selection does not certify scene loading or obstacle-free motion."
+  },
+  "local_inventory": {
+    "official_traj_data_found_under_local_vlnverse_dataset": false,
+    "local_vlnverse_dataset": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data",
+    "local_dataset_subdirectories": [
+      "raw_data",
+      "room_meta",
+      "scene_graph"
+    ],
+    "other_parquets": "Parquets under datasets/interiornav_iros belong to InteriorNav, not VLNVerse.",
+    "collections_are_derived": true,
+    "user_owned_scenes": [
+      "kujiale_0173",
+      "kujiale_0201"
+    ],
+    "user_owned_scenes_fine_train_count": 0,
+    "user_owned_scenes_note": "These two scenes occur in public test/challenge; do not substitute their tasks for released training GT."
+  },
+  "scene": {
+    "usda_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0195/kujiale_0195.usda",
+    "download_manifest_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scenes/kujiale_0195/.vlnverse_download_manifest.json",
+    "download_manifest": {
+      "schema_version": 1,
+      "completed_at_utc": "2026-07-24T08:59:32.926834+00:00",
+      "dataset_repo": "billzhao1030/all_scene",
+      "dataset_revision": "5f283edca5025ab57ec511680d71d99d57de8910",
+      "scene_id": "kujiale_0195",
+      "archive_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/assets/vlnverse_scene_archives/node-3257/kujiale_0195.tar",
+      "archive_bytes": 831201280,
+      "archive_sha256": "c9343ffb90bfc8e06d685fb1ad56270fd6ff35d91ef49d0dffa7581af1b6620f",
+      "file_count": 1496,
+      "total_bytes": 828480427,
+      "quarantined_previous_tree": null,
+      "repair_state": "not_yet_repaired"
+    },
+    "actual_file_count_including_manifest": 1497,
+    "actual_total_bytes": 828500510,
+    "top_layer_asset_reference_count": 745,
+    "top_layer_unresolved_as_local_files": [
+      "OmniSurface.mdl",
+      "OmniGlass.mdl",
+      "OmniPBR.mdl"
+    ],
+    "unresolved_note": "These MDL library names normally resolve through the simulator environment; actual resolution/rendering is not tested here.",
+    "freemap_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/room_meta/metadata_train/kujiale_0195/freemap.npy",
+    "room_region_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/datasets/vlnverse_data/room_meta/metadata_train/kujiale_0195/room_region.json"
+  },
+  "official_source_files": {
+    "data/chunk-000/episode_000000.parquet": {
+      "path": "/tmp/lightnav-vlnverse-preview-20260919/kujiale_0195/4_2/data/chunk-000/episode_000000.parquet",
+      "bytes": 11727,
+      "sha256": "e8e03ae981a0ed948619f1dfbdc7d2da14de422340ecbae1934f15bfee290ec6",
+      "url": "https://huggingface.co/datasets/Eyz/VLNVerse_data/resolve/main/traj_data/vlnverse/kujiale_0195/4_2/data/chunk-000/episode_000000.parquet"
+    },
+    "meta/episodes.jsonl": {
+      "path": "/tmp/lightnav-vlnverse-preview-20260919/kujiale_0195/4_2/meta/episodes.jsonl",
+      "bytes": 562,
+      "sha256": "a66fe47e685281687d67171a4a0923c812a7c840bef3990ade237e239910a2a3",
+      "url": "https://huggingface.co/datasets/Eyz/VLNVerse_data/resolve/main/traj_data/vlnverse/kujiale_0195/4_2/meta/episodes.jsonl"
+    },
+    "meta/info.json": {
+      "path": "/tmp/lightnav-vlnverse-preview-20260919/kujiale_0195/4_2/meta/info.json",
+      "bytes": 106,
+      "sha256": "e649a4f6184308caf0dedf335903e293da4368563a7f4484ee06836abab78a37",
+      "url": "https://huggingface.co/datasets/Eyz/VLNVerse_data/resolve/main/traj_data/vlnverse/kujiale_0195/4_2/meta/info.json"
+    }
+  },
+  "source_audit": {
+    "loader": "data_pipeline.vlnverse.source.official.load_official_episode",
+    "loader_passed": true,
+    "episode_id": "kujiale_0195/4_2",
+    "finish_status": "success",
+    "instruction": "From the bathroom vanity, turn left away from the shower. Exit the bathroom and walk into the room with wooden floors, keeping the open closet on your right and the bed on your left. Turn right into the tiled hallway. Walk straight down the hallway, passing several doorways on your left. Turn right to enter a bedroom. Walk forward into the bedroom, passing the bed on your left, and stop in front of the window.",
+    "pose_count": 67,
+    "source_transition_count": 66,
+    "translation_transition_count": 37,
+    "rotation_transition_count": 29,
+    "duplicate_transition_count": 0,
+    "path_length_m": 9.25,
+    "raw_reference_path_points": 67,
+    "raw_reference_position_max_difference_m": 0.0,
+    "first_robot_position_xyz": [
+      -7.102516941256978,
+      0.255233845309065,
+      0.0
+    ],
+    "first_robot_orientation_wxyz": [
+      0.7194478204154323,
+      0.0,
+      0.0,
+      -0.694546494987545
+    ],
+    "first_robot_yaw_rad": -1.5355787146941344,
+    "source_timestamps_first_values": [
+      0.0,
+      1.0,
+      2.0,
+      3.0,
+      4.0
+    ],
+    "source_timestamps_semantics": "unverified source values, not established physical seconds",
+    "info_json": {
+      "fps": 10,
+      "video": true,
+      "encoding": {
+        "vcodec": "libx264"
+      },
+      "dataset": "your_dataset"
+    },
+    "info_fps_caution": "fps=10 is file/video metadata; timestamp 0,1,... does not independently establish the duration of physical robot actions."
+  },
+  "camera_audit": {
+    "position_field_matches_robot_exactly": true,
+    "orientation_field_matches_robot_exactly": true,
+    "yaw_field_matches_robot_exactly": true,
+    "max_position_offset_m": 0.0,
+    "camera_z_range_m": [
+      0.0,
+      0.0
+    ],
+    "recorded_quaternion_convention": "wxyz, pure world-Z yaw in this sample",
+    "true_sensor_extrinsics_verified": false,
+    "rendering_requirement": "The published camera fields duplicate the ground-level robot pose in this sample. Obtain camera height and optical-frame conversion from the simulator configuration; do not place the render camera at z=0 based on these fields.",
+    "official_rgb_path_identified_from_parquet_or_info": false,
+    "official_rgb_path_note": "Parquet has no image/video columns; downloaded info.json only declares fps/video/encoding/dataset, without a concrete RGB file path."
+  },
+  "motion_parse_audit": {
+    "motion_runs_function_passed": true,
+    "merged_run_count": 25,
+    "run_type_counts": {
+      "translate": 13,
+      "rotate": 12
+    },
+    "nonduplicate_source_motion_count": 66,
+    "default_poses_per_source_step": 6,
+    "expected_default_pose_count_if_geometry_passes": 331,
+    "collision_check_performed": false,
+    "retime_episode_called": false,
+    "note": "Only source geometry segmentation was checked. No free grid was fabricated and no obstacle-safety claim is made."
+  },
+  "derived_rgb_reference": {
+    "episode_json": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/collections/janusvln_rgb_40shard_v2/fine/shards/shard-29/episodes/kujiale_0195_4_2.json",
+    "source_type": "local JanusVLN recollection, not official GT video",
+    "frame_count": 67,
+    "missing_frame_count": 0,
+    "total_rgb_bytes": 21022162,
+    "first_rgb_path": "/mnt/cfs/jiayilin/vlnverse_eccv_2026/collections/janusvln_rgb_40shard_v2/fine/shards/shard-29/images/kujiale_0195_4_2/000000_MOVE_FORWARD.png",
+    "stored_first_robot_z_m": 1.05,
+    "note": "These images may help inspect the local scene but must not be presented as the official release or used as newly rendered smoothed observations."
+  },
+  "status": {
+    "scene_rendered_by_this_audit": false,
+    "map_calibration_or_collision_validated_by_this_audit": false,
+    "videos_created_by_this_audit": false
+  }
+}

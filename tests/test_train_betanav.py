@@ -70,11 +70,137 @@ def accel():
 
 @pytest.mark.parametrize("name,value", [("gradient_accumulation_steps", 0), ("mixed_precision", "fp16"),
                                       ("lr_vlm", float("nan")), ("warmup_steps", 30000),
-                                      ("freeze_vision", "false"), ("expert_hidden_size", 511)])
+                                      ("freeze_vision", "false"), ("expert_hidden_size", 511),
+                                      ("flow_time_distribution", "unknown"), ("flow_time_alpha", 0.),
+                                      ("flow_time_beta", -1.), ("flow_time_alpha", float("nan")),
+                                      ("flow_time_beta", float("inf"))])
 def test_invalid_training_options_rejected(cfg, name, value):
     setattr(cfg, name, value)
     with pytest.raises(ValueError):
         cfg.validate()
+
+
+@pytest.mark.parametrize("horizon", [0, 31, 10.5, True])
+def test_invalid_training_horizon_rejected(cfg, horizon):
+    with pytest.raises(ValueError, match="fm_horizon"):
+        replace(cfg, fm_horizon=horizon).validate()
+
+
+def test_legacy_horizon_resume_remains_30_and_rejects_10(cfg):
+    old = {"config": {k: v for k, v in cfg.resume_contract().items() if k != "fm_horizon"}}
+    assert resume_contracts_match(old, {"config": cfg.resume_contract()})
+    assert not resume_contracts_match(old, {"config": replace(cfg, fm_horizon=10).resume_contract()})
+
+
+@pytest.mark.parametrize("overrides", [
+    {"expert_architecture": "unknown"},
+    {"training_mode": "ce_fm"},
+    {"prefix_layers": []},
+    {"prefix_layers": [1]},
+    {"prefix_layers": [1, 1]},
+    {"prefix_layers": [2, 1]},
+    {"prefix_layers": [0, 2]},
+    {"prefix_layers": [True, 2]},
+    {"prefix_layers": [1.0, 2]},
+    {"prefix_layers": "1,2"},
+    {"prefix_layers": None},
+    {"expert_architecture": "cross_attention_v1"},
+])
+def test_invalid_prefix_training_configuration_rejected(cfg, overrides):
+    prefix = replace(cfg, training_mode="fm_only", expert_architecture="prefix_kv_v1",
+                     prefix_layers=[1, 2], expert_num_layers=2)
+    with pytest.raises(ValueError):
+        replace(prefix, **overrides).validate()
+
+
+def test_prefix_head_width_is_native_and_independent_of_residual_width(cfg):
+    prefix = replace(cfg, training_mode="fm_only", expert_architecture="prefix_kv_v1",
+                     prefix_layers=[1, 2], expert_num_layers=2, expert_hidden_size=20, expert_num_heads=8)
+    assert prefix.validate() is prefix
+    with pytest.raises(ValueError, match="divisible"):
+        replace(prefix, expert_architecture="cross_attention_v1", prefix_layers=[]).validate()
+
+
+def test_architecture_resume_preserves_legacy_but_rejects_variant_and_layer_changes(cfg):
+    legacy = {"config": {k: v for k, v in cfg.resume_contract().items()
+                         if k not in {"expert_architecture", "prefix_layers"}}}
+    assert resume_contracts_match(legacy, {"config": cfg.resume_contract()})
+    fm = replace(cfg, training_mode="fm_only", expert_num_layers=2)
+    old_fm = {"config": {k: v for k, v in fm.resume_contract().items()
+                         if k not in {"expert_architecture", "prefix_layers"}}}
+    prefix = replace(fm, expert_architecture="prefix_kv_v1", prefix_layers=[1, 2])
+    current = {"config": prefix.resume_contract()}
+    assert not resume_contracts_match(old_fm, current)
+    assert not resume_contracts_match(current, {"config": replace(prefix, prefix_layers=[1, 3]).resume_contract()})
+    from_tuple = {"config": {**current["config"], "prefix_layers": (1, 2)}}
+    assert resume_contracts_match(current, from_tuple)
+    assert resume_contracts_match(from_tuple, json.loads(json.dumps(current)))
+    assert replace(prefix, prefix_layers=(1, 2)).resume_contract()["prefix_layers"] == [1, 2]
+
+
+def test_prefix_h30_yaml_keeps_training_and_retention_contract():
+    config = load_config(Path(__file__).parents[1] / "configs/betanav/r2r_fm_only_h30_prefix_kv_beta1_1p5.yaml")
+    assert config.training_mode == "fm_only" and config.expert_architecture == "prefix_kv_v1"
+    assert config.prefix_layers == [6, 12, 18, 24, 30, 36]
+    assert config.expert_num_heads == 32 and config.fm_horizon == 30
+    assert config.num_flow_steps == 10 and config.num_epochs == 3
+    assert config.batch_size * config.gradient_accumulation_steps * 8 == 512
+    assert config.lambda_fm == 1.0 and config.flow_time_distribution == "beta"
+    assert (config.flow_time_alpha, config.flow_time_beta) == (1.0, 1.5)
+    assert config.eval_every == 0 and not config.save_best
+    assert config.checkpoint_mode == "dual"
+    assert (config.save_every, config.model_save_every, config.keep_last) == (1000, 3000, 3)
+
+
+def test_build_model_wires_prefix_architecture_and_freezes_backbone(model, cfg, monkeypatch):
+    import transformers
+
+    from lightnav.inference import model as inference_model
+    from lightnav.training import runtime
+
+    monkeypatch.setattr(runtime.LightNavTrainingSpec, "from_checkpoint",
+                        lambda *args, **kwargs: SimpleNamespace(params={"pool_enable": False}))
+    monkeypatch.setattr(inference_model, "resolve_model_paths", lambda path: (path, path, None))
+    monkeypatch.setattr(transformers.AutoModelForImageTextToText, "from_pretrained",
+                        lambda *args, **kwargs: model.vlm)
+    prefix = replace(cfg, training_mode="fm_only", expert_architecture="prefix_kv_v1", prefix_layers=[1, 2],
+                     expert_num_layers=2, expert_num_heads=4, expert_hidden_size=16, expert_intermediate_size=32,
+                     mixed_precision="no", fm_horizon=30)
+    result = runtime.build_model(prefix, [0.25, 0.25, 0.2])
+    assert result.config.expert_architecture == "prefix_kv_v1"
+    assert tuple(result.config.prefix_layers) == (1, 2) and result.config.horizon == 30
+    assert result.expert.training and not result.vlm.training
+    assert all(not parameter.requires_grad for parameter in result.vlm.parameters())
+    assert all(parameter.requires_grad for parameter in result.expert.parameters())
+
+
+def test_tiny_prefix_model_preserves_production_layer_mapping(model, batch, cfg, monkeypatch):
+    import transformers
+
+    from lightnav.inference import model as inference_model
+    from lightnav.training import runtime
+
+    monkeypatch.setattr(runtime.LightNavTrainingSpec, "from_checkpoint",
+                        lambda *args, **kwargs: SimpleNamespace(params={"pool_enable": False}))
+    monkeypatch.setattr(inference_model, "resolve_model_paths", lambda path: (path, path, None))
+    monkeypatch.setattr(transformers.AutoConfig, "from_pretrained",
+                        lambda *args, **kwargs: copy.deepcopy(model.vlm.config))
+    prefix = replace(cfg, tiny_model=True, training_mode="fm_only", expert_architecture="prefix_kv_v1",
+                     prefix_layers=[6, 12, 18, 24, 30, 36], expert_num_layers=6, expert_num_heads=32,
+                     expert_hidden_size=16, expert_intermediate_size=32, mixed_precision="no", fm_horizon=30)
+    prefix.validate()
+    tiny = runtime.build_model(prefix, [0.25, 0.25, 0.2])
+    assert tiny.vlm.config.text_config.num_hidden_layers == 36
+    assert tiny.config.prefix_kv_config["num_attention_heads"] == 32
+    assert tiny.config.prefix_kv_config["head_dim"] == 8
+    prompt = replace(batch, model_inputs={k: v[:, :3] for k, v in batch.model_inputs.items()},
+                     labels=torch.full_like(batch.labels[:, :3], -100),
+                     fm_clean_se2_diff=torch.randn(2, 30, 3), fm_valid_mask=torch.ones(2, 30, dtype=torch.bool))
+    output = tiny(prompt)
+    output.loss.backward()
+    assert output.velocity.shape == (2, 30, 3) and torch.isfinite(output.loss)
+    assert output.context.layer_indices == (6, 12, 18, 24, 30, 36)
+    assert all(p.grad is None for p in tiny.vlm.parameters())
 
 
 def test_yaml_is_strict_and_lr_schedule_has_correct_endpoints(tmp_path):
@@ -120,6 +246,15 @@ def test_new_default_options_allow_legacy_ce_fm_resume_but_reject_mode_change(cf
     assert not resume_contracts_match(legacy, {"config": cfg.resume_contract()})
 
 
+def test_legacy_uniform_time_resume_is_compatible_but_sampling_changes_are_rejected(cfg):
+    fields = {"flow_time_distribution", "flow_time_alpha", "flow_time_beta"}
+    old = {"config": {k: v for k, v in cfg.resume_contract().items() if k not in fields}}
+    assert resume_contracts_match(old, {"config": cfg.resume_contract()})
+    for field, value in [("flow_time_distribution", "beta"), ("flow_time_alpha", 2.), ("flow_time_beta", 2.)]:
+        changed = replace(cfg, **{field: value})
+        assert not resume_contracts_match(old, {"config": changed.resume_contract()})
+
+
 def test_training_only_does_not_construct_validation_loader(cfg, accel, monkeypatch):
     from lightnav.training import train_betanav as runner
 
@@ -131,9 +266,11 @@ def test_training_only_does_not_construct_validation_loader(cfg, accel, monkeypa
 
     monkeypatch.setattr(runner, "Train_Lerobot_DataLoader", fake_loader)
     cfg.eval_every = 0
+    cfg.fm_horizon = 10
     train, val = runner.build_loaders(cfg, {"train_episodes": [1, 2]}, accel)
     assert len(train) == 1 and val is None
     assert len(calls) == 1 and calls[0]["episode_indices"] == [1, 2]
+    assert calls[0]["fm_horizon"] == 10
 
 
 def test_legacy_resume_allows_evaluation_changes_but_not_training_changes(model, cfg, accel):
@@ -202,6 +339,26 @@ def test_max_steps_override_is_explicit_and_does_not_relax_other_resume_fields(m
         _initialize_run(new_cfg, {}, changed, path, override_max_steps=True)
     with pytest.raises(ValueError, match="must exceed"):
         _initialize_run(replace(cfg, max_steps=1), {}, contract, path, override_max_steps=True)
+
+
+def test_run_and_resume_audit_capture_updated_prefix_implementation(model, cfg, accel, monkeypatch):
+    from lightnav.training import train_betanav as runner
+
+    contract = {"config": cfg.resume_contract()}
+    run_id = runner._initialize_run(cfg, {}, contract, None)
+    original_run = json.loads((Path(cfg.output_dir) / "run.json").read_text())
+    changed = {"inference/prefix_kv.py": "1" * 64, "inference/pi_action_expert.py": "2" * 64}
+    for name in changed:
+        source = Path(runner.__file__).parent.parent / name
+        assert original_run["source_sha256"][name] == runner.file_hash(source)
+    path = Path(save_checkpoint(accel, model, make_optimizers(model, cfg, 1),
+                                TrainState(run_id, step=1), cfg, contract))
+    file_hash = runner.file_hash
+    monkeypatch.setattr(runner, "file_hash", lambda p: changed.get(f"{p.parent.name}/{p.name}", file_hash(p)))
+    assert runner._initialize_run(cfg, {}, contract, path) == run_id
+    audit = json.loads(next((Path(cfg.output_dir) / "resumes").glob("*.json")).read_text())
+    assert all(audit["source_sha256"][name] == digest for name, digest in changed.items())
+    assert json.loads((Path(cfg.output_dir) / "run.json").read_text()) == original_run
 
 
 def test_per_rank_performance_logs_remain_scalars_for_trackers(tmp_path, cfg, accel):

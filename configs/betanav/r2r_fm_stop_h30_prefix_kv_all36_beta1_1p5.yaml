@@ -1,0 +1,58 @@
+# Compatible architecture for explicit --warm-start from the 36-layer FM-only run.
+# First prepare the separate --with-stop-labels manifest; no dataset mutation required.
+training_mode: fm_stop
+stop_head_type: last_prefix_mlp_v1
+stop_hidden_size: 256
+lambda_stop: 1.0
+lr_stop: 1.0e-4
+clip_stop: 1.0
+expert_architecture: prefix_kv_v1
+prefix_layers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+                13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+                25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+fm_horizon: 30
+num_epochs: 3
+dataset_root: /mnt/cfs/data/beta_nav/lerobot_r2r_train_470x280_20260912
+model_path: /mnt/cfs/Models/Light
+data_manifest: configs/betanav/data/r2r_all_train_stop_v1.json
+output_dir: /mnt/cfs/Models/beta_nav/r2r_fm_stop_h30_prefix_kv_all36_beta1_1p5
+seed: 42
+batch_size: 8  # profile before launching on the intended GPU configuration
+gradient_accumulation_steps: 8  # effective batch 512 on eight GPUs
+max_steps: 3699  # runtime derives three full epochs from the distributed loader
+warmup_steps: 1000
+lr_vlm: 1.0e-5  # unused: VLM is frozen
+lr_fm: 1.0e-4
+min_lr_ratio: 0.1
+weight_decay: 0.01
+adam_betas: [0.9, 0.95]
+adam_eps: 1.0e-8
+clip_vlm: 1.0
+clip_fm: 1.0
+lambda_fm: 1.0
+flow_time_distribution: beta
+flow_time_alpha: 1.0
+flow_time_beta: 1.5
+freeze_vision: true
+gradient_checkpointing: false
+mixed_precision: bf16
+optimizer: zero1
+attention: sdpa
+expert_hidden_size: 512
+expert_num_layers: 36
+expert_num_heads: 32
+expert_intermediate_size: 2048
+expert_dropout: 0.0
+num_flow_steps: 10
+num_workers: 4
+prefetch_factor: 1
+log_every: 10
+eval_every: 0
+eval_max_batches: 64
+eval_sample_batches: 4
+save_every: 1000
+model_save_every: 3000
+checkpoint_mode: dual
+keep_last: 3
+save_best: false
+tracker: none

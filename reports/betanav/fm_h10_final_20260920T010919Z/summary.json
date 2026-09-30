@@ -1,0 +1,53 @@
+{
+  "checked_at_utc": "2026-09-20T01:09:19.998591+00:00",
+  "runs": [
+    {
+      "beta": [
+        1,
+        1.5
+      ],
+      "completed": true,
+      "step": 3699,
+      "epochs": 3,
+      "output_horizon": 10,
+      "final_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta1_1p5_frozen_lightnav_20260918/checkpoints/step-00003699",
+      "last_logged_step": 3690,
+      "last_logged_fm": 0.5152862200775196,
+      "last_20_mean_fm": 0.5053218079173601,
+      "elapsed_hours": 10.02440949400266,
+      "finished_beijing": "2026-09-19T04:15:45.577992+08:00"
+    },
+    {
+      "beta": [
+        1,
+        2.0
+      ],
+      "completed": true,
+      "step": 3699,
+      "epochs": 3,
+      "output_horizon": 10,
+      "final_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta12_frozen_lightnav_20260918/checkpoints/step-00003699",
+      "last_logged_step": 3690,
+      "last_logged_fm": 0.556874646371927,
+      "last_20_mean_fm": 0.5570275141906521,
+      "elapsed_hours": 7.6536213848325945,
+      "finished_beijing": "2026-09-19T20:47:03.342194+08:00"
+    },
+    {
+      "beta": [
+        1,
+        3.0
+      ],
+      "completed": true,
+      "step": 3699,
+      "epochs": 3,
+      "output_horizon": 10,
+      "final_checkpoint": "/mnt/cfs/Models/beta_nav/r2r_fm_only_h10_beta13_frozen_lightnav_20260918/checkpoints/step-00003699",
+      "last_logged_step": 3690,
+      "last_logged_fm": 0.5998231994561185,
+      "last_20_mean_fm": 0.6146334490712144,
+      "elapsed_hours": 7.540302457875676,
+      "finished_beijing": "2026-09-20T04:19:58.621164+08:00"
+    }
+  ]
+}
